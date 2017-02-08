@@ -54,22 +54,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    $c->log->debug("*** INSIDE OBJECT METHOD for obj id=$id ***");
 }
 
-=head2 list_databases
-
-list databases for specified system
-
-=cut
-
-sub list_databases :Chained('object') :PathPart('list') :Args(0) {
-    my ($self, $c) = @_;
-    $c->log->debug("*** INSIDE list_databases method ***");
-    my $databases = [$c->stash->{object}->system_databases->all];
-    $c->stash(
-	system => $c->stash->{object},
-	databases => $databases,
-    	template => 'databases/list.tt2');
-}
-
 =head2 list
 
 Fetch all system objects and pass to systems/list.tt2 in stash to be displayed

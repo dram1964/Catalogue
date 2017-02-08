@@ -10,8 +10,7 @@
   <tr>
     <td>[% system.name %]</td>
     <td>
-<a href="[% c.uri_for(c.controller('Databases').action_for('list_system_databases'), [system.id]) %]">List Databases via Databases</a>
-<a href="[% c.uri_for(c.controller.action_for('list_databases'), [system.id]) %]">List Databases via System</a>
+<a href="[% c.uri_for(c.controller('Databases').action_for('list_system_databases'), [system.id]) %]">List Databases</a>
 </td>
     <td>
 	[% system.system_class_list | html %]
