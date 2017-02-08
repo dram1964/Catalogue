@@ -79,25 +79,6 @@ sub delete :Chained('object') :PathPart('delete') :Args(0) {
 	{mid => $c->set_status_msg("Class Deleted.")}));
 }
 
-=head2 url_create 
-
-Add records to class table using URL /class/url_create/name/description
-
-=cut
-
-sub url_create :Chained('base') :PathPart('url_create') :Arg(2) {
-    my ($self, $c, $name, $description) = @_;
-    my $classification = $c->model('DB::Class')->create({
-	name => $name,
-	description => $description,
-    });
-
-    $c->stash(
-	class => $classification,
-	template => 'classes/create_done.tt2');
-    $c->response->header('Cache-Control' => 'no-cache');
-}
-    
 =head2 form_create
 
 Display a form for collecting information on new system classifications
