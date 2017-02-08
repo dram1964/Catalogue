@@ -1,0 +1,16 @@
+indicator: submit
+elements:
+    - type: Text
+      name: description 
+      label: Database Description
+      attributes:
+          title: Enter Description for Database
+      constraints:
+        - Required
+
+    - type: Submit
+      name: submit 
+      value: Submit
+filter:
+    - TrimEdges
+    - HTMLEscape

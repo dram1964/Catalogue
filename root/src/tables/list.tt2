@@ -1,0 +1,18 @@
+[% META title = 'Database Tables' -%]
+<p>Showing tables for [% database_schema.database.name %].[% database_schema.name %] <a href="[% c.uri_for('/databases/list') %]">Database</a> 
+<a href="[% c.uri_for('/schemas/list') %]">Schema</a> on 
+[% database_schema.database.system.name %] 
+<a href="[% c.uri_for('/systems/list') %]">Server</a></p>
+<table>
+  <tr>
+    <th>Table Name</th>
+    <th>Links</th>
+  </tr>
+[% FOREACH table IN tables -%]
+  <tr>
+    <td>[% table.name %]</td>
+    <td><a href="[% c.uri_for(c.controller('Tables').action_for('list_columns'), [table.id]) %]">List Columns</a></td>
+    <td>[% table.description %]</td>
+  </tr>
+[% END -%]
+</table>

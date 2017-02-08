@@ -1,0 +1,21 @@
+[% META title = 'System List' %]
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Links</th>
+    <th>Class</th>
+    <th>Type</th>
+  </tr>
+[% FOREACH system IN systems -%]
+  <tr>
+    <td>[% system.name %]</td>
+    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_system_databases'), [system.id]) %]">List Databases</a></td>
+    <td>
+	[% system.system_class_list | html %]
+    </td>
+    <td>
+	[% system.system_database_list | html %]
+    </td>
+  <tr>
+[% END -%]
+</table>

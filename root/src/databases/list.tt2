@@ -1,0 +1,27 @@
+[% META title = 'System Databases' -%]
+[% IF system -%]
+<p>Showing Databases for [% system.name %] <a href="[% c.uri_for('/systems/list') %]">System</a></p>
+<table>
+  <tr><th>Database</th><th>Links</th><th>Description</th></tr>
+[% FOREACH database IN databases -%]
+  <tr>
+    <td>[% database.name %]</td>
+    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a></td>
+    <td>[% database.description %]</td>
+  </tr>
+[% END -%]
+</table>
+[% ELSE -%]
+<p>Showing Databases for all <a href="[% c.uri_for('/systems/list') %]">Systems</a></p>
+<table>
+  <tr><th>System</th><th>Database</th><th>Links</th><th>Description</th></tr>
+[% FOREACH database IN databases -%]
+  <tr>
+    <td>[% database.system.name %]</td>
+    <td>[% database.name %]</td>
+    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a></td>
+    <td>[% database.description %]</td>
+  </tr>
+[% END -%]
+</table>
+[% END -%]

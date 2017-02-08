@@ -1,0 +1,22 @@
+[% META title = 'Project Task List' -%]
+<table>
+  <tr>
+    <th>Date Added</th>
+    <th>Task</th>
+    <th>Assigned To</th>
+    <th>Description</th>
+    <th>Project</th>
+  </tr>
+[% FOREACH task IN tasks -%]
+  <tr>
+    <td>[% task.date_added %]</td>
+    <td><a href="[% c.uri_for(c.controller.action_for('formfu_edit'), [task.id]) %]">Edit</a> [% task.task %]</td>
+    <td>[% task.assigned_to %]</td>
+    <td>[% task.comment %]</td>
+    <td>[% task.project %]</td>
+  <tr>
+[% END -%]
+</table>
+<p>
+<a href="[% c.uri_for(c.controller.action_for('formfu_create')) %]">Add New Task</a>
+</p>
