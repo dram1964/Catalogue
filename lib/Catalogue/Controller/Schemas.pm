@@ -84,6 +84,15 @@ sub list :Local {
     $c->stash(template => 'schemas/list.tt2');
 }
 
+sub list_schemas :Path('list') :Args(1) {
+    my ($self, $c, $db_id) = @_;
+    my $schemas = [$c->model('DB::DatabaseSchema')->search({database_id => $db_id})];
+    $c->log->debug("*** in list_schemas action ***");
+    $c->stash(
+	schemas => $schemas,
+	template => 'schemas/list.tt2');
+} 
+
 
 
 =encoding utf8

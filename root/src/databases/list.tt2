@@ -6,7 +6,9 @@
 [% FOREACH database IN databases -%]
   <tr>
     <td>[% database.name %]</td>
-    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a></td>
+    <td>
+<a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a>
+</td>
     <td>[% database.description %]</td>
   </tr>
 [% END -%]
@@ -19,7 +21,9 @@
   <tr>
     <td>[% database.system.name %]</td>
     <td>[% database.name %]</td>
-    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a></td>
+    <td><a href="[% c.uri_for(c.controller('Databases').action_for('list_schemas'), [database.id, database.system.id]) %]">List Schemas</a>
+<a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.id]) %]">List Schemas from Schemas</a>
+    </td>
     <td>[% database.description %]</td>
   </tr>
 [% END -%]
