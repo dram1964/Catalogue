@@ -41,7 +41,7 @@ sub base :Chained('/') :PathPart('tables') :CaptureArgs(0) {
 
 =head2 object
 
-Fetch the specified system object based on the class id and store it in the stash
+Fetch the specified table object based on the table id and store it in the stash
 
 =cut 
 
@@ -56,21 +56,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    $c->log->debug("*** INSIDE OBJECT METHOD for obj table=$table_id ***");
 }
 
-=head2 list_columns
-
-list columns for specified database
-
-=cut
-
-sub list_columns :Chained('object') :PathPart('list') :Args(0) {
-    my ($self, $c) = @_;
-    $c->log->debug("*** INSIDE list_tables method ***");
-    my $columns = [$c->stash->{object}->table_columns->all];
-    $c->stash(
-	table => $c->stash->{object},
-	columns => $columns,
-	template => 'columns/list.tt2');
-}
 =head2 list
 
 Fetch all table objects and pass to tables/list.tt2 in stash to be displayed
@@ -83,6 +68,20 @@ sub list :Local {
     $c->stash(template => 'tables/list.tt2');
 }
 
+=head2 list_tables
+
+Fetch the table objects for the specified schema and display in the list/tables template
+
+=cut 
+
+sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
+    my ($self, $c, $schema_id) = @_;
+    my $tables = [$c->stash->{resultset}->search({schema_id => $schema_id})];
+    $c->stash(
+	tables => $tables,
+	template => 'tables/list.tt2'
+    );
+}
 
 
 =encoding utf8

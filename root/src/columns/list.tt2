@@ -1,5 +1,4 @@
 [% META title = 'Table Columns' -%]
-[% IF table %]
 <p>Showing Columns for [% table.name %] Table in [% table.schema.database.name %].[% table.schema.name %] <a href="[% c.uri_for('/databases/list') %]">Database</a> <a href="[% c.uri_for('/schemas/list') %]">Schema</a> on [% table.schema.database.system.name %] <a href="[% c.uri_for('/systems/list') %]">Server</a></p>
 <table>
   <tr>
@@ -15,6 +14,3 @@
   </tr>
 [% END -%]
 </table>
-[% ELSE %]
-<p>You need to <a href="[% c.uri_for(c.controller('Tables').action_for('list')) %]">select a table</a> first: too many columns to display otherwise!</p>
-[% END %]

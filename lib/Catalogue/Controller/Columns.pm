@@ -39,6 +39,20 @@ sub list :Local {
     $c->stash(template => 'columns/list.tt2');
 }
 
+=head2 list_columns
+
+Fetch all the columns for the specified table and display in the colums/list template
+
+=cut
+
+sub list_columns :Path('list_columns') :Args(1) {
+    my ($self, $c, $table_id) = @_;
+    my $columns = [$c->model('DB::TableColumn')->search({table_id => $table_id})];
+    $c->stash(
+	columns => $columns,
+	template => 'columns/list.tt2'
+    );
+}
 
 
 =encoding utf8

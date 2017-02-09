@@ -36,7 +36,6 @@ Can place common logic to start a chained dispatch here
 sub base :Chained('/') :PathPart('schemas') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::DatabaseSchema'));
-    $c->log->debug('*** INSIDE BASE METHOD ***');
 }
 
 =head2 object
@@ -53,25 +52,8 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    ));
 
    die "Class not found" if !$c->stash->{object};
-
-   $c->log->debug("*** INSIDE OBJECT METHOD for obj schema=$schema_id db=$db_id ***");
 }
 
-=head2 list_tables
-
-list tables for specified database
-
-=cut
-
-sub list_tables :Chained('object') :PathPart('list') :Args(0) {
-    my ($self, $c) = @_;
-    $c->log->debug("*** INSIDE list_tables method ***");
-    my $tables = [$c->stash->{object}->schema_tables->all];
-    $c->stash(
-	database_schema => $c->stash->{object},
-	tables => $tables,
-	template => 'tables/list.tt2');
-}
 =head2 list
 
 Fetch all schema objects and pass to schemas/list.tt2 in stash to be displayed
@@ -83,6 +65,12 @@ sub list :Local {
     $c->stash(schemas => [$c->model('DB::DatabaseSchema')->all]);
     $c->stash(template => 'schemas/list.tt2');
 }
+
+=head2 list_schemas
+
+Fetch schema objects for a specified database and display in 'schemas/list' template
+
+=cut
 
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;

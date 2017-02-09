@@ -39,22 +39,6 @@ sub base :Chained('/') :PathPart('databases') :CaptureArgs(0) {
     $c->load_status_msgs;
 }
 
-=head2 list_system_databases
-
-Fetch all database objects for a specified system
-
-=cut
-
-sub list_system_databases :Chained('base') :Pathpart('list_system_databases') :Args(1) {
-    my ($self, $c, $system_id) = @_;
-    my $databases = [$c->stash->{resultset}->search({system_id => $system_id})];
-    my $system = $c->model('DB::CatalogueSystem')->find({id => $system_id});
-    $c->stash(
-	system => $system,
-	databases => $databases,
-	template => 'databases/list.tt2');
-}
-
 =head2 object
 
 Fetch the specified system database object based on the db and system id and store it in the stash
@@ -71,19 +55,18 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    die "Class not found" if !$c->stash->{object};
 }
 
-=head2 list_schemas
+=head2 list_databases
 
-list schemas for specified database
+Fetch all database objects for a specified system
 
 =cut
 
-sub list_schemas :Chained('object') :PathPart('list') :Args(0) {
-    my ($self, $c) = @_;
-    my $schemas = [$c->stash->{object}->database_schemas->all];
+sub list_databases :Chained('base') :Pathpart('list_databases') :Args(1) {
+    my ($self, $c, $system_id) = @_;
+    my $databases = [$c->stash->{resultset}->search({system_id => $system_id})];
     $c->stash(
-	system_database => $c->stash->{object},
-	schemas => $schemas,
-	template => 'schemas/list.tt2');
+	databases => $databases,
+	template => 'databases/list.tt2');
 }
 
 =head2 list
