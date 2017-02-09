@@ -30,13 +30,36 @@ sub index :Path :Args(0) {
 =head2 list
 
 Fetch all column objects and pass to columns/list.tt2 in stash to be displayed
+    my $query = $c->model('DB::CatalogueSystem')->search({},
+      {
+	select => [qw(name system_databases.name database_schemas.name
+		schema_tables.name table_columns.name)],
+	prefetch => {system_databases => 
+		{database_schemas => 
+			{schema_tables => 'table_columns'}
+		}
+	},
+	rows => 30,
+	page => $page,
+      });
 
 =cut
 
 sub list :Local {
     my ($self, $c) = @_;
-    $c->stash(columns => [$c->model('DB::TableColumn')->all]);
-    $c->stash(template => 'columns/list.tt2');
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::TableColumn')->search({},
+      {
+        select => [qw(name col_type col_size table_rel.name )],
+	join => 'table_rel',
+	rows => 30,
+	page => $page,
+      });
+    my $columns = [$query->all];
+    my $pager = $query->pager;
+    $c->stash(pager => $pager, 
+	columns => $columns,
+	template => 'columns/list.tt2');
 }
 
 =head2 list_columns

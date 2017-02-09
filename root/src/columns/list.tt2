@@ -1,19 +1,34 @@
 [% META title = 'Table Columns' -%]
-<h1>Columns for [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %]</h1> 
+<h1>Columns for 
+[% IF table %]
+[% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %]
+[% ELSE %]
+all tables
+[% END %]
+</h1> 
 <p>Return to:
   &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
   &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
   &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
 </p>
-
+[% IF !table %]
+<p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
+<a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>
+<a href="[% c.request.uri_with({ page => pager.previous_page}) %]">Previous</a>
+<a href="[% c.request.uri_with({ page => pager.next_page}) %]">Next</a>
+<a href="[% c.request.uri_with({ page => pager.last_page}) %]">Last</a>
+&gt;&gt;</p>
+[% END %]
  <table>
   <tr>
+    <th>Location</th>
     <th>Column</th>
     <th>Column Type</th>
     <th>Size</th>
   </tr>
 [% FOREACH column IN columns -%]
   <tr>
+    <td>[% column.table_rel.name %]</td>
     <td>[% column.name %]</td>
     <td>[% column.col_type %]</td>
     <td>[% column.col_size %]</td>

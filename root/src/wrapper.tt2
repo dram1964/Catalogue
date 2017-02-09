@@ -32,6 +32,7 @@
         <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
         <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
         <li><a href="[% c.uri_for('/tables/list') %]">Tables</a></li>
+        <li><a href="[% c.uri_for('/columns/list') %]">Columns</a></li>
         <li><a href="[% c.uri_for('/classes/list') %]">Classes</a></li>
         <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
         <li><a href="[% c.uri_for('/')
