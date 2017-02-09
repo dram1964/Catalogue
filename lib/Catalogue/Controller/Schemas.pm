@@ -29,7 +29,7 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Begin chained dispatch for /shemas and store a DB::DatabasesSchema resultset in the stash
 
 =cut 
 
@@ -40,7 +40,7 @@ sub base :Chained('/') :PathPart('schemas') :CaptureArgs(0) {
 
 =head2 object
 
-Fetch the specified system object based on the class id and store it in the stash
+Chained dispatch for /schemas/id/?/? to store a schema object on the stash
 
 =cut 
 

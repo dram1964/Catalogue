@@ -29,19 +29,18 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Begin a chained dispatch for /systems to store a DB::Cataloge resultset in the stash
 
 =cut 
 
 sub base :Chained('/') :PathPart('systems') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::CatalogueSystem'));
-    $c->log->debug('*** INSIDE BASE METHOD ***');
 }
 
 =head2 object
 
-Fetch the specified system object based on the class id and store it in the stash
+Chained dispatch to /systems/id/? to store a system object in the stash
 
 =cut 
 
@@ -50,8 +49,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    $c->stash(object => $c->stash->{resultset}->find($id));
 
    die "Class not found" if !$c->stash->{object};
-
-   $c->log->debug("*** INSIDE OBJECT METHOD for obj id=$id ***");
 }
 
 =head2 list

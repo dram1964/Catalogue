@@ -29,19 +29,18 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Begin chained dispatch for /tables to store a DB::SchemaTable resultset in the stash
 
 =cut 
 
 sub base :Chained('/') :PathPart('tables') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::SchemaTable'));
-    $c->log->debug('*** INSIDE BASE METHOD ***');
 }
 
 =head2 object
 
-Fetch the specified table object based on the table id and store it in the stash
+Chained dispatch for /tables/id/?/? to store a table object in the stash
 
 =cut 
 
@@ -52,8 +51,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    ));
 
    die "Class not found" if !$c->stash->{object};
-
-   $c->log->debug("*** INSIDE OBJECT METHOD for obj table=$table_id ***");
 }
 
 =head2 list

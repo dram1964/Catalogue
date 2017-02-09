@@ -29,7 +29,7 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Get a SystemDatabase resultset and load status messages for /databases chain
 
 =cut 
 
@@ -41,7 +41,7 @@ sub base :Chained('/') :PathPart('databases') :CaptureArgs(0) {
 
 =head2 object
 
-Fetch the specified system database object based on the db and system id and store it in the stash
+Fetch the specified system database object based on the db and system id and store it in the stash for /datbases/id/?/? chain
 
 =cut 
 
@@ -57,7 +57,7 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
 
 =head2 list_databases
 
-Fetch all database objects for a specified system
+Fetch all database objects for a specified system from /databases/list_databases/? chain
 
 =cut
 
