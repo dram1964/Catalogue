@@ -1,14 +1,28 @@
 [% META title = 'Database Schemas' -%]
+<h1>Showing Schemas for 
+[% IF database %]
+[% database.name %] Database on [% database.system.name %] System
+[% ELSE %]
+all Databases
+[% END %]
+</h1>
+<p>Return to:
+  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
+  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
+  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
+</p>
 <table>
   <tr>
-    <th>Server Name</th>
-    <th>Database Schema</th>
-    <th>Links</th>
+    <th>Server</th>
+    <th>Database</th>
+    <th>Schema</th>
+    <th>Tables</th>
     <th>Description</th></tr>
 [% FOREACH schema IN schemas -%]
   <tr>
     <td>[% schema.database.system.name %]</td>
-    <td>[% schema.database.name %].[% schema.name %]</td>
+    <td>[% schema.database.name %]
+    <td>[% schema.name %]</td>
     <td><a href="[% c.uri_for(c.controller('Tables').action_for('list_tables'), [schema.id]) %]">List Tables</a></td>
     <td>[% schema.description %]</td>
   </tr>

@@ -1,12 +1,22 @@
 [% META title = 'Database Tables' -%]
-<p>Showing tables for [% database_schema.database.name %].[% database_schema.name %] <a href="[% c.uri_for('/databases/list') %]">Database</a> 
-<a href="[% c.uri_for('/schemas/list') %]">Schema</a> on 
-[% database_schema.database.system.name %] 
-<a href="[% c.uri_for('/systems/list') %]">Server</a></p>
+<h1>Showing tables for
+[% IF schema %]
+[% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]
+[% ELSE %]
+all Schemas
+[% END %]
+</h1>
+<p>Return to:
+  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
+  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
+  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
+</p>
+
+<a href="[% c.uri_for('/schemas/list') %]">Back to Schemas</a>
 <table>
   <tr>
     <th>Table Name</th>
-    <th>Links</th>
+    <th>Columns</th>
   </tr>
 [% FOREACH table IN tables -%]
   <tr>

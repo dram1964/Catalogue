@@ -48,7 +48,9 @@ Fetch all the columns for the specified table and display in the colums/list tem
 sub list_columns :Path('list_columns') :Args(1) {
     my ($self, $c, $table_id) = @_;
     my $columns = [$c->model('DB::TableColumn')->search({table_id => $table_id})];
+    my $table = $c->model('DB::SchemaTable')->find({id => $table_id});
     $c->stash(
+	table => $table,
 	columns => $columns,
 	template => 'columns/list.tt2'
     );

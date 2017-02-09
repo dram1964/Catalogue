@@ -64,7 +64,9 @@ Fetch all database objects for a specified system
 sub list_databases :Chained('base') :Pathpart('list_databases') :Args(1) {
     my ($self, $c, $system_id) = @_;
     my $databases = [$c->stash->{resultset}->search({system_id => $system_id})];
+    my $system = $c->model('DB::CatalogueSystem')->find($system_id);
     $c->stash(
+	system => $system,
 	databases => $databases,
 	template => 'databases/list.tt2');
 }

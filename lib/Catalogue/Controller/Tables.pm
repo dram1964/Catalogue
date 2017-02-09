@@ -77,7 +77,9 @@ Fetch the table objects for the specified schema and display in the list/tables 
 sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
     my ($self, $c, $schema_id) = @_;
     my $tables = [$c->stash->{resultset}->search({schema_id => $schema_id})];
+    my $schema = $c->model('DB::DatabaseSchema')->find({id => $schema_id});
     $c->stash(
+	schema => $schema,
 	tables => $tables,
 	template => 'tables/list.tt2'
     );

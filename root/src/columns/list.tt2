@@ -1,6 +1,12 @@
 [% META title = 'Table Columns' -%]
-<p>Showing Columns for [% table.name %] Table in [% table.schema.database.name %].[% table.schema.name %] <a href="[% c.uri_for('/databases/list') %]">Database</a> <a href="[% c.uri_for('/schemas/list') %]">Schema</a> on [% table.schema.database.system.name %] <a href="[% c.uri_for('/systems/list') %]">Server</a></p>
-<table>
+<h1>Columns for [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %]</h1> 
+<p>Return to:
+  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
+  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
+  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
+</p>
+
+ <table>
   <tr>
     <th>Column</th>
     <th>Column Type</th>

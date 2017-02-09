@@ -1,7 +1,24 @@
 [% META title = 'System Databases' -%]
-<p>Showing Databases for all <a href="[% c.uri_for('/systems/list') %]">Systems</a></p>
+<h1>Showing Databases for 
+[% IF system %]
+[% system.name %] System
+[% ELSE %]
+all Systems
+[% END %]
+</h1>
+<p>Return to:
+  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
+  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
+  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
+</p>
+<a href="[% c.uri_for('/systems/list') %]">Back to Systems list</a>
 <table>
-  <tr><th>System</th><th>Database</th><th>Links</th><th>Description</th></tr>
+  <tr>
+    <th>System</th>
+    <th>Database</th>
+    <th>Schemas</th>
+    <th>Description</th>
+  </tr>
 [% FOREACH database IN databases -%]
   <tr>
     <td>[% database.system.name %]</td>

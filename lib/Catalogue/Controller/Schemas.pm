@@ -75,8 +75,9 @@ Fetch schema objects for a specified database and display in 'schemas/list' temp
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;
     my $schemas = [$c->model('DB::DatabaseSchema')->search({database_id => $db_id})];
-    $c->log->debug("*** in list_schemas action ***");
+    my $database = $c->model('DB::SystemDatabase')->find({id => $db_id});
     $c->stash(
+	database => $database,
 	schemas => $schemas,
 	template => 'schemas/list.tt2');
 } 
