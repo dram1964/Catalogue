@@ -55,6 +55,18 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
 }
 
+=head2 delete
+
+Delete a task from the todolist
+
+=cut 
+
+sub delete :Chained('object') :PathPart('delete') :Args(0) {
+    my ($self, $c) = @_;
+    $c->stash->{object}->delete;
+    $c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Task Deleted")}));
+}
 =head2 list
 
 Fetch all items in the todo list
