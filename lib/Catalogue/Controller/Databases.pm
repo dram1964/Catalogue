@@ -2,7 +2,7 @@ package Catalogue::Controller::Databases;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 
@@ -53,6 +53,45 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    ));
 
    die "Class not found" if !$c->stash->{object};
+}
+
+=head2 edit
+
+Use HTML::FormFu to update an existing task
+
+=cut
+
+sub edit_description :Chained('object') :PathPart('edit_description') :Args(0) 
+	:FormConfig {
+    my ($self, $c) = @_;
+
+    my $database = $c->stash->{object};
+    unless ($database) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Database -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($database);
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        #my @user_objs = $c->model('DB::User')->all();
+        #'my @users;
+        #foreach (sort {$a->last_name cmp $b->last_name} @user_objs) {
+	#    push(@users, [$_->username, $_->username]);
+	#}
+	#my $select = $form->get_element({type => 'Select'});
+	#$select->options(\@users);
+        my $description = $form->get_element({name => 'description'});
+	$description->value($database->description);
+    }
+    $c->stash(
+	database => $database,
+	template => 'databases/edit_description.tt2');
 }
 
 =head2 list_databases

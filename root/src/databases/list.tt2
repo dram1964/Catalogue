@@ -18,6 +18,7 @@ all Systems
     <th>Database</th>
     <th>Schemas</th>
     <th>Description</th>
+    <th>Update</th>
   </tr>
 [% FOREACH database IN databases -%]
   <tr>
@@ -27,6 +28,8 @@ all Systems
 <a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.id]) %]">List Schemas</a>
     </td>
     <td>[% database.description %]</td>
+    <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id, database.system.id]) %]">Update Description</a></td>
   </tr>
 [% END -%]
 </table>
+
