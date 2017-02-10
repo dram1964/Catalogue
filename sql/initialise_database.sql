@@ -41,7 +41,7 @@ CREATE TABLE `class` (
   `name` varchar(50) NOT NULL,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `database_schema`;
 CREATE TABLE `database_schema` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `description` varchar(50) DEFAULT NULL,
+  `description` text,
   `database_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`database_id`),
   KEY `database_id` (`database_id`),
@@ -203,7 +203,7 @@ CREATE TABLE `todolist` (
   `completed_by` varchar(50) DEFAULT NULL,
   `completed_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,4 +251,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-08 18:23:04
+-- Dump completed on 2017-02-10 11:27:22
