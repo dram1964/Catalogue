@@ -1,6 +1,6 @@
 indicator: submit
 elements:
-    - type: Text
+    - type: Textarea
       name: description 
       label: Database Description
       attributes:
