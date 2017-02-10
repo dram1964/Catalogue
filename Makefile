@@ -20,13 +20,13 @@
 #     LICENSE => q[perl]
 #     NAME => q[Catalogue]
 #     NO_META => q[1]
-#     PREREQ_PM => { ExtUtils::MakeMaker=>q[6.36], Config::General=>q[0], Catalyst::Plugin::Static::Simple=>q[0], Catalyst::Runtime=>q[5.90114], Catalyst::Action::RenderView=>q[0], namespace::autoclean=>q[0], Test::More=>q[0.88], Moose=>q[0], Catalyst::Plugin::ConfigLoader=>q[0] }
+#     PREREQ_PM => { Catalyst::Runtime=>q[5.90114], ExtUtils::MakeMaker=>q[6.36], Catalyst::Plugin::Static::Simple=>q[0], Catalyst::Action::RenderView=>q[0], Moose=>q[0], Catalyst::Plugin::ConfigLoader=>q[0], Catalyst::Plugin::Authentication=>q[0], HTML::FormFu=>q[0], HTML::FormFu::Model::DBIC=>q[0], Catalyst::Plugin::Session=>q[0], Catalyst::Plugin::Session::Store::File=>q[0], Config::General=>q[0], Catalyst::Plugin::StackTrace=>q[0], namespace::autoclean=>q[0], Catalyst::Plugin::Session::State::Cookie=>q[0], Test::More=>q[0.88], Catalyst::Controller::HTML::FormFu=>q[0] }
 #     TEST_REQUIRES => {  }
 #     VERSION => q[0.01]
 #     VERSION_FROM => q[lib/Catalogue.pm]
 #     dist => { PREOP=>q[$(PERL) -I. "-MModule::Install::Admin" -e "dist_preop(q($(DISTVNAME)))"] }
 #     realclean => { FILES=>q[MYMETA.yml] }
-#     test => { TESTS=>q[t/01app.t t/02pod.t t/03podcoverage.t] }
+#     test => { TESTS=>q[t/01app.t t/02pod.t t/03podcoverage.t t/controller_Classes.t t/controller_Columns.t t/controller_Databases.t t/controller_Login.t t/controller_Logout.t t/controller_Schemas.t t/controller_SystemClasses.t t/controller_Systems.t t/controller_Tables.t t/controller_Todolist.t t/model_DB.t t/Util.t t/view_HTML.t] }
 
 # --- MakeMaker post_initialize section:
 
@@ -174,7 +174,31 @@ MAN1PODS = script/catalogue_cgi.pl \
 	script/catalogue_server.pl \
 	script/catalogue_test.pl
 MAN3PODS = lib/Catalogue.pm \
-	lib/Catalogue/Controller/Root.pm
+	lib/Catalogue/Controller/Classes.pm \
+	lib/Catalogue/Controller/Columns.pm \
+	lib/Catalogue/Controller/Databases.pm \
+	lib/Catalogue/Controller/Login.pm \
+	lib/Catalogue/Controller/Logout.pm \
+	lib/Catalogue/Controller/Root.pm \
+	lib/Catalogue/Controller/Schemas.pm \
+	lib/Catalogue/Controller/Systems.pm \
+	lib/Catalogue/Controller/Tables.pm \
+	lib/Catalogue/Controller/Tasks.pm \
+	lib/Catalogue/Model/DB.pm \
+	lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	lib/Catalogue/Schema/Result/Class.pm \
+	lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	lib/Catalogue/Schema/Result/DbType.pm \
+	lib/Catalogue/Schema/Result/Role.pm \
+	lib/Catalogue/Schema/Result/SchemaTable.pm \
+	lib/Catalogue/Schema/Result/SystemClass.pm \
+	lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	lib/Catalogue/Schema/Result/SystemDbType.pm \
+	lib/Catalogue/Schema/Result/TableColumn.pm \
+	lib/Catalogue/Schema/Result/Todolist.pm \
+	lib/Catalogue/Schema/Result/User.pm \
+	lib/Catalogue/Schema/Result/UserRole.pm \
+	lib/Catalogue/View/HTML.pm
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
@@ -197,12 +221,93 @@ PERL_ARCHIVE_AFTER =
 
 
 TO_INST_PM = lib/Catalogue.pm \
-	lib/Catalogue/Controller/Root.pm
+	lib/Catalogue/Controller/Classes.pm \
+	lib/Catalogue/Controller/Columns.pm \
+	lib/Catalogue/Controller/Databases.pm \
+	lib/Catalogue/Controller/Login.pm \
+	lib/Catalogue/Controller/Logout.pm \
+	lib/Catalogue/Controller/Root.pm \
+	lib/Catalogue/Controller/Schemas.pm \
+	lib/Catalogue/Controller/Systems.pm \
+	lib/Catalogue/Controller/Tables.pm \
+	lib/Catalogue/Controller/Tasks.pm \
+	lib/Catalogue/Model/DB.pm \
+	lib/Catalogue/Schema.pm \
+	lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	lib/Catalogue/Schema/Result/Class.pm \
+	lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	lib/Catalogue/Schema/Result/DbType.pm \
+	lib/Catalogue/Schema/Result/Role.pm \
+	lib/Catalogue/Schema/Result/SchemaTable.pm \
+	lib/Catalogue/Schema/Result/SystemClass.pm \
+	lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	lib/Catalogue/Schema/Result/SystemDbType.pm \
+	lib/Catalogue/Schema/Result/TableColumn.pm \
+	lib/Catalogue/Schema/Result/Todolist.pm \
+	lib/Catalogue/Schema/Result/User.pm \
+	lib/Catalogue/Schema/Result/UserRole.pm \
+	lib/Catalogue/Schema/ResultSet/CatalogueSystem.pm \
+	lib/Catalogue/Util.pm \
+	lib/Catalogue/View/HTML.pm
 
 PM_TO_BLIB = lib/Catalogue.pm \
 	blib/lib/Catalogue.pm \
+	lib/Catalogue/Controller/Classes.pm \
+	blib/lib/Catalogue/Controller/Classes.pm \
+	lib/Catalogue/Controller/Columns.pm \
+	blib/lib/Catalogue/Controller/Columns.pm \
+	lib/Catalogue/Controller/Databases.pm \
+	blib/lib/Catalogue/Controller/Databases.pm \
+	lib/Catalogue/Controller/Login.pm \
+	blib/lib/Catalogue/Controller/Login.pm \
+	lib/Catalogue/Controller/Logout.pm \
+	blib/lib/Catalogue/Controller/Logout.pm \
 	lib/Catalogue/Controller/Root.pm \
-	blib/lib/Catalogue/Controller/Root.pm
+	blib/lib/Catalogue/Controller/Root.pm \
+	lib/Catalogue/Controller/Schemas.pm \
+	blib/lib/Catalogue/Controller/Schemas.pm \
+	lib/Catalogue/Controller/Systems.pm \
+	blib/lib/Catalogue/Controller/Systems.pm \
+	lib/Catalogue/Controller/Tables.pm \
+	blib/lib/Catalogue/Controller/Tables.pm \
+	lib/Catalogue/Controller/Tasks.pm \
+	blib/lib/Catalogue/Controller/Tasks.pm \
+	lib/Catalogue/Model/DB.pm \
+	blib/lib/Catalogue/Model/DB.pm \
+	lib/Catalogue/Schema.pm \
+	blib/lib/Catalogue/Schema.pm \
+	lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	blib/lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	lib/Catalogue/Schema/Result/Class.pm \
+	blib/lib/Catalogue/Schema/Result/Class.pm \
+	lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	blib/lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	lib/Catalogue/Schema/Result/DbType.pm \
+	blib/lib/Catalogue/Schema/Result/DbType.pm \
+	lib/Catalogue/Schema/Result/Role.pm \
+	blib/lib/Catalogue/Schema/Result/Role.pm \
+	lib/Catalogue/Schema/Result/SchemaTable.pm \
+	blib/lib/Catalogue/Schema/Result/SchemaTable.pm \
+	lib/Catalogue/Schema/Result/SystemClass.pm \
+	blib/lib/Catalogue/Schema/Result/SystemClass.pm \
+	lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	blib/lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	lib/Catalogue/Schema/Result/SystemDbType.pm \
+	blib/lib/Catalogue/Schema/Result/SystemDbType.pm \
+	lib/Catalogue/Schema/Result/TableColumn.pm \
+	blib/lib/Catalogue/Schema/Result/TableColumn.pm \
+	lib/Catalogue/Schema/Result/Todolist.pm \
+	blib/lib/Catalogue/Schema/Result/Todolist.pm \
+	lib/Catalogue/Schema/Result/User.pm \
+	blib/lib/Catalogue/Schema/Result/User.pm \
+	lib/Catalogue/Schema/Result/UserRole.pm \
+	blib/lib/Catalogue/Schema/Result/UserRole.pm \
+	lib/Catalogue/Schema/ResultSet/CatalogueSystem.pm \
+	blib/lib/Catalogue/Schema/ResultSet/CatalogueSystem.pm \
+	lib/Catalogue/Util.pm \
+	blib/lib/Catalogue/Util.pm \
+	lib/Catalogue/View/HTML.pm \
+	blib/lib/Catalogue/View/HTML.pm
 
 
 # --- MakeMaker platform_constants section:
@@ -426,7 +531,31 @@ POD2MAN = $(POD2MAN_EXE)
 
 manifypods : pure_all  \
 	lib/Catalogue.pm \
+	lib/Catalogue/Controller/Classes.pm \
+	lib/Catalogue/Controller/Columns.pm \
+	lib/Catalogue/Controller/Databases.pm \
+	lib/Catalogue/Controller/Login.pm \
+	lib/Catalogue/Controller/Logout.pm \
 	lib/Catalogue/Controller/Root.pm \
+	lib/Catalogue/Controller/Schemas.pm \
+	lib/Catalogue/Controller/Systems.pm \
+	lib/Catalogue/Controller/Tables.pm \
+	lib/Catalogue/Controller/Tasks.pm \
+	lib/Catalogue/Model/DB.pm \
+	lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	lib/Catalogue/Schema/Result/Class.pm \
+	lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	lib/Catalogue/Schema/Result/DbType.pm \
+	lib/Catalogue/Schema/Result/Role.pm \
+	lib/Catalogue/Schema/Result/SchemaTable.pm \
+	lib/Catalogue/Schema/Result/SystemClass.pm \
+	lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	lib/Catalogue/Schema/Result/SystemDbType.pm \
+	lib/Catalogue/Schema/Result/TableColumn.pm \
+	lib/Catalogue/Schema/Result/Todolist.pm \
+	lib/Catalogue/Schema/Result/User.pm \
+	lib/Catalogue/Schema/Result/UserRole.pm \
+	lib/Catalogue/View/HTML.pm \
 	script/catalogue_cgi.pl \
 	script/catalogue_create.pl \
 	script/catalogue_fastcgi.pl \
@@ -440,7 +569,31 @@ manifypods : pure_all  \
 	  script/catalogue_test.pl $(INST_MAN1DIR)/catalogue_test.pl.$(MAN1EXT) 
 	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
 	  lib/Catalogue.pm $(INST_MAN3DIR)/Catalogue.$(MAN3EXT) \
-	  lib/Catalogue/Controller/Root.pm $(INST_MAN3DIR)/Catalogue::Controller::Root.$(MAN3EXT) 
+	  lib/Catalogue/Controller/Classes.pm $(INST_MAN3DIR)/Catalogue::Controller::Classes.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Columns.pm $(INST_MAN3DIR)/Catalogue::Controller::Columns.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Databases.pm $(INST_MAN3DIR)/Catalogue::Controller::Databases.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Login.pm $(INST_MAN3DIR)/Catalogue::Controller::Login.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Logout.pm $(INST_MAN3DIR)/Catalogue::Controller::Logout.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Root.pm $(INST_MAN3DIR)/Catalogue::Controller::Root.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Schemas.pm $(INST_MAN3DIR)/Catalogue::Controller::Schemas.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Systems.pm $(INST_MAN3DIR)/Catalogue::Controller::Systems.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Tables.pm $(INST_MAN3DIR)/Catalogue::Controller::Tables.$(MAN3EXT) \
+	  lib/Catalogue/Controller/Tasks.pm $(INST_MAN3DIR)/Catalogue::Controller::Tasks.$(MAN3EXT) \
+	  lib/Catalogue/Model/DB.pm $(INST_MAN3DIR)/Catalogue::Model::DB.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/CatalogueSystem.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::CatalogueSystem.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/Class.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::Class.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/DatabaseSchema.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::DatabaseSchema.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/DbType.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::DbType.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/Role.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::Role.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/SchemaTable.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::SchemaTable.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/SystemClass.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::SystemClass.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/SystemDatabase.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::SystemDatabase.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/SystemDbType.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::SystemDbType.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/TableColumn.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::TableColumn.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/Todolist.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::Todolist.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/User.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::User.$(MAN3EXT) \
+	  lib/Catalogue/Schema/Result/UserRole.pm $(INST_MAN3DIR)/Catalogue::Schema::Result::UserRole.$(MAN3EXT) \
+	  lib/Catalogue/View/HTML.pm $(INST_MAN3DIR)/Catalogue::View::HTML.$(MAN3EXT) 
 
 
 
@@ -452,20 +605,32 @@ manifypods : pure_all  \
 
 EXE_FILES = script/catalogue_cgi.pl script/catalogue_create.pl script/catalogue_fastcgi.pl script/catalogue_server.pl script/catalogue_test.pl
 
-pure_all :: $(INST_SCRIPT)/catalogue_test.pl $(INST_SCRIPT)/catalogue_create.pl $(INST_SCRIPT)/catalogue_cgi.pl $(INST_SCRIPT)/catalogue_fastcgi.pl $(INST_SCRIPT)/catalogue_server.pl
+pure_all :: $(INST_SCRIPT)/catalogue_fastcgi.pl $(INST_SCRIPT)/catalogue_test.pl $(INST_SCRIPT)/catalogue_server.pl $(INST_SCRIPT)/catalogue_create.pl $(INST_SCRIPT)/catalogue_cgi.pl
 	$(NOECHO) $(NOOP)
 
 realclean ::
 	$(RM_F) \
-	  $(INST_SCRIPT)/catalogue_test.pl $(INST_SCRIPT)/catalogue_create.pl \
-	  $(INST_SCRIPT)/catalogue_cgi.pl $(INST_SCRIPT)/catalogue_fastcgi.pl \
-	  $(INST_SCRIPT)/catalogue_server.pl 
+	  $(INST_SCRIPT)/catalogue_fastcgi.pl $(INST_SCRIPT)/catalogue_test.pl \
+	  $(INST_SCRIPT)/catalogue_server.pl $(INST_SCRIPT)/catalogue_create.pl \
+	  $(INST_SCRIPT)/catalogue_cgi.pl 
+
+$(INST_SCRIPT)/catalogue_fastcgi.pl : script/catalogue_fastcgi.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_fastcgi.pl
+	$(CP) script/catalogue_fastcgi.pl $(INST_SCRIPT)/catalogue_fastcgi.pl
+	$(FIXIN) $(INST_SCRIPT)/catalogue_fastcgi.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_fastcgi.pl
 
 $(INST_SCRIPT)/catalogue_test.pl : script/catalogue_test.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_test.pl
 	$(CP) script/catalogue_test.pl $(INST_SCRIPT)/catalogue_test.pl
 	$(FIXIN) $(INST_SCRIPT)/catalogue_test.pl
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_test.pl
+
+$(INST_SCRIPT)/catalogue_server.pl : script/catalogue_server.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_server.pl
+	$(CP) script/catalogue_server.pl $(INST_SCRIPT)/catalogue_server.pl
+	$(FIXIN) $(INST_SCRIPT)/catalogue_server.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_server.pl
 
 $(INST_SCRIPT)/catalogue_create.pl : script/catalogue_create.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_create.pl
@@ -478,18 +643,6 @@ $(INST_SCRIPT)/catalogue_cgi.pl : script/catalogue_cgi.pl $(FIRST_MAKEFILE) $(IN
 	$(CP) script/catalogue_cgi.pl $(INST_SCRIPT)/catalogue_cgi.pl
 	$(FIXIN) $(INST_SCRIPT)/catalogue_cgi.pl
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_cgi.pl
-
-$(INST_SCRIPT)/catalogue_fastcgi.pl : script/catalogue_fastcgi.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_fastcgi.pl
-	$(CP) script/catalogue_fastcgi.pl $(INST_SCRIPT)/catalogue_fastcgi.pl
-	$(FIXIN) $(INST_SCRIPT)/catalogue_fastcgi.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_fastcgi.pl
-
-$(INST_SCRIPT)/catalogue_server.pl : script/catalogue_server.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/catalogue_server.pl
-	$(CP) script/catalogue_server.pl $(INST_SCRIPT)/catalogue_server.pl
-	$(FIXIN) $(INST_SCRIPT)/catalogue_server.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/catalogue_server.pl
 
 
 
@@ -542,7 +695,7 @@ realclean purge ::  clean realclean_subdirs
 	- $(RM_F) \
 	  $(FIRST_MAKEFILE) $(MAKEFILE_OLD) 
 	- $(RM_RF) \
-	  MYMETA.yml $(DISTVNAME) 
+	  $(DISTVNAME) MYMETA.yml 
 
 
 # --- MakeMaker metafile section:
@@ -820,7 +973,7 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE) pm_to_blib
 TEST_VERBOSE=0
 TEST_TYPE=test_$(LINKTYPE)
 TEST_FILE = test.pl
-TEST_FILES = t/01app.t t/02pod.t t/03podcoverage.t
+TEST_FILES = t/01app.t t/02pod.t t/03podcoverage.t t/controller_Classes.t t/controller_Columns.t t/controller_Databases.t t/controller_Login.t t/controller_Logout.t t/controller_Schemas.t t/controller_SystemClasses.t t/controller_Systems.t t/controller_Tables.t t/controller_Todolist.t t/model_DB.t t/Util.t t/view_HTML.t
 TESTDB_SW = -d
 
 testdb :: testdb_$(LINKTYPE)
@@ -851,10 +1004,18 @@ ppd :
 	$(NOECHO) $(ECHO) '    <AUTHOR>David Ramlakhan</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Action::RenderView" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Controller::HTML::FormFu" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Authentication" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::ConfigLoader" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Session" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Session::State::Cookie" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Session::Store::File" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::StackTrace" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Static::Simple" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE VERSION="5.90114" NAME="Catalyst::Runtime" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Config::General" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="HTML::FormFu" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="HTML::FormFu::Model::DBIC" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Moose::" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="namespace::autoclean" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-5.20" />' >> $(DISTNAME).ppd
@@ -868,7 +1029,34 @@ ppd :
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  lib/Catalogue.pm blib/lib/Catalogue.pm \
-	  lib/Catalogue/Controller/Root.pm blib/lib/Catalogue/Controller/Root.pm 
+	  lib/Catalogue/Controller/Classes.pm blib/lib/Catalogue/Controller/Classes.pm \
+	  lib/Catalogue/Controller/Columns.pm blib/lib/Catalogue/Controller/Columns.pm \
+	  lib/Catalogue/Controller/Databases.pm blib/lib/Catalogue/Controller/Databases.pm \
+	  lib/Catalogue/Controller/Login.pm blib/lib/Catalogue/Controller/Login.pm \
+	  lib/Catalogue/Controller/Logout.pm blib/lib/Catalogue/Controller/Logout.pm \
+	  lib/Catalogue/Controller/Root.pm blib/lib/Catalogue/Controller/Root.pm \
+	  lib/Catalogue/Controller/Schemas.pm blib/lib/Catalogue/Controller/Schemas.pm \
+	  lib/Catalogue/Controller/Systems.pm blib/lib/Catalogue/Controller/Systems.pm \
+	  lib/Catalogue/Controller/Tables.pm blib/lib/Catalogue/Controller/Tables.pm \
+	  lib/Catalogue/Controller/Tasks.pm blib/lib/Catalogue/Controller/Tasks.pm \
+	  lib/Catalogue/Model/DB.pm blib/lib/Catalogue/Model/DB.pm \
+	  lib/Catalogue/Schema.pm blib/lib/Catalogue/Schema.pm \
+	  lib/Catalogue/Schema/Result/CatalogueSystem.pm blib/lib/Catalogue/Schema/Result/CatalogueSystem.pm \
+	  lib/Catalogue/Schema/Result/Class.pm blib/lib/Catalogue/Schema/Result/Class.pm \
+	  lib/Catalogue/Schema/Result/DatabaseSchema.pm blib/lib/Catalogue/Schema/Result/DatabaseSchema.pm \
+	  lib/Catalogue/Schema/Result/DbType.pm blib/lib/Catalogue/Schema/Result/DbType.pm \
+	  lib/Catalogue/Schema/Result/Role.pm blib/lib/Catalogue/Schema/Result/Role.pm \
+	  lib/Catalogue/Schema/Result/SchemaTable.pm blib/lib/Catalogue/Schema/Result/SchemaTable.pm \
+	  lib/Catalogue/Schema/Result/SystemClass.pm blib/lib/Catalogue/Schema/Result/SystemClass.pm \
+	  lib/Catalogue/Schema/Result/SystemDatabase.pm blib/lib/Catalogue/Schema/Result/SystemDatabase.pm \
+	  lib/Catalogue/Schema/Result/SystemDbType.pm blib/lib/Catalogue/Schema/Result/SystemDbType.pm \
+	  lib/Catalogue/Schema/Result/TableColumn.pm blib/lib/Catalogue/Schema/Result/TableColumn.pm \
+	  lib/Catalogue/Schema/Result/Todolist.pm blib/lib/Catalogue/Schema/Result/Todolist.pm \
+	  lib/Catalogue/Schema/Result/User.pm blib/lib/Catalogue/Schema/Result/User.pm \
+	  lib/Catalogue/Schema/Result/UserRole.pm blib/lib/Catalogue/Schema/Result/UserRole.pm \
+	  lib/Catalogue/Schema/ResultSet/CatalogueSystem.pm blib/lib/Catalogue/Schema/ResultSet/CatalogueSystem.pm \
+	  lib/Catalogue/Util.pm blib/lib/Catalogue/Util.pm \
+	  lib/Catalogue/View/HTML.pm blib/lib/Catalogue/View/HTML.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 
@@ -914,14 +1102,14 @@ installdeps_notest ::
 	$(NOECHO) $(NOOP)
 
 upgradedeps ::
-	$(PERL) Makefile.PL --config= --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90114,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Moose,0,namespace::autoclean,0,Config::General,0
+	$(PERL) Makefile.PL --config= --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90114,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Catalyst::Plugin::StackTrace,0,Catalyst::Plugin::Authentication,0,Catalyst::Plugin::Session,0,Catalyst::Plugin::Session::Store::File,0,Catalyst::Plugin::Session::State::Cookie,0,HTML::FormFu,0,Catalyst::Controller::HTML::FormFu,0,HTML::FormFu::Model::DBIC,0,Moose,0,namespace::autoclean,0,Config::General,0
 
 upgradedeps_notest ::
-	$(PERL) Makefile.PL --config=notest,1 --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90114,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Moose,0,namespace::autoclean,0,Config::General,0
+	$(PERL) Makefile.PL --config=notest,1 --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90114,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Catalyst::Plugin::StackTrace,0,Catalyst::Plugin::Authentication,0,Catalyst::Plugin::Session,0,Catalyst::Plugin::Session::Store::File,0,Catalyst::Plugin::Session::State::Cookie,0,HTML::FormFu,0,Catalyst::Controller::HTML::FormFu,0,HTML::FormFu::Model::DBIC,0,Moose,0,namespace::autoclean,0,Config::General,0
 
 listdeps ::
 	@$(PERL) -le "print for @ARGV" 
 
 listalldeps ::
-	@$(PERL) -le "print for @ARGV" Test::More Catalyst::Runtime Catalyst::Plugin::ConfigLoader Catalyst::Plugin::Static::Simple Catalyst::Action::RenderView Moose namespace::autoclean Config::General
+	@$(PERL) -le "print for @ARGV" Test::More Catalyst::Runtime Catalyst::Plugin::ConfigLoader Catalyst::Plugin::Static::Simple Catalyst::Action::RenderView Catalyst::Plugin::StackTrace Catalyst::Plugin::Authentication Catalyst::Plugin::Session Catalyst::Plugin::Session::Store::File Catalyst::Plugin::Session::State::Cookie HTML::FormFu Catalyst::Controller::HTML::FormFu HTML::FormFu::Model::DBIC Moose namespace::autoclean Config::General
 

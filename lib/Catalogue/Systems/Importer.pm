@@ -1,0 +1,127 @@
+package Catalogue::Systems::Importer;
+
+use parent 'Catalogue::Systems';
+
+=head1 NAME
+
+Catalogue::Systems::Importer - used to import data to Catalogue Database
+
+=cut
+
+use Catalogue::Schema;
+
+my $schema = Catalogue::Schema->connect('dbi:mysql:catalogue', 'tutorial', 'thispassword');
+
+=head1 METHODS
+
+=head2 delete 
+
+Deletes Catalogue System and all child records (Databases, Schemas, Tables and columns associated with the system
+
+=cut
+
+sub delete {
+    my ($self) = @_;
+    $self->check_record;
+    return 0 if $self->error_msg;
+    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
+    if (!$rs) {
+	print $self->system_name, " not found: nothing to delete\n";
+    } else {
+	$rs->delete;
+    }
+}
+
+=head2 add_or_update_system
+
+Checks that the record has all the required elements, and then updates or adds the Catalogue System and child records
+
+=cut
+
+sub add_or_update_system () {
+    my ($self) = @_;
+    $self->check_record;
+    return 0 if $self->error_msg;
+    print "updating:", $self->system_name, ":", $self->database_name, 
+	":", $self->schema_name, ":", $self->table_name, ":",
+	$self->column_name, "\n";
+    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
+    if (!$rs) {
+	$rs = $schema->resultset('CatalogueSystem')->create({
+		name => $self->system_name});
+    } 
+    my $db_rs = $rs->system_databases->find({name => $self->database_name});
+    if (!$db_rs) {
+	$db_rs = $rs->system_databases->create({
+	    name => $self->database_name,
+	    description => $self->database_description});
+    } else {
+	my $update = $db_rs->update({
+		description => $self->database_description});
+    }
+    my $schema_rs = $db_rs->database_schemas->find({
+	name => $self->schema_name});
+    if (!$schema_rs) {
+	$schema_rs = $db_rs->database_schemas->create({
+	    name => $self->schema_name,
+	    description => $self->schema_description});
+    } else {
+	my $update = $schema_rs->update({
+	    description => $self->schema_description});
+    }
+    my $table_rs = $schema_rs->schema_tables->find({
+	name => $self->table_name});
+    if (!$table_rs) {
+	$table_rs = $schema_rs->schema_tables->create({
+	    name => $self->table_name,
+	    description => $self->table_description});
+    } else {
+	my $update = $table_rs->update({
+	    description => $self->table_name});
+    }
+    my $column_rs = $table_rs->table_columns->find({
+	name => $self->column_name});
+    if (!$column_rs) {
+	$column_rs = $table_rs->table_columns->create({
+	     name => $self->column_name,
+	     col_type => $self->column_type,
+	     col_size => $self->column_size});
+    } else {
+	my $update = $column_rs->update({
+	     col_type => $self->column_type,
+	     col_size => $self->column_size});
+    }
+}
+
+=head2 check_record
+
+Checks that the record to be updated has minimal required fields to add a Catalogue System and child records
+
+=cut
+
+sub check_record {
+        my ($self) = @_;
+	if (!defined($self->database_name)) {
+	    $self->error_msg("No database name provided");
+	    return;
+	}
+	if (!defined($self->schema_name)) {
+	    $self->error_msg("No schema name provided");
+	    return;
+	}
+	if (!defined($self->table_name)) {
+	    $self->error_msg("No table name provided");
+	    return;
+	}
+	if (!defined($self->column_name)) {
+	    $self->error_msg("No column name provided");
+	    return;
+	}
+}
+
+no Moose;
+
+__PACKAGE__->meta->make_immutable;
+
+
+1;
