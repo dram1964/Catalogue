@@ -2,7 +2,7 @@ package Catalogue::Controller::Tables;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 
@@ -51,6 +51,73 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    ));
 
    die "Class not found" if !$c->stash->{object};
+}
+
+=head2 edit_description
+
+Use HTML::FormFu to update description for table and return user to list of all schemas
+
+=cut
+
+sub edit_description :Chained('object') :PathPart('edit_description') :Args(0) 
+	:FormConfig {
+    my ($self, $c) = @_;
+
+    my $table = $c->stash->{object};
+    unless ($table) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Table -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($table);
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        my $description = $form->get_element({name => 'description'});
+	$description->value($table->description);
+    }
+    $c->stash(
+	table => $table,
+	template => 'tables/edit_description.tt2');
+}
+
+=head2 edit_current
+
+Use HTML::FormFu to update a schema description and return user to list of databases for current database
+
+=cut
+
+sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
+	:FormConfig('tables/edit_description.yml') {
+    my ($self, $c) = @_;
+
+    my $table = $c->stash->{object};
+    my $schema = $table->schema;
+    unless ($table) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Table -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($table);
+	$c->response->redirect($c->uri_for($self->action_for('list_tables'),
+		$schema->id,
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        my $description = $form->get_element({name => 'description'});
+	$description->value($table->description);
+    }
+    $c->stash(
+	schema => $schema,
+	table => $table,
+	template => 'tables/edit_description.tt2');
 }
 
 =head2 list

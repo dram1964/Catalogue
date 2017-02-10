@@ -36,6 +36,7 @@ Begin chained dispatch for /shemas and store a DB::DatabasesSchema resultset in 
 sub base :Chained('/') :PathPart('schemas') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::DatabaseSchema'));
+    $c->load_status_msgs;
 }
 
 =head2 object
@@ -66,15 +67,10 @@ sub list :Local {
     $c->stash(template => 'schemas/list.tt2');
 }
 
-=head2 list_schemas
-
-Fetch schema objects for a specified database and display in 'schemas/list' template
-
-=cut
-
 =head2 edit_description
 
-Use HTML::FormFu to update an existing task
+Use HTML::FormFu to update an schema description and return user to schemas for 
+all databases
 
 =cut
 
@@ -103,6 +99,48 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
 	schema => $schema,
 	template => 'schemas/edit_description.tt2');
 }
+
+=head2 edit_current
+
+Use HTML::FormFu to update an schema description and return user to schemas for 
+selected database
+
+=cut
+
+sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
+	:FormConfig('schemas/edit_description') {
+    my ($self, $c) = @_;
+
+    my $schema = $c->stash->{object};
+    my $database = $schema->database;
+    unless ($schema) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Schema -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($schema);
+	$c->response->redirect($c->uri_for($self->action_for('list_schemas'),
+		$database->id,
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        my $description = $form->get_element({name => 'description'});
+	$description->value($schema->description);
+    }
+    $c->stash(
+	database => $database,
+	schema => $schema,
+	template => 'schemas/edit_description.tt2');
+}
+
+=head2 list_schemas
+
+Fetch schema objects for a specified database and display in 'schemas/list' template
+
+=cut
 
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;

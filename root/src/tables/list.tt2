@@ -17,12 +17,19 @@ all Schemas
   <tr>
     <th>Table Name</th>
     <th>Columns</th>
+    <th>Description</th>
+    <th>Update Description</th>
   </tr>
 [% FOREACH table IN tables -%]
   <tr>
     <td>[% table.name %]</td>
     <td><a href="[% c.uri_for(c.controller('Columns').action_for('list_columns'), [table.id]) %]">List Columns</a></td>
     <td>[% table.description %]</td>
+[% IF schema %]
+    <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [table.id]) %]">Update Description</a></td>
+[% ELSE %]
+    <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [table.id]) %]">Update Description</a></td>
+[% END %]
   </tr>
 [% END -%]
 </table>

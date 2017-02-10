@@ -1,4 +1,8 @@
 [% META title = 'Edit Schema Description' -%]
 <p>Editing Description for Schema: [% schema.name %]</p>
 [% form %]
-<p><a href="[% c.uri_for(c.controller.action_for('list')) %]">Return to Database List</a></p>
+[% IF database %]
+<p><a href="[% c.uri_for(c.controller.action_for('list_schemas'), [database.id]) %]">Return to Schema List</a></p>
+[% ELSE %]
+<p><a href="[% c.uri_for(c.controller.action_for('list')) %]">Return to Schema List</a></p>
+[% END %]

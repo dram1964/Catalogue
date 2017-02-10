@@ -57,7 +57,7 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
 
 =head2 edit_description
 
-Use HTML::FormFu to update an existing task
+Use HTML::FormFu to update description for schema and return user to list of all databases
 
 =cut
 
@@ -66,6 +66,7 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
     my ($self, $c) = @_;
 
     my $database = $c->stash->{object};
+    my $system = $database->system;
     unless ($database) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Database -- Cannot edit")}));
@@ -83,6 +84,41 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
 	$description->value($database->description);
     }
     $c->stash(
+	database => $database,
+	template => 'databases/edit_description.tt2');
+}
+
+=head2 edit_current
+
+Use HTML::FormFu to update a database description and return user to list of databases for current system
+
+=cut
+
+sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
+	:FormConfig('databases/edit_description.yml') {
+    my ($self, $c) = @_;
+
+    my $database = $c->stash->{object};
+    my $system = $database->system;
+    unless ($database) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Database -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($database);
+	$c->response->redirect($c->uri_for($self->action_for('list_databases'),
+		$system->id,
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        my $description = $form->get_element({name => 'description'});
+	$description->value($database->description);
+    }
+    $c->stash(
+        system => $system,
 	database => $database,
 	template => 'databases/edit_description.tt2');
 }
