@@ -18,6 +18,7 @@ all Databases
     <th>Schema</th>
     <th>Tables</th>
     <th>Description</th></tr>
+    <th>Update Description</th>
 [% FOREACH schema IN schemas -%]
   <tr>
     <td>[% schema.database.system.name %]</td>
@@ -25,6 +26,7 @@ all Databases
     <td>[% schema.name %]</td>
     <td><a href="[% c.uri_for(c.controller('Tables').action_for('list_tables'), [schema.id]) %]">List Tables</a></td>
     <td>[% schema.description %]</td>
+    <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [schema.id, schema.database.id]) %]">Update</a></td>
   </tr>
 [% END -%]
 </table>

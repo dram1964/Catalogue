@@ -1,0 +1,16 @@
+indicator: submit
+elements:
+    - type: Text
+      name: description 
+      label: Schema Description
+      attributes:
+          title: Enter Description for Schema
+      constraints:
+        - Required
+
+    - type: Submit
+      name: submit 
+      value: Submit
+filter:
+    - TrimEdges
+    - HTMLEscape

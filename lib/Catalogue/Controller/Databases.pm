@@ -55,7 +55,7 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    die "Class not found" if !$c->stash->{object};
 }
 
-=head2 edit
+=head2 edit_description
 
 Use HTML::FormFu to update an existing task
 
@@ -79,13 +79,6 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
 	    {mid => $c->set_status_msg("Description updated")}));
 	$c->detach;
     } else {
-        #my @user_objs = $c->model('DB::User')->all();
-        #'my @users;
-        #foreach (sort {$a->last_name cmp $b->last_name} @user_objs) {
-	#    push(@users, [$_->username, $_->username]);
-	#}
-	#my $select = $form->get_element({type => 'Select'});
-	#$select->options(\@users);
         my $description = $form->get_element({name => 'description'});
 	$description->value($database->description);
     }

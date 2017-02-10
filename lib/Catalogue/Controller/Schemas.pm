@@ -2,7 +2,7 @@ package Catalogue::Controller::Schemas;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 
@@ -71,6 +71,38 @@ sub list :Local {
 Fetch schema objects for a specified database and display in 'schemas/list' template
 
 =cut
+
+=head2 edit_description
+
+Use HTML::FormFu to update an existing task
+
+=cut
+
+sub edit_description :Chained('object') :PathPart('edit_description') :Args(0) 
+	:FormConfig {
+    my ($self, $c) = @_;
+
+    my $schema = $c->stash->{object};
+    unless ($schema) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Schema -- Cannot edit")}));
+	$c->detach;
+    }
+
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($schema);
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Description updated")}));
+	$c->detach;
+    } else {
+        my $description = $form->get_element({name => 'description'});
+	$description->value($schema->description);
+    }
+    $c->stash(
+	schema => $schema,
+	template => 'schemas/edit_description.tt2');
+}
 
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;

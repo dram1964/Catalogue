@@ -54,9 +54,8 @@ __PACKAGE__->table("database_schema");
 
 =head2 description
 
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 50
 
 =head2 database_id
 
@@ -72,7 +71,7 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "varchar", is_nullable => 0, size => 50 },
   "description",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
+  { data_type => "text", is_nullable => 1 },
   "database_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
@@ -124,8 +123,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-04 17:55:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QdnJZwewEqzJbMtR+ho/4A
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-10 08:12:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nOPK9Bp/mC71qqFARv2Dhg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
