@@ -67,9 +67,6 @@ sub add_or_update_system () {
     my ($self) = @_;
     $self->_check_record;
     return 0 if $self->error_msg;
-    print "updating:", $self->system_name, ":", $self->database_name, 
-	":", $self->schema_name, ":", $self->table_name, ":",
-	$self->column_name, "\n";
     my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
     if (!$rs) {
 	$rs = $schema->resultset('CatalogueSystem')->create({

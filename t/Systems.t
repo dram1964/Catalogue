@@ -1,4 +1,4 @@
-use Test::More qw/no_plan/;
+use Test::More tests => 32;
 use Catalogue::Systems;
 
 ok(my $system = Catalogue::Systems->new);

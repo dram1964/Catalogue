@@ -1,4 +1,4 @@
-use Test::More qw/no_plan/;
+use Test::More tests => 32;
 use Catalogue::Systems::Importer;
 
 ok(my $system = Catalogue::Systems::Importer->new);
@@ -57,10 +57,9 @@ my $system5 = Catalogue::Systems::Importer->new(
 	schema_name => 'SchemaName',
 	table_name => 'TableName',
 	column_name => 'Column1');
-cmp_ok($system5->column_name, 'eq', 'Column1', "Set Column name at create");
 ok($system5->add_or_update_system, "Can add System");
 ok(!$system5->error_msg, "No Error Message Set");
-ok($system5->delete, "Removed all traces of Inserted Record");
+ok($system5->delete_all, "Removed all traces of Inserted Record");
 
 my $system6 = Catalogue::Systems::Importer->new(
 	system_name => 'TestServer2',
@@ -68,6 +67,5 @@ my $system6 = Catalogue::Systems::Importer->new(
 	schema_name => 'SchemaName',
 	table_name => 'TableName',
 	column_name => 'Column1');
-cmp_ok($system6->column_name, 'eq', 'Column1', "Set Column name at create");
-ok($system6->add_or_update_system, "Can add System");
+ok($system6->add_or_update_system, "Can update System");
 ok(!$system6->error_msg, "No Error Message Set");
