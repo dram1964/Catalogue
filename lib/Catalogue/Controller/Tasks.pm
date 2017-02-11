@@ -19,6 +19,8 @@ Catalyst Controller.
 
 =head2 index
 
+/task/index path handler
+
 =cut
 
 sub index :Path :Args(0) {
@@ -67,6 +69,7 @@ sub delete :Chained('object') :PathPart('delete') :Args(0) {
     $c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_status_msg("Task Deleted")}));
 }
+
 =head2 list
 
 Fetch all items in the todo list

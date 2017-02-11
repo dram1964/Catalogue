@@ -61,7 +61,6 @@ sub auto :Private {
     }
 
     if (!$c->user_exists) {
-	$c->log->debug("***Root::auto user not found, forwarding to '/login'");
         $c->response->redirect($c->uri_for('/login'));
 	return 0;
     }

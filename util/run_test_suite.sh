@@ -1,0 +1,1 @@
+CATALYST_DEBUG=0 TEST_POD=1 prove -wl
