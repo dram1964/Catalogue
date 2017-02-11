@@ -131,11 +131,17 @@ Fetch all database objects for a specified system from /databases/list_databases
 
 sub list_databases :Chained('base') :Pathpart('list_databases') :Args(1) {
     my ($self, $c, $system_id) = @_;
-    my $databases = [$c->stash->{resultset}->search({system_id => $system_id})];
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->stash->{resultset}->search(
+    	{system_id => $system_id},
+    	{rows => 30, page => $page});
+    my $databases = [$query->all];
+    my $pager = $query->pager;
     my $system = $c->model('DB::CatalogueSystem')->find($system_id);
     $c->stash(
 	system => $system,
 	databases => $databases,
+	pager => $pager,
 	template => 'databases/list.tt2');
 }
 
@@ -149,6 +155,16 @@ sub list :Local {
     my ($self, $c) = @_;
     $c->stash(databases => [$c->model('DB::SystemDatabase')->all]);
     $c->stash(template => 'databases/list.tt2');
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::SystemDatabase')->search(
+    	{},
+    	{rows => 30, page => $page});
+    my $databases = [$query->all];
+    my $pager = $query->pager;
+    $c->stash(
+	databases => $databases,
+	pager => $pager,
+	template => 'databases/list.tt2');
 }
 
 =encoding utf8

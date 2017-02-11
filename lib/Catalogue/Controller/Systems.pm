@@ -59,8 +59,16 @@ Fetch all system objects and pass to systems/list.tt2 in stash to be displayed
 
 sub list :Local {
     my ($self, $c) = @_;
-    $c->stash(systems => [ $c->model('DB::CatalogueSystem')->all]);
-    $c->stash(template => 'systems/list.tt2');
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::CatalogueSystem')->search(
+    	{},
+    	{rows => 30, page => $page});
+    my $systems = [$query->all];
+    my $pager = $query->pager;
+    $c->stash(
+	systems => $systems,
+	pager => $pager,
+	template => 'systems/list.tt2');
 }
 
 

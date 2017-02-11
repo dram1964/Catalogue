@@ -63,8 +63,15 @@ Fetch all schema objects and pass to schemas/list.tt2 in stash to be displayed
 
 sub list :Local {
     my ($self, $c) = @_;
-    $c->stash(schemas => [$c->model('DB::DatabaseSchema')->all]);
-    $c->stash(template => 'schemas/list.tt2');
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::DatabaseSchema')->search(
+    	{},
+    	{rows => 30, page => $page});
+    my $schemas = [$query->all];
+    my $pager = $query->pager;
+    $c->stash(schemas => $schemas,
+	pager => $pager,
+	template => 'schemas/list.tt2');
 }
 
 =head2 edit_description
@@ -144,11 +151,17 @@ Fetch schema objects for a specified database and display in 'schemas/list' temp
 
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;
-    my $schemas = [$c->model('DB::DatabaseSchema')->search({database_id => $db_id})];
-    my $database = $c->model('DB::SystemDatabase')->find({id => $db_id});
-    $c->stash(
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::DatabaseSchema')->search(
+	{database_id => $db_id},
+    	{rows => 30, page => $page});
+    my $schemas = [$query->all];
+    my $pager = $query->pager;
+    my $database = $c->model('DB::SystemDatabase')->find(
+	{id => $db_id});
+    $c->stash(schemas => $schemas,
 	database => $database,
-	schemas => $schemas,
+	pager => $pager,
 	template => 'schemas/list.tt2');
 } 
 
