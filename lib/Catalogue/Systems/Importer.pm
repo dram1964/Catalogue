@@ -6,24 +6,54 @@ use parent 'Catalogue::Systems';
 
 Catalogue::Systems::Importer - used to import data to Catalogue Database
 
+=head1 SYNOPSIS
+
+use Catalogue::Schema::Importer
+
+my $data = {
+	system_name => 'TestServer',
+	database_name => 'DBName',
+	database_description => 'DB Description',
+	schema_name => 'SchemaName',
+	schema_description => 'Schema Description',
+	table_name => 'TableName',
+	table_description => 'Table Description',
+	column_name => 'Column1',
+	column_type => 'integer',
+	column_size => '11',
+}
+my $record = Catalogue::Systems::Importer->new($data);
+$record->table_name; # prints 'TableName'
+$record->add_or_update_system;
+$record->column_name('Column2');
+$record->column_type('varchar');
+$record->column_size(50);
+$record->add_or_update_system;
+
+$record->delete_all; # deletes all records for system_name 
+
 =cut
 
 use Catalogue::Schema;
 
 my $schema = Catalogue::Schema->connect('dbi:mysql:catalogue', 'tutorial', 'thispassword');
 
+
 =head1 METHODS
 
-=head2 delete 
+=head2 delete_all
 
 Deletes Catalogue System and all child records (Databases, Schemas, Tables and columns associated with the system
 
 =cut
 
-sub delete {
+sub delete_all {
     my ($self) = @_;
     $self->check_record;
     return 0 if $self->error_msg;
+    warn "This will delete all records for ", $self->system_name, ". Do you wish to continue? (y|N):";
+    my $response = <STDIN>;
+    die "Aborting update at user request" unless $response =~ /^y/i;
     my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
     if (!$rs) {
 	print $self->system_name, " not found: nothing to delete\n";
@@ -40,7 +70,7 @@ Checks that the record has all the required elements, and then updates or adds t
 
 sub add_or_update_system () {
     my ($self) = @_;
-    $self->check_record;
+    $self->_check_record;
     return 0 if $self->error_msg;
     print "updating:", $self->system_name, ":", $self->database_name, 
 	":", $self->schema_name, ":", $self->table_name, ":",
@@ -93,13 +123,13 @@ sub add_or_update_system () {
     }
 }
 
-=head2 check_record
+=head2 _check_record
 
 Checks that the record to be updated has minimal required fields to add a Catalogue System and child records
 
 =cut
 
-sub check_record {
+sub _check_record {
         my ($self) = @_;
 	if (!defined($self->database_name)) {
 	    $self->error_msg("No database name provided");
