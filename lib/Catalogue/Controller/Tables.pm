@@ -128,8 +128,15 @@ Fetch all table objects and pass to tables/list.tt2 in stash to be displayed
 
 sub list :Local {
     my ($self, $c) = @_;
-    $c->stash(tables => [$c->model('DB::SchemaTable')->all]);
-    $c->stash(template => 'tables/list.tt2');
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->model('DB::SchemaTable')->search(
+    	{},
+    	{rows => 30, page => $page});
+    my $tables = [$query->all];
+    my $pager = $query->pager;
+    $c->stash(tables => $tables,
+    	pager => $pager,
+    	template => 'tables/list.tt2');
 }
 
 =head2 list_tables
@@ -140,12 +147,19 @@ Fetch the table objects for the specified schema and display in the list/tables 
 
 sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
     my ($self, $c, $schema_id) = @_;
-    my $tables = [$c->stash->{resultset}->search({schema_id => $schema_id})];
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->stash->{resultset}->search(
+    	{schema_id => $schema_id},
+    	{rows => 30, page => $page}
+    );
+    my $tables = [$query->all];
+    my $pager = $query->pager;
     my $schema = $c->model('DB::DatabaseSchema')->find({id => $schema_id});
     $c->stash(
-	schema => $schema,
-	tables => $tables,
-	template => 'tables/list.tt2'
+    	pager => $pager,
+		schema => $schema,
+		tables => $tables,
+		template => 'tables/list.tt2'
     );
 }
 

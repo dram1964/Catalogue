@@ -30,18 +30,6 @@ sub index :Path :Args(0) {
 =head2 list
 
 Fetch all column objects and pass to columns/list.tt2 in stash to be displayed
-    my $query = $c->model('DB::CatalogueSystem')->search({},
-      {
-	select => [qw(name system_databases.name database_schemas.name
-		schema_tables.name table_columns.name)],
-	prefetch => {system_databases => 
-		{database_schemas => 
-			{schema_tables => 'table_columns'}
-		}
-	},
-	rows => 30,
-	page => $page,
-      });
 
 =cut
 
