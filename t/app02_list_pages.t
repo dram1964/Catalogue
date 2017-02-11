@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-
-BEGIN { use_ok("Test::WWW::Mechanize::Catalyst" => "Catalogue") }
+use Test::WWW::Mechanize::Catalyst "Catalogue";
 
 my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 my $ua2 = Test::WWW::Mechanize::Catalyst->new;

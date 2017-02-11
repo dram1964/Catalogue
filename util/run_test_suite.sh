@@ -1,2 +1,2 @@
 #CATALYST_DEBUG=0 TEST_POD=1 prove -vwl
-CATALYST_DEBUG=0 TEST_POD=1 prove -wl
+MYAPP_DSN='dbi:mysql:catalogue_test' CATALYST_DEBUG=0 TEST_POD=1 prove -wl

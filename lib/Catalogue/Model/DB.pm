@@ -3,11 +3,13 @@ package Catalogue::Model::DB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
+my $dsn = $ENV{MYAPP_DSN} ||= 'dbi:mysql:catalogue';
+
 __PACKAGE__->config(
     schema_class => 'Catalogue::Schema',
     
     connect_info => {
-        dsn => 'dbi:mysql:catalogue',
+        dsn => $dsn,
         user => 'tutorial',
         password => 'thispassword',
         AutoCommit => q{1},
