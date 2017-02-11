@@ -6,5 +6,5 @@ use Test::More;
 use Catalyst::Test 'Catalogue';
 use Catalogue::Controller::Columns;
 
-ok( request('/columns')->is_success, 'Request should succeed' );
+ok( request('/columns')->is_redirect, 'Request should succeed' );
 done_testing();
