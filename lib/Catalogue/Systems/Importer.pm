@@ -49,16 +49,11 @@ Deletes Catalogue System and all child records (Databases, Schemas, Tables and c
 
 sub delete_all {
     my ($self) = @_;
-    $self->check_record;
-    return 0 if $self->error_msg;
-    warn "This will delete all records for ", $self->system_name, ". Do you wish to continue? (y|N):";
-    my $response = <STDIN>;
-    die "Aborting update at user request" unless $response =~ /^y/i;
     my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
     if (!$rs) {
-	print $self->system_name, " not found: nothing to delete\n";
+		print $self->system_name, " not found: nothing to delete\n";
     } else {
-	$rs->delete;
+		$rs->delete;
     }
 }
 
