@@ -1,10 +1,10 @@
 [% META title = 'System Databases' -%]
 <h1>Showing Databases for 
-[% IF system %]
+[%- IF system -%]
 [% system.name %] System
-[% ELSE %]
+[%- ELSE -%]
 all Systems
-[% END %]
+[%- END -%]
 </h1>
 <p>Return to:
   &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>

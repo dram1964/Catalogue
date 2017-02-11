@@ -1,10 +1,10 @@
 [% META title = 'Table Columns' -%]
 <h1>Columns for 
-[% IF table %]
+[%- IF table -%]
 [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %]
-[% ELSE %]
+[%- ELSE -%]
 all tables
-[% END %]
+[%- END -%]
 </h1> 
 <p>Return to:
   &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
