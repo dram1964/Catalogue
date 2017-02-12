@@ -14,11 +14,18 @@ body, html {
   padding: 5px 10px;
   background: [% site.col.head %];
 }
-#header img {
-  float: right;
-}
 #header p {
   text-align: center;
+}
+
+#sitename p {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+#loggedin p {
+  float: right;
 }
 
 h1 {
@@ -74,5 +81,11 @@ h2 {
   background: [% site.col.foot %];
 }
 #footer p {
+  text-align: center;
   margin: 0;
 }
+/*
+#footer img {
+  float: right;
+}
+*/

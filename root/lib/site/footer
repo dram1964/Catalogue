@@ -1,1 +1,2 @@
-<div id="copyright">&copy; [% site.copyright %]</div><!-- end copyright -->
+<div id="copyright"><p>&copy; [% site.copyright %]<p></div><!-- end copyright -->
+<p><img src="[% c.uri_for('/static/images/btn_88x31_powered.png') %]" /></p>
