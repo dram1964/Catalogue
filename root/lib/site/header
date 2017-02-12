@@ -1,6 +1,1 @@
-<span id="loggedin">
-[% IF c.user_exists %]
-<p>Logged in as: '[% c.user.username %]'<a href="[% c.uri_for('/logout') %]">Logout</a></p> 
-[% ELSE %]<p>You need to login to use this application </p>
-[% END %] </span>
 <span id="sitename"><p> [% site.title %] </p></span>

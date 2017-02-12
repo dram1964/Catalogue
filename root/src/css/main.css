@@ -13,6 +13,7 @@ body, html {
 #header {
   padding: 5px 10px;
   background: [% site.col.head %];
+  border-bottom: 1px solid [% site.col.line %];
 }
 #header p {
   text-align: center;
@@ -25,7 +26,7 @@ body, html {
 }
 
 #loggedin p {
-  float: right;
+  float: left;
 }
 
 h1 {
@@ -37,7 +38,9 @@ h2 {
 
 #nav {
   padding: 5px 10px;
-  background: [% site.col.foot %];
+  background: [% site.col.head %];
+  text-align: center;
+  border-bottom: 1px solid [% site.col.line %];
 }
 #nav ul {
   margin: 0;
@@ -78,7 +81,8 @@ h2 {
 #footer {
   clear: both;
   padding: 5px 10px;
-  background: [% site.col.foot %];
+  background: [% site.col.head %];
+  border-top: 1px solid [% site.col.line %];
 }
 #footer p {
   text-align: center;
