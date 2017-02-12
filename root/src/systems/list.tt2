@@ -1,10 +1,5 @@
 [% META title = 'System List' %]
 <h1>List of all Systems on the Metadata Catalogue</h1>
-<p>Return to:
-  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
-  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
-  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
-</p>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
 <a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>

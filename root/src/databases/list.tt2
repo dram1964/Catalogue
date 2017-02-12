@@ -6,11 +6,6 @@
 all Systems
 [%- END -%]
 </h1>
-<p>Return to:
-  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
-  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
-  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
-</p>
 <a href="[% c.uri_for('/systems/list') %]">Back to Systems list</a>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;

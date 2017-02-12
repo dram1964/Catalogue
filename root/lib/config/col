@@ -12,11 +12,12 @@
    };
 
    site.col = {
-      page    = site.rgb.white
-      text    = site.rgb.grey1
-      head    = site.rgb.grey3
-      menu    = site.rgb.bluegrey
-      line    = site.rgb.orange
+      wrap    = site.rgb.bluegrey
+      head    = site.rgb.grey2
+      main    = site.rgb.grey3
+      foot    = site.rgb.bluegrey
+      text    = site.rgb.black
+      line    = site.rgb.grey1
       message = site.rgb.green
       error   = site.rgb.red
    };

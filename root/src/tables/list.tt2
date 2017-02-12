@@ -1,16 +1,8 @@
-[% META title = 'Database Tables' -%]
-<h1>Showing tables for 
-[%- IF schema -%]
-[% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]
-[%- ELSE -%]
-all Schemas
-[%- END -%]
-</h1>
-<p>Return to:
-  &gt;<a href="[% c.uri_for('/systems/list') %]">Systems</a>
-  &gt;<a href="[% c.uri_for('/databases/list') %]">Databases</a>
-  &gt;<a href="[% c.uri_for('/schemas/list') %]">Schemas</a>
-</p>
+[% META title = 'Database Tables' %]
+[% IF schema %]<h2>Showing tables for [% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]</h2>
+[% ELSE %]
+<h2>Tables for all schemas</h2>
+[% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
 <a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>
@@ -38,5 +30,5 @@ all Schemas
     <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [table.id]) %]">Update Description</a></td>
 [% END %]
   </tr>
-[% END -%]
+[% END %]
 </table>

@@ -2,18 +2,23 @@ body, html {
   margin: 0;
   padding: 0;
   color: #000;
-  background: #a7a09a;
+  background: [% site.col.foot %];
 }
 
 #wrapper {
-  width: 750px;
+  width: 100%;
   margin: 0 auto;
-  background: #99c;
 }
 
 #header {
   padding: 5px 10px;
-  background: #ddd;
+  background: [% site.col.head %];
+}
+#header img {
+  float: right;
+}
+#header p {
+  text-align: center;
 }
 
 h1 {
@@ -25,7 +30,7 @@ h2 {
 
 #nav {
   padding: 5px 10px;
-  background: #c99;
+  background: [% site.col.foot %];
 }
 #nav ul {
   margin: 0;
@@ -39,23 +44,34 @@ h2 {
 }
 
 #main {
-  float: left;
-  width: 480px;
+  float: right;
+  width: 85%;
   padding: 10px;
-  background: #9c9;
+  background: [% site.col.main %];
 }
 
 #sidebar {
-  float: right;
-  width: 230px;
+  float: left;
+  width: 125px;
   padding: 10px;
-  background: #99c;
+  background: [% site.col.foot %];
 }
-
+#sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/*
+#nav li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+*/
 #footer {
   clear: both;
   padding: 5px 10px;
-  background: #cc9;
+  background: [% site.col.foot %];
 }
 #footer p {
   margin: 0;
