@@ -8,12 +8,14 @@
      green  = '#66AA66'
      blue   = '#89b8df'
      orange = '#f08900'
+     bluegrey = '#dddddd'
    };
 
    site.col = {
       page    = site.rgb.white
       text    = site.rgb.grey1
       head    = site.rgb.grey3
+      menu    = site.rgb.bluegrey
       line    = site.rgb.orange
       message = site.rgb.green
       error   = site.rgb.red

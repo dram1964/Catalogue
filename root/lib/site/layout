@@ -1,10 +1,11 @@
-<div id="header">[% PROCESS site/header %]<div>
-
-<div id="content">
-    [%# Status and error messages %]
+<div id="wrapper">
+<div id="header">[% PROCESS site/header %]</div><!-- end header -->
+<div id="nav">[% PROCESS site/menu %]</div><!-- end nav -->
+<div id="main">
     <span class="message">[% status_msg %]</span>
     <span class="error">[% error_msg %]</span>
 [% content %]
-</div>
-
-<div id="footer">[% PROCESS site/footer %]</div>
+</div><!-- end main -->
+<div id="sidebar">[% PROCESS site/menu %]</div><!-- end sidebar -->
+<div id="footer">[% PROCESS site/footer %]</div><!-- end footer -->
+</div><!-- end wrapper -->
