@@ -1,30 +1,31 @@
 package Catalogue::View::HTML;
-use Moose;
-use namespace::autoclean;
 
-extends 'Catalyst::View::TT';
+use strict;
+use base 'Catalyst::View::TT';
 
-__PACKAGE__->config(
-    TEMPLATE_EXTENSION => '.tt2',
+__PACKAGE__->config({
     INCLUDE_PATH => [
-	Catalogue->path_to('root', 'src'),
+        Catalogue->path_to( 'root', 'src' ),
+        Catalogue->path_to( 'root', 'lib' )
     ],
-    TIMER => 0,
-    WRAPPER => 'wrapper.tt2',
-    render_die => 1,
-);
+    PRE_PROCESS  => 'config/main',
+    WRAPPER      => 'site/wrapper',
+    ERROR        => 'error.tt2',
+    TIMER        => 0,
+    render_die   => 1,
+});
 
 =head1 NAME
 
-Catalogue::View::HTML - TT View for Catalogue
+Catalogue::View::HTML - Catalyst TTSite View
+
+=head1 SYNOPSIS
+
+See L<Catalogue>
 
 =head1 DESCRIPTION
 
-TT View for Catalogue.
-
-=head1 SEE ALSO
-
-L<Catalogue>
+Catalyst TTSite View.
 
 =head1 AUTHOR
 
@@ -38,3 +39,4 @@ it under the same terms as Perl itself.
 =cut
 
 1;
+
