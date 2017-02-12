@@ -1,11 +1,8 @@
-[% META title = 'Database Schemas' -%]
-<h1>Showing Schemas for 
-[%- IF database -%]
-[% database.name %] Database on [% database.system.name %] System
-[%- ELSE -%]
-all Databases
-[%- END -%]
-</h1>
+[% META title = 'Database Schemas' %]
+[% IF database %]<h2>Showing Schemas for [% database.name %] Database on [% database.system.name %] System</h1>
+[% ELSE %]
+<h2>Showing Schemas for all Databases</h2>
+[% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
 <a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>
@@ -22,7 +19,7 @@ all Databases
     <th>Tables</th>
     <th>Description</th>
     <th>Update Description</th></tr>
-[% FOREACH schema IN schemas -%]
+[% FOREACH schema IN schemas %]
   <tr>
     <td>[% schema.database.system.name %]</td>
     <td>[% schema.database.name %]
@@ -35,5 +32,5 @@ all Databases
     <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [schema.id, schema.database.id]) %]">Update Description</a></td>
 [% END %]
   </tr>
-[% END -%]
+[% END %]
 </table>

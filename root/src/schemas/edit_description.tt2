@@ -1,4 +1,4 @@
-[% META title = 'Edit Schema Description' -%]
+[% META title = 'Edit Schema Description' %]
 <p>Editing Description for Schema: [% schema.name %]</p>
 [% form %]
 [% IF database %]

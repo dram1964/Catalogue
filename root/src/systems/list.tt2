@@ -15,7 +15,7 @@
     <th>Class</th>
     <th>Type</th>
   </tr>
-[% FOREACH system IN systems -%]
+[% FOREACH system IN systems %]
   <tr>
     <td>[% system.name %]</td>
     <td>
@@ -28,5 +28,5 @@
 	[% system.system_database_list | html %]
     </td>
   <tr>
-[% END -%]
+[% END %]
 </table>

@@ -1,12 +1,7 @@
-[% META title = 'System Databases' -%]
-<h1>Showing Databases for 
-[%- IF system -%]
-[% system.name %] System
-[%- ELSE -%]
-all Systems
-[%- END -%]
-</h1>
-<a href="[% c.uri_for('/systems/list') %]">Back to Systems list</a>
+[% META title = 'System Databases' %]
+[% IF system %]<h2>Showing Databases for [% system.name %] System</h2>
+[% ELSE %]<h2>Showing Databases for all Systems</h2>
+[% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
 <a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>
@@ -23,7 +18,7 @@ all Systems
     <th>Description</th>
     <th>Update</th>
   </tr>
-[% FOREACH database IN databases -%]
+[% FOREACH database IN databases %]
   <tr>
     <td>[% database.system.name %]</td>
     <td>[% database.name %]</td>
@@ -37,6 +32,5 @@ all Systems
     <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id, database.system.id]) %]">Update Description</a></td>
 [% END %]
   </tr>
-[% END -%]
+[% END %]
 </table>
-
