@@ -1,10 +1,7 @@
 <ul>
   <li>Navigation</li>
   <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
-  <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
-  <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
-  <li><a href="[% c.uri_for('/tables/list') %]">Tables</a></li>
-  <li><a href="[% c.uri_for('/columns/list') %]">Columns</a></li>
+  <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
   <li><a href="[% c.uri_for('/classes/list') %]">Classes</a></li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
 <li>[% IF c.user_exists %]

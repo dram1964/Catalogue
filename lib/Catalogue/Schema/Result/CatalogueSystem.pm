@@ -120,6 +120,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 system_kpes
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::SystemKpe>
+
+=cut
+
+__PACKAGE__->has_many(
+  "system_kpes",
+  "Catalogue::Schema::Result::SystemKpe",
+  { "foreign.system_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 classes
 
 Type: many_to_many
@@ -140,9 +155,19 @@ Composing rels: L</system_db_types> -> db_type
 
 __PACKAGE__->many_to_many("db_types", "system_db_types", "db_type");
 
+=head2 kpes
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-04 17:55:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hcCNmNRwpPbl7Fx9fhgR3g
+Type: many_to_many
+
+Composing rels: L</system_kpes> -> kpe
+
+=cut
+
+__PACKAGE__->many_to_many("kpes", "system_kpes", "kpe");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-14 20:15:12
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mq9YWpM1+v5z9xeV2hG6/A
 
 
 =head2 system_class_list
