@@ -9,8 +9,7 @@ my $ua2 = Test::WWW::Mechanize::Catalyst->new;
 
 $_->get_ok("http://localhost/", "Check redirect of base URL") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for login title") for $ua1, $ua2;
-$_->content_contains("You need to login to use this application", 
-	"Check we are NOT logged in") for $ua1, $ua2;
+$_->content_contains("Empty username or password") for $ua1, $ua2;
 
 $ua1->get_ok("http://localhost/login?username=test01&password=mypass", "Login test01");
 $ua2->submit_form( 
@@ -21,10 +20,9 @@ $ua2->submit_form(
 
 $_->get_ok("http://localhost/login", "Return to '/login'") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for login title") for $ua1, $ua2;
-$_->content_contains("Logged in as: ", 
-	"Check we are ARE logged in") for $ua1, $ua2;
+$_->content_contains("Logout", "Logout link available") for $ua1, $ua2;
 
-$_->follow_link_ok({n => 1}, "Logout via first link on page") for $ua1, $ua2;
+$_->get_ok("http://localhost/logout", "Logout via URL") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for redirect to Login page") for $ua1, $ua2;
 
 $ua1->get_ok("http://localhost/login?username=test01&password=mypass", "Log back in for ua1");

@@ -312,6 +312,12 @@ sub system_database_list {
     return join(', ', @databases);
 }
 
+=head2 system_application_names
+
+Return a comma-separated list of system application names for the current system
+
+=cut 
+
 sub system_application_names {
     my ($self) = @_;
     my @applications;
@@ -320,6 +326,12 @@ sub system_application_names {
     }
     return join(', ', @applications);
 }
+
+=head2 system_application_descriptions
+
+Return a comma-separated list of system application descriptions for the current system
+
+=cut 
 
 sub system_application_descriptions {
     my ($self) = @_;

@@ -27,7 +27,7 @@ $ua1->content_contains("Showing Schemas for all Databases",
 $ua1->content_contains("Systems</a>", "Check Schemas list has link for Systems");
 
 $ua1->get_ok("http://localhost/tables/list", "'test01' tables list");
-$ua1->content_contains("Showing tables for all Schemas",
+$ua1->content_contains("Tables for all schemas",
 	"Check Tables List content");
 $ua1->content_contains("Systems</a>", "Check Tables list has link for Systems");
 
@@ -44,11 +44,6 @@ $ua1->title_is("Project Task List", "Check Task List title");
 
 $ua1->get_ok("http://localhost/systems/list", "Return to systems list");
 my @schema_links;
-ok(@schema_links = $ua1->find_all_links(text => 'Schemas'), "Find the Schemas Links");
-cmp_ok(scalar(@schema_links), "==", 2, "Two Schema Links found");
-$ua1->get_ok($schema_links[0]->url, "Click first link");
-$ua1->content_contains("Showing Schemas for all Databases", 
-	"Now on the Schemas List Page");
 
 # use 'diag $ua1->content' to see content of current response
 

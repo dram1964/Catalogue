@@ -1,4 +1,4 @@
-use Test::More;
+use Test::More tests => 14;
 use Catalogue::Systems::Importer;
 
 #plan skip_all => 'set MYAPP_DSN to enable this test' unless ($ENV{MYAPP_DSN});
