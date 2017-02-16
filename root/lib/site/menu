@@ -2,7 +2,6 @@
   <li>Navigation</li>
   <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
   <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
-  <li><a href="[% c.uri_for('/classes/list') %]">Classes</a></li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
 <li>[% IF c.user_exists %]
 <a href="[% c.uri_for('/logout') %]">Logout</a></li>

@@ -36,6 +36,10 @@ h2 {
   margin: 0 0 1em;
 }
 
+table tr, td {
+  border: 1px solid [% site.col.line %];
+}
+
 #nav {
   padding: 5px 10px;
   background: [% site.col.head %];

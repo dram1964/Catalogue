@@ -5,27 +5,27 @@
 [% END %]
 <table>
   <tr>
-    <th>Name</th>
+    <th>System Name</th>
+    <th>Application Name</th>
+    <th>Description</th>
     <th>Key Production Environment</th>
-    <th>Applications</th>
-    <th>ERID</th>
-    <th>Databases</th>
+    <th>Subcategory</th>
+    <!-- <th>ERID</th> -->
+    <th>Supplier</th>
   </tr>
 [% FOREACH system IN systems %]
   <tr>
-    <td>[% system.name %]</td>
-    <td>[% system.system_kpe_list %]</td>
-    <td>[% system.system_app_list %]</td>
-    <td>[% system.system_erid_list %]</td>
-    <td>
-<a href="[% c.uri_for(c.controller('Databases').action_for('list_databases'), [system.id]) %]">List Databases</a>
+    <td>[% system.name | html %]
+    <td>[% system.system_application_names | html %]
+<a href="[% c.uri_for(c.controller.action_for('edit'), [system.id]) %]">Edit</a>
 </td>
-    <td>
-	[% system.system_class_list | html %]
-    </td>
-    <td>
-	[% system.system_database_list | html %]
-    </td>
+    <td>[% system.system_application_descriptions | html %]</td>
+    <td>[% system.kpe.name | html %]</td>
+    <td>[% system.cat2.name | html %]</td>
+    <td>[% system.supplier.name | html %]</td>
   <tr>
 [% END %]
 </table>
+[% IF pager.total_entries && pager.total_entries > 30 %]
+[% PROCESS site/pager %]
+[% END %]

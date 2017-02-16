@@ -46,7 +46,7 @@ __PACKAGE__->table("kpe_class");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 description
+=head2 name
 
   data_type: 'varchar'
   is_nullable: 0
@@ -57,7 +57,7 @@ __PACKAGE__->table("kpe_class");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "description",
+  "name",
   { data_type => "varchar", is_nullable => 0, size => 50 },
 );
 
@@ -75,48 +75,38 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<description>
+=head2 C<kpe_name_uni>
 
 =over 4
 
-=item * L</description>
+=item * L</name>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("description", ["description"]);
+__PACKAGE__->add_unique_constraint("kpe_name_uni", ["name"]);
 
 =head1 RELATIONS
 
-=head2 system_kpes
+=head2 catalogue_systems
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::SystemKpe>
+Related object: L<Catalogue::Schema::Result::CatalogueSystem>
 
 =cut
 
 __PACKAGE__->has_many(
-  "system_kpes",
-  "Catalogue::Schema::Result::SystemKpe",
+  "catalogue_systems",
+  "Catalogue::Schema::Result::CatalogueSystem",
   { "foreign.kpe_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 systems
 
-Type: many_to_many
-
-Composing rels: L</system_kpes> -> system
-
-=cut
-
-__PACKAGE__->many_to_many("systems", "system_kpes", "system");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 04:19:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FJVwwayHbSDaQEsCwnYrUA
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 17:14:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gg782/jJS5dxhWWbf2J9hA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
