@@ -57,6 +57,53 @@ sub delete_all {
     }
 }
 
+=head2 add_or_update_kpe
+
+Checks that the record has all the required elements, and then updates or adds the Catalogue System and child records
+
+=cut
+
+sub add_or_update_kpe () {
+    my ($self) = @_;
+    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->application});
+    if (!$rs) {
+	$rs = $schema->resultset('CatalogueSystem')->create({
+		name => $self->application});
+    } 
+    my $system_id = $rs->id;
+    my $application_rs = $schema->resultset('Application')->find_or_create({name => $self->application});
+    my $application_id = $application_rs->id;
+    $application_rs->update({description => $self->application_desc});
+    my $system_application_rs = $schema->resultset('SystemApplication')->update_or_create({
+	system_id => $system_id,
+	application_id => $application_id}
+    );
+    my $category2_rs = $schema->resultset('Category2')->find_or_create({description => $self->category2});
+    my $category2_id = $category2_rs->id;
+    my $system_category2_rs = $schema->resultset('SystemCategory2')->find_or_create({
+ 	system_id => $system_id,
+        cat2_id => $category2_id}
+    );
+    my $erid_rs = $schema->resultset('Erid')->find_or_create({description => $self->erid});
+    my $erid = $erid_rs->id;
+    my $system_erid_rs = $schema->resultset('SystemErid')->find_or_create({
+	system_id => $system_id,
+	er_id => $erid}
+    );
+    my $supplier_rs = $schema->resultset('Supplier')->find_or_create({description => $self->supplier});
+    my $supplier_id = $supplier_rs->id;
+    my $system_supplier_rs = $schema->resultset('SystemSupplier')->find_or_create({
+	system_id => $system_id,
+	supplier_id => $supplier_id}
+    );
+    my $kpe_rs = $schema->resultset('KpeClass')->find_or_create({description => $self->kpe});
+    my $kpe_id = $kpe_rs->id;
+    my $system_kpe_rs = $schema->resultset('SystemKpe')->find_or_create({
+	system_id => $system_id,
+	kpe_id => $kpe_id}
+    );
+}
+
 =head2 add_or_update_system
 
 Checks that the record has all the required elements, and then updates or adds the Catalogue System and child records

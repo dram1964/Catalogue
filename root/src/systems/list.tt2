@@ -6,13 +6,17 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Key Production Environment</th>
+    <th>Applications</th>
+    <th>ERID</th>
     <th>Databases</th>
-    <th>Class</th>
-    <th>Type</th>
   </tr>
 [% FOREACH system IN systems %]
   <tr>
     <td>[% system.name %]</td>
+    <td>[% system.system_kpe_list %]</td>
+    <td>[% system.system_app_list %]</td>
+    <td>[% system.system_erid_list %]</td>
     <td>
 <a href="[% c.uri_for(c.controller('Databases').action_for('list_databases'), [system.id]) %]">List Databases</a>
 </td>

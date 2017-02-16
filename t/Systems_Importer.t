@@ -69,3 +69,9 @@ my $system6 = Catalogue::Systems::Importer->new(
 	column_name => 'Column1');
 ok($system6->add_or_update_system, "Can update System");
 ok(!$system6->error_msg, "No Error Message Set");
+has 'kpe' => ( is => 'rw');
+has 'erid' => ( is => 'rw'); 
+has 'category2' =>  ( is => 'rw');
+has 'supplier' =>  ( is => 'rw');
+has 'application' => ( is => 'rw');
+has 'application_desc' =>  ( is => 'rw');

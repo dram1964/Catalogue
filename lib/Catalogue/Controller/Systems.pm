@@ -62,7 +62,9 @@ sub list :Local {
     my $page = $c->request->param('page') || 1;
     my $query = $c->model('DB::CatalogueSystem')->search(
     	{},
-    	{rows => 30, page => $page});
+    	{
+	rows => 30, 
+	page => $page});
     my $systems = [$query->all];
     my $pager = $query->pager;
     $c->stash(

@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::KpeClass;
+package Catalogue::Schema::Result::Supplier;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::KpeClass
+Catalogue::Schema::Result::Supplier
 
 =cut
 
@@ -32,11 +32,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp");
 
-=head1 TABLE: C<kpe_class>
+=head1 TABLE: C<supplier>
 
 =cut
 
-__PACKAGE__->table("kpe_class");
+__PACKAGE__->table("supplier");
 
 =head1 ACCESSORS
 
@@ -49,7 +49,7 @@ __PACKAGE__->table("kpe_class");
 =head2 description
 
   data_type: 'varchar'
-  is_nullable: 0
+  is_nullable: 1
   size: 50
 
 =cut
@@ -58,7 +58,7 @@ __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "description",
-  { data_type => "varchar", is_nullable => 0, size => 50 },
+  { data_type => "varchar", is_nullable => 1, size => 50 },
 );
 
 =head1 PRIMARY KEY
@@ -89,18 +89,18 @@ __PACKAGE__->add_unique_constraint("description", ["description"]);
 
 =head1 RELATIONS
 
-=head2 system_kpes
+=head2 system_suppliers
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::SystemKpe>
+Related object: L<Catalogue::Schema::Result::SystemSupplier>
 
 =cut
 
 __PACKAGE__->has_many(
-  "system_kpes",
-  "Catalogue::Schema::Result::SystemKpe",
-  { "foreign.kpe_id" => "self.id" },
+  "system_suppliers",
+  "Catalogue::Schema::Result::SystemSupplier",
+  { "foreign.supplier_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -108,15 +108,15 @@ __PACKAGE__->has_many(
 
 Type: many_to_many
 
-Composing rels: L</system_kpes> -> system
+Composing rels: L</system_suppliers> -> system
 
 =cut
 
-__PACKAGE__->many_to_many("systems", "system_kpes", "system");
+__PACKAGE__->many_to_many("systems", "system_suppliers", "system");
 
 
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 04:19:53
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FJVwwayHbSDaQEsCwnYrUA
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uCKkJ8YBpLzuc8hDLSGyaQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -43,6 +43,12 @@ has 'column_name' => ( is => 'rw');
 has 'column_type' => ( is => 'rw');
 has 'column_size' => ( is => 'rw');
 has 'error_msg' => ( is => 'rw');
+has 'kpe' => ( is => 'rw');
+has 'erid' => ( is => 'rw'); 
+has 'category2' =>  ( is => 'rw');
+has 'supplier' =>  ( is => 'rw');
+has 'application' => ( is => 'rw');
+has 'application_desc' =>  ( is => 'rw');
 
 no Moose;
 
