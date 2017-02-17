@@ -2,7 +2,7 @@
 <p>Key Production Environments</p>
 <form action="[% c.uri_for(c.controller.action_for('add')) %]" method="post">
 <label>Add New KPE:</label>
-<input name="description" type="text" title="Enter KPE descriptive name" />
+<input name="name" type="text" title="Enter KPE descriptive name" />
 <input name="submit" type="submit" value="submit" />
 </form>
 <table>
