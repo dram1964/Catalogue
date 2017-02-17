@@ -2,9 +2,7 @@
 <html>
  <head>
   <title>[% template.title or site.title %]</title>
-  <style type="text/css">
-[% PROCESS css/main.css %]
-  </style>
+    <link href=[% site.url.css %]layout.css rel=stylesheet>
  </head>
  <body>
 [% content %]

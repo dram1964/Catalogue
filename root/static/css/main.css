@@ -1,46 +1,99 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  background: #dddddd;
+}
+
+#wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
 #header {
-    text-align: center;
+  padding: 5px 10px;
+  background: #c6c9cc;
+  border-bottom: 1px solid #46494c;
 }
-#header h1 {
-    margin: 0;
+#header p {
+  text-align: center;
 }
-#header img {
-    float: right;
+
+#sitename p {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
 }
+
+#loggedin p {
+  float: left;
+}
+
+h1 {
+  margin: 0;
+}
+h2 {
+  margin: 0 0 1em;
+}
+
+table tr, td {
+  border: 1px solid #46494c;
+}
+
+#nav {
+  padding: 5px 10px;
+  background: #c6c9cc;
+  text-align: center;
+  border-bottom: 1px solid #46494c;
+}
+#nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#nav li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+#main {
+  float: right;
+  width: 85%;
+  padding: 10px;
+  background: #e3e6ea;
+}
+
+#sidebar {
+  float: left;
+  width: 125px;
+  padding: 10px;
+  background: #dddddd;
+}
+#sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/*
+#nav li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+*/
 #footer {
-    text-align: center;
-    font-style: italic;
-    padding-top: 20px;
+  clear: both;
+  padding: 5px 10px;
+  background: #c6c9cc;
+  border-top: 1px solid #46494c;
 }
-#menu {
-    font-weight: bold;
-    background-color: #ddd;
+#footer p {
+  text-align: center;
+  margin: 0;
 }
-#menu ul {
-    list-style: none;
-    float: left;
-    margin: 0;
-    padding: 0 0 50% 5px;
-    font-weight: normal;
-    background-color: #ddd;
-    width: 100px;
+/*
+#footer img {
+  float: right;
 }
-#content {
-    margin-left: 120px;
-}
-.message {
-    color: #390;
-}
-.error {
-    color: #f00;
-}
-input {
-    display: block;
-}
-select {
-    display: block;
-}
-.submit {
-    padding-top: .5em;
-    display: block;
-}
+*/
