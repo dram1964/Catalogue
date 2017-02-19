@@ -167,6 +167,45 @@ sub list :Local {
 	template => 'databases/list.tt2');
 }
 
+=head2 download_csv
+
+Download model contents to CSV file
+
+=cut
+
+sub download :Path('download') :Args(1) {
+    my ($self, $c, $content_type) = @_;
+    my $filename = 'data.csv';
+    my $data;    
+    my $rs = $c->model('DB::SystemDatabase')->search;
+    while (my $system_db = $rs->next) {
+	push @$data, [$system_db->id, $system_db->name];
+    }
+    if ( $content_type) {
+ 	$content_type = 'plain' unless 
+	    scalar( grep { $content_type eq $_ } qw(csv html plain) );
+        $c->res->header('Content-Type' => 'text/' . $content_type);
+	$c->stash->{'download'} = 'text/' . $content_type;
+	my $format = {
+	    'html' => sub { 
+		return "<!DOCTYPE html><html><head><title>Data</title></head><body>"
+			. join ("<br>", map {join(" " , @$_) } @$data )
+			. "</body></html>";
+	    },
+	    'plain' => sub {
+		return join("\n", map { join(" ", @$_) } @$data);
+	    },
+	    'csv' => sub { return $data; }
+	};
+
+
+	$c->stash->{$content_type} = $format->{$content_type}();
+        $c->stash(outfile_name => $filename);
+        $c->detach('Catalogue::View::Download');
+    }
+    $c->res->body('Display page as normal');
+}
+
 =encoding utf8
 
 =head1 AUTHOR
