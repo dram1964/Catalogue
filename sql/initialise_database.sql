@@ -16,6 +16,22 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `application`
+--
+
+DROP TABLE IF EXISTS `application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `application` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `application_name_uni` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `catalogue_system`
 --
 
@@ -24,24 +40,38 @@ DROP TABLE IF EXISTS `catalogue_system`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalogue_system` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `name` varchar(100) NOT NULL,
+  `application_id` int(11) DEFAULT NULL,
+  `erid_id` int(11) NOT NULL DEFAULT '1',
+  `kpe_id` int(11) NOT NULL DEFAULT '1',
+  `supplier_id` int(11) NOT NULL DEFAULT '1',
+  `cat2_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `erid_id` (`erid_id`),
+  KEY `kpe_id` (`kpe_id`),
+  KEY `supplier_id` (`supplier_id`),
+  KEY `cat2_id` (`cat2_id`),
+  CONSTRAINT `catalogue_system_ibfk_1` FOREIGN KEY (`erid_id`) REFERENCES `erid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `catalogue_system_ibfk_2` FOREIGN KEY (`kpe_id`) REFERENCES `kpe_class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `catalogue_system_ibfk_3` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `catalogue_system_ibfk_4` FOREIGN KEY (`cat2_id`) REFERENCES `category2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `class`
+-- Table structure for table `category2`
 --
 
-DROP TABLE IF EXISTS `class`;
+DROP TABLE IF EXISTS `category2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `class` (
+CREATE TABLE `category2` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `erid_name_uni` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +89,7 @@ CREATE TABLE `database_schema` (
   PRIMARY KEY (`id`,`database_id`),
   KEY `database_id` (`database_id`),
   CONSTRAINT `database_schema_ibfk_1` FOREIGN KEY (`database_id`) REFERENCES `system_database` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,6 +105,36 @@ CREATE TABLE `db_type` (
   `description` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `erid`
+--
+
+DROP TABLE IF EXISTS `erid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `erid` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `erid_name_uni` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `kpe_class`
+--
+
+DROP TABLE IF EXISTS `kpe_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kpe_class` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kpe_name_uni` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,24 +166,39 @@ CREATE TABLE `schema_table` (
   PRIMARY KEY (`id`,`schema_id`),
   KEY `schema_id` (`schema_id`),
   CONSTRAINT `schema_table_ibfk_1` FOREIGN KEY (`schema_id`) REFERENCES `database_schema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=890 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1654 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `system_class`
+-- Table structure for table `supplier`
 --
 
-DROP TABLE IF EXISTS `system_class`;
+DROP TABLE IF EXISTS `supplier`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `system_class` (
-  `system_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  PRIMARY KEY (`system_id`,`class_id`),
-  KEY `class_id` (`class_id`),
-  CONSTRAINT `system_class_ibfk_1` FOREIGN KEY (`system_id`) REFERENCES `catalogue_system` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `system_class_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `supplier_name_uni` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `system_applications`
+--
+
+DROP TABLE IF EXISTS `system_applications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_applications` (
+  `system_id` int(11) NOT NULL DEFAULT '170',
+  `application_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`system_id`,`application_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `system_applications_ibfk_1` FOREIGN KEY (`system_id`) REFERENCES `catalogue_system` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `system_applications_ibfk_2` FOREIGN KEY (`application_id`) REFERENCES `application` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +216,7 @@ CREATE TABLE `system_database` (
   PRIMARY KEY (`id`,`system_id`),
   KEY `system_id` (`system_id`),
   CONSTRAINT `system_database_ibfk_1` FOREIGN KEY (`system_id`) REFERENCES `catalogue_system` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +257,7 @@ CREATE TABLE `table_column` (
   PRIMARY KEY (`id`),
   KEY `table_id` (`table_id`),
   CONSTRAINT `table_column_ibfk_1` FOREIGN KEY (`table_id`) REFERENCES `schema_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21363 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40102 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +278,7 @@ CREATE TABLE `todolist` (
   `completed_by` varchar(50) DEFAULT NULL,
   `completed_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,4 +326,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-10 11:27:22
+-- Dump completed on 2017-02-19  8:00:53

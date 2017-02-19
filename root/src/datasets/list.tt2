@@ -1,0 +1,17 @@
+<p>This page contains a list of datasets available for research</p>
+<p><a href="[% c.uri_for(c.controller.action_for('add')) %]">Add new Dataset</a></p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  <tr>
+<tr>
+[% FOREACH dataset IN datasets %]
+    <td>[% dataset.name %]
+	<a href="[% c.uri_for(c.controller.action_for('edit'), [dataset.id]) %]">Edit</a>
+	<a href="[% c.uri_for(c.controller.action_for('explore'), [dataset.id]) %]">Explore</a>
+    </td>
+    <td>[% dataset.description %]</td>
+[% END %]
+</tr>
+</table>

@@ -1,0 +1,55 @@
+<h1>Showing Dataset information for [% dataset.name %]</h1>
+<p>Description: [% dataset.description %]</p>
+[% facts = {
+    population = {total = '3 million subjects'
+	ranges = { 
+            '0 to 10 years' = '100,000',
+	    '10 to 20 years' = '235,000', 
+	    '20 to 30 years' = '501,000',
+	    '30 to 40 years' = '600,000',
+	    '40 to 50 years' = '838,810',
+	    '50 to 60 years' = '738,000', 
+	    '60 to 70 years' = '450,000',
+	}
+    }
+    samples = {total = '40 million samples',
+		types = {
+		'Blood' = '1,201,978',
+		'Sputum' = '203,334',
+		'Urine' = '630,981',
+		'Stool' = '551,939'
+		}
+    }
+    specialties = {
+	'Haematology' = '15,339,338',
+	'Clinical Biochemistry' = '12,345,881',
+	'Microbiology' = '5,333,818',
+	'Virology' = '4,123,876',
+	'Immunology' = '838,356',
+	'Parasitology' = '68,383',
+    }
+} %]
+<h2>Population</h2>
+<p>Total Subjects: [% facts.population.total %]</p>
+<p>Population by age range</p>
+<ul>
+[% FOREACH range IN facts.population.ranges.keys.sort %]
+<li>[% range %]: [% facts.population.ranges.$range %]</li>
+[% END %]
+</ul>
+<h2>Samples</h2>
+<p>Total Samples: [% facts.samples.total %]</p>
+<p>Samples by Sample Type</p>
+<ul>
+[% FOREACH type IN facts.samples.types.keys.sort %]
+<li>[% type %]: [% facts.samples.types.$type %]</li>
+[% END %]
+</ul>
+<h2>Specialty</h2>
+<p>Total Samples: [% facts.samples.total %]</p>
+<p>Samples by Specialty</p>
+<ul>
+[% FOREACH specialty IN facts.specialties.keys.sort %]
+<li>[% specialty %]: [% facts.specialties.$specialty %]</li>
+[% END %]
+</ul>

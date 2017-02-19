@@ -1,4 +1,5 @@
 <ul>
+  <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
   <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
   <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
