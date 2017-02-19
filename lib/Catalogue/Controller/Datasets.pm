@@ -133,7 +133,9 @@ Explore the selected dataset
 sub explore :Chained('object') :PathPart('explore') :Args(0) {
     my ($self, $c) = @_;
     my $dataset = $c->stash->{object};
+    my $datasets = [$c->stash->{resultset}->all];
     $c->stash(
+	datasets => $datasets,
 	dataset => $dataset,
 	template => 'datasets/explore.tt2'
     );
