@@ -7,6 +7,7 @@
   <title>[% template.title or site.title %]</title>
   <link href="[% site.url.css %]/bootstrap.min.css" rel="stylesheet">
   <link href="[% site.url.css %]/starter-template.css" rel="stylesheet">
+  <link href="[% site.url.css %]/dashboard.css" rel="stylesheet">
  </head>
  <body>
 [% content %]

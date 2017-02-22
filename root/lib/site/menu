@@ -1,4 +1,4 @@
-<ul>
+<ul class="nav nav-sidebar">
   <li>Menu</li>
   <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
   <li><a href="[% c.uri_for('/erid/list') %]">ERIDs</a></li>
