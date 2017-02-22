@@ -1,7 +1,7 @@
 [% META title = 'Table Columns' %]
-[% IF table %]<h2>Columns for [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %] </h2> 
+[% IF table %]<p class="lead">Columns for [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %] </p> 
 [% ELSE %]
-<h2>Columns for all tables </h2> 
+<p>Columns for all tables </p> 
 [% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]

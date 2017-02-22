@@ -1,6 +1,6 @@
 [% META title = 'System Databases' %]
-[% IF system %]<h2>Showing Databases for [% system.name %] System</h2>
-[% ELSE %]<h2>Showing Databases for all Systems</h2>
+[% IF system %]<p class="lead">Showing Databases for [% system.name %] System</p>
+[% ELSE %]<p class="lead">Showing Databases for all Systems</p>
 [% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]

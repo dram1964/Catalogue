@@ -1,7 +1,7 @@
 [% META title = 'Database Tables' %]
-[% IF schema %]<h2>Showing tables for [% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]</h2>
+[% IF schema %]<p class="lead">Showing tables for [% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]</p>
 [% ELSE %]
-<h2>Tables for all schemas</h2>
+<p class="lead">Tables for all schemas</p>
 [% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]

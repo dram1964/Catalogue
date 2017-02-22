@@ -1,7 +1,7 @@
 [% META title = 'Database Schemas' %]
-[% IF database %]<h2>Showing Schemas for [% database.name %] Database on [% database.system.name %] System</h1>
+[% IF database %]<p class="lead">Showing Schemas for [% database.name %] Database on [% database.system.name %] System</p>
 [% ELSE %]
-<h2>Showing Schemas for all Databases</h2>
+<p class="lead">Showing Schemas for all Databases</p>
 [% END %]
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;

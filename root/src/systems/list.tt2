@@ -1,5 +1,5 @@
 [% META title = 'System List' %]
-<h1>List of all Systems on the Metadata Catalogue</h1>
+<p class="lead">List of all Systems on the Metadata Catalogue</p>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]
 [% END %]

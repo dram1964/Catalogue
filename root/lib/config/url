@@ -4,6 +4,7 @@
      base    = base
      home    = "${base}welcome"
      message = "${base}message"
-     css     = "/static/css/"
+     css     = "/static/css"
+     js     = "/static/js"
    }
 -%]
