@@ -1,17 +1,24 @@
 <p class="lead">This page contains a list of datasets available for research</p>
 <p><a href="[% c.uri_for(c.controller.action_for('add')) %]">Add new Dataset</a></p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  <tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
 [% FOREACH dataset IN datasets %]
-<tr>
-    <td>[% dataset.name %]
+      <tr>
+        <td>[% dataset.name %]</td>
+        <td>
 	<a href="[% c.uri_for(c.controller.action_for('edit'), [dataset.id]) %]">Edit</a>
 	<a href="[% c.uri_for(c.controller.action_for('explore'), [dataset.id]) %]">Explore</a>
-    </td>
-    <td>[% dataset.description %]</td>
-</tr>
+        </td>
+        <td>[% dataset.description %]</td>
+      </tr>
+    </tbody>
 [% END %]
-</table>
+  </table>

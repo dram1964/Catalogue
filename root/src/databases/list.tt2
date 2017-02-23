@@ -5,30 +5,35 @@
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]
 [% END %]
-<table>
-  <tr>
-    <th>System</th>
-    <th>Database</th>
-    <th>Schemas</th>
-    <th>Description</th>
-    <th>Update</th>
-  </tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>System</th>
+        <th>Database</th>
+        <th>Schemas</th>
+        <th>Description</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
 [% FOREACH database IN databases %]
-  <tr>
-    <td>[% database.system.name %]</td>
-    <td>[% database.name %]</td>
-    <td>
+      <tr>
+        <td>[% database.system.name %]</td>
+        <td>[% database.name %]</td>
+        <td>
 <a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.id]) %]">List Schemas</a>
-    </td>
-    <td>[% database.description %]</td>
+        </td>
+        <td>[% database.description %]</td>
 [% IF system %]
-    <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [database.id, database.system.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [database.id, database.system.id]) %]">Update Description</a></td>
 [% ELSE %]
-    <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id, database.system.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id, database.system.id]) %]">Update Description</a></td>
 [% END %]
-  </tr>
+      </tr>
 [% END %]
-</table>
+    </tbody>
+  </table>
 <p>Download data as: 
 <a href="[% c.uri_for(c.controller.action_for('download'), ['csv']) %]">CSV</a>
 <a href="[% c.uri_for(c.controller.action_for('download'), ['plain']) %]">Text</a>
