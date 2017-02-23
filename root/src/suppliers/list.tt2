@@ -1,18 +1,25 @@
 [% META title = "Suppliers" %]
-<p>Suppliers</p>
+<p class="lead">Suppliers</p>
 <form action="[% c.uri_for(c.controller.action_for('add')) %]" method="post">
 <label>Add New Supplier:</label>
 <input name="description" type="text" title="Enter Supplier descriptive name" />
 <input name="submit" type="submit" value="submit" />
 </form>
-<table>
-  <tr>
-    <th>Description</th>
-  </tr>
-[% FOREACH supplier IN suppliers %]
-  <tr>
-    <td>[% supplier.name %]</td>
-    <td><a href="[% c.uri_for(c.controller.action_for('delete'), [supplier.id]) %]">delete</a></td>
-  <tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+[%     FOREACH supplier IN suppliers %]
+      <tr>
+        <td>[% supplier.name %]</td>
+        <td><a href="[% c.uri_for(c.controller.action_for('delete'), [supplier.id]) %]">delete</a></td>
+      </tr>
 [% END %]
-</table>
+    </tbody>
+  </table>
+</div>

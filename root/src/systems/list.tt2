@@ -31,6 +31,7 @@
 [% END %]
       </tbody>
     </table>
+</div>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]
 [% END %]

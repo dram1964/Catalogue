@@ -1,18 +1,25 @@
 [% META title = "ERIDs" %]
-<p>ERIDs</p>
+<p class="lead">ERIDs</p>
 <form action="[% c.uri_for(c.controller.action_for('add')) %]" method="post">
 <label>Add New ERID:</label>
 <input name="description" type="text" title="Enter ERID descriptive name" />
 <input name="submit" type="submit" value="submit" />
 </form>
-<table>
-  <tr>
-    <th>Description</th>
-  </tr>
-[% FOREACH erid IN erids %]
-  <tr>
-    <td>[% erid.name %]</td>
-    <td><a href="[% c.uri_for(c.controller.action_for('delete'), [erid.id]) %]">delete</a></td>
-  <tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+[%     FOREACH erid IN erids %]
+      <tr>
+        <td>[% erid.name %]</td>
+        <td><a href="[% c.uri_for(c.controller.action_for('delete'), [erid.id]) %]">delete</a></td>
+      </tr>
 [% END %]
-</table>
+    </tbody>
+  </table>
+</div>

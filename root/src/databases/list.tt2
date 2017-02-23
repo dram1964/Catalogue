@@ -34,6 +34,7 @@
 [% END %]
     </tbody>
   </table>
+</div>
 <p>Download data as: 
 <a href="[% c.uri_for(c.controller.action_for('download'), ['csv']) %]">CSV</a>
 <a href="[% c.uri_for(c.controller.action_for('download'), ['plain']) %]">Text</a>

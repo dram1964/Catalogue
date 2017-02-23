@@ -40,6 +40,7 @@
 [% END %]
     </tbody>
   </table>
+</div>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 <p>Displaying entries [% pager.first %] - [% pager.last %] of [% pager.total_entries %]. Navigation: &lt;&lt;
 <a href="[% c.request.uri_with({ page => pager.first_page}) %]">First</a>

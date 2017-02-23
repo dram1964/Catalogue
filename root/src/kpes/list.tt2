@@ -1,18 +1,24 @@
 [% META title = "Key Production Environments" %]
-<p>Key Production Environments</p>
+<p class="lead">Key Production Environments</p>
 <form action="[% c.uri_for(c.controller.action_for('add')) %]" method="post">
 <label>Add New KPE:</label>
 <input name="name" type="text" title="Enter KPE descriptive name" />
 <input name="submit" type="submit" value="submit" />
 </form>
-<table>
-  <tr>
-    <th>Description</th>
-  </tr>
-[% FOREACH kpe IN kpes %]
-  <tr>
-    <td>[% kpe.name %]</td>
-    <td><a href="[% c.uri_for(c.controller.action_for('delete'), [kpe.id]) %]">delete</a></td>
-  <tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+[%     FOREACH kpe IN kpes %]
+      <tr>
+        <td>[% kpe.name %]</td>
+        <td><a href="[% c.uri_for(c.controller.action_for('delete'), [kpe.id]) %]">delete</a></td>
+      </tr>
 [% END %]
-</table>
+    </tbody>
+  </table>
+</div>
