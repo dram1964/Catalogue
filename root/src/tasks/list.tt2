@@ -1,6 +1,6 @@
 [% META title = 'Project Task List' -%]
 <p class="lead">List of outstanding tasks to be completed</p>
-<div class="table-responsive">
+<div class="table-responsive"><!-- begin responsive table -->
   <table class="table table-striped">
     <thead>
       <tr>
@@ -27,6 +27,7 @@
 [% END -%]
     </thead>
   </table>
+</div><!-- end responsive table -->
 <p>
 <a href="[% c.uri_for(c.controller.action_for('formfu_create')) %]">Add New Task</a>
 </p>

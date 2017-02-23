@@ -1,3 +1,7 @@
-      </div>
-
-</div>
+<footer class="footer">
+  <div class="container">
+<p><img src="[% c.uri_for('/static/images/btn_88x31_powered.png') %]" /></p>
+  </div>
+</footer>
+  </div><!-- end starter template -->
+</div><!-- end main document window -->
