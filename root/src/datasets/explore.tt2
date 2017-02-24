@@ -64,6 +64,7 @@
 </div>
 [% END %]
 
+[% IF facts.angio OR facts.ecg %]
 <h2>Cardiology Data</h2>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -89,6 +90,7 @@
     </tbody>
   </table>
 </div>
+[% END %]
 
 [% IF facts.tpt.ranges %]
 [% tpttotal = 0; 
