@@ -1,64 +1,121 @@
 [% facts = {}; %]
 [% PROCESS datasets/facts %]
 
-<div id=nav>
-  <ul>
-[% FOREACH item IN datasets %]
-<li>
-<a href="[% c.uri_for(c.controller.action_for('explore'), [item.id]) %]">[% item.name %]</a>
-</li>
-[% END %]
-</ul></div>
-
 <h1>Showing Dataset information for [% dataset.name %]</h1>
-<p>Description: [% dataset.description %]</p>
-[% IF facts.population %]
-<h2>Population</h2>
-<p>Total Subjects: [% facts.population.total %]</p>
-[% END %]
+<p class="lead">Description: [% dataset.description %]</p>
 
 [% IF facts.population.ranges %]
-<p>Population by age range</p>
-<ul>
-[% FOREACH range IN facts.population.ranges.keys.sort %]
-<li>[% range %]: [% facts.population.ranges.$range %]</li>
-[% END %]
-</ul>
-[% END %]
+<h2>Population</h2>
+[% rangetotal = 0; 
+   FOREACH range IN facts.population.ranges.keys %]
+	[% $rangetotal = $rangetotal + facts.population.ranges.$range;
+   END;
+%]
+<p>Total Subjects: [% $rangetotal | format("%d") %]</p>
 
-[% IF facts.samples %]
-<h2>Samples</h2>
-<p>Total Samples: [% facts.samples.total %]</p>
+<p>Population by age range</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Age Range</th>
+        <th>Number </th>
+      </tr>
+    </thead>
+    <tbody>
+[% FOREACH range IN facts.population.ranges.keys.sort %]
+      <tr>
+        <td>[% range %]</td>
+        <td>[% facts.population.ranges.$range %]</td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>
 [% END %]
 
 [% IF facts.samples.types %]
+[% samplestotal = 0; 
+   FOREACH type IN facts.samples.types.keys %]
+	[% $samplestotal = $samplestotal + facts.samples.types.$type;
+   END;
+%]
+<h2>Samples</h2>
+<p>Total Samples: [% $samplestotal %]</p>
+
 <p>Samples by Sample Type</p>
-<ul>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sample Type</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
 [% FOREACH type IN facts.samples.types.keys.sort %]
-<li>[% type %]: [% facts.samples.types.$type %]</li>
+      <tr>
+        <td>[% type %]</td>
+        <td>[% facts.samples.types.$type %]</td>
+      </tr>
 [% END %]
-</ul>
+    </tbody>
+  </table>
+</div>
 [% END %]
 
+<h2>Cardiology Data</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
 [% IF facts.angio %]
-<h2>Angiography Data</h2>
-<p>Total patients with Angiography Data: [% facts.angio.total %]</p>
+      <tr>
+        <td>Total patients with Angiography Data</td>
+        <td>[% facts.angio.total %]</td>
+      <tr>
 [% END %]
 [% IF facts.ecg %]
-<h2>Echocardiogram Data</h2>
-<p>Total patients with Echocardiogram Data: [% facts.ecg.total %]</p>
+      <tr>
+        <td>Total patients with Echocardiogram Data</td>
+        <td>[% facts.ecg.total %]</td>
+      <tr>
 [% END %]
-
-[% IF facts.tpt %]
-<h2>Troponin T Results</h2>
-<p>Total patients with TPT Results: [% facts.tpt.total %]</p>
-[% END %]
+    </tbody>
+  </table>
+</div>
 
 [% IF facts.tpt.ranges %]
+[% tpttotal = 0; 
+   FOREACH range IN facts.tpt.ranges.keys %]
+	[% $tpttotal = $tpttotal + facts.tpt.ranges.$range;
+   END;
+%]
+<h2>Troponin T Results</h2>
+<p>Total patients with TPT Results: [% $tpttotal %]</p>
+
 <h2>TPT Age Ranges</h2>
-<ul>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Result Range</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
 [% FOREACH range IN facts.tpt.ranges.keys.sort %]
-<li>[% range %]: [% facts.tpt.ranges.$range %]</li>
+      <tr>
+        <td>[% range %]</td>
+        <td>[% facts.tpt.ranges.$range %]</td>
+      </tr>
 [% END %]
-</ul>
+    </tbody>
+  </table>
+</div>
 [% END %]

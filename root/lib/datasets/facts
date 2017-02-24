@@ -1,31 +1,29 @@
 [% IF dataset.id == 1 %]
 [% facts = {
-    population = {total = '3 million subjects'
-	ranges = { 
-            '0 to 10 years' = '100,000',
-	    '10 to 20 years' = '235,000', 
-	    '20 to 30 years' = '501,000',
-	    '30 to 40 years' = '600,000',
-	    '40 to 50 years' = '838,810',
-	    '50 to 60 years' = '738,000', 
-	    '60 to 70 years' = '450,000',
+    population = {ranges = { 
+            '0 to 10 years' = 100000,
+	    '10 to 20 years' = 235000, 
+	    '20 to 30 years' = 501000,
+	    '30 to 40 years' = 600000,
+	    '40 to 50 years' = 838810,
+	    '50 to 60 years' = 738000, 
+	    '60 to 70 years' = 450000
 	}
     }
-    samples = {total = '40 million samples',
-		types = {
-		'Blood' = '1,201,978',
-		'Sputum' = '203,334',
-		'Urine' = '630,981',
-		'Stool' = '551,939'
+    samples = {types = {
+		'Blood' = 1201978,
+		'Sputum' = 203334,
+		'Urine' = 630981,
+		'Stool' = 551939
 		}
     }
     specialties = {
-	'Haematology' = '15,339,338',
-	'Clinical Biochemistry' = '12,345,881',
-	'Microbiology' = '5,333,818',
-	'Virology' = '4,123,876',
-	'Immunology' = '838,356',
-	'Parasitology' = '68,383',
+	'Haematology' = 15339338,
+	'Clinical Biochemistry' = 12345881,
+	'Microbiology' = 5333818,
+	'Virology' = 4123876,
+	'Immunology' = 838356,
+	'Parasitology' = 68383
     }
 } %]
 [% ELSIF dataset.id == 2 %]
