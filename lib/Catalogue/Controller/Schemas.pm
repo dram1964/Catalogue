@@ -55,6 +55,33 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    die "Class not found" if !$c->stash->{object};
 }
 
+=head2 search
+
+Search for Schemas
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    $c->log->debug("*** Searching for $search_term ***");
+    my $schema_rs = $c->stash->{resultset}->search(
+	{-or => [
+		{'me.name' => {like => $search_term}},
+		{'me.description' => {like => $search_term}},
+		]
+        },
+	{
+	 distinct => 1
+	}
+    );
+    $c->log->debug("*** Found $schema_rs ***");
+    my $schemas = [$schema_rs->all];
+    $c->stash(
+	schemas => $schemas,
+	template => 'schemas/list.tt2');
+}
+
 =head2 list
 
 Fetch all schema objects and pass to schemas/list.tt2 in stash to be displayed

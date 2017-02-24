@@ -53,6 +53,33 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    die "Class not found" if !$c->stash->{object};
 }
 
+=head2 search
+
+Search for Tables
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    $c->log->debug("*** Searching for $search_term ***");
+    my $table_rs = $c->stash->{resultset}->search(
+	{-or => [
+		{'me.name' => {like => $search_term}},
+		{'me.description' => {like => $search_term}},
+		]
+        },
+	{
+	 distinct => 1
+	}
+    );
+    $c->log->debug("*** Found $table_rs ***");
+    my $tables = [$table_rs->all];
+    $c->stash(
+	tables => $tables,
+	template => 'tables/list.tt2');
+}
+
 =head2 edit_description
 
 Use HTML::FormFu to update description for table and return user to list of all schemas

@@ -10,7 +10,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Location</th>
+        <th>Table</th>
         <th>Column</th>
         <th>Column Type</th>
         <th>Size</th>

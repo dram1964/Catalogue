@@ -69,6 +69,38 @@ sub list_columns :Path('list_columns') :Args(1) {
     );
 }
 
+=head2 search
+
+Search for Columns
+
+=cut
+
+sub search :Path('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $page = $c->request->param('page') || 1;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    $c->log->debug("*** Searching for $search_term ***");
+    my $column_rs = $c->model('DB::TableColumn')->search(
+	{-or => [
+		{'me.name' => {like => $search_term}},
+		]
+        },
+        {
+        select => [qw(name col_type col_size table_rel.name )],
+	join => 'table_rel',
+	distinct => 1,
+	rows => 30,
+	page => $page,
+        }
+    );
+    $c->log->debug("*** Found $column_rs ***");
+    my $columns = [$column_rs->all];
+    my $pager = $column_rs->pager;
+    $c->stash(pager => $pager, 
+	columns => $columns,
+	template => 'columns/list.tt2');
+}
+
 
 =encoding utf8
 

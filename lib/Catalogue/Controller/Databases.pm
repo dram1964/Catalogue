@@ -39,6 +39,37 @@ sub base :Chained('/') :PathPart('databases') :CaptureArgs(0) {
     $c->load_status_msgs;
 }
 
+=head2 search
+
+Search for databases
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    $c->log->debug("*** Searching for $search_term ***");
+    my $database_rs = $c->stash->{resultset}->search(
+	{-or => [
+		{'me.name' => {like => $search_term}},
+		{'database_schemas.name' => {like => $search_term}},
+		{'database_schemas.description' => {like => $search_term}},
+		]
+        },
+	{
+	 join => {
+		'database_schemas'
+	 },
+	 distinct => 1
+	}
+    );
+    $c->log->debug("*** Found $database_rs ***");
+    my $databases = [$database_rs->all];
+    $c->stash(
+	databases => $databases,
+	template => 'databases/list.tt2');
+}
+
 =head2 object
 
 Fetch the specified system database object based on the db and system id and store it in the stash for /datbases/id/?/? chain
