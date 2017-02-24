@@ -1,6 +1,11 @@
 <ul class="nav nav-sidebar">
   <li>Menu</li>
   <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
+	<li><ul>
+	[% FOREACH dataset IN datasets %]
+		<li><a href="[% c.uri_for(c.controller.action_for('explore'), [dataset.id]) %]">[% dataset.name %]</a></li>
+	[% END %]
+	</ul></li>
   <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
   <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
@@ -21,4 +26,7 @@
   <li><a href="#">Upload KPI</a></li>
   <li><a href="[% c.uri_for('/category2/list') %]">Category2s</a></li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
+  <li><a href="[% c.uri_for('/about') %]">About</a></li>
+  <li><a href="#">Contact</a></li>
+  <li><a href="#">Help</a></li>
 </ul>
