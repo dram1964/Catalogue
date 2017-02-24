@@ -1,3 +1,4 @@
+[% META title="Catalogue Datasets" %]
 <p class="lead">This page contains a list of datasets available for research</p>
 <p><a href="[% c.uri_for(c.controller.action_for('add')) %]">Add new Dataset</a></p>
 <div class="table-responsive">

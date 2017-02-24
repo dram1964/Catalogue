@@ -120,6 +120,7 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
 	$name->value($dataset->name);
         my $description = $form->get_element({name => 'description'});
 	$description->value($dataset->description);
+	$c->stash(dataset => $dataset);
     }
     $c->stash(template => 'datasets/add.tt2');
 }

@@ -4,7 +4,8 @@ elements:
       name: system_name
       label: System Name
       attributes:
-          title: Enter System Name
+        title: Enter System Name
+        class: form-control
       constraints:
         - type: Length
           min: 5
@@ -16,7 +17,8 @@ elements:
       name: application_name
       label: Application Name
       attributes:
-          title: Enter Application Name
+        title: Enter Application Name
+        class: form-control
       constraints:
         - type: Length
           min: 5
@@ -28,27 +30,39 @@ elements:
       name: application_description
       label: Application Description
       attributes:
-          title: Enter Description for Application
+        title: Enter Description for Application
+        class: form-control
 
     - type: Select
       name: kpe_class
       label: KPE Class
+      attributes:
+        class: form-control
 
     - type: Select
       name: category2
       label: Subcategory
+      attributes:
+        class: form-control
 
     - type: Select
       name: supplier
       label: Supplier
+      attributes:
+        class: form-control
 
     - type: Select
       name: erid
       label: ERID
+      attributes:
+        class: form-control
 
     - type: Submit
       name: submit 
       value: Submit
+      attributes:
+        class: btn btn-primary
+
 
 filter:
     - TrimEdges

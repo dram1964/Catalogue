@@ -12,7 +12,7 @@
   <div id="navbar" class="collapse navbar-collapse"><!-- begin navbar collapse -->
     <ul class="nav navbar-nav navbar-right">
       <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="[% c.uri_for('/about') %]">About</a></li>
       <li><a href="#">Contact</a></li>
       <li><a href="#">Help</a></li>
 [% IF c.user_exists %]

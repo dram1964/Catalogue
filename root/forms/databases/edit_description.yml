@@ -5,12 +5,17 @@ elements:
       label: Database Description
       attributes:
           title: Enter Description for Database
+          class: form-control
+          cols: 0
+          rows: 0
       constraints:
         - Required
 
     - type: Submit
       name: submit 
       value: Submit
+      attributes:
+          class: btn btn-primary
 filter:
     - TrimEdges
     - HTMLEscape

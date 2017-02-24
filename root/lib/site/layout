@@ -10,4 +10,3 @@
     </div><!-- end second column -->
   </div><!-- end row -->
 </div><!-- end fluid container -->
-[% PROCESS site/footer %]

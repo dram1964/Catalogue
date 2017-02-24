@@ -4,7 +4,8 @@ elements:
       name: name
       label: Dataset Name
       attributes:
-          title: Enter the dataset name here
+        title: Enter the dataset name here
+        class: form-control
       constraints:
         - type: Length
           min: 5
@@ -17,10 +18,15 @@ elements:
       label: Description
       attributes:
         title: Enter a full description for the dataset
+        class: form-control
+        rows: 0
+        columns: 0
  
     - type: Submit
       name: submit 
       value: Submit
+      attributes:
+        class: btn btn-primary
 
 filter:
     - TrimEdges
