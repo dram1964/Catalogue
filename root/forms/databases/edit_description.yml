@@ -4,10 +4,11 @@ elements:
       name: description 
       label: Database Description
       attributes:
-          title: Enter Description for Database
-          class: form-control
-          cols: 0
-          rows: 0
+        title: Enter Description for Database
+        class: form-control
+        cols: 0
+        rows: 0
+        autofocus: 1
       constraints:
         - Required
 

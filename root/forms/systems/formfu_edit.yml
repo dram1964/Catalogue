@@ -6,6 +6,7 @@ elements:
       attributes:
         title: Enter System Name
         class: form-control
+        autofocus: 1
       constraints:
         - type: Length
           min: 5

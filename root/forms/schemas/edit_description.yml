@@ -6,6 +6,7 @@ elements:
       attributes:
         title: Enter Description for Schema
         class: form-control
+        autofocus: 1
       constraints:
         - Required
 

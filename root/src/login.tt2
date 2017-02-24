@@ -5,7 +5,7 @@
   <table>
     <tr>
       <td>Username:</td>
-      <td><input type="text" name="username" size="40" /></td>
+      <td><input type="text" name="username" size="40" autofocus /></td>
     </tr>
     <tr>
       <td>Password:</td>
