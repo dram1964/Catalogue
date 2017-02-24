@@ -8,7 +8,7 @@ use Text::Iconv;
 
 my $converter = Text::Iconv->new("utf-8", "windows-1251");
 
-my $excel = Spreadsheet::XLSX->new('/home/dr00/Downloads/UWHSLIVE Metadata Dump.xlsx', $converter);
+my $excel = Spreadsheet::XLSX->new('/home/dr00/Catalogue/data/EPMA table catalogues.xlsx', $converter);
 
 my $hic = $excel->{Worksheet}->[0];
 my $system_name = $hic->{Name};

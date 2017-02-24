@@ -39,6 +39,35 @@ sub base :Chained('/') :PathPart('systems') :CaptureArgs(0) {
     $c->load_status_msgs;
 }
 
+=head2 search
+
+Search for systems
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    $c->log->debug("*** Searching for $search_term ***");
+    my $system_rs = $c->stash->{resultset}->search(
+	{-or => [
+		{'me.name' => {like => $search_term}},
+		{'application.description' => {like => $search_term}},
+		]
+        },
+	{
+	 join => {
+		'system_applications' => 'application'
+	 }
+	}
+    );
+    $c->log->debug("*** Found $system_rs ***");
+    my $systems = [$system_rs->all];
+    $c->stash(
+	systems => $systems,
+	template => 'systems/list.tt2');
+}
+
 =head2 object
 
 Chained dispatch to /systems/id/? to store a system object in the stash
