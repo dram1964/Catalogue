@@ -8,6 +8,7 @@
   <link href="[% site.url.css %]/bootstrap.min.css" rel="stylesheet">
   <link href="[% site.url.css %]/starter-template.css" rel="stylesheet">
   <link href="[% site.url.css %]/dashboard.css" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  </head>
  <body>
 [% content %]

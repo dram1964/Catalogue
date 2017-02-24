@@ -3,6 +3,8 @@
 
 <h1>Showing Dataset information for [% dataset.name %]</h1>
 <p class="lead">Description: [% dataset.description %]</p>
+    <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
 
 [% IF facts.population.ranges %]
 <h2>Population</h2>
