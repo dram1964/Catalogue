@@ -4,10 +4,23 @@
 <h1>Showing Dataset information for [% dataset.name %]</h1>
 <p class="lead">Description: [% dataset.description %]</p>
     <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+<script>
+	var myTitle = [% dataset.name %];
+</script>
+
+<div class="row placeholders">
+            <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+            </div>
+            <div class="col-xs-12 col-sm-6 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+
 
 [% IF facts.population.ranges %]
-<h2>Population</h2>
+<h2 class="sub-header">Population</h2>
 [% rangetotal = 0; 
    FOREACH range IN facts.population.ranges.keys %]
 	[% $rangetotal = $rangetotal + facts.population.ranges.$range;
@@ -42,7 +55,7 @@
 	[% $samplestotal = $samplestotal + facts.samples.types.$type;
    END;
 %]
-<h2>Samples</h2>
+<h2 class="sub-header">Samples</h2>
 <p>Total Samples: [% $samplestotal %]</p>
 
 <p>Samples by Sample Type</p>
@@ -67,7 +80,7 @@
 [% END %]
 
 [% IF facts.angio OR facts.ecg %]
-<h2>Cardiology Data</h2>
+<h2 class="sub-header">Cardiology Data</h2>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -100,10 +113,10 @@
 	[% $tpttotal = $tpttotal + facts.tpt.ranges.$range;
    END;
 %]
-<h2>Troponin T Results</h2>
+<h2 class="sub-header">Troponin T Results</h2>
 <p>Total patients with TPT Results: [% $tpttotal %]</p>
 
-<h2>TPT Age Ranges</h2>
+<h2 class="sub-header">TPT Age Ranges</h2>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
