@@ -5,7 +5,8 @@
 <p class="lead">Description: [% dataset.description %]</p>
     <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
 <script>
-	var myTitle = [% dataset.name %];
+        var ttVars = {};
+	ttVars.myTitle = "[% dataset.name %]" || 0;
 </script>
 
 <div class="row placeholders">

@@ -13,7 +13,7 @@ var data = google.visualization.arrayToDataTable([
 ]);
 
 var options = {
-  title: 'dataset'
+  title: ttVars.myTitle
 };
 
 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
