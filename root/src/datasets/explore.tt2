@@ -4,30 +4,22 @@
 <h1>Showing Dataset information for [% dataset.name %]</h1>
 <p class="lead">Description: [% dataset.description %]</p>
     <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
+
+[% IF facts.population.ranges %]
 <script>
-        var ttVars = {};
-	ttVars.myTitle = "[% dataset.name %]" || 0;
-        ttVars.facts = [];
-	ttVars.facts.push(['Age', 'Value']);
+        var population = {};
+	population.myTitle = "Age Distribution";
+        population.ranges = [];
+	population.ranges.push(['Age', 'Value']);
 [% FOREACH range IN facts.population.ranges.keys.sort %]
-	ttVars.facts.push(
+	population.ranges.push(
 	  ['[% range %]', [% facts.population.ranges.$range %]]
 	);
 [% END %]
 </script>
 
 <div class="row placeholders">
-            <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
-            </div>
             <div class="col-xs-12 col-sm-6 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-
-
-[% IF facts.population.ranges %]
 <h2 class="sub-header">Population</h2>
 [% rangetotal = 0; 
    FOREACH range IN facts.population.ranges.keys %]
@@ -36,7 +28,6 @@
 %]
 <p>Total Subjects: [% $rangetotal | format("%d") %]</p>
 
-<p>Population by age range</p>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -56,6 +47,12 @@
   </table>
 </div>
 [% END %]
+            </div>
+
+            <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+            </div>
+</div>
 
 [% IF facts.samples.types %]
 [% samplestotal = 0; 

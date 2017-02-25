@@ -11,10 +11,10 @@ function drawChart() {
 //  ['Watch TV', 2],
 //  ['Sleep',    7]
 //]);
-var data = google.visualization.arrayToDataTable(ttVars.facts);
+var data = google.visualization.arrayToDataTable(population.ranges);
 
 var options = {
-  title: ttVars.myTitle
+  title: population.myTitle
 };
 
 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
