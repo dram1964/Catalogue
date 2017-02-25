@@ -7,11 +7,18 @@
 <script>
         var ttVars = {};
 	ttVars.myTitle = "[% dataset.name %]" || 0;
+        ttVars.facts = [];
+	ttVars.facts.push(['Age', 'Value']);
+[% FOREACH range IN facts.population.ranges.keys.sort %]
+	ttVars.facts.push(
+	  ['[% range %]', [% facts.population.ranges.$range %]]
+	);
+[% END %]
 </script>
 
 <div class="row placeholders">
             <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
             </div>
             <div class="col-xs-12 col-sm-6 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
