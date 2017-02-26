@@ -6,138 +6,16 @@
     <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
 
 [% IF facts.population.ranges %]
-<script>
-        var population = {};
-	population.myTitle = "Age Distribution";
-        population.ranges = [];
-	population.ranges.push(['Age', 'Value']);
-[% FOREACH range IN facts.population.ranges.keys.sort %]
-	population.ranges.push(
-	  ['[% range %]', [% facts.population.ranges.$range %]]
-	);
+  [% INCLUDE 'datasets/population.tt2' %]
 [% END %]
-</script>
-
-<div class="row placeholders">
-            <div class="col-xs-12 col-sm-6 placeholder">
-<h2 class="sub-header">Population</h2>
-[% rangetotal = 0; 
-   FOREACH range IN facts.population.ranges.keys %]
-	[% $rangetotal = $rangetotal + facts.population.ranges.$range;
-   END;
-%]
-<p>Total Subjects: [% $rangetotal | format("%d") %]</p>
-
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Age Range</th>
-        <th>Number </th>
-      </tr>
-    </thead>
-    <tbody>
-[% FOREACH range IN facts.population.ranges.keys.sort %]
-      <tr>
-        <td>[% range %]</td>
-        <td>[% facts.population.ranges.$range %]</td>
-      </tr>
-[% END %]
-    </tbody>
-  </table>
-</div>
-[% END %]
-            </div>
-
-            <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
-            </div>
-</div>
 
 [% IF facts.samples.types %]
-[% samplestotal = 0; 
-   FOREACH type IN facts.samples.types.keys %]
-	[% $samplestotal = $samplestotal + facts.samples.types.$type;
-   END;
-%]
-<h2 class="sub-header">Samples</h2>
-<p>Total Samples: [% $samplestotal %]</p>
-
-<p>Samples by Sample Type</p>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Sample Type</th>
-        <th>Number</th>
-      </tr>
-    </thead>
-    <tbody>
-[% FOREACH type IN facts.samples.types.keys.sort %]
-      <tr>
-        <td>[% type %]</td>
-        <td>[% facts.samples.types.$type %]</td>
-      </tr>
-[% END %]
-    </tbody>
-  </table>
-</div>
+  [% INCLUDE 'datasets/samples.tt2' %]
 [% END %]
 
 [% IF facts.angio OR facts.ecg %]
-<h2 class="sub-header">Cardiology Data</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Domain</th>
-        <th>Number</th>
-      </tr>
-    </thead>
-    <tbody>
-[% IF facts.angio %]
-      <tr>
-        <td>Total patients with Angiography Data</td>
-        <td>[% facts.angio.total %]</td>
-      <tr>
-[% END %]
-[% IF facts.ecg %]
-      <tr>
-        <td>Total patients with Echocardiogram Data</td>
-        <td>[% facts.ecg.total %]</td>
-      <tr>
-[% END %]
-    </tbody>
-  </table>
-</div>
+  [% INCLUDE 'datasets/cardiology.tt2' %]
 [% END %]
 
 [% IF facts.tpt.ranges %]
-[% tpttotal = 0; 
-   FOREACH range IN facts.tpt.ranges.keys %]
-	[% $tpttotal = $tpttotal + facts.tpt.ranges.$range;
-   END;
-%]
-<h2 class="sub-header">Troponin T Results</h2>
-<p>Total patients with TPT Results: [% $tpttotal %]</p>
-
-<h2 class="sub-header">TPT Age Ranges</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Result Range</th>
-        <th>Number</th>
-      </tr>
-    </thead>
-    <tbody>
-[% FOREACH range IN facts.tpt.ranges.keys.sort %]
-      <tr>
-        <td>[% range %]</td>
-        <td>[% facts.tpt.ranges.$range %]</td>
-      </tr>
-[% END %]
-    </tbody>
-  </table>
-</div>
 [% END %]
