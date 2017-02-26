@@ -1,3 +1,19 @@
+    <script type="text/javascript" src="[% site.url.js %]/samplespiechart.js"> </script>
+<script>
+        var samplePie = {};
+	samplePie.myTitle = "Samples Distribution";
+        samplePie.id = "samplepiechart";
+        samplePie.ranges = [];
+	samplePie.ranges.push(['Sample Type', 'Value']);
+[% FOREACH sample IN facts.samples.types.keys.sort %]
+	samplePie.ranges.push(
+	  ['[% sample %]', [% facts.samples.types.$sample %]]
+	);
+[% END %]
+</script>
+
+<div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
 [% samplestotal = 0; 
    FOREACH type IN facts.samples.types.keys %]
 	[% $samplestotal = $samplestotal + facts.samples.types.$type;
@@ -24,4 +40,10 @@
 [% END %]
     </tbody>
   </table>
+</div>
+            </div>
+
+            <div id="samplepiechart" class="col-xs-12 col-sm-6 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+            </div>
 </div>

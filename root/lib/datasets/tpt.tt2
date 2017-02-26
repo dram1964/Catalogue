@@ -1,3 +1,19 @@
+    <script type="text/javascript" src="[% site.url.js %]/tptpiechart.js"> </script>
+<script>
+        var tptPie = {};
+	tptPie.myTitle = "Result Distribution";
+        tptPie.id = "tptpiechart";
+        tptPie.ranges = [];
+	tptPie.ranges.push(['Range', 'Value']);
+[% FOREACH tpt IN facts.tpt.ranges.keys.sort %]
+	tptPie.ranges.push(
+	  ['[% tpt %]', [% facts.tpt.ranges.$tpt %]]
+	);
+[% END %]
+</script>
+
+<div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
 [% tpttotal = 0; 
    FOREACH range IN facts.tpt.ranges.keys %]
 	[% $tpttotal = $tpttotal + facts.tpt.ranges.$range;
@@ -24,4 +40,10 @@
 [% END %]
     </tbody>
   </table>
+</div>
+            </div>
+
+            <div id="tptpiechart" class="col-xs-12 col-sm-6 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+            </div>
 </div>

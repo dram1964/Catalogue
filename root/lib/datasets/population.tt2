@@ -1,10 +1,12 @@
+    <script type="text/javascript" src="[% site.url.js %]/populationpiechart.js"> </script>
 <script>
-        var population = {};
-	population.myTitle = "Age Distribution";
-        population.ranges = [];
-	population.ranges.push(['Age', 'Value']);
+        var populationPie = {};
+	populationPie.myTitle = "Age Distribution";
+        populationPie.id = "populationpiechart";
+        populationPie.ranges = [];
+	populationPie.ranges.push(['Age', 'Value']);
 [% FOREACH range IN facts.population.ranges.keys.sort %]
-	population.ranges.push(
+	populationPie.ranges.push(
 	  ['[% range %]', [% facts.population.ranges.$range %]]
 	);
 [% END %]
@@ -40,7 +42,7 @@
 </div>
             </div>
 
-            <div id="piechart" class="col-xs-12 col-sm-6 placeholder">
+            <div id="populationpiechart" class="col-xs-12 col-sm-6 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
             </div>
 </div>

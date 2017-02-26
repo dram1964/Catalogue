@@ -3,7 +3,6 @@
 
 <h1>Showing Dataset information for [% dataset.name %]</h1>
 <p class="lead">Description: [% dataset.description %]</p>
-    <script type="text/javascript" src="[% site.url.js %]/piechart.js"> </script>
 
 [% IF facts.population.ranges %]
   [% INCLUDE 'datasets/population.tt2' %]
@@ -18,4 +17,5 @@
 [% END %]
 
 [% IF facts.tpt.ranges %]
+  [% INCLUDE 'datasets/tpt.tt2' %]
 [% END %]
