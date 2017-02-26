@@ -9,7 +9,8 @@ my $ua2 = Test::WWW::Mechanize::Catalyst->new;
 
 $_->get_ok("http://localhost/", "Check redirect of base URL") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for login title") for $ua1, $ua2;
-$_->content_contains("Empty username or password") for $ua1, $ua2;
+$_->content_contains("Username") for $ua1, $ua2;
+$_->content_contains("Password") for $ua1, $ua2;
 
 $ua1->get_ok("http://localhost/login?username=test01&password=mypass", "Login test01");
 $ua2->submit_form( 

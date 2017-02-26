@@ -198,7 +198,7 @@ sub list :Local {
 	template => 'databases/list.tt2');
 }
 
-=head2 download_csv
+=head2 download
 
 Download model contents to CSV file
 

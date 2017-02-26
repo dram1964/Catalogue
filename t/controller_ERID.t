@@ -6,5 +6,5 @@ use Test::More;
 use Catalyst::Test 'Catalogue';
 use Catalogue::Controller::ERID;
 
-ok( request('/erid')->is_success, 'Request should succeed' );
+ok( request('/erid')->is_redirect, 'Request should succeed' );
 done_testing();

@@ -36,6 +36,12 @@ sub index :Path :Args(0) {
     $c->stash(template => 'index.tt2');
 }
 
+=head2 about
+
+Displays the about page
+
+=cut
+
 sub about :Path('about') :Args(0) {
     my ($self, $c) = @_;
     $c->stash(template => 'about.tt2');
