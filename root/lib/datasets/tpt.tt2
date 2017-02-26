@@ -22,7 +22,7 @@
 <h2 class="sub-header">Troponin T Results</h2>
 <p>Total patients with TPT Results: [% $tpttotal %]</p>
 
-<h2 class="sub-header">TPT Age Ranges</h2>
+<h2 class="sub-header">TPT Result Ranges</h2>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>

@@ -1,4 +1,4 @@
-    <script type="text/javascript" src="[% site.url.js %]/samplespiechart.js"> </script>
+    <script type="text/javascript" src="[% site.url.js %]/samplesbarchart.js"> </script>
 <script>
         var samplePie = {};
 	samplePie.myTitle = "Samples Distribution";
@@ -13,7 +13,7 @@
 </script>
 
 <div class="row placeholders">
-            <div class="col-xs-12 col-sm-6 placeholder">
+            <div class="col-xs-8 col-sm-4 placeholder">
 [% samplestotal = 0; 
    FOREACH type IN facts.samples.types.keys %]
 	[% $samplestotal = $samplestotal + facts.samples.types.$type;
@@ -43,7 +43,7 @@
 </div>
             </div>
 
-            <div id="samplepiechart" class="col-xs-12 col-sm-6 placeholder">
+            <div id="samplepiechart" class="col-xs-16 col-sm-8 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
             </div>
 </div>
