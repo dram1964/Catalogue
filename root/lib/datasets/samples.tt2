@@ -1,4 +1,4 @@
-    <script type="text/javascript" src="[% site.url.js %]/samplesbarchart.js"> </script>
+    <script type="text/javascript" src="[% site.url.js %]/samplespiechart.js"> </script>
 <script>
         var samplePie = {};
 	samplePie.myTitle = "Samples Distribution";
