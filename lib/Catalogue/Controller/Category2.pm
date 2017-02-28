@@ -90,9 +90,13 @@ Delete the Category2
 
 sub delete :Chained('object') :PathPart('delete') :Args(0) {
    my ($self, $c) = @_;
-   $c->stash->{object}->delete;
-   $c->response->redirect($c->uri_for($self->action_for('list'),
+   if ($c->check_user_roles('admin')) {
+     $c->stash->{object}->delete;
+     $c->response->redirect($c->uri_for($self->action_for('list'),
 	{mid => $c->set_status_msg("Category2 Deleted.")}));
+   } else {
+     $c->response->body('Unauthorised');
+   }
 }
 
 

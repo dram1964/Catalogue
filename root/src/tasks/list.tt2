@@ -6,7 +6,9 @@
       <tr>
         <th>Date Added</th>
         <th>Edit Task</th>
+[% IF c.check_user_roles('admin') %]
         <th>Delete Task</th>
+[% END %]
         <th>Task</th>
         <th>Assigned To</th>
         <th>Description</th>
@@ -17,8 +19,10 @@
 [% FOREACH task IN tasks -%]
       <tr>
         <td>[% task.date_added %]</td>
-        <td><a href="[% c.uri_for(c.controller.action_for('formfu_edit'), [task.id]) %]">Edit</a></t>
+        <td><a href="[% c.uri_for(c.controller.action_for('formfu_edit'), [task.id]) %]">Edit</a></td>
+[% IF c.check_user_roles('admin') %]
         <td><a href="[% c.uri_for(c.controller.action_for('delete'), [task.id]) %]">Delete</a></t>
+[% END %]
         <td>[% task.task %]</td>
         <td>[% task.assigned_to %]</td>
         <td>[% task.comment %]</td>
