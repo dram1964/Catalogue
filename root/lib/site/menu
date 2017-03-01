@@ -20,14 +20,17 @@
   <li><a href="[% c.uri_for('/erid/list') %]">ERIDs</a></li>
   <li><a href="[% c.uri_for('/supplier/list') %]">Suppliers</a></li>
   <li><a href="[% c.uri_for('/category2/list') %]">Category2s</a></li>
+  <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
 </ul>
+[% IF c.check_user_roles('admin') %]
 <ul class="nav nav-sidebar">
   <li>Admin Menu</li>
   <li><a href="#">Users</a></li>
   <li><a href="#">Upload Schema</a></li>
   <li><a href="#">Upload KPI</a></li>
-  <li><a href="[% c.uri_for('/category2/list') %]">Category2s</a></li>
-  <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
+</ul>
+[% END %]
+<ul class="nav nav-sidebar">
   <li><a href="[% c.uri_for('/about') %]">About</a></li>
   <li><a href="#">Contact</a></li>
   <li><a href="#">Help</a></li>
