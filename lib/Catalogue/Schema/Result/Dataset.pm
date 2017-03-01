@@ -84,6 +84,17 @@ __PACKAGE__->set_primary_key("id");
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-19 08:04:14
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:claLjkzgU1e0r7zequZNfQ
 
+=head2 delete_allowed_by
+
+Can the specified user delete the current Dataset?
+
+=cut
+
+sub delete_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('admin');
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

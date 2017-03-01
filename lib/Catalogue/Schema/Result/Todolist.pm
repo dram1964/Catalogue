@@ -154,6 +154,17 @@ __PACKAGE__->set_primary_key("id");
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-06 13:08:02
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uYUZ6y0gmh2qR5JA+sTZrw
 
+=head2 delete_allowed_by
+
+Can the specified user delete the current Task?
+
+=cut
+
+sub delete_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('admin');
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

@@ -108,6 +108,17 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 17:14:11
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JHlKhELKJwi1SVfM21IP5A
 
+=head2 delete_allowed_by
+
+Can the specified user delete the current Category2?
+
+=cut
+
+sub delete_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('admin');
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
