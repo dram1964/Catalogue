@@ -17,7 +17,11 @@
 [%     FOREACH category2 IN category2s %]
       <tr>
         <td>[% category2.name %]</td>
-        <td><a href="[% c.uri_for(c.controller.action_for('delete'), [category2.id]) %]">delete</a></td>
+        <td>
+[% IF c.check_user_roles('admin') %]
+<a href="[% c.uri_for(c.controller.action_for('delete'), [category2.id]) %]">delete</a>
+[% END %]
+        </td>
       </tr>
 [% END %]
     </tbody>
