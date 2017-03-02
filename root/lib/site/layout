@@ -6,6 +6,7 @@
 [% PROCESS site/menu %]
     </div><!-- end first column -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"><!-- begin second column -->
+[% PROCESS site/messages %]
 [% content %]
     </div><!-- end second column -->
   </div><!-- end row -->
