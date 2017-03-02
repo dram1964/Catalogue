@@ -44,6 +44,28 @@ sub about :Path('about') :Args(0) {
     $c->stash(template => 'about.tt2');
 }
 
+=head2 contact
+
+Displays the contact page
+
+=cut
+
+sub contact :Path('contact') :Args(0) {
+    my ($self, $c) = @_;
+    $c->stash(template => 'contact.tt2');
+}
+
+=head2 help
+
+Displays the help page
+
+=cut
+
+sub help :Path('help') :Args(0) {
+    my ($self, $c) = @_;
+    $c->stash(template => 'help.tt2');
+}
+
 =head2 default
 
 Standard 404 error page
@@ -68,6 +90,15 @@ sub auto :Private {
 	return 1;
     }
     if ($c->controller eq $c->controller('Datasets')) {
+	return 1;
+    }
+    if ($c->request->path eq 'about') {
+	return 1;
+    }
+    if ($c->request->path eq 'contact') {
+	return 1;
+    }
+    if ($c->request->path eq 'help') {
 	return 1;
     }
 

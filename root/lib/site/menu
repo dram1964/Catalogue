@@ -32,6 +32,6 @@
 [% END %]
 <ul class="nav nav-sidebar">
   <li><a href="[% c.uri_for('/about') %]">About</a></li>
-  <li><a href="#">Contact</a></li>
-  <li><a href="#">Help</a></li>
+  <li><a href="[% c.uri_for('/contact') %]">Contact</a></li>
+  <li><a href="[% c.uri_for('/help') %]">Help</a></li>
 </ul>

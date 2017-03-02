@@ -18,6 +18,7 @@
 
    # load up any other configuration items
    PROCESS config/col
+	 +  config/contact
          + config/url;
 
    # set defaults for variables, etc.

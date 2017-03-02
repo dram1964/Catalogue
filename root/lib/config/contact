@@ -1,0 +1,16 @@
+[% 
+  site.contacts = [
+    {
+      name = 'Joe Blogs'
+      email = 'joe.blow@example.com'
+      phone = '816-80085'
+      role = 'Administrator'
+    },
+    {
+      name = 'Jane Doe'
+      email = 'jane.doe@example.com'
+      phone = '816-80085'
+      role = 'Curator'
+    }
+  ]
+%]
