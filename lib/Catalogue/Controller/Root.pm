@@ -22,13 +22,24 @@ Catalogue::Controller::Root - Root Controller for Catalogue
 
 =head1 METHODS
 
-=head2 index
+=head2 root
 
 The root page (/)
 
 =cut
 
 sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash(template => 'index.tt2');
+}
+
+=head2 index
+
+The index page (/)
+
+=cut
+
+sub welcome :Path('welcome') :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(template => 'index.tt2');
 }
@@ -99,6 +110,9 @@ sub auto :Private {
 	return 1;
     }
     if ($c->request->path eq 'help') {
+	return 1;
+    }
+    if ($c->request->path eq 'welcome') {
 	return 1;
     }
 

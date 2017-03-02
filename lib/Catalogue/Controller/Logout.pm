@@ -23,12 +23,12 @@ Logout logic
 
 =cut
 
-sub index :Path :Args(0) {
+sub welcome :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->logout;
 
-    $c->response->redirect($c->uri_for('/'));
+    $c->response->redirect($c->uri_for('/welcome'));
 }
 
 
