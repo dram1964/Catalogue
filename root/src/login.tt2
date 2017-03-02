@@ -1,4 +1,5 @@
 [% META title = 'Metadata Catalogue Login' %]
+<p>You need to login to access these pages</p>
 
 <!-- Login form -->
 <form method="post" action="[% c.uri_for('/login') %]" >

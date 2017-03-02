@@ -30,9 +30,6 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    # Hello World
-    #$c->response->body( $c->welcome_message );
     $c->stash(template => 'index.tt2');
 }
 
@@ -61,13 +58,16 @@ sub default :Path {
 
 =head2 auto
 
-Check if there is a user and, if not, forward to login page
+Redirect user to login page if not looking at Datasets
 
 =cut
 
 sub auto :Private {
     my ($self, $c) = @_;
     if ($c->controller eq $c->controller('Login')) {
+	return 1;
+    }
+    if ($c->controller eq $c->controller('Datasets')) {
 	return 1;
     }
 
