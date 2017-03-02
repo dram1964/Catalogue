@@ -2,7 +2,7 @@
 <p class="lead">ERIDs</p>
 <form action="[% c.uri_for(c.controller.action_for('add')) %]" method="post">
 <label>Add New ERID:</label>
-<input name="description" type="text" title="Enter ERID descriptive name" />
+<input name="name" type="text" title="Enter ERID descriptive name" />
 <input name="submit" type="submit" value="submit" />
 </form>
 <div class="table-responsive">
