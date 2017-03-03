@@ -86,14 +86,16 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
     });
 }
 
-=head2 formfu_create
+=head2 create
 
 Use HTML::FormFu to create a new task
 
 =cut
 
-sub formfu_create :Chained('base') :PathPart('formfu_create') :Args(0) :FormConfig {
+sub create :Chained('base') :PathPart('create') :Args(0) :FormConfig {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
     my $form = $c->stash->{form};
 
     if ($form->submitted_and_valid) {
@@ -111,19 +113,20 @@ sub formfu_create :Chained('base') :PathPart('formfu_create') :Args(0) :FormConf
 	my $select = $form->get_element({type => 'Select'});
 	$select->options(\@users);
     }
-    $c->stash(template => 'tasks/formfu_create.tt2');
+    $c->stash(template => 'tasks/create.tt2');
 }
 
-=head2 formfu_edit
+=head2 edit
 
 Use HTML::FormFu to update an existing task
 
 =cut
 
-sub formfu_edit :Chained('object') :PathPart('formfu_edit') :Args(0) 
-	:FormConfig('tasks/formfu_create.yml') {
+sub edit :Chained('object') :PathPart('edit') :Args(0) 
+	:FormConfig('tasks/create.yml') {
     my ($self, $c) = @_;
-
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
     my $task = $c->stash->{object};
     unless ($task) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
@@ -150,7 +153,7 @@ sub formfu_edit :Chained('object') :PathPart('formfu_edit') :Args(0)
         my $comment = $form->get_element({name => 'comment'});
 	$comment->value($task->comment);
     }
-    $c->stash(template => 'tasks/formfu_create.tt2');
+    $c->stash(template => 'tasks/create.tt2');
 }
 
 =encoding utf8
