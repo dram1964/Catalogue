@@ -55,6 +55,7 @@ __PACKAGE__->table("catalogue_system");
 =head2 application_id
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 erid_id
@@ -93,7 +94,7 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "varchar", is_nullable => 0, size => 100 },
   "application_id",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "erid_id",
   {
     data_type      => "integer",
@@ -151,6 +152,26 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 =head1 RELATIONS
+
+=head2 application
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Application>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "application",
+  "Catalogue::Schema::Result::Application",
+  { id => "application_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
 
 =head2 cat2
 
@@ -212,21 +233,6 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
-=head2 system_applications
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::SystemApplication>
-
-=cut
-
-__PACKAGE__->has_many(
-  "system_applications",
-  "Catalogue::Schema::Result::SystemApplication",
-  { "foreign.system_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 system_databases
 
 Type: has_many
@@ -257,16 +263,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 applications
-
-Type: many_to_many
-
-Composing rels: L</system_applications> -> application
-
-=cut
-
-__PACKAGE__->many_to_many("applications", "system_applications", "application");
-
 =head2 db_types
 
 Type: many_to_many
@@ -278,8 +274,8 @@ Composing rels: L</system_db_types> -> db_type
 __PACKAGE__->many_to_many("db_types", "system_db_types", "db_type");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 17:36:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ByNH9XGzkzLk1hlSaTyblA
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 17:43:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:78MsdTQPSl5/r2QgIl7z3Q
 
 
 =head2 system_class_list
@@ -310,36 +306,6 @@ sub system_database_list {
 	push(@databases, $database->name);
     }
     return join(', ', @databases);
-}
-
-=head2 system_application_names
-
-Return a comma-separated list of system application names for the current system
-
-=cut 
-
-sub system_application_names {
-    my ($self) = @_;
-    my @applications;
-    foreach my $application ($self->applications) {
-	push(@applications, $application->name);
-    }
-    return join(', ', @applications);
-}
-
-=head2 system_application_descriptions
-
-Return a comma-separated list of system application descriptions for the current system
-
-=cut 
-
-sub system_application_descriptions {
-    my ($self) = @_;
-    my @applications;
-    foreach my $application ($self->applications) {
-	push(@applications, $application->description);
-    }
-    return join(', ', @applications);
 }
 
 =head2 edit_allowed_by

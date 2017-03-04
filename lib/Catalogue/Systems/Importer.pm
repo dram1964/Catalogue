@@ -84,21 +84,18 @@ sub add_or_update_kpe () {
 		cat2_id => $category2_id,
 		erid_id => $erid,
 		supplier_id => $supplier_id,
-		kpe_id => $kpe_id
+		kpe_id => $kpe_id,
+		application_id => $applicaiton_id,
 	});
     } else {
     $rs->update({
 		cat2_id => $category2_id,
 		erid_id => $erid,
 		supplier_id => $supplier_id,
-		kpe_id => $kpe_id
+		kpe_id => $kpe_id,
+		application_id => $application_id,
 	});
     }
-    my $system_id = $rs->id;
-    my $system_application_rs = $schema->resultset('SystemApplication')->update_or_create({
-	system_id => $system_id,
-	application_id => $application_id}
-    );
 }
 
 =head2 add_or_update_system

@@ -96,34 +96,24 @@ __PACKAGE__->add_unique_constraint("application_name_uni", ["name"]);
 
 =head1 RELATIONS
 
-=head2 system_applications
+=head2 catalogue_systems
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::SystemApplication>
+Related object: L<Catalogue::Schema::Result::CatalogueSystem>
 
 =cut
 
 __PACKAGE__->has_many(
-  "system_applications",
-  "Catalogue::Schema::Result::SystemApplication",
+  "catalogue_systems",
+  "Catalogue::Schema::Result::CatalogueSystem",
   { "foreign.application_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 systems
 
-Type: many_to_many
-
-Composing rels: L</system_applications> -> system
-
-=cut
-
-__PACKAGE__->many_to_many("systems", "system_applications", "system");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 18:33:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sPJCIeKZ2d0XKwFyZVLR7A
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 17:43:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KOUuJDcCkXH0Rnvtu6F14g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

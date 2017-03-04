@@ -9,7 +9,6 @@
       <tr>
         <th>System Name</th>
         <th>Application Name</th>
-        <th>Description</th>
         <th>Key Production Environment</th>
         <th>Subcategory</th>
         <th>Supplier</th>
@@ -19,10 +18,9 @@
 [% FOREACH system IN systems %]
       <tr>
         <td>[% system.name | html %]</td>
-        <td>[% system.system_application_names | html %]
+        <td>[% system.application.name | html %]
 <a href="[% c.uri_for(c.controller.action_for('edit'), [system.id]) %]">Edit</a>
 </td>
-        <td>[% system.system_application_descriptions | html %]</td>
         <td>[% system.kpe.name | html %]</td>
         <td>[% system.cat2.name | html %]</td>
         <td>[% system.supplier.name | html %]</td>
