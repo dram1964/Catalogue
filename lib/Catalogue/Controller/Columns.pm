@@ -93,7 +93,6 @@ sub search :Path('search') :Args(0) {
 	page => $page,
         }
     );
-    $c->log->debug("*** Found $column_rs ***");
     my $columns = [$column_rs->all];
     my $pager = $column_rs->pager;
     $c->stash(pager => $pager, 

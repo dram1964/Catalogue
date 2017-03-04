@@ -84,6 +84,14 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 =head2 edit
 
 Edit the object
+	my $supplier_select = $form->get_element({name => 'supplier'});
+	$supplier_select->options(\@suppliers);
+	$supplier_select->value($supplier->id) if $supplier;
+        my @erid_objs = $c->model('DB::Erid')->all();
+        my @erids;
+        foreach (sort @erid_objs) {
+	    push(@erids, [$_->id, $_->name]);
+	}
 
 =cut
 
@@ -93,11 +101,6 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     $c->detach('/error_noperms') unless 
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
     my $system = $c->stash->{object};
-    my $application = $system->application;
-    my $kpe = $system->kpe;
-    my $cat2 = $system->cat2;
-    my $erid = $system->erid;
-    my $supplier = $system->supplier;
     unless ($system) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid system -- Cannot edit")}));
@@ -107,10 +110,7 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     if ($form->submitted_and_valid) {
         $system->update({
 		name => $c->request->params->{system_name},
-		application_id => $c->request->params->{application},
-		kpe_id => $c->request->params->{kpe_class},
-		supplier_id => $c->request->params->{supplier},
-		cat2_id => $c->request->params->{category2},
+		description => $c->request->params->{system_description},
 	}); 
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_status_msg("System updated")}));
@@ -118,46 +118,8 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     } else {
         my $system_name = $form->get_element({name => 'system_name'});
 	$system_name->value($system->name);
-        my @application_objs = $c->model('DB::Application')->all();
-        my @applications;
-        foreach (sort @application_objs) {
-	    push(@applications, [$_->id, $_->name]);
-	}
-	my $application_select = $form->get_element({name => 'application'});
-	$application_select->options(\@applications);
-	$application_select->value($application->id) if $application;
-        my @kpe_objs = $c->model('DB::KpeClass')->all();
-        my @kpes;
-        foreach (sort @kpe_objs) {
-	    push(@kpes, [$_->id, $_->name]);
-	}
-	my $kpe_select = $form->get_element({name => 'kpe_class'});
-	$kpe_select->options(\@kpes);
-	$kpe_select->value($kpe->id) if $kpe;
-        my @cat2_objs = $c->model('DB::Category2')->all();
-        my @cat2s;
-        foreach (sort @cat2_objs) {
-	    push(@cat2s, [$_->id, $_->name]);
-	}
-	my $cat2_select = $form->get_element({name => 'category2'});
-	$cat2_select->options(\@cat2s);
-	$cat2_select->value($cat2->id) if $cat2;
-        my @supplier_objs = $c->model('DB::Supplier')->all();
-        my @suppliers;
-        foreach (sort @supplier_objs) {
-	    push(@suppliers, [$_->id, $_->name]);
-	}
-	my $supplier_select = $form->get_element({name => 'supplier'});
-	$supplier_select->options(\@suppliers);
-	$supplier_select->value($supplier->id) if $supplier;
-        my @erid_objs = $c->model('DB::Erid')->all();
-        my @erids;
-        foreach (sort @erid_objs) {
-	    push(@erids, [$_->id, $_->name]);
-	}
-	my $erid_select = $form->get_element({name => 'erid'});
-	$erid_select->options(\@erids);
-	$erid_select->value($erid->id) if $erid;
+        my $system_description = $form->get_element({name => 'system_description'}) if $system->description;
+	$system_description->value($system->description);
     }
     $c->stash(template => 'systems/edit.tt2');
 }

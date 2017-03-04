@@ -8,16 +8,22 @@
     <thead>
       <tr>
         <th>System Name</th>
-        <th>System Description</th>
+        <th>Application Name</th>
+        <th>Key Production Environment</th>
+        <th>Subcategory</th>
+        <th>Supplier</th>
       </tr>
     </thead>
     <tbody>
 [% FOREACH system IN systems %]
       <tr>
         <td>[% system.name | html %]</td>
-        <td>[% system.description | html %]
+        <td>[% system.application.name | html %]
 <a href="[% c.uri_for(c.controller.action_for('edit'), [system.id]) %]">Edit</a>
-        </td>
+</td>
+        <td>[% system.kpe.name | html %]</td>
+        <td>[% system.cat2.name | html %]</td>
+        <td>[% system.supplier.name | html %]</td>
       </tr>
 [% END %]
       </tbody>

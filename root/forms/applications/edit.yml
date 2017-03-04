@@ -14,11 +14,34 @@ elements:
           message: must be between 5 and 100 characters long
         - Required
 
-    - type: Textarea
-      name: system_description
-      label: System Description
+    - type: Select
+      name: application
+      label: Applicaiton
       attributes:
-        title: Enter System Description
+        class: form-control
+
+    - type: Select
+      name: kpe_class
+      label: KPE Class
+      attributes:
+        class: form-control
+
+    - type: Select
+      name: category2
+      label: Subcategory
+      attributes:
+        class: form-control
+
+    - type: Select
+      name: supplier
+      label: Supplier
+      attributes:
+        class: form-control
+
+    - type: Select
+      name: erid
+      label: ERID
+      attributes:
         class: form-control
 
     - type: Submit

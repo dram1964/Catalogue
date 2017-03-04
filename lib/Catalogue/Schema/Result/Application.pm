@@ -57,6 +57,40 @@ __PACKAGE__->table("application");
   data_type: 'text'
   is_nullable: 1
 
+=head2 system_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 erid_id
+
+  data_type: 'integer'
+  default_value: 1
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 kpe_id
+
+  data_type: 'integer'
+  default_value: 1
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 supplier_id
+
+  data_type: 'integer'
+  default_value: 1
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 cat2_id
+
+  data_type: 'integer'
+  default_value: 1
+  is_foreign_key: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -66,6 +100,36 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 100 },
   "description",
   { data_type => "text", is_nullable => 1 },
+  "system_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "erid_id",
+  {
+    data_type      => "integer",
+    default_value  => 1,
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
+  "kpe_id",
+  {
+    data_type      => "integer",
+    default_value  => 1,
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
+  "supplier_id",
+  {
+    data_type      => "integer",
+    default_value  => 1,
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
+  "cat2_id",
+  {
+    data_type      => "integer",
+    default_value  => 1,
+    is_foreign_key => 1,
+    is_nullable    => 0,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -82,7 +146,7 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<application_name_uni>
+=head2 C<name>
 
 =over 4
 
@@ -92,28 +156,93 @@ __PACKAGE__->set_primary_key("id");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("application_name_uni", ["name"]);
+__PACKAGE__->add_unique_constraint("name", ["name"]);
 
 =head1 RELATIONS
 
-=head2 catalogue_systems
+=head2 cat2
 
-Type: has_many
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Category2>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "cat2",
+  "Catalogue::Schema::Result::Category2",
+  { id => "cat2_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 erid
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Erid>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "erid",
+  "Catalogue::Schema::Result::Erid",
+  { id => "erid_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 kpe
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::KpeClass>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "kpe",
+  "Catalogue::Schema::Result::KpeClass",
+  { id => "kpe_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 supplier
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Supplier>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "supplier",
+  "Catalogue::Schema::Result::Supplier",
+  { id => "supplier_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 system
+
+Type: belongs_to
 
 Related object: L<Catalogue::Schema::Result::CatalogueSystem>
 
 =cut
 
-__PACKAGE__->has_many(
-  "catalogue_systems",
+__PACKAGE__->belongs_to(
+  "system",
   "Catalogue::Schema::Result::CatalogueSystem",
-  { "foreign.application_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
+  { id => "system_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 17:43:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KOUuJDcCkXH0Rnvtu6F14g
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 19:52:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dkSst9u+40G/iH/jI4FmCQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

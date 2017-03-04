@@ -89,24 +89,24 @@ __PACKAGE__->add_unique_constraint("erid_name_uni", ["name"]);
 
 =head1 RELATIONS
 
-=head2 catalogue_systems
+=head2 applications
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::CatalogueSystem>
+Related object: L<Catalogue::Schema::Result::Application>
 
 =cut
 
 __PACKAGE__->has_many(
-  "catalogue_systems",
-  "Catalogue::Schema::Result::CatalogueSystem",
+  "applications",
+  "Catalogue::Schema::Result::Application",
   { "foreign.erid_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-16 17:14:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PDc8bmntB7Vomgi3OUM2Vg
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 19:52:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a1sL2e6Ilj+fJSo+A5WeFQ
 
 =head2 delete_allowed_by
 
