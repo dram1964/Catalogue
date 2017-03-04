@@ -22,9 +22,9 @@ Catalogue::Controller::Root - Root Controller for Catalogue
 
 =head1 METHODS
 
-=head2 root
+=head2 index
 
-The root page (/)
+The index page (/)
 
 =cut
 
@@ -33,9 +33,9 @@ sub index :Path :Args(0) {
     $c->stash(template => 'index.tt2');
 }
 
-=head2 index
+=head2 welcome
 
-The index page (/)
+The welcome page (/)
 
 =cut
 

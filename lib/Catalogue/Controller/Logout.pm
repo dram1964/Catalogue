@@ -17,13 +17,13 @@ Catalyst Controller.
 =cut
 
 
-=head2 index
+=head2 logout
 
 Logout logic
 
 =cut
 
-sub welcome :Path :Args(0) {
+sub logout :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->logout;
