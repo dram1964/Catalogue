@@ -1,5 +1,5 @@
-[% META title = 'System List' %]
-<p class="lead">List of all Systems on the Metadata Catalogue</p>
+[% META title = 'Application List' %]
+<p class="lead">List of all Applications on the Metadata Catalogue</p>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]
 [% END %]
@@ -7,23 +7,23 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>System Name</th>
         <th>Application Name</th>
+        <th>Application Description</th>
         <th>Key Production Environment</th>
         <th>Subcategory</th>
         <th>Supplier</th>
       </tr>
     </thead>
     <tbody>
-[% FOREACH system IN systems %]
+[% FOREACH application IN applications %]
       <tr>
-        <td>[% system.name | html %]</td>
-        <td>[% system.application.name | html %]
-<a href="[% c.uri_for(c.controller.action_for('edit'), [system.id]) %]">Edit</a>
+        <td>[% application.name | html %]</td>
+        <td>[% application.description | html %]
+<a href="[% c.uri_for(c.controller.action_for('edit'), [application.id]) %]">Edit</a>
 </td>
-        <td>[% system.kpe.name | html %]</td>
-        <td>[% system.cat2.name | html %]</td>
-        <td>[% system.supplier.name | html %]</td>
+        <td>[% application.kpe.name | html %]</td>
+        <td>[% application.cat2.name | html %]</td>
+        <td>[% application.supplier.name | html %]</td>
       </tr>
 [% END %]
       </tbody>

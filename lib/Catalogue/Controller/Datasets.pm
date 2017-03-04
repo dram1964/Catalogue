@@ -87,8 +87,7 @@ sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
         $c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_status_msg("Dataset Added")}));
         $c->detach;
-    } else {
-    }
+    } 
     $c->stash(template => 'datasets/add.tt2');
 }
 

@@ -50,18 +50,8 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
     my $search_term = "%" . $c->request->params->{search} . "%";
     $c->log->debug("*** Searching for $search_term ***");
     my $system_rs = $c->stash->{resultset}->search(
-	{-or => [
 		{'me.name' => {like => $search_term}},
-		{'application.description' => {like => $search_term}},
-		]
-        },
-	{
-	 join => {
-		'application'
-	 }
-	}
-    );
-    $c->log->debug("*** Found $system_rs ***");
+    	);
     my $systems = [$system_rs->all];
     $c->stash(
 	systems => $systems,
@@ -84,14 +74,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 =head2 edit
 
 Edit the object
-	my $supplier_select = $form->get_element({name => 'supplier'});
-	$supplier_select->options(\@suppliers);
-	$supplier_select->value($supplier->id) if $supplier;
-        my @erid_objs = $c->model('DB::Erid')->all();
-        my @erids;
-        foreach (sort @erid_objs) {
-	    push(@erids, [$_->id, $_->name]);
-	}
 
 =cut
 

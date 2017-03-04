@@ -10,6 +10,7 @@
 [% END %]
   <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
+  <li><a href="[% c.uri_for('/applications/list') %]">Applications</a></li>
   <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
   <li><a href="[% c.uri_for('/tables/list') %]">Tables</a></li>
   <li><a href="[% c.uri_for('/columns/list') %]">Columns</a></li>

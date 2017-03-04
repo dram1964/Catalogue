@@ -1,4 +1,4 @@
-[% META title = "Edit Catalogue System" %]
+[% META title = "Edit Application" %]
 <div class="form-group">
 [% form %]
 </div>

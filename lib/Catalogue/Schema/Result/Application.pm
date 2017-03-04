@@ -244,6 +244,27 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 19:52:28
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dkSst9u+40G/iH/jI4FmCQ
 
+=head2 delete_allowed_by
+
+Can the specified user delete the current Dataset?
+
+=cut
+
+sub delete_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('admin');
+}
+
+=head2 edit_allowed_by
+
+Can the specified user edit the current Dataset?
+
+=cut
+
+sub edit_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator');
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

@@ -1,10 +1,10 @@
 indicator: submit
 elements:
     - type: Text
-      name: system_name
-      label: System Name
+      name: application_name
+      label: Application Name
       attributes:
-        title: Enter System Name
+        title: Enter Application Name
         class: form-control
         autofocus: 1
       constraints:
@@ -14,11 +14,13 @@ elements:
           message: must be between 5 and 100 characters long
         - Required
 
-    - type: Select
-      name: application
-      label: Applicaiton
+    - type: Textarea
+      name: application_description
+      label: Application Description
       attributes:
+        title: Enter Application Description
         class: form-control
+        autofocus: 1
 
     - type: Select
       name: kpe_class
