@@ -6,5 +6,6 @@ use Test::More;
 use Catalyst::Test 'Catalogue';
 use Catalogue::Controller::Tasks;
 
-ok( request('/todolist')->is_redirect, 'Request should succeed' );
+ok( request('/task')->is_redirect, 'Redirect request for task' );
+
 done_testing();

@@ -19,7 +19,7 @@ Catalyst Controller.
 
 =head2 index
 
-/task/index path handler
+handle unfound methods in task controller
 
 =cut
 
