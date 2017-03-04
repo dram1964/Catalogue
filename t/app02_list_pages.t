@@ -36,9 +36,6 @@ $ua1->title_is("Table Columns",
 	"Check Columns List title");
 $ua1->content_contains("Systems</a>", "Check Columns list has link for Systems");
 
-$ua1->get_ok("http://localhost/classes/list", "'test01' classes list");
-$ua1->title_is("System Classifications", "Check System Classes title");
-
 $ua1->get_ok("http://localhost/tasks/list", "'test01' tasks list");
 $ua1->title_is("Project Task List", "Check Task List title");
 

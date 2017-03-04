@@ -24,7 +24,7 @@ $_->title_is("Metadata Catalogue Login", "Check for login title") for $ua1, $ua2
 $_->content_contains("Logout", "Logout link available") for $ua1, $ua2;
 
 $_->get_ok("http://localhost/logout", "Logout via URL") for $ua1, $ua2;
-$_->title_is("Metadata Catalogue Login", "Check for redirect to Login page") for $ua1, $ua2;
+$_->title_is("The Metadata Catalogue", "Check for redirect to Login page") for $ua1, $ua2;
 
 $ua1->get_ok("http://localhost/login?username=test01&password=mypass", "Log back in for ua1");
 $ua2->get_ok("http://localhost/login?username=test01&password=mypass", "Log back in for ua2");
