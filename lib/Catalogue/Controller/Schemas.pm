@@ -111,6 +111,8 @@ all databases
 sub edit_description :Chained('object') :PathPart('edit_description') :Args(0) 
 	:FormConfig {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $schema = $c->stash->{object};
     unless ($schema) {
@@ -144,6 +146,8 @@ selected database
 sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
 	:FormConfig('schemas/edit_description') {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $schema = $c->stash->{object};
     my $database = $schema->database;

@@ -126,6 +126,17 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-10 08:12:44
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nOPK9Bp/mC71qqFARv2Dhg
 
+=head2 edit_allowed_by
+
+Can the specified user edit the current Schema?
+
+=cut
+
+sub edit_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator');
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

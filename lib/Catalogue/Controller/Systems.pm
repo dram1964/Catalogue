@@ -90,6 +90,8 @@ Edit the object
 sub edit :Chained('object') :PathPart('edit') :Args(0) 
 	:FormConfig('systems/formfu_edit.yml') {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
     my $system = $c->stash->{object};
     my $application = $system->applications->first;
     my $kpe = $system->kpe;

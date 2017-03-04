@@ -89,6 +89,8 @@ Use HTML::FormFu to update description for table and return user to list of all 
 sub edit_description :Chained('object') :PathPart('edit_description') :Args(0) 
 	:FormConfig {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $table = $c->stash->{object};
     unless ($table) {
@@ -121,6 +123,8 @@ Use HTML::FormFu to update a schema description and return user to list of datab
 sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
 	:FormConfig('tables/edit_description.yml') {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $table = $c->stash->{object};
     my $schema = $table->schema;

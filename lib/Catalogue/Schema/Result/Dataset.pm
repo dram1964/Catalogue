@@ -95,6 +95,17 @@ sub delete_allowed_by {
   return $user->has_role('admin');
 }
 
+=head2 edit_allowed_by
+
+Can the specified user edit the current Dataset?
+
+=cut
+
+sub edit_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator');
+}
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
