@@ -58,4 +58,19 @@
     }
 }
  %]
+[% ELSIF dataset.id == 3 %]
+[% facts = {
+    population = {
+	ranges = { 
+            '0 to 10 years' = 0,
+	    '10 to 20 years' = 0, 
+	    '20 to 30 years' = 51,
+	    '30 to 40 years' = 600,
+	    '40 to 50 years' = 8310,
+	    '50 to 60 years' = 10000, 
+	    '60 to 70 years' = 20000,
+	}
+    }
+  }
+%]
 [% END %]

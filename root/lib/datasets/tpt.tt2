@@ -4,7 +4,6 @@
 	tptPie.myTitle = "Result Distribution";
         tptPie.id = "tptpiechart";
         tptPie.ranges = [];
-	tptPie.ranges.push(['Range', 'Value']);
 [% FOREACH tpt IN facts.tpt.ranges.keys.sort %]
 	tptPie.ranges.push(
 	  ['[% tpt %]', [% facts.tpt.ranges.$tpt %]]

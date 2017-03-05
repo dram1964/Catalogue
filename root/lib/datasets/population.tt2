@@ -4,7 +4,7 @@
 	populationPie.myTitle = "Age Distribution";
         populationPie.id = "populationpiechart";
         populationPie.ranges = [];
-	populationPie.ranges.push(['Age', 'Value']);
+	populationPie.ranges.push(['Age', 'Population']);
 [% FOREACH range IN facts.population.ranges.keys.sort %]
 	populationPie.ranges.push(
 	  ['[% range %]', [% facts.population.ranges.$range %]]

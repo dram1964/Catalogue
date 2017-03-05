@@ -1,7 +1,7 @@
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawPopulationBarChart);
 
-function drawChart() {
+function drawPopulationBarChart() {
 
 var data = google.visualization.arrayToDataTable(populationPie.ranges);
 

@@ -1,7 +1,7 @@
 google.charts.load('current', {'packages':['bar']});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawSamplesBarChart);
 
-function drawChart() {
+function drawSamplesBarChart() {
 
 var data = google.visualization.arrayToDataTable(samplePie.ranges);
 

@@ -1,3 +1,4 @@
+[% META charts = 1 %]
 [% facts = {}; %]
 [% PROCESS datasets/facts %]
 
