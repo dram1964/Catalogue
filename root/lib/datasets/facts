@@ -61,6 +61,31 @@
 [% ELSIF dataset.id == 3 %]
 [% facts = {
   dashboard = 1
-  }
+  hepatitis = [
+    ['hepA', 'male', 'acyclovir', 5]
+    ['hepA', 'female', 'acyclovir', 7]
+    ['hepA', 'male', 'semastavin', 8]
+    ['hepA', 'female', 'semastavin', 3]
+    ['hepA', 'male', 'postavirin', 8]
+    ['hepA', 'female', 'postavirin', 3]
+    ['hepB', 'male', 'acyclovir', 4]
+    ['hepB', 'female', 'acyclovir', 8]
+    ['hepB', 'male', 'semastavin', 4]
+    ['hepB', 'female', 'semastavin', 8]
+    ['hepB', 'male', 'postavirin', 4]
+    ['hepB', 'female', 'postavirin', 9]
+    ['hepC', 'male', 'acyclovir', 1]
+    ['hepC', 'female', 'acyclovir', 2]
+    ['hepC', 'male', 'semastavin', 7]
+    ['hepC', 'female', 'semastavin', 4]
+    ['hepC', 'male', 'postavirin', 5]
+    ['hepD', 'male', 'acyclovir', 5]
+    ['hepD', 'female', 'acyclovir', 7]
+    ['hepD', 'male', 'semastavin', 6]
+    ['hepD', 'female', 'semastavin', 6]
+    ['hepD', 'male', 'postavirin', 8]
+    ['hepD', 'female', 'postavirin',3]
+  ]
+}
 %]
 [% END %]
