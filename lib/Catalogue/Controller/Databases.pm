@@ -52,6 +52,7 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
     my $database_rs = $c->stash->{resultset}->search(
 	{-or => [
 		{'me.name' => {like => $search_term}},
+		{'me.description' => {like => $search_term}},
 		{'database_schemas.name' => {like => $search_term}},
 		{'database_schemas.description' => {like => $search_term}},
 		]
@@ -160,7 +161,6 @@ sub edit_current :Chained('object') :PathPart('edit_current') :Args(0)
 
 =head2 list_databases
 
-Fetch all database objects for a specified system from /databases/list_databases/? chain
 
 =cut
 

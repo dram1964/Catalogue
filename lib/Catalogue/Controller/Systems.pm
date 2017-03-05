@@ -48,9 +48,11 @@ Search for systems
 sub search :Chained('base') :PathPart('search') :Args(0) {
     my ($self, $c) = @_;
     my $search_term = "%" . $c->request->params->{search} . "%";
-    $c->log->debug("*** Searching for $search_term ***");
     my $system_rs = $c->stash->{resultset}->search(
-		{'me.name' => {like => $search_term}},
+		{-or => [{'name' => {like => $search_term}},
+			{'description' => {like => $search_term}},
+			]
+		}
     	);
     my $systems = [$system_rs->all];
     $c->stash(

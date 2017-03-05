@@ -53,6 +53,27 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
 }
 
+=head2 search
+
+Search for datasets
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    my $dataset_rs = $c->stash->{resultset}->search(
+		{-or => [{'name' => {like => $search_term}},
+			{'description' => {like => $search_term}},
+			]
+		}
+    	);
+    my $datasets = [$dataset_rs->all];
+    $c->stash(
+	datasets => $datasets,
+	template => 'datasets/list.tt2');
+}
+
 =head2 list 
 
 List all Datasets 

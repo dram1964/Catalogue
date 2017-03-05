@@ -55,15 +55,23 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
 =head2 list 
 
-List all Datasets 
+List all Applications 
 
 =cut
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
-    my $applications = [$c->stash->{resultset}->all];
+    my $page = $c->request->param('page') || 1;
+    my $query = $c->stash->{resultset}->search(
+    	{},
+    	{
+	rows => 30, 
+	page => $page});
+    my $applications = [$query->all];
+    my $pager = $query->pager;
     $c->stash(
 	applications => $applications,
+	pager => $pager,
 	template => 'applications/list.tt2');
 }
 
@@ -77,7 +85,19 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
     my ($self, $c) = @_;
     my $search_term = "%" . $c->request->params->{search} . "%";
     my $application_rs = $c->stash->{resultset}->search(
-		{'me.name' => {like => $search_term}},
+        {-or => [
+		  {'me.name' => {like => $search_term}},
+		  {'me.description' => {like => $search_term}},
+		  {'kpe.name' => {like => $search_term}},
+		  {'cat2.name' => {like => $search_term}},
+		  {'erid.name' => {like => $search_term}},
+		  {'supplier.name' => {like => $search_term}},
+                ]
+        },
+	{
+	 join => ['kpe', 'cat2', 'erid', 'supplier'],
+	 distinct => 1
+	}
     	);
     my $applications = [$application_rs->all];
     $c->stash(
@@ -111,15 +131,7 @@ sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
 
 =head2 edit
 
-Edit a application
-	my $supplier_select = $form->get_element({name => 'supplier'});
-	$supplier_select->options(\@suppliers);
-	$supplier_select->value($supplier->id) if $supplier;
-        my @erid_objs = $c->model('DB::Erid')->all();
-        my @erids;
-        foreach (sort @erid_objs) {
-	    push(@erids, [$_->id, $_->name]);
-	}
+Edit an application
 
 =cut
 
@@ -130,6 +142,7 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $application = $c->stash->{object};
+    my $system = $application->system;
     my $supplier = $application->supplier;
     my $kpe = $application->kpe;
     my $erid = $application->erid;
@@ -141,7 +154,16 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
     }
     my $form = $c->stash->{form};
     if ($form->submitted_and_valid) {
-	$form->model->update($application);
+        $application->update({
+		name => $c->request->params->{application_name},
+		description => $c->request->params->{application_description},
+		system_id => $application->system_id,
+		erid_id => $c->request->params->{erid},
+		kpe_id => $c->request->params->{kpe_class},
+		supplier_id => $c->request->params->{supplier},
+		cat2_id => $c->request->params->{category2},
+	}); 
+	#$form->model->update($application);
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_status_msg("Dataset updated")}));
 	$c->detach;
