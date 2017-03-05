@@ -20,3 +20,7 @@
 [% IF facts.tpt.ranges %]
   [% INCLUDE 'datasets/tpt.tt2' %]
 [% END %]
+
+[% IF facts.dashboard %]
+  [% INCLUDE 'datasets/vh_dashboard.tt2' %]
+[% END %]

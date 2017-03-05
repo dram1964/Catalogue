@@ -1,0 +1,14 @@
+<script type="text/javascript" src="[% site.url.js %]/vh_dashboard.js"> </script>
+
+    <!--Div that will hold the dashboard-->
+<div id="dashboard_div" class="row placeholders">
+
+      <!--Divs that will hold each control and chart-->
+    <div id="filter_div" class="col-xs-8 col-sm-4 placeholder">
+       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+    </div>
+
+    <div id="chart_div" class="col-xs-16 col-sm-8 placeholder">
+       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+    </div>
+</div>
