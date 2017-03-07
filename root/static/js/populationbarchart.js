@@ -3,13 +3,13 @@ google.charts.setOnLoadCallback(drawPopulationBarChart);
 
 function drawPopulationBarChart() {
 
-var data = google.visualization.arrayToDataTable(populationPie.ranges);
+var data = google.visualization.arrayToDataTable(populationBar.ranges);
 
 var options = {
-  title: populationPie.myTitle
+  title: populationBar.myTitle
 };
 
-var chart = new google.visualization.ColumnChart(document.getElementById(populationPie.id));
+var chart = new google.visualization.ColumnChart(document.getElementById(populationBar.id));
 
 chart.draw(data, options);
 }

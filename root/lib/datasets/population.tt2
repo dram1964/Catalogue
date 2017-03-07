@@ -1,19 +1,19 @@
     <script type="text/javascript" src="[% site.url.js %]/populationbarchart.js"> </script>
 <script>
-        var populationPie = {};
-	populationPie.myTitle = "Age Distribution";
-        populationPie.id = "populationpiechart";
-        populationPie.ranges = [];
-	populationPie.ranges.push(['Age', 'Population']);
+        var populationBar = {};
+	populationBar.myTitle = "Age Distribution";
+        populationBar.id = "populationbarchart";
+        populationBar.ranges = [];
+	populationBar.ranges.push(['Age', 'Population']);
 [% FOREACH range IN facts.population.ranges.keys.sort %]
-	populationPie.ranges.push(
+	populationBar.ranges.push(
 	  ['[% range %]', [% facts.population.ranges.$range %]]
 	);
 [% END %]
 </script>
 
 <div class="row placeholders">
-            <div class="col-xs-8 col-sm-4 placeholder">
+            <div class="col-xs-12 col-sm-6 placeholder">
 <h2 class="sub-header">Population</h2>
 [% rangetotal = 0; 
    FOREACH range IN facts.population.ranges.keys %]
@@ -42,7 +42,7 @@
 </div>
             </div>
 
-            <div id="populationpiechart" class="col-xs-16 col-sm-8 placeholder">
+            <div id="populationbarchart" class="col-xs-12 col-sm-6 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
             </div>
 </div>

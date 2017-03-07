@@ -13,7 +13,7 @@ function drawDashboard() {
 	  'controlType': 'CategoryFilter',
 	  'containerId': 'virus_filter_div',
 	  'options' : {
-	    'filterColumnLabel': 'Virus'
+	    'filterColumnLabel': 'Virus',
 	  }
 	});
 
@@ -25,26 +25,25 @@ function drawDashboard() {
 	  }
 	});
 
-	var drugFilter = new google.visualization.ControlWrapper({
-	  'controlType': 'CategoryFilter',
-	  'containerId': 'drug_filter_div',
-	  'options' : {
-	    'filterColumnLabel': 'Drug'
-	  }
-	});
-
 	var pieChart = new google.visualization.ChartWrapper({
 	  'chartType': 'PieChart',
-	  'containerId': 'chart_div',
+	  'containerId': 'piechart_div',
 	  'options': {
-	    'width': 600,
-	    'height': 600,
-	    'pieSliceText': 'value',
-	    'legend': 'left'
-	  }, 'view' : {'columns' : [0,3]}
+            'is3D': true,
+	    'pieSliceText': 'percentage',
+	    'legend': 'none'
+	  }, 'view' : {'columns' : [0,2]}
 	});
 
-	dashboard.bind([virusFilter, drugFilter, genderFilter], pieChart);
+	var tableChart = new google.visualization.ChartWrapper({
+	  'chartType': 'Table',
+	  'containerId': 'tablechart_div',
+	  'options': {
+	  }, 'view' : {'columns' : [0, 1, 2]}
+	});
+
+	dashboard.bind([virusFilter, genderFilter], 
+		[pieChart, tableChart] );
 
 	dashboard.draw(data);
 }

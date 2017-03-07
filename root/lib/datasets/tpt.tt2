@@ -12,7 +12,7 @@
 </script>
 
 <div class="row placeholders">
-            <div class="col-xs-8 col-sm-4 placeholder">
+    <div class="col-xs-12 col-sm-6 placeholder">
 [% tpttotal = 0; 
    FOREACH range IN facts.tpt.ranges.keys %]
 	[% $tpttotal = $tpttotal + facts.tpt.ranges.$range;
@@ -40,9 +40,9 @@
     </tbody>
   </table>
 </div>
-            </div>
+    </div>
 
-            <div id="tptpiechart" class="col-xs-16 col-sm-8 placeholder">
+    <div id="tptpiechart" class="col-xs-12 col-sm-6 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
-            </div>
+    </div>
 </div>

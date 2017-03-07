@@ -1,3 +1,5 @@
+<div class="row placeholders">
+    <div class="col-xs-24 col-sm-12 placeholder">
 <h2 class="sub-header">Cardiology Data</h2>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -22,4 +24,6 @@
 [% END %]
     </tbody>
   </table>
+</div>
+    </div>
 </div>
