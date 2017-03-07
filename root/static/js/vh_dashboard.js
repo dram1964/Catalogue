@@ -3,16 +3,8 @@ google.charts.load('current', {'packages':['corechart', 'controls']});
 google.charts.setOnLoadCallback(drawDashboard);
 
 function drawDashboard() {
-	var data = google.visualization.arrayToDataTable([
-	  ['Name', 'Donuts eaten'],
-	  ['Michael' , 5],
-	  ['Elisa', 7],
-	  ['Robert', 3],
-	  ['John', 2],
-	  ['Jessica', 6],
-	  ['Aaron', 1],
-	  ['Margareth', 8]
-	]);
+	var data = google.visualization.arrayToDataTable(
+	  vh_data.table);
 
 	var dashboard = new google.visualization.Dashboard(
 	    document.getElementById('dashboard_div'));
@@ -21,7 +13,7 @@ function drawDashboard() {
 	  'controlType': 'NumberRangeFilter',
 	  'containerId': 'filter_div',
 	  'options': {
-	    'filterColumnLabel': 'Donuts eaten'
+	    'filterColumnLabel': 'Population'
 	  }
 	});
 
