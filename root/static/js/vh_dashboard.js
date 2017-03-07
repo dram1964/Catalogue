@@ -9,11 +9,27 @@ function drawDashboard() {
 	var dashboard = new google.visualization.Dashboard(
 	    document.getElementById('dashboard_div'));
 
-	var donutRangeSlider = new google.visualization.ControlWrapper({
-	  'controlType': 'NumberRangeFilter',
-	  'containerId': 'filter_div',
-	  'options': {
-	    'filterColumnLabel': 'Population'
+	var virusFilter = new google.visualization.ControlWrapper({
+	  'controlType': 'CategoryFilter',
+	  'containerId': 'virus_filter_div',
+	  'options' : {
+	    'filterColumnLabel': 'Virus'
+	  }
+	});
+
+	var genderFilter = new google.visualization.ControlWrapper({
+	  'controlType': 'CategoryFilter',
+	  'containerId': 'gender_filter_div',
+	  'options' : {
+	    'filterColumnLabel': 'Gender'
+	  }
+	});
+
+	var drugFilter = new google.visualization.ControlWrapper({
+	  'controlType': 'CategoryFilter',
+	  'containerId': 'drug_filter_div',
+	  'options' : {
+	    'filterColumnLabel': 'Drug'
 	  }
 	});
 
@@ -21,19 +37,15 @@ function drawDashboard() {
 	  'chartType': 'PieChart',
 	  'containerId': 'chart_div',
 	  'options': {
-	    'width': 300,
-	    'height': 300,
+	    'width': 600,
+	    'height': 600,
 	    'pieSliceText': 'value',
-	    'legend': 'right'
-	  }
+	    'legend': 'left'
+	  }, 'view' : {'columns' : [0,3]}
 	});
 
-	// Establish dependencies, declaring that 'filter' drives 'pieChart',
-	// so that the pie chart will only display entries that are let through
-	// given the chosen slider range.
-	dashboard.bind(donutRangeSlider, pieChart);
+	dashboard.bind([virusFilter, drugFilter, genderFilter], pieChart);
 
-	// Draw the dashboard.
 	dashboard.draw(data);
 }
 

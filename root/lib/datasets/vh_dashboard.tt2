@@ -1,10 +1,10 @@
 <script type="text/javascript" src="[% site.url.js %]/vh_dashboard.js"> </script>
 <script>
   var vh_data = {};
-  vh_data.table = [ ['Virus', 'Population']];
+  vh_data.table = [ ['Virus', 'Gender', 'Drug', 'Population']];
 [% FOREACH fact IN facts.hepatitis %]
 	vh_data.table.push(
-		['[% fact.0 %]', [% fact.3 %]]);
+		['[% fact.0 %]', '[% fact.1 %]', '[% fact.2 %]', [% fact.3 %]]);
 [% END %]
 </script>
     <!--Div that will hold the dashboard-->
@@ -12,10 +12,8 @@
 
       <!--Divs that will hold each control and chart-->
 
-    <div id="chart_div" class="col-xs-16 col-sm-8 placeholder">
-       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="800" height="600" class="img-responsive" alt="Generic placeholder thumbnail">
-    </div>
-    <div id="filter_div" class="col-xs-8 col-sm-4 placeholder">
-       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-    </div>
+    <div id="virus_filter_div"> </div>
+    <div id="drug_filter_div"> </div>
+    <div id="gender_filter_div"> </div>
+    <div id="chart_div"> </div>
 </div>
