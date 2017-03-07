@@ -1,36 +1,12 @@
 [% META charts = 1 %]
+
 <p>this is the datasets explore json template</p>
-[% FOREACH fact IN dataset.dataset_facts.fact %]
-	<p>Fact: [% fact %]</p>
-	[% USE JSON %]
-	[% data = JSON.json_decode(fact) %]
-	<p>Data: [% data %]</p>
-<script>
-var data = [% fact %];
-var ranges = data.ranges;
-</script>
+[% FOREACH dataset_fact IN dataset.dataset_facts %]
+
+  [% IF dataset_fact.fact_type == 'population' %]
+    [% INCLUDE 'datasets/json_population.tt2' %]
+  [% END %]
 
 [% END %]
-<div id="populationBar" placeholder></div>
+<div id="population_column_chart_div" placeholder></div>
 
-<script type="text/javascript"> 
-  google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawPopulationBarChart);
-
-    function drawPopulationBarChart() {
-
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Age Range');
-    data.addColumn('number', 'Population');
-    data.addRows(ranges);
-
-    var options = {
-      title: 'Bar Chart Title'
-    };
-
-    var chart = new google.visualization.ColumnChart(document.getElementById('populationBar'));
-
-    chart.draw(data, options);
-  }
-
-</script>
