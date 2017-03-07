@@ -164,6 +164,25 @@ sub explore :Chained('object') :PathPart('explore') :Args(0) {
     );
 }
 
+=head2 explore_json
+
+Explore the selected dataset
+
+=cut
+
+sub explore_json :Chained('object') :PathPart('explore_json') :Args(0) {
+    my ($self, $c) = @_;
+    my $dataset = $c->stash->{object};
+    my $datasets = [$c->stash->{resultset}->all];
+    my $facts = [$c->stash->{object}->dataset_facts->all];
+    $c->stash(
+	datasets => $datasets,
+	dataset => $dataset,
+	facts => $facts,
+	template => 'datasets/explore_json.tt2'
+    );
+}
+
 
 =head2 delete
 

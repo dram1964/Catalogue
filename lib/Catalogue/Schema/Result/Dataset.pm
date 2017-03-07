@@ -80,9 +80,26 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-19 08:04:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:claLjkzgU1e0r7zequZNfQ
+=head2 dataset_facts
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::DatasetFact>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dataset_facts",
+  "Catalogue::Schema::Result::DatasetFact",
+  { "foreign.dataset_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-07 14:17:07
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jmcT4XjiwRszswWhmAa2uA
 
 =head2 delete_allowed_by
 
