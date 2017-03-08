@@ -1,12 +1,15 @@
 [% META charts = 1 %]
 
 <p>this is the datasets explore json template</p>
-[% FOREACH dataset_fact IN dataset.dataset_facts %]
+[% FOREACH item IN facts %]
 
-  [% IF dataset_fact.fact_type == 'population' %]
+  [% IF item.fact_type == 'population' %]
     [% INCLUDE 'datasets/json_population.tt2' %]
   [% END %]
 
+  [% IF item.fact_type == 'sample_types' %]
+    [% INCLUDE 'datasets/json_sample_types.tt2' %]
+  [% END %]
+
 [% END %]
-<div id="population_column_chart_div" placeholder></div>
 

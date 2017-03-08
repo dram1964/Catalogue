@@ -1,29 +1,18 @@
 google.charts.load('current', {'packages':['corechart', 'controls']});
-
 google.charts.setOnLoadCallback(drawDashboard);
 
 function drawDashboard() {
-	var data = google.visualization.arrayToDataTable( vh_data.table);
-
 	var dashboard = new google.visualization.Dashboard(
 	    document.getElementById('dashboard_div'));
+	var data = google.visualization.arrayToDataTable(types);
 
-	var virusFilter = new google.visualization.ControlWrapper({
+	var typeFilter = new google.visualization.ControlWrapper({
 	  'controlType': 'CategoryFilter',
-	  'containerId': 'virus_filter_div',
+	  'containerId': 'type_filter_div',
 	  'options' : {
-	    'filterColumnLabel': 'Virus',
+	    'filterColumnLabel': 'Sample Type',
 	  }
 	});
-
-	var genderFilter = new google.visualization.ControlWrapper({
-	  'controlType': 'CategoryFilter',
-	  'containerId': 'gender_filter_div',
-	  'options' : {
-	    'filterColumnLabel': 'Gender'
-	  }
-	});
-
 	var pieChart = new google.visualization.ChartWrapper({
 	  'chartType': 'PieChart',
 	  'containerId': 'piechart_div',
@@ -31,19 +20,18 @@ function drawDashboard() {
             'is3D': true,
 	    'pieSliceText': 'percentage',
 	    'legend': 'none'
-	  }, 'view' : {'columns' : [0,2]}
+	  }, 'view' : {'columns' : [0,1]}
 	});
 
 	var tableChart = new google.visualization.ChartWrapper({
 	  'chartType': 'Table',
 	  'containerId': 'tablechart_div',
 	  'options': {
-	  }, 'view' : {'columns' : [0, 1, 2]}
+	  }, 'view' : {'columns' : [0, 1]}
 	});
 
-	dashboard.bind([virusFilter, genderFilter], 
-		[pieChart, tableChart] );
+	dashboard.bind(typeFilter, [pieChart, tableChart] );
 
 	dashboard.draw(data);
-}
 
+}

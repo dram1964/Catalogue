@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['corechart', 'controls']});
 google.charts.setOnLoadCallback(drawPopulationBarChart);
 
 function drawPopulationBarChart() {

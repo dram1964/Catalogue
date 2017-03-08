@@ -1,7 +1,10 @@
 <script type="text/javascript" 
   src="[% site.url.js %]/json_population_column_chart.js"> </script>
 <script>
-  var data = [% dataset_fact.fact %];
+  var data = [% item.fact %];
   var ranges = data.ranges;
-  var title = 'Population Distribution';
+  var populationTitle = 'Population Distribution';
 </script>
+
+<div id="population_column_chart_div" placeholder></div>
+<div id="population_tablechart_div" placeholder></div>

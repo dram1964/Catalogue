@@ -1,0 +1,14 @@
+<script type="text/javascript" 
+  src="[% site.url.js %]/json_sample_type_piechart.js"> </script>
+<script>
+  var data = [% item.fact %];
+  var types = data.types;
+  types.unshift(['Sample Type', 'Samples']);
+  var title = 'Sample Types';
+</script>
+
+<div id="dashboard_div">
+<div id="type_filter_div"></div>
+<div id="piechart_div"></div>
+<div id="tablechart_div"></div>
+</div>
