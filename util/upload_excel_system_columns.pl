@@ -8,7 +8,7 @@ use Text::Iconv;
 
 my $converter = Text::Iconv->new("utf-8", "windows-1251");
 
-my $excel = Spreadsheet::XLSX->new('/home/dr00/Catalogue/data/EPMA table catalogues.xlsx', $converter);
+my $excel = Spreadsheet::XLSX->new('/home/dr00/Catalogue/data/TOMCAT_schema_dump.xlsx', $converter);
 
 my $hic = $excel->{Worksheet}->[0];
 my $system_name = $hic->{Name};
@@ -26,7 +26,7 @@ my $test_run = 1;
 sub load_data {
 	my $data;
 	my $rows = $test_run ? 5 : $row_max;
-	for my $row (1..$rows ) {
+	for my $row (0..$rows ) {
     	my @record;
     	for my $col ( $col_min .. $col_max ) {
 			my $cell = $hic->get_cell( $row, $col );
@@ -38,8 +38,8 @@ sub load_data {
 			'schema_name' => $record[2],
 			'table_name' => $record[3],
 			'column_name' => $record[4],
-			'column_type' => $record[8],
-			'column_size' => $record[9],
+			'column_type' => $record[7],
+			'column_size' => $record[8],
     	};
 		my $import = Catalogue::Systems::Importer->new($data);
 		print join(":", "($row of $row_max)", $data->{system_name}, 
