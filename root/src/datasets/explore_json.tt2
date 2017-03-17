@@ -1,6 +1,8 @@
 [% META charts = 1 %]
 
 <p>this is the datasets explore json template</p>
+<h1>Showing Dataset information for [% dataset.name %]</h1>
+<p class="lead">Description: [% dataset.description %]</p>
 [% FOREACH item IN facts %]
 
   [% IF item.fact_type == 'population' %]

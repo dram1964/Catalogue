@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages':['corechart', 'controls']});
+google.charts.load('current', {'packages':['corechart','table', 'controls']});
     google.charts.setOnLoadCallback(drawPopulationBarChart);
 
     function drawPopulationBarChart() {
@@ -13,7 +13,9 @@ google.charts.load('current', {'packages':['corechart', 'controls']});
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('population_column_chart_div'));
+    var table = new google.visualization.Table(document.getElementById('table_chart_div'));
 
     chart.draw(data, options);
+    table.draw(data, options);
 }
 

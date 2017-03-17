@@ -5,6 +5,12 @@
   var ranges = data.ranges;
   var populationTitle = 'Population Distribution';
 </script>
-
-<div id="population_column_chart_div" placeholder></div>
-<div id="population_tablechart_div" placeholder></div>
+<p class="lead">Population Data</p>
+<div class="row placeholders">
+  <div id="table_chart_div" class="col-xs-8 col-sm-4 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+  </div>
+  <div id="population_column_chart_div" class="col-xs-16 col-sm-8 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+  </div>
+</div>
