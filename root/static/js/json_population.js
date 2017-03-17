@@ -12,10 +12,16 @@ google.charts.load('current', {'packages':['corechart','table', 'controls']});
       title: populationTitle
     };
 
+    var tableOptions = {
+      title: populationTitle,
+      width: '100%',
+      height: '100%',
+    };
+
     var chart = new google.visualization.ColumnChart(document.getElementById('population_column_chart_div'));
     var table = new google.visualization.Table(document.getElementById('table_chart_div'));
 
     chart.draw(data, options);
-    table.draw(data, options);
+    table.draw(data, tableOptions);
 }
 

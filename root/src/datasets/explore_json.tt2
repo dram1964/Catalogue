@@ -13,5 +13,10 @@
     [% INCLUDE 'datasets/json_sample_types.tt2' %]
   [% END %]
 
+  [% IF item.fact_type == 'sample_specialties' %]
+    [% INCLUDE 'datasets/json_sample_specialties.tt2' %]
+  [% END %]
+
+
 [% END %]
 

@@ -1,5 +1,5 @@
 <script type="text/javascript" 
-  src="[% site.url.js %]/json_sample_type_piechart.js"> </script>
+  src="[% site.url.js %]/json_sample_types.js"> </script>
 <script>
   var data = [% item.fact %];
   var types = data.types;
@@ -7,8 +7,13 @@
   var title = 'Sample Types';
 </script>
 
-<div id="dashboard_div">
-<div id="type_filter_div"></div>
-<div id="piechart_div"></div>
-<div id="tablechart_div"></div>
+<p class="lead">Sample Type Data</p>
+<div id="type_dashboard_div" class="row placeholders">
+  <div id="type_filter_div" class="col-xs-24 col-sm-12 placeholder"></div>
+  <div id="type_tablechart_div" class="col-xs-8 col-sm-4 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+  </div>
+  <div id="type_piechart_div" class="col-xs-16 col-sm-8 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+  </div>
 </div>
