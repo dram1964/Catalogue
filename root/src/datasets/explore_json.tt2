@@ -17,6 +17,10 @@
     [% INCLUDE 'datasets/json_sample_specialties.tt2' %]
   [% END %]
 
+  [% IF item.fact_type == 'tpt' %]
+    [% INCLUDE 'datasets/json_tpt.tt2' %]
+  [% END %]
+
 
 [% END %]
 
