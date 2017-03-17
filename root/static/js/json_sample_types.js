@@ -1,4 +1,3 @@
-google.charts.load('current', {'packages':['corechart', 'controls']});
 google.charts.setOnLoadCallback(typeDashboard);
 
 function typeDashboard() {

@@ -1,7 +1,6 @@
-google.charts.load('current', {'packages':['corechart','table', 'controls']});
-    google.charts.setOnLoadCallback(drawPopulationBarChart);
+google.charts.setOnLoadCallback(drawPopulationBarChart);
 
-    function drawPopulationBarChart() {
+function drawPopulationBarChart() {
 
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Age Range');
@@ -24,4 +23,3 @@ google.charts.load('current', {'packages':['corechart','table', 'controls']});
     chart.draw(data, options);
     table.draw(data, tableOptions);
 }
-

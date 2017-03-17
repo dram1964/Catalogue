@@ -14,6 +14,10 @@
     <![endif]-->
 [% IF template.charts %]
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" 
+  src="[% site.url.js %]/load_chart_packages.js"> </script>
+<script>
+</script>
 [% END %]
  </head>
  <body>
