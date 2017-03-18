@@ -63,11 +63,12 @@ JSON_OBJECT("ranges" ,
 ));
 
 INSERT INTO dataset_facts VALUES (
-2, 'angio', JSON_OBJECT("total" , 12000 )
-);
-
-INSERT INTO dataset_facts VALUES (
-2, 'ecg', JSON_OBJECT("total" , 8000 )
+2, 'cardio', JSON_OBJECT( "tasks", 
+    JSON_OBJECT(
+      "Angiogram", 12000, 
+      "Echocardiogram", 8000
+    )
+  )
 );
 
 INSERT INTO dataset_facts VALUES (

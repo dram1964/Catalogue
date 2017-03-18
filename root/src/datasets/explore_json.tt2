@@ -17,8 +17,16 @@
     [% INCLUDE 'datasets/json_sample_specialties.tt2' %]
   [% END %]
 
+  [% IF item.fact_type == 'cardio' %]
+    [% INCLUDE 'datasets/json_cardiology.tt2' %]
+  [% END %]
+
   [% IF item.fact_type == 'tpt' %]
     [% INCLUDE 'datasets/json_tpt.tt2' %]
+  [% END %]
+
+  [% IF item.fact_type == 'hepatitis' %]
+    [% INCLUDE 'datasets/json_vh.tt2' %]
   [% END %]
 
 
