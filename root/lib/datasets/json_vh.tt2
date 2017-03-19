@@ -5,7 +5,7 @@
 [% USE Dumper; Dumper.dump(data) %]
 
 
-<script type="text/javascript" src="[% site.url.js %]/vh_dashboard.js"> </script>
+<script type="text/javascript" src="[% site.url.js %]/json_vh_dashboard.js"> </script>
 <script>
   var vh_data = {};
   vh_data.table = [ ['Virus', 'Gender', 'Population']];
