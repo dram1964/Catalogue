@@ -1,17 +1,6 @@
-[% USE JSON; 
-  data = JSON.json_decode(item.fact);
-  type = item.fact_type;
-%]
-
-
 <script type="text/javascript" src="[% site.url.js %]/json_vh_dashboard.js"> </script>
 <script>
-  var vh_data = {};
-  vh_data.table = [ ['Virus', 'Gender', 'Population']];
-[% FOREACH virus IN data.dashboard %]
-	vh_data.table.push(
-		['[% virus.0 %]', '[% virus.1 %]', [% virus.2 %]]);
-[% END %]
+ var vh_data = [% item.fact %];
 </script>
 
 

@@ -87,6 +87,7 @@ INSERT INTO dataset_facts VALUES (
 3, 'hepatitis',
 JSON_OBJECT("dashboard" , 
   JSON_ARRAY(
+    JSON_ARRAY("Virus", "Gender", "Population"),
     JSON_ARRAY("HepA", "male", 25),
     JSON_ARRAY("HepA", "female", 17),
     JSON_ARRAY("HepB", "male", 24),
