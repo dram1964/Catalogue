@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(typeDashboard);
 function typeDashboard() {
 	var typeDashboard = new google.visualization.Dashboard(
 	    document.getElementById('type_dashboard_div'));
-	var typeData = google.visualization.arrayToDataTable(types);
+	var typeData = google.visualization.arrayToDataTable(sampleTypeFact.types);
 
 	var typeFilter = new google.visualization.ControlWrapper({
 	  'controlType': 'CategoryFilter',

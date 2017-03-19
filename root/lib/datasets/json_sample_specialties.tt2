@@ -1,9 +1,8 @@
 <script type="text/javascript" 
   src="[% site.url.js %]/json_sample_specialties.js"> </script>
 <script>
-  var data = [% item.fact %];
-  var specialties = data.specialties;
-  specialties.unshift(['Specialty', 'Samples']);
+  var sampleSpecFact = [% item.fact %];
+  sampleSpecFact.specialties.unshift(['Specialty', 'Samples']);
   var title = 'Pathology Specialties';
 </script>
 

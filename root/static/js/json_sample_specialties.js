@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(specDashboard);
 function specDashboard() {
 	var specDashboard = new google.visualization.Dashboard(
 	    document.getElementById('spec_dashboard_div'));
-	var spec_data = google.visualization.arrayToDataTable(specialties);
+	var spec_data = google.visualization.arrayToDataTable(sampleSpecFact.specialties);
 
 	var specTypeFilter = new google.visualization.ControlWrapper({
 	  'controlType': 'CategoryFilter',

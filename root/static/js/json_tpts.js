@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(tptDashboard);
 function tptDashboard() {
 	var tptDashboard = new google.visualization.Dashboard(
 	    document.getElementById('tpt_dashboard_div'));
-	var tpt_data = google.visualization.arrayToDataTable(tptRanges);
+	var tpt_data = google.visualization.arrayToDataTable(tptFact.ranges);
 
 	var tptTypeFilter = new google.visualization.ControlWrapper({
 	  'controlType': 'CategoryFilter',

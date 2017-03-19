@@ -1,7 +1,7 @@
 google.charts.setOnLoadCallback(vhDashboard);
 
 function vhDashboard() {
-	var data = google.visualization.arrayToDataTable( vh_data.dashboard);
+	var data = google.visualization.arrayToDataTable( vhData.dashboard);
 
 	var dashboard = new google.visualization.Dashboard(
 	    document.getElementById('dashboard_div'));

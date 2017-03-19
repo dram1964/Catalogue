@@ -1,9 +1,8 @@
 <script type="text/javascript" 
   src="[% site.url.js %]/json_sample_types.js"> </script>
 <script>
-  var data = [% item.fact %];
-  var types = data.types;
-  types.unshift(['Sample Type', 'Samples']);
+  var sampleTypeFact = [% item.fact %];
+  sampleTypeFact.types.unshift(['Sample Type', 'Samples']);
   var title = 'Sample Types';
 </script>
 

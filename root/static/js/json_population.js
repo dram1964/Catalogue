@@ -5,7 +5,7 @@ function drawPopulationBarChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Age Range');
     data.addColumn('number', 'Population');
-    data.addRows(ranges);
+    data.addRows(fact.ranges);
 
     var options = {
       title: populationTitle

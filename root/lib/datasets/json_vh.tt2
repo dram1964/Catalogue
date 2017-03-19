@@ -1,6 +1,6 @@
 <script type="text/javascript" src="[% site.url.js %]/json_vh_dashboard.js"> </script>
 <script>
- var vh_data = [% item.fact %];
+ var vhData = [% item.fact %];
 </script>
 
 

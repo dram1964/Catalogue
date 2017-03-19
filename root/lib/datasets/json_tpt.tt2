@@ -1,9 +1,8 @@
 <script type="text/javascript" 
   src="[% site.url.js %]/json_tpts.js"> </script>
 <script>
-  var data = [% item.fact %];
-  var tptRanges = data.ranges;
-  tptRanges.unshift(['Range', 'Samples']);
+  var tptFact = [% item.fact %];
+  tptFact.ranges.unshift(['Range', 'Samples']);
   var title = 'TPT Ranges';
 </script>
 

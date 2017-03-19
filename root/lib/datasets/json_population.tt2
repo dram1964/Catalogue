@@ -1,8 +1,7 @@
 <script type="text/javascript" 
   src="[% site.url.js %]/json_population.js"> </script>
 <script>
-  var data = [% item.fact %];
-  var ranges = data.ranges;
+  var fact = [% item.fact %];
   var populationTitle = 'Age Distribution';
 </script>
 <p class="lead">Population Data</p>
