@@ -4,7 +4,7 @@
 [% IF datasets %]
 	<li><ul>
   [% FOREACH dataset IN datasets %]
-		<li><a href="[% c.uri_for(c.controller.action_for('explore'), [dataset.id]) %]">[% dataset.name %]</a></li>
+		<li><a href="[% c.uri_for(c.controller.action_for('explore_json'), [dataset.id]) %]">[% dataset.name %]</a></li>
   [% END %]
 	</ul></li>
 [% END %]

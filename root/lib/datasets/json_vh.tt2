@@ -2,7 +2,6 @@
   data = JSON.json_decode(item.fact);
   type = item.fact_type;
 %]
-[% USE Dumper; Dumper.dump(data) %]
 
 
 <script type="text/javascript" src="[% site.url.js %]/json_vh_dashboard.js"> </script>
