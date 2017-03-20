@@ -33,6 +33,7 @@ requires 'MooseX::NonMoose';
 requires 'DBIx::Class::TimeStamp';
 requires 'DBD::mysql';
 requires 'namespace::autoclean';
+requires 'DateTime::Format::MySQL';
 requires 'Config::General'; # This should reflect the config file format you've chosen
 requires 'Perl6::Junction';
                  # See Catalyst::Plugin::ConfigLoader for supported formats
