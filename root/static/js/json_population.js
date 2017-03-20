@@ -7,6 +7,9 @@ function drawPopulationBarChart() {
     data.addColumn('number', 'Population');
     data.addRows(fact.ranges);
 
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1]);
+
     var options = {
       title: populationTitle
     };
@@ -17,9 +20,15 @@ function drawPopulationBarChart() {
       height: '100%',
     };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById('population_column_chart_div'));
     var table = new google.visualization.Table(document.getElementById('table_chart_div'));
+    table.draw(view, tableOptions);
 
-    chart.draw(data, options);
-    table.draw(data, tableOptions);
+    var chart = new google.visualization.ColumnChart(document.getElementById('population_column_chart_div'));
+    chart.draw(view, options);
+
+   google.visualization.events.addListener(table, 'sort', 
+     function(event) {
+       data.sort([{column: event.column, desc: !event.ascending}]);
+       chart.draw(view, options);
+     });
 }

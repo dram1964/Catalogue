@@ -52,7 +52,7 @@ INSERT INTO dataset_facts VALUES (
 JSON_OBJECT("ranges" , 
   JSON_ARRAY( 
    JSON_ARRAY("0 to 10", 0), 
-   JSON_ARRAY("10 TO 20", 0), 
+   JSON_ARRAY("10 to 20", 0), 
    JSON_ARRAY("20 to 30", 51), 
    JSON_ARRAY("30 to 40", 600),
    JSON_ARRAY("40 to 50", 8310),
@@ -104,7 +104,7 @@ INSERT INTO dataset_facts VALUES (
 JSON_OBJECT("ranges" , 
   JSON_ARRAY( 
    JSON_ARRAY("0 to 10", 10000), 
-   JSON_ARRAY("10 TO 20", 20000), 
+   JSON_ARRAY("10 to 20", 20000), 
    JSON_ARRAY("20 to 30", 30000), 
    JSON_ARRAY("30 to 40", 40000),
    JSON_ARRAY("40 to 50", 50000),
