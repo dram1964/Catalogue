@@ -1,0 +1,5 @@
+    <script type="text/javascript" src="[% site.url.js %]/pathorgchart.js"> </script>
+
+<div id="path_org_chart" placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="400" height="400" class="img-responsive" alt="Generic placeholder thumbnail">
+</div>
