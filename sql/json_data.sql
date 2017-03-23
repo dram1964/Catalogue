@@ -113,3 +113,18 @@ JSON_OBJECT("ranges" ,
    JSON_ARRAY("70 or more", 80000)
   ) 
 ));
+
+INSERT INTO dataset_facts VALUES (
+1, 'orgchart', 
+JSON_OBJECT("tree", 
+  JSON_ARRAY(
+    JSON_ARRAY("Sample", "", "A specimen collected from a patient"),
+    JSON_ARRAY("Sample Number", "Sample", "Unique identifier for the specimen"),
+    JSON_ARRAY("Collect Date", "Sample", "When the sample was collected"),
+    JSON_ARRAY("Order", "Sample", "What Pathology Tests were ordered"),
+    JSON_ARRAY("Order Code", "Order", "Local Code for each order"),
+    JSON_ARRAY("Test", "Order Code", "Analytes to be tested for"),
+    JSON_ARRAY("Result", "Test", "Value obtained for Test"),
+    JSON_ARRAY("Result Date", "Test", "Date Result value obtained")
+  )
+));

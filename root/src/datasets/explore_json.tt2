@@ -4,6 +4,10 @@
 <p class="lead">Description: [% dataset.description %]</p>
 [% FOREACH item IN facts %]
 
+  [% IF item.fact_type == 'orgchart' %]
+    [% INCLUDE 'datasets/pathorgchart.tt2' %]
+  [% END %]
+
   [% IF item.fact_type == 'population' %]
     [% INCLUDE 'datasets/json_population.tt2' %]
   [% END %]
@@ -31,4 +35,3 @@
 
 [% END %]
 
-[% INCLUDE 'datasets/pathorgchart.tt2' %]
