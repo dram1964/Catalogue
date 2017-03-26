@@ -5,7 +5,7 @@
 [% FOREACH item IN facts %]
 
   [% IF item.fact_type == 'orgchart' %]
-    [% INCLUDE 'datasets/pathorgchart.tt2' %]
+    [% INCLUDE 'datasets/orgchart.tt2' %]
   [% END %]
 
   [% IF item.fact_type == 'population' %]

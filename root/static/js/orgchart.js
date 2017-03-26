@@ -1,6 +1,6 @@
-google.charts.setOnLoadCallback(pathOrgChart);
+google.charts.setOnLoadCallback(orgChart);
 
-function pathOrgChart() {
+function orgChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Name');
   data.addColumn('string', 'Parent');
@@ -8,6 +8,6 @@ function pathOrgChart() {
   
   data.addRows(orgchart.tree);
 
-  var chart = new google.visualization.OrgChart(document.getElementById('path_org_chart'));
+  var chart = new google.visualization.OrgChart(document.getElementById('org_chart'));
   chart.draw(data);
 }

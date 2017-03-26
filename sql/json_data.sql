@@ -118,39 +118,26 @@ INSERT INTO dataset_facts VALUES (
 1, 'orgchart', 
 JSON_OBJECT("tree", 
   JSON_ARRAY(
-    JSON_ARRAY("accnumber", "ptnumber", "Accession Number: Unique identifier for a sample"),
     JSON_ARRAY("ptnumber", "", "Patient Number: Unique identifier for a patient"),
-    JSON_ARRAY("ptname", "ptnumber", "Patient Name: Name of patient providing the sample"),
-    JSON_ARRAY("ptloc", "ptnumber", "Patient Location: Code for location of patient at sample collection"),
-    JSON_ARRAY("ptsex", "ptnumber", "Patient Gender"),
-    JSON_ARRAY("birthdate", "ptnumber", "Patient Gender"),
-    JSON_ARRAY("collectdate", "accnumber", "Date sample collected"),
-    JSON_ARRAY("collectime", "accnumber", "Time sample collected"),
-    JSON_ARRAY("receivedate", "accnumber", "Date sample received in laboratory"),
-    JSON_ARRAY("receivetime", "accnumber", "Time sample received in laboratory"),
-    JSON_ARRAY("admitdate", "eventindex", "Start date of patient episode"),
-    JSON_ARRAY("dischdate", "eventindex", "End date of patient episode"),
-    JSON_ARRAY("admitphys1", "eventindex", "Code for primary physician associated with this patient episode"),
-    JSON_ARRAY("admitphys2", "eventindex", "Code for secondary physician associated with this patient episode"),
+    JSON_ARRAY("accnumber", "ptnumber", "Accession Number: Unique identifier for a sample"),
     JSON_ARRAY("eventindex", "ptnumber", "Unique identifier for a patient episode"),
-    JSON_ARRAY("eventtype", "eventindex", "Code for patient episode type"),
-    JSON_ARRAY("orderdate", "accnumber", "Date order recorded on pathology system"),
-    JSON_ARRAY("ordertime", "accnumber", "Time order recorded on pathology system"),
-    JSON_ARRAY("ptorderloc", "accnumber", "Location of patient when order placed"),
-    JSON_ARRAY("orderlab", "accnumber", "Code for laboratory placing the order"),
-    JSON_ARRAY("orderphys", "accnumber", "Code for physician placing the order"),
-    JSON_ARRAY("physcode", "accnumber", "Physician managing patient episode"),
     JSON_ARRAY("battestcode", "accnumber", "Code for pathology battery ordered"),
     JSON_ARRAY("testcode", "battestcode", "Code for pathology analyte"),
     JSON_ARRAY("resultdate", "testcode", "Date result obtained for analyte"),
     JSON_ARRAY("resulttime", "testcode", "Time result obtained for analyte"),
-    JSON_ARRAY("result", "testcode", "Result obtained for analyte"),
-    JSON_ARRAY("resultmodifiers", "testcode", "Result modifier codes"),
-    JSON_ARRAY("resultqaflags", "testcode", "Result QA flags"),
-    JSON_ARRAY("labdept", "battestcode", "Code for laboratory performing test battery"),
-    JSON_ARRAY("spclbillcode", "accnumber", "Billing code for order"),
-    JSON_ARRAY("hospcode", "accnumber", "Code for laboratory hospital location"),
-    JSON_ARRAY("specimentype", "accnumber", "Code for specimen type"),
-    JSON_ARRAY("creditdate", "accnumber", "Date billing credit note issued for order")
+    JSON_ARRAY("result", "testcode", "Result obtained for analyte")
+  )
+));
+
+INSERT INTO dataset_facts VALUES (
+2, 'orgchart', 
+JSON_OBJECT("tree", 
+  JSON_ARRAY(
+    JSON_ARRAY("Mike", "", "President"),
+    JSON_ARRAY("Jill", "Mike", "Vice-President"),
+    JSON_ARRAY("Bob", "Jill", "Sales Manager"),
+    JSON_ARRAY("Jane", "Jill", "Finance Manager"),
+    JSON_ARRAY("Fred", "Jill", "Accounts Manager"),
+    JSON_ARRAY("Marta", "Fred", "Accounts Assistant")
   )
 ));
