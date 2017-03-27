@@ -123,6 +123,7 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
 	:FormConfig('datasets/add.yml') {
     my ($self, $c) = @_;
     $c->detach('/error_noperms') unless 
+      defined($c->user) &&
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $dataset = $c->stash->{object};
