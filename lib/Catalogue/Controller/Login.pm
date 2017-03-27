@@ -25,11 +25,14 @@ Login logic
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    
+
     my $username = $c->request->params->{username};
     my $password = $c->request->params->{password};
 
-    if ($username && $password) {
+    if ($c->user_exists) {
+	$c->stash(status_msg => "Already logged-in as " . $c->user->username);
+    }
+    elsif ($username && $password) {
 	if ($c->authenticate({ username => $username,
 				password => $password }) ) {
             my $original_path = $c->flash->{original_path};
@@ -42,7 +45,7 @@ sub index :Path :Args(0) {
 	    $c->stash(error_msg => "Bad username or password");
 	}
     } else {
-	$c->stash(error_msg => "Empty username or password") 
+	$c->stash(status_msg => "Please enter login details") 
 	    unless ($c->user_exists);
     }
 	    
