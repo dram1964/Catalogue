@@ -28,7 +28,7 @@
 [% IF c.check_user_roles('admin') %]
 <ul class="nav nav-sidebar">
   <li>Admin Menu</li>
-  <li><a href="#">Users</a></li>
+  <li><a href="[% c.uri_for('/users/list') %]">Users</a></li>
   <li><a href="#">Upload Schema</a></li>
   <li><a href="#">Upload KPI</a></li>
 </ul>
