@@ -18,7 +18,7 @@
 [% FOREACH user IN users %]
       <tr>
         <td>[% user.username %]
-		<a href="[% c.uri_for(c.controller.action_for('edit',user.id)) %]">Edit</a></td>
+		<a href="[% c.uri_for(c.controller.action_for('edit'),[user.id]) %]">Edit</a></td>
         <td>[% user.email_address %]</td>
         <td>[% user.first_name %]</td>
         <td>[% user.last_name %]</td>

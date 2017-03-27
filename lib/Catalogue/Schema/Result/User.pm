@@ -150,5 +150,17 @@ sub has_role {
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+=head2 edit_allowed_by
+
+Can the specified user edit the current Schema?
+
+=cut
+
+sub edit_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('admin');
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

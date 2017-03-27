@@ -2,7 +2,7 @@ package Catalogue::Controller::Users;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 
@@ -65,6 +65,40 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
     $c->stash(
 	users => $users,
 	template => 'users/list.tt2');
+}
+
+=head2 edit
+
+Edit a user record
+
+=cut
+
+sub edit :Chained('object') :PathPart('edit') :Args(0) 
+	:FormConfig('users/add.yml') {
+    my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
+
+    my $user = $c->stash->{object};
+    unless ($user) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid user -- Cannot edit")}));
+	$c->detach;
+    }
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+	$form->model->update($user);
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("User updated")}));
+	$c->detach;
+    } else {
+        my $name = $form->get_element({name => 'username'});
+	$name->value($user->username);
+        my $email = $form->get_element({name => 'email'});
+	$email->value($user->email_address);
+	$c->stash(user => $user);
+    }
+    $c->stash(template => 'users/add.tt2');
 }
 
 
