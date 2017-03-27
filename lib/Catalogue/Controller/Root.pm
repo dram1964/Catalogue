@@ -117,6 +117,8 @@ sub auto :Private {
     }
 
     if (!$c->user_exists) {
+        my $uri = $c->req->uri;
+        $c->flash->{my_request_path} = $uri;
         $c->response->redirect($c->uri_for('/login'));
 	return 0;
     }

@@ -102,8 +102,8 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     } else {
         my $system_name = $form->get_element({name => 'system_name'});
 	$system_name->value($system->name);
-        my $system_description = $form->get_element({name => 'system_description'}) if $system->description;
-	$system_description->value($system->description);
+        my $system_description = $form->get_element({name => 'system_description'});
+	$system_description->value($system->description) if $system->description;
     }
     $c->stash(template => 'systems/edit.tt2');
 }

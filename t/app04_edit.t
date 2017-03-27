@@ -129,19 +129,19 @@ $test02->content_lacks('Permission Denied',
 	"test02 Not denied task edit");
 
 $test01->get_ok("http://localhost/datasets/id/2/edit", 
-	"test01 request to systems edit");
+	"test01 request to datasets edit");
 $test01->content_contains('Permission Denied', 
-	"test01 Denied systems edit");
+	"test01 Denied datasets edit");
 
 $test02->get_ok("http://localhost/datasets/id/2/edit", 
-	"test02 request to systems edit");
-$test02->content_contains('Permission Denied', 
-	"test02 Denied systems edit");
+	"test02 request to datasets edit");
+$test02->content_contains('Dataset Name', 
+	"test02 Allowed datasets edit");
 
-$test01->get_ok("http://localhost/datasets/id/2/edit", 
-	"test01 request to systems edit");
-$test01->content_contains('Permission Denied', 
-	"test01 Denied systems edit");
+$test03->get_ok("http://localhost/datasets/id/2/edit", 
+	"test03 request to datasets edit");
+$test03->content_contains('Dataset Name', 
+	"test03 Allowed datasets edit");
 
 
 done_testing;

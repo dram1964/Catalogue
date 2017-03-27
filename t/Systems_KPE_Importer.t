@@ -1,7 +1,7 @@
-use Test::More tests => 14;
+use Test::More;
 use Catalogue::Systems::Importer;
 
-#plan skip_all => 'set MYAPP_DSN to enable this test' unless ($ENV{MYAPP_DSN});
+plan skip_all => 'set MYAPP_DSN to enable this test' unless ($ENV{MYAPP_DSN});
 
 my $system7 = Catalogue::Systems::Importer->new(
 	kpe => 'CDR',

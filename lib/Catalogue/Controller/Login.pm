@@ -32,8 +32,12 @@ sub index :Path :Args(0) {
     if ($username && $password) {
 	if ($c->authenticate({ username => $username,
 				password => $password }) ) {
-	    $c->stash(template => 'index.tt2');
-		return;
+            my $request_path = $c->flash->{my_request_path};
+            if (defined $request_path) {
+	      $c->response->redirect($c->flash->{my_request_path});
+            } else {
+	      $c->response->redirect($c->uri_for('/welcome'));
+	    }
 	} else {
 	    $c->stash(error_msg => "Bad username or password");
 	}
