@@ -32,9 +32,9 @@ sub index :Path :Args(0) {
     if ($username && $password) {
 	if ($c->authenticate({ username => $username,
 				password => $password }) ) {
-            my $request_path = $c->flash->{my_request_path};
-            if (defined $request_path) {
-	      $c->response->redirect($c->flash->{my_request_path});
+            my $original_path = $c->flash->{original_path};
+            if (defined $original_path) {
+	      $c->response->redirect($c->uri_for($original_path));
             } else {
 	      $c->response->redirect($c->uri_for('/welcome'));
 	    }
