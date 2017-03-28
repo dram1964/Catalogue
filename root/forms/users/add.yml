@@ -74,10 +74,6 @@ elements:
 
     - type: Checkboxgroup
       name: roles
-      options: 
-        - [ '1', 'User']
-        - [ '2', 'Curator']
-        - [ '3', 'Admin']
       label: Roles
       attributes:
         title: Roles
