@@ -67,6 +67,48 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 	template => 'users/list.tt2');
 }
 
+=head2 add
+
+Add new User
+
+=cut
+
+sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
+   my ($self, $c) = @_;
+    my $form = $c->stash->{form};
+    if ($form->submitted_and_valid) {
+        my $user = $c->model('DB::User')->new_result({
+		username => $c->request->params->{username},
+		email_address => $c->request->params->{email_address},
+		first_name => $c->request->params->{first_name},
+		last_name => $c->request->params->{last_name},
+		password => $c->request->params->{password},
+		active => $c->request->params->{active},
+	});
+        $form->model->update($user);
+	my @roles = $c->request->params->{roles};
+	for my $id (@roles ) {
+		my $user_roles = $c->model('DB::UserRole')->find_or_create({
+			user_id => $user->id,
+			role_id => $id
+		});
+	}
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("User Added")}));
+	$c->detach;
+    }
+	my @role_objs = $c->model('DB::Role')->search({},
+		{sort => 'id'}
+	);
+	my @roles;
+	foreach (@role_objs) {
+	    push(@roles, [$_->id, $_->role]);
+	}
+	my $roles_select = $form->get_element({name => 'roles'});
+	$roles_select->options(\@roles);
+    $c->stash(template => 'users/add.tt2');
+}
+
 =head2 edit
 
 Edit a user record

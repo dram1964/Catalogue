@@ -1,8 +1,9 @@
 [% META title = 'User Maintenance' %]
-<p class="lead">Showing Databases for all Systems</p>
+<p class="lead">Current Metadata Catalogue Users</p>
 [% IF pager.total_entries && pager.total_entries > 30 %]
 [% PROCESS site/pager %]
 [% END %]
+<a href="[% c.uri_for(c.controller.action_for('add')) %]">Add User</a>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>

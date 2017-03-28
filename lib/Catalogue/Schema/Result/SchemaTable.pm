@@ -56,7 +56,7 @@ __PACKAGE__->table("schema_table");
 
   data_type: 'varchar'
   is_nullable: 1
-  size: 50
+  size: 60
 
 =head2 schema_id
 
@@ -72,7 +72,7 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "varchar", is_nullable => 0, size => 1000 },
   "description",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
+  { data_type => "varchar", is_nullable => 1, size => 60 },
   "schema_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
@@ -124,8 +124,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-05 18:26:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SIdVAPOcR6ZpoGdmU1STlg
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-28 12:40:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a6xicAFOcRUHiSkXCczNOA
 
 =head2 edit_allowed_by
 

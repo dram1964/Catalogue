@@ -30,6 +30,7 @@ requires 'Catalyst::Controller::HTML::FormFu';
 requires 'HTML::FormFu::Model::DBIC';
 requires 'Moose';
 requires 'MooseX::NonMoose';
+requires 'DBIx::Class::Schema::Loader';
 requires 'DBIx::Class::TimeStamp';
 requires 'DBD::mysql';
 requires 'namespace::autoclean';

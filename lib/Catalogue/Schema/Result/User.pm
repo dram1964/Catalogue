@@ -43,32 +43,38 @@ __PACKAGE__->table("users");
 =head2 id
 
   data_type: 'integer'
+  is_auto_increment: 1
   is_nullable: 0
 
 =head2 username
 
-  data_type: 'text'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 50
 
 =head2 password
 
-  data_type: 'text'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 255
 
 =head2 email_address
 
-  data_type: 'text'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 100
 
 =head2 first_name
 
-  data_type: 'text'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 100
 
 =head2 last_name
 
-  data_type: 'text'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 100
 
 =head2 active
 
@@ -79,17 +85,17 @@ __PACKAGE__->table("users");
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "integer", is_nullable => 0 },
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "username",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 50 },
   "password",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
   "email_address",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 100 },
   "first_name",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 100 },
   "last_name",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 100 },
   "active",
   { data_type => "integer", is_nullable => 1 },
 );
@@ -134,8 +140,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-02-04 18:53:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qrBQyQ7JVi0QGYxYOHaLFA
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-28 12:40:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zCtAJ6K+wO2kensQAS2SiQ
 
 =head2 has_role
 
