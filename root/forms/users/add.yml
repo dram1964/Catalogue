@@ -72,6 +72,25 @@ elements:
       attributes:
         class: btn btn-primary
 
+    - type: Checkboxgroup
+      name: roles
+      options: 
+        - [ '1', 'User']
+        - [ '2', 'Curator']
+        - [ '3', 'Admin']
+      label: Roles
+      attributes:
+        title: Roles
+        class: form-control
+        rows: 0
+        columns: 0
+ 
+    - type: Submit
+      name: submit 
+      value: Submit
+      attributes:
+        class: btn btn-primary
+
 filter:
     - TrimEdges
     - HTMLEscape

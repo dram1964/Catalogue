@@ -163,7 +163,6 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
 		supplier_id => $c->request->params->{supplier},
 		cat2_id => $c->request->params->{category2},
 	}); 
-	#$form->model->update($application);
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_status_msg("Dataset updated")}));
 	$c->detach;

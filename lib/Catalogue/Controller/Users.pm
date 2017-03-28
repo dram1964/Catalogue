@@ -105,6 +105,15 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
 	$c->stash(user => $user);
         my $active = $form->get_element({name => 'active'});
 	$active->value($user->active);
+        
+	my @user_roles = $user->roles;
+        my @roles;
+        foreach (sort @user_roles) {
+	    push @roles, $_->id;
+	}
+	
+	my $roles_select = $form->get_element({name => 'roles'});
+        $roles_select->value(\@roles);
     }
     $c->stash(template => 'users/add.tt2');
 }
