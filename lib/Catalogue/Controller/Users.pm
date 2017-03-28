@@ -92,11 +92,19 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
 	    {mid => $c->set_status_msg("User updated")}));
 	$c->detach;
     } else {
-        my $name = $form->get_element({name => 'username'});
-	$name->value($user->username);
-        my $email = $form->get_element({name => 'email'});
-	$email->value($user->email_address);
+        my $username = $form->get_element({name => 'username'});
+	$username->value($user->username);
+        my $password = $form->get_element({name => 'password'});
+	$password->value($user->password);
+        my $last_name = $form->get_element({name => 'last_name'});
+	$last_name->value($user->last_name) if $user->last_name;
+        my $first_name = $form->get_element({name => 'first_name'});
+	$first_name->value($user->first_name) if $user->first_name;
+        my $email = $form->get_element({name => 'email_address'});
+	$email->value($user->email_address) if $user->email_address;
 	$c->stash(user => $user);
+        my $active = $form->get_element({name => 'active'});
+	$active->value($user->active);
     }
     $c->stash(template => 'users/add.tt2');
 }
