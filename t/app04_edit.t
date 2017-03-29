@@ -116,12 +116,12 @@ $test02->content_contains('Editing Description for',
 $test02->content_lacks('Permission Denied', 
 	"test02 Not denied tables edit description");
 
-$test01->get_ok("/tasks/id/1/edit", 
+$test01->get_ok("/tasks/id/9/edit", 
 	"test01 request to tasks edit");
 $test01->content_contains('Permission Denied', 
 	"test01 Denied task edit");
 
-$test02->get_ok("/tasks/id/1/edit", 
+$test02->get_ok("/tasks/id/9/edit", 
 	"test02 request to tasks edit");
 $test02->content_contains('Task', 
 	"test02 Allowed task edit");
