@@ -40,6 +40,8 @@ requires 'Config::General'; # This should reflect the config file format you've 
 requires 'Perl6::Junction';
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 test_requires 'Test::More' => '0.88';
+test_requires 'Test::Pod';
+test_requires 'Test::Pod::Coverage';
 catalyst;
 
 install_script glob('script/*.pl');

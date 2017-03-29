@@ -27,6 +27,12 @@ sub index :Path :Args(0) {
     $c->response->body('Matched Catalogue::Controller::Users in Users.');
 }
 
+=head2 auto
+
+Deny access to non-admin users
+
+=cut
+
 sub auto :Private {
     my ( $self, $c) = @_;
     my $user_model = $c->model('DB::User');
