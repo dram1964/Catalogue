@@ -27,6 +27,13 @@ sub index :Path :Args(0) {
     $c->response->body('Matched Catalogue::Controller::Users in Users.');
 }
 
+sub auto :Private {
+    my ( $self, $c) = @_;
+    my $user_model = $c->model('DB::User');
+    $c->detach('/error_noperms') unless 
+      $user_model->first->access_allowed_to($c->user->get_object);
+}
+
 =head2 base
 
 Can place common logic to start a chained dispatch here
@@ -75,8 +82,6 @@ Add new User - check if username in use already
 
 sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
    my ($self, $c) = @_;
-   $c->detach('/error_noperms') unless 
-      $c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
 
    my $form = $c->stash->{form};
    if ($form->submitted_and_valid) {
@@ -131,8 +136,6 @@ Edit a user record
 sub edit :Chained('object') :PathPart('edit') :Args(0) 
 	:FormConfig('users/add.yml') {
     my ($self, $c) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $user = $c->stash->{object};
     unless ($user) {
@@ -211,8 +214,6 @@ Delete a user from the todolist
 
 sub delete :Chained('object') :PathPart('delete') :Args(0) {
     my ($self, $c) = @_;
-     $c->detach('/error_noperms') unless 
-	$c->stash->{object}->edit_allowed_by($c->user->get_object);
 
      if ($c->stash->{object}->id == $c->user->id) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),

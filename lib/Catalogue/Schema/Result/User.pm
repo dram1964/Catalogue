@@ -177,7 +177,7 @@ Can the specified user edit the current Schema?
 
 =cut
 
-sub edit_allowed_by {
+sub access_allowed_to {
   my ($self, $user) = @_;
   return $user->has_role('admin');
 }
