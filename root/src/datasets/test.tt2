@@ -1,7 +1,17 @@
-[% META angular = 1 %]
-<div ng-app>
+[% META title="Hello Angular Application" %]
+<div ng-app="notesApp">
+  <div ng-controller="MainCtrl">
 
 <input type="text" ng-model="name" placeholder="Enter your name">
 <h1>Hello <span ng-bind="name"></span></h1>
 
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript">
+  angular.module('notesApp', [])
+    .controller('MainCtrl', [function() {
+	console.log('MainCtrl has been created');
+    }]);
+</script>
+
+  </div>
 </div>
