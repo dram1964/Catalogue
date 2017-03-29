@@ -26,11 +26,13 @@ extends 'DBIx::Class::Core';
 
 =item * L<DBIx::Class::TimeStamp>
 
+=item * L<DBIx::Class::PassphraseColumn>
+
 =back
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp");
+__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
 =head1 TABLE: C<catalogue_system>
 
@@ -152,8 +154,8 @@ Composing rels: L</system_db_types> -> db_type
 __PACKAGE__->many_to_many("db_types", "system_db_types", "db_type");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-04 19:52:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GwIgHpEgjkeSGrWG8CsObw
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-29 16:29:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tjlOiBYWGBebFA2c0y2k0w
 
 
 =head2 system_database_list
