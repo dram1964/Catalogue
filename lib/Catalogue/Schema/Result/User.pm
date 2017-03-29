@@ -182,10 +182,5 @@ sub edit_allowed_by {
   return $user->has_role('admin');
 }
 
-sub user_exists {
-  my ($self, $username) = @_;
-  return $self->search({username => $username});
-}
-
 __PACKAGE__->meta->make_immutable;
 1;

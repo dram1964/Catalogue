@@ -180,6 +180,50 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     $c->stash(template => 'users/add.tt2');
 }
 
+=head2 search
+
+Search for Users
+
+=cut
+
+sub search :Chained('base') :PathPart('search') :Args(0) {
+    my ($self, $c) = @_;
+    my $search_term = "%" . $c->request->params->{search} . "%";
+    my $user_rs = $c->stash->{resultset}->search(
+		{-or => [{'username' => {like => $search_term}},
+			{'first_name' => {like => $search_term}},
+			{'last_name' => {like => $search_term}},
+			{'email_address' => {like => $search_term}},
+			]
+		}
+    	);
+    my $users = [$user_rs->all];
+    $c->stash(
+	users => $users,
+	template => 'users/list.tt2');
+}
+
+=head2 delete
+
+Delete a user from the todolist
+
+=cut 
+
+sub delete :Chained('object') :PathPart('delete') :Args(0) {
+    my ($self, $c) = @_;
+     $c->detach('/error_noperms') unless 
+	$c->stash->{object}->edit_allowed_by($c->user->get_object);
+
+     if ($c->stash->{object}->id == $c->user->id) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	  {mid => $c->set_error_msg("Can't delete own account")}));
+	$c->detach;
+     }
+     $c->stash->{object}->delete;
+     $c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("User Deleted")}));
+}
+
 
 =encoding utf8
 
