@@ -112,6 +112,20 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ux_username>
+
+=over 4
+
+=item * L</username>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("ux_username", ["username"]);
+
 =head1 RELATIONS
 
 =head2 user_roles
@@ -140,8 +154,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-28 12:40:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zCtAJ6K+wO2kensQAS2SiQ
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-28 13:06:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SUHy1WwmocJAr4DQjvv/Aw
 
 =head2 has_role
 
@@ -166,6 +180,11 @@ Can the specified user edit the current Schema?
 sub edit_allowed_by {
   my ($self, $user) = @_;
   return $user->has_role('admin');
+}
+
+sub user_exists {
+  my ($self, $username) = @_;
+  return $self->search({username => $username});
 }
 
 __PACKAGE__->meta->make_immutable;

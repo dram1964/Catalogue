@@ -69,14 +69,26 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 add
 
-Add new User
+Add new User - check if username in use already
 
 =cut
 
 sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
    my ($self, $c) = @_;
-    my $form = $c->stash->{form};
-    if ($form->submitted_and_valid) {
+   $c->detach('/error_noperms') unless 
+      $c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
+
+   my $form = $c->stash->{form};
+   if ($form->submitted_and_valid) {
+	if (defined $c->stash->{resultset}->single(
+	  {username => $c->request->params->{username}})) {
+	    $c->response->redirect($c->uri_for($self->action_for('list'), 
+		    {mid => $c->set_error_msg("Username " . 
+			$c->request->params->{username} . 
+			" already in use")}));
+	    $c->detach;
+        }
+	    
         my $user = $c->model('DB::User')->new_result({
 		username => $c->request->params->{username},
 		email_address => $c->request->params->{email_address},
@@ -97,15 +109,16 @@ sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
 	    {mid => $c->set_status_msg("User Added")}));
 	$c->detach;
     }
-	my @role_objs = $c->model('DB::Role')->search({},
-		{sort => 'id'}
-	);
-	my @roles;
-	foreach (@role_objs) {
-	    push(@roles, [$_->id, $_->role]);
-	}
-	my $roles_select = $form->get_element({name => 'roles'});
-	$roles_select->options(\@roles);
+    my @role_objs = $c->model('DB::Role')->search({},
+    	{sort => 'id'}
+    );
+    my @roles;
+    foreach (@role_objs) {
+        push(@roles, [$_->id, $_->role]);
+    }
+    my $roles_select = $form->get_element({name => 'roles'});
+    $roles_select->options(\@roles);
+
     $c->stash(template => 'users/add.tt2');
 }
 
