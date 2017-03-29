@@ -20,7 +20,7 @@
         </td>
         <td>[% dataset.description %]</td>
       </tr>
-    </tbody>
 [% END %]
+    </tbody>
   </table>
 </div>
