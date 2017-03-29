@@ -200,7 +200,16 @@ sub delete :Chained('object') :PathPart('delete') :Args(0) {
 	{mid => $c->set_status_msg("Dataset Deleted.")}));
 }
 
+=head2 test
 
+test action for angular-ised page
+
+=cut
+
+sub test :Path('test') :Args(0) {
+    my ($self, $c) = @_;
+    $c->stash->{template} = 'datasets/test.tt2';
+}
 
 
 =encoding utf8
