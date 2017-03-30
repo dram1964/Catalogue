@@ -1,10 +1,10 @@
 [% META title="Datasets ExploreNG" %]
 <h1>Showing Dataset information for [% dataset.name %]</h1>
 <p class="lead">Description: [% dataset.description %]</p>
+<div ng-app="datasetsApp"><!-- begin ng-app div -->
+  <div ng-controller="MainCtrl as ctrl"><!-- begin ng-controller div -->
 [% FOREACH item IN facts %]
   [% IF item.fact_type == 'population' %]
-<div ng-app="notesApp"><!-- begin ng-app div -->
-  <div ng-controller="MainCtrl as ctrl"><!-- begin ng-controller div -->
 
 	<div class="table-responsive"><!-- begin table-responsive div -->
 	  <table class="table table-striped">
@@ -25,7 +25,7 @@
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript">
-  angular.module('notesApp', [])
+  angular.module('datasetsApp', [])
     .controller('MainCtrl', [function() {
 	var self = this;
 	self.fact = [% item.fact %];
