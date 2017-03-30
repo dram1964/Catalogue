@@ -18,6 +18,7 @@
         <td>
 	<a href="[% c.uri_for(c.controller.action_for('edit'), [dataset.id]) %]">Edit</a>
 	<a href="[% c.uri_for(c.controller.action_for('explore_json'), [dataset.id]) %]">Explore</a>
+	<a href="[% c.uri_for(c.controller.action_for('explore_ng'), [dataset.id]) %]">ExploreNG</a>
         </td>
         <td>[% dataset.description %]</td>
       </tr>

@@ -211,6 +211,25 @@ sub test :Path('test') :Args(0) {
     $c->stash->{template} = 'datasets/test.tt2';
 }
 
+=head2 explore_ng
+
+explore datasets with angularJS
+
+=cut
+
+sub explore_ng :Chained('object') :PathPart('explore_ng') :Args(0) {
+    my ($self, $c) = @_;
+    my $dataset = $c->stash->{object};
+    my $datasets = [$c->stash->{resultset}->all];
+    my $facts = [$c->stash->{object}->dataset_facts->all];
+    $c->stash(
+	datasets => $datasets,
+	dataset => $dataset,
+	facts => $facts,
+	template => 'datasets/explore_ng.tt2'
+    );
+}
+
 
 =encoding utf8
 

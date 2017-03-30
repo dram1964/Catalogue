@@ -1,0 +1,25 @@
+[% META title="Datasets ExploreNG" %]
+<h1>Showing Dataset information for [% dataset.name %]</h1>
+<p class="lead">Description: [% dataset.description %]</p>
+[% FOREACH item IN facts %]
+  [% IF item.fact_type == 'population' %]
+<div ng-app="notesApp">
+  <div ng-controller="MainCtrl as ctrl">
+    <div ng-repeat="range in ctrl.fact.ranges">
+      <span class="identifier" ng-bind="range[0]"></span>
+      <span class="status" ng-bind="range[1]"></span>
+    </div>
+
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript">
+  angular.module('notesApp', [])
+    .controller('MainCtrl', [function() {
+	var self = this;
+	self.fact = [% item.fact %];
+    }]);
+</script>
+
+  </div><!-- end ng-controller div -->
+</div><!-- end ng-app div -->
+  [% END %]
+[% END %]
