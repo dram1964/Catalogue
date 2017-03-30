@@ -3,12 +3,25 @@
 <p class="lead">Description: [% dataset.description %]</p>
 [% FOREACH item IN facts %]
   [% IF item.fact_type == 'population' %]
-<div ng-app="notesApp">
-  <div ng-controller="MainCtrl as ctrl">
-    <div ng-repeat="range in ctrl.fact.ranges">
-      <span class="identifier" ng-bind="range[0]"></span>
-      <span class="status" ng-bind="range[1]"></span>
-    </div>
+<div ng-app="notesApp"><!-- begin ng-app div -->
+  <div ng-controller="MainCtrl as ctrl"><!-- begin ng-controller div -->
+
+	<div class="table-responsive"><!-- begin table-responsive div -->
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+		<th>Age Range</th>
+		<th>Number </th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="range in ctrl.fact.ranges">
+		<td>{{range[0]}}</td>
+		<td ng-bind="range[1]"></td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div><!-- end table-responsive div -->
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript">
