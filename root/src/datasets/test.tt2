@@ -1,22 +1,25 @@
 [% META title="Notes App" %]
 <div ng-app="notesApp">
   <div ng-controller="MainCtrl as ctrl">
-    <div ng-repeat="note in ctrl.notes">
-      <span class="identifier">{{note.label}}</span>
-      <span class="status" ng-bind="note.done"></span>
-    </div>
+<input type="text" ng-model="ctrl.username">
+<input type="password" ng-model="ctrl.password">
+<button ng-click="ctrl.change()">Change Values</button>
+<button ng-click="ctrl.submit()">Submit</button>
+
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript">
   angular.module('notesApp', [])
     .controller('MainCtrl', [function() {
 	var self = this;
-	self.notes = [
-	  {id : 1, label: 'First Note', done: false},
-	  {id : 2, label: 'Second Note', done: false},
-	  {id : 3, label: 'Done Note', done: true},
-	  {id : 4, label: 'Last Note', done: false},
-	];
+	self.change = function() {
+	  self.username = 'changed';
+	  self.password = 'password'; 
+	};
+	self.submit = function() {
+	  console.log('User clicked submit with ', 
+	    self.username, self.password);
+	};
     }]);
 </script>
 
