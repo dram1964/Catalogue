@@ -1,3 +1,6 @@
+<script type="text/javascript">
+var populationData = [% item.fact %]
+</script>
 <div ng-app="datasetsApp"><!-- begin ng-app div -->
   <div ng-controller="MainCtrl as ctrl"><!-- begin ng-controller div -->
 	<div class="table-responsive"><!-- begin table-responsive div -->
@@ -18,12 +21,7 @@
 	</div><!-- end table-responsive div -->
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
-<script type="text/javascript">
-angular.module('datasetsApp', [])
-    .controller('MainCtrl', [function() {
-	var self = this;
-	self.fact = [% item.fact %];
-    }]);
+<script type="text/javascript" src="[% site.url.js %]/ng_population.js">
 </script>
 
   </div><!-- end ng-controller div -->
