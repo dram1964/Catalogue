@@ -9,4 +9,5 @@ angular.module('notesApp', [])
 	  console.log('User clicked submit with ', 
 	    self.username, self.password);
 	};
+	self.data = foo;
   }]);

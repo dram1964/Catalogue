@@ -1,10 +1,16 @@
 [% META title="Notes App" %]
+[% USE JSON %]
+<script type="text/javascript">
+  var foo = [% facts.0.fact_type.json %];
+</script>
 <div ng-app="notesApp">
   <div ng-controller="MainCtrl as ctrl">
 <input type="text" ng-model="ctrl.username">
 <input type="password" ng-model="ctrl.password">
 <button ng-click="ctrl.change()">Change Values</button>
 <button ng-click="ctrl.submit()">Submit</button>
+<span>{{ ctrl.data }}</span>
+
 
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>

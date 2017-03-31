@@ -206,9 +206,17 @@ test action for angular-ised page
 
 =cut
 
-sub test :Path('test') :Args(0) {
+sub test :Chained('object') :PathPart('test') :Args(0) {
     my ($self, $c) = @_;
-    $c->stash->{template} = 'datasets/test.tt2';
+    my $dataset = $c->stash->{object};
+    my $datasets = [$c->stash->{resultset}->all];
+    my $facts = [$c->stash->{object}->dataset_facts->all];
+    $c->stash(
+	datasets => $datasets,
+	dataset => $dataset,
+	facts => $facts,
+	template => 'datasets/test.tt2',
+    );
 }
 
 =head2 explore_ng
