@@ -6,6 +6,7 @@
      message = "${base}message"
      css     = "/static/css"
      js     = "/static/js"
+     ng     = "/static/ng"
      catalyst = "http://www.catalystframework.org"
      gitpage = "https://github.com/dram1964/catalogue"
    }

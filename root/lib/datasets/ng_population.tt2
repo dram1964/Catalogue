@@ -21,7 +21,7 @@ var populationData = [% item.fact %]
 	</div><!-- end table-responsive div -->
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
-<script type="text/javascript" src="[% site.url.js %]/ng_population.js">
+<script type="text/javascript" src="[% site.url.ng %]/ng_population.js">
 </script>
 
   </div><!-- end ng-controller div -->
