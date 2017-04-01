@@ -26,7 +26,7 @@ for $db (@$dbs) {
 	$mech->content_contains($db->description, "System " . $system->id . ": Description found");
 }
 
-$system = $system_rs->next or die "No more results\n";
+$system = $system_rs->next;
 $dbs = [$system->system_databases];
 for $db (@$dbs) {
 diag "database: " . $db->name;
