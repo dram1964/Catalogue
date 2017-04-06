@@ -73,9 +73,8 @@ ok(my $user05 = $schema->resultset('User')->find_or_create($account04_details, k
 	'user05 added');
 ok($user05->delete, 'User ' . $user05->username . ' deleted');
 
-diag("Use find_or_new to create a new account");
+diag("Use find_or_new to create a new account with roles");
 $account04_details->{user_roles} = [{role_id => 1}, {role_id => 2}, {role_id => 3}];
-
 ok(my $user05 = $schema->resultset('User')->find_or_new($account04_details, key => 'username'), 
 	'user05 new object created');
 my $check_rs = $schema->resultset('User')->find({username => $user05->username});
@@ -85,9 +84,5 @@ ok($user05->has_role('curator'), 'User has curator Role');
 ok($user05->has_role('admin'), 'User has admin Role');
 ok($user05->has_role('user'), 'User has user Role');
 ok($user05->delete, 'User ' . $user05->username . ' deleted');
-
-
-
-
 
 done_testing();
