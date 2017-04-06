@@ -140,6 +140,21 @@ sub edit_allowed_by {
   return $user->has_role('curator');
 }
 
+=head2 db_schema
+
+overridden default belongs_to relationship to avoid name clash in joins
+
+Related object: L<Catalogue::Schema::Result::DatabaseSchema>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "db_schema",
+  "Catalogue::Schema::Result::DatabaseSchema",
+  { id => "schema_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

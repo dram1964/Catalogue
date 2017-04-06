@@ -38,8 +38,8 @@ sub list :Local {
     my $page = $c->request->param('page') || 1;
     my $query = $c->model('DB::TableColumn')->search({},
       {
-        select => [qw(name col_type col_size table_rel.name )],
-	join => 'table_rel',
+    join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+    prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
 	rows => 30,
 	page => $page,
       });
@@ -52,15 +52,18 @@ sub list :Local {
 
 =head2 list_columns
 
-Fetch all the columns for the specified table and display in the colums/list template
+Fetch all the columns for the specified table and display in the columns/list template
 
 =cut
 
 sub list_columns :Path('list_columns') :Args(1) {
     my ($self, $c, $table_id) = @_;
     my $columns = [$c->model('DB::TableColumn')->search(
-	{table_id => $table_id}
-	)];
+	{table_id => $table_id},
+	{ join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+          prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+        }
+    )];
     my $table = $c->model('DB::SchemaTable')->find({id => $table_id});
     $c->stash(
 	table => $table,

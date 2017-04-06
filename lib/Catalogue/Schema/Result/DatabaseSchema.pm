@@ -139,6 +139,21 @@ sub edit_allowed_by {
   return $user->has_role('curator');
 }
 
+=head2 sys_database
+
+Type: overridden belongs_to relation to avoid name clashes in DBIC joins
+
+Related object: L<Catalogue::Schema::Result::SystemDatabase>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "sys_database",
+  "Catalogue::Schema::Result::SystemDatabase",
+  { id => "database_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
