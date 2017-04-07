@@ -86,11 +86,14 @@ sub search :Path('search') :Args(0) {
     my $column_rs = $c->model('DB::TableColumn')->search(
 	{-or => [
 		{'me.name' => {like => $search_term}},
+		{'table_rel.name' => {like => $search_term}},
+		{'db_schema.name' => {like => $search_term}},
+		{'sys_database.name' => {like => $search_term}},
+		{'system.name' => {like => $search_term}},
 		]
         },
-        {
-        select => [qw(name col_type col_size table_rel.name )],
-	join => 'table_rel',
+	{ join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+          prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
 	distinct => 1,
 	rows => 30,
 	page => $page,
