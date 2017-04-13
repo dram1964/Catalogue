@@ -31,9 +31,6 @@ diag "database: " . $db->name;
 	$mech->content_lacks($db->description, "System " . $system->id . ": Description not found");
 }
 
-TODO: {
-	local $TODO = "Add comparison to schema resulsets";
-
 	$mech->get_ok("/databases/list_databases/14", "Select databases for system_id = 14");
 	$mech->content_contains('DBName', "System 14: DBName database found");
 	$mech->content_lacks('HIC', "System 14: HIC database not found");
@@ -88,5 +85,4 @@ TODO: {
 	$mech->content_contains("ptnumber", "Table 44: ptnumber column found");
 	$mech->content_contains("deid_ptnumber", "Table 44: deid_ptnumber column found");
 	$mech->content_lacks("reported", "Table 44: reported column not found");
-}
 done_testing;
