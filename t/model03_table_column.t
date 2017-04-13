@@ -7,8 +7,6 @@ use Data::Dumper;
 my $dsn = "dbi:mysql:catalogue_test";
 my $schema = Catalogue::Schema->connect($dsn, 'tutorial', 'thispassword');
 
-plan skip_all => 'set MYAPP_DSN to enable this test' 
-	unless ($ENV{MYAPP_DSN} eq $dsn);
 my $id = 769;
 
 ok(my $column = $schema->resultset('TableColumn')->find($id), "Column Requested");

@@ -3,7 +3,7 @@ package Catalogue::Model::DB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
-my $dsn = $ENV{MYAPP_DSN} ||= 'dbi:mysql:catalogue';
+my $dsn = $ENV{MYAPP_DSN} ||= 'dbi:mysql:catalogue_test';
 
 __PACKAGE__->config(
     schema_class => 'Catalogue::Schema',
