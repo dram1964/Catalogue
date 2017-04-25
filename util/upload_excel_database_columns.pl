@@ -7,16 +7,16 @@ use Spreadsheet::XLSX;
 use Text::Iconv;
 
 my $converter = Text::Iconv->new("utf-8", "windows-1251");
-my $server_name = 'Upathsql';
+my $server_name = 'Uinfoflexl';
 my $first_data_row = 1;
 
 my $excel = Spreadsheet::XLSX->new("/home/dr00/Catalogue/data/$server_name.xlsx", $converter);
 
-my $hic = $excel->{Worksheet}->[0];
+my $sheet = $excel->{Worksheet}->[0];
 print "Loading data from $server_name\n";
 
-my ( $row_min, $row_max ) = $hic->row_range();
-my ( $col_min, $col_max ) = $hic->col_range();
+my ( $row_min, $row_max ) = $sheet->row_range();
+my ( $col_min, $col_max ) = $sheet->col_range();
 
 print join(":", qw/Row Server Database Schema Table Column Type Size/), "\n";
 
@@ -30,7 +30,7 @@ sub load_data {
 	for my $row ($first_data_row..$rows ) {
     	my @record;
     	for my $col ( $col_min .. $col_max ) {
-			my $cell = $hic->get_cell( $row, $col );
+			my $cell = $sheet->get_cell( $row, $col );
         	next unless $cell;
 			push (@record, $cell->value());
     	}

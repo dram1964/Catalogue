@@ -77,19 +77,16 @@ Fetch the specified system database object based on the db and system id and sto
 
 =cut 
 
-sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
-   my ($self, $c, $db_id, $system_id) = @_;
-   $c->stash(object => $c->stash->{resultset}->find(
-	{id => $db_id, 
-	system_id => $system_id} 
-   ));
+sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
+   my ($self, $c, $db_id) = @_;
+   $c->stash(object => $c->stash->{resultset}->find($db_id));
 
    die "Class not found" if !$c->stash->{object};
 }
 
 =head2 edit_description
 
-Use HTML::FormFu to update description for schema and return user to list of all databases
+Use HTML::FormFu to update description for database and return user to list of all databases
 
 =cut
 
@@ -100,7 +97,6 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $database = $c->stash->{object};
-    my $system = $database->system;
     unless ($database) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Database -- Cannot edit")}));
@@ -118,43 +114,6 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
 	$description->value($database->description);
     }
     $c->stash(
-	database => $database,
-	template => 'databases/edit_description.tt2');
-}
-
-=head2 edit_current
-
-Use HTML::FormFu to update a database description and return user to list of databases for current system
-
-=cut
-
-sub edit_current :Chained('object') :PathPart('edit_current') :Args(0) 
-	:FormConfig('databases/edit_description.yml') {
-    my ($self, $c) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->stash->{object}->edit_allowed_by($c->user->get_object);
-
-    my $database = $c->stash->{object};
-    my $system = $database->system;
-    unless ($database) {
-	$c->response->redirect($c->uri_for($self->action_for('list'),
-	    {mid => $c->set_error_msg("Invalid Database -- Cannot edit")}));
-	$c->detach;
-    }
-
-    my $form = $c->stash->{form};
-    if ($form->submitted_and_valid) {
-	$form->model->update($database);
-	$c->response->redirect($c->uri_for($self->action_for('list_databases'),
-		$system->id,
-	    {mid => $c->set_status_msg("Description updated")}));
-	$c->detach;
-    } else {
-        my $description = $form->get_element({name => 'description'});
-	$description->value($database->description);
-    }
-    $c->stash(
-        system => $system,
 	database => $database,
 	template => 'databases/edit_description.tt2');
 }

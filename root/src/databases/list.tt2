@@ -25,11 +25,7 @@
 <a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.db_id]) %]">List Schemas</a>
         </td>
         <td>[% database.description %]</td>
-[% IF system %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [database.id, database.system.id]) %]">Update Description</a></td>
-[% ELSE %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id, database.system.id]) %]">Update Description</a></td>
-[% END %]
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [database.id]) %]">Update Description</a></td>
       </tr>
 [% END %]
     </tbody>

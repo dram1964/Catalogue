@@ -170,5 +170,16 @@ sub server_name_list {
     return join(', ', @servers);
 }
 
+=head2 edit_allowed_by
+
+Can the specified user edit the current Database?
+
+=cut
+
+sub edit_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator');
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
