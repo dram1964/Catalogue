@@ -155,5 +155,20 @@ __PACKAGE__->many_to_many("srvs", "c_db_servers", "srv");
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+=head2 database_server_list
+
+Return a comma-separated list of servers for the current database
+
+=cut 
+
+sub server_name_list {
+    my ($self) = @_;
+    my @servers;
+    foreach my $server ($self->srvs) {
+	push(@servers, $server->name);
+    }
+    return join(', ', @servers);
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
