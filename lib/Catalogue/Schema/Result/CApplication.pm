@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::Erid;
+package Catalogue::Schema::Result::CApplication;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::Erid
+Catalogue::Schema::Result::CApplication
 
 =cut
 
@@ -34,15 +34,15 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<erid>
+=head1 TABLE: C<c_application>
 
 =cut
 
-__PACKAGE__->table("erid");
+__PACKAGE__->table("c_application");
 
 =head1 ACCESSORS
 
-=head2 id
+=head2 app_id
 
   data_type: 'integer'
   is_auto_increment: 1
@@ -51,33 +51,40 @@ __PACKAGE__->table("erid");
 =head2 name
 
   data_type: 'varchar'
+  is_nullable: 0
+  size: 100
+
+=head2 description
+
+  data_type: 'text'
   is_nullable: 1
-  size: 50
 
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
+  "app_id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
+  { data_type => "varchar", is_nullable => 0, size => 100 },
+  "description",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
 
 =over 4
 
-=item * L</id>
+=item * L</app_id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key("app_id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<erid_name_uni>
+=head2 C<application_name_uni>
 
 =over 4
 
@@ -87,39 +94,38 @@ __PACKAGE__->set_primary_key("id");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("erid_name_uni", ["name"]);
+__PACKAGE__->add_unique_constraint("application_name_uni", ["name"]);
 
 =head1 RELATIONS
 
-=head2 applications
+=head2 c_app_dbs
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::Application>
+Related object: L<Catalogue::Schema::Result::CAppDb>
 
 =cut
 
 __PACKAGE__->has_many(
-  "applications",
-  "Catalogue::Schema::Result::Application",
-  { "foreign.erid_id" => "self.id" },
+  "c_app_dbs",
+  "Catalogue::Schema::Result::CAppDb",
+  { "foreign.app_id" => "self.app_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 dbs
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-29 16:29:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qjbU1MCzYifqDF/ykJceRA
+Type: many_to_many
 
-=head2 delete_allowed_by
-
-Can the specified user delete the current ERID?
+Composing rels: L</c_app_dbs> -> db
 
 =cut
 
-sub delete_allowed_by {
-  my ($self, $user) = @_;
-  return $user->has_role('admin');
-}
+__PACKAGE__->many_to_many("dbs", "c_app_dbs", "db");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 07:52:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uJvjdshaa2EBxRS1Kq3r/w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

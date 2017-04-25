@@ -7,7 +7,7 @@ __PACKAGE__->config(
     schema_class => 'Catalogue::Schema',
     
     connect_info => {
-        dsn => 'dbi:mysql:catalogue',
+        dsn => 'dbi:mysql:catalogue_test',
         user => 'tutorial',
         password => 'thispassword',
         AutoCommit => q{1},
@@ -32,7 +32,7 @@ Catalyst::Helper::Model::DBIC::Schema - 0.65
 
 =head1 AUTHOR
 
-dr00
+David Ramlakhan
 
 =head1 LICENSE
 

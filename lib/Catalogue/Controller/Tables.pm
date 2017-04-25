@@ -29,13 +29,13 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Begin chained dispatch for /tables to store a DB::SchemaTable resultset in the stash
+Begin chained dispatch for /tables to store a DB::CTable resultset in the stash
 
 =cut 
 
 sub base :Chained('/') :PathPart('tables') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::SchemaTable'));
+    $c->stash(resultset => $c->model('DB::CTable'));
 }
 
 =head2 object
@@ -160,7 +160,7 @@ Fetch all table objects and pass to tables/list.tt2 in stash to be displayed
 sub list :Local {
     my ($self, $c) = @_;
     my $page = $c->request->param('page') || 1;
-    my $query = $c->model('DB::SchemaTable')->search(
+    my $query = $c->model('DB::CTable')->search(
     	{},
     	{rows => 30, page => $page});
     my $tables = [$query->all];
@@ -185,7 +185,7 @@ sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
     );
     my $tables = [$query->all];
     my $pager = $query->pager;
-    my $schema = $c->model('DB::DatabaseSchema')->find({id => $schema_id});
+    my $schema = $c->model('DB::CDatabase')->find({sch_id => $schema_id});
     $c->stash(
     	pager => $pager,
 		schema => $schema,

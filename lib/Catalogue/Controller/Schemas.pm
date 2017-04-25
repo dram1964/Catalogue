@@ -29,13 +29,13 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Begin chained dispatch for /shemas and store a DB::DatabasesSchema resultset in the stash
+Begin chained dispatch for /schemas and store a DB::CSchema resultset in the stash
 
 =cut 
 
 sub base :Chained('/') :PathPart('schemas') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::DatabaseSchema'));
+    $c->stash(resultset => $c->model('DB::CSchema'));
     $c->load_status_msgs;
 }
 
@@ -91,7 +91,7 @@ Fetch all schema objects and pass to schemas/list.tt2 in stash to be displayed
 sub list :Local {
     my ($self, $c) = @_;
     my $page = $c->request->param('page') || 1;
-    my $query = $c->model('DB::DatabaseSchema')->search(
+    my $query = $c->model('DB::CSchema')->search(
     	{},
     	{rows => 30, page => $page});
     my $schemas = [$query->all];
@@ -183,13 +183,13 @@ Fetch schema objects for a specified database and display in 'schemas/list' temp
 sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;
     my $page = $c->request->param('page') || 1;
-    my $query = $c->model('DB::DatabaseSchema')->search(
+    my $query = $c->model('DB::CSchema')->search(
 	{database_id => $db_id},
     	{rows => 30, page => $page});
     my $schemas = [$query->all];
     my $pager = $query->pager;
-    my $database = $c->model('DB::SystemDatabase')->find(
-	{id => $db_id});
+    my $database = $c->model('DB::CDatabase')->find(
+	{db_id => $db_id});
     $c->stash(schemas => $schemas,
 	database => $database,
 	pager => $pager,

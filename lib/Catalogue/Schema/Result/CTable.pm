@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::DatabaseSchema;
+package Catalogue::Schema::Result::CTable;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::DatabaseSchema
+Catalogue::Schema::Result::CTable
 
 =cut
 
@@ -34,15 +34,15 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<database_schema>
+=head1 TABLE: C<c_table>
 
 =cut
 
-__PACKAGE__->table("database_schema");
+__PACKAGE__->table("c_table");
 
 =head1 ACCESSORS
 
-=head2 id
+=head2 tbl_id
 
   data_type: 'integer'
   is_auto_increment: 1
@@ -52,14 +52,14 @@ __PACKAGE__->table("database_schema");
 
   data_type: 'varchar'
   is_nullable: 0
-  size: 50
+  size: 1000
 
 =head2 description
 
   data_type: 'text'
   is_nullable: 1
 
-=head2 database_id
+=head2 sch_id
 
   data_type: 'integer'
   is_foreign_key: 1
@@ -68,13 +68,13 @@ __PACKAGE__->table("database_schema");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
+  "tbl_id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
-  { data_type => "varchar", is_nullable => 0, size => 50 },
+  { data_type => "varchar", is_nullable => 0, size => 1000 },
   "description",
   { data_type => "text", is_nullable => 1 },
-  "database_id",
+  "sch_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
@@ -82,77 +82,49 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</id>
-
-=item * L</database_id>
+=item * L</tbl_id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("id", "database_id");
+__PACKAGE__->set_primary_key("tbl_id");
 
 =head1 RELATIONS
 
-=head2 database
-
-Type: belongs_to
-
-Related object: L<Catalogue::Schema::Result::SystemDatabase>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "database",
-  "Catalogue::Schema::Result::SystemDatabase",
-  { id => "database_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-=head2 schema_tables
+=head2 c_columns
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::SchemaTable>
+Related object: L<Catalogue::Schema::Result::CColumn>
 
 =cut
 
 __PACKAGE__->has_many(
-  "schema_tables",
-  "Catalogue::Schema::Result::SchemaTable",
-  { "foreign.schema_id" => "self.id" },
+  "c_columns",
+  "Catalogue::Schema::Result::CColumn",
+  { "foreign.tbl_id" => "self.tbl_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 sch
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-29 16:29:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xBu9KCetbKkyE5fPQCKGlw
+Type: belongs_to
 
-=head2 edit_allowed_by
-
-Can the specified user edit the current Schema?
-
-=cut
-
-sub edit_allowed_by {
-  my ($self, $user) = @_;
-  return $user->has_role('curator');
-}
-
-=head2 sys_database
-
-Type: overridden belongs_to relation to avoid name clashes in DBIC joins
-
-Related object: L<Catalogue::Schema::Result::SystemDatabase>
+Related object: L<Catalogue::Schema::Result::CSchema>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "sys_database",
-  "Catalogue::Schema::Result::SystemDatabase",
-  { id => "database_id" },
+  "sch",
+  "Catalogue::Schema::Result::CSchema",
+  { sch_id => "sch_id" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 07:52:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zXHs3nM/AF9Esx4cyq8XVw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

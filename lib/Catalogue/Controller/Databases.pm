@@ -29,13 +29,13 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Get a SystemDatabase resultset and load status messages for /databases chain
+Get a CDatabase resultset and load status messages for /databases chain
 
 =cut 
 
 sub base :Chained('/') :PathPart('databases') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::SystemDatabase'));
+    $c->stash(resultset => $c->model('DB::CDatabase'));
     $c->load_status_msgs;
 }
 
@@ -165,16 +165,16 @@ sub edit_current :Chained('object') :PathPart('edit_current') :Args(0)
 =cut
 
 sub list_databases :Chained('base') :Pathpart('list_databases') :Args(1) {
-    my ($self, $c, $system_id) = @_;
+    my ($self, $c, $application_id) = @_;
     my $page = $c->request->param('page') || 1;
     my $query = $c->stash->{resultset}->search(
-    	{system_id => $system_id},
+    	{application_id => $application_id},
     	{rows => 30, page => $page});
     my $databases = [$query->all];
     my $pager = $query->pager;
-    my $system = $c->model('DB::CatalogueSystem')->find($system_id);
+    my $application = $c->model('DB::CatalogueSystem')->find($application_id);
     $c->stash(
-	system => $system,
+	application => $application,
 	databases => $databases,
 	pager => $pager,
 	template => 'databases/list.tt2');
@@ -188,10 +188,10 @@ Fetch all database objects and pass to databases/list.tt2 in stash to be display
 
 sub list :Local {
     my ($self, $c) = @_;
-    $c->stash(databases => [$c->model('DB::SystemDatabase')->all]);
+    $c->stash(databases => [$c->model('DB::CDatabase')->all]);
     $c->stash(template => 'databases/list.tt2');
     my $page = $c->request->param('page') || 1;
-    my $query = $c->model('DB::SystemDatabase')->search(
+    my $query = $c->model('DB::CDatabase')->search(
     	{},
     	{rows => 30, page => $page});
     my $databases = [$query->all];
@@ -212,7 +212,7 @@ sub download :Path('download') :Args(1) {
     my ($self, $c, $content_type) = @_;
     my $filename = 'data.csv';
     my $data;    
-    my $rs = $c->model('DB::SystemDatabase')->search;
+    my $rs = $c->model('DB::CDatabase')->search;
     while (my $system_db = $rs->next) {
 	push @$data, [$system_db->id, $system_db->name];
     }

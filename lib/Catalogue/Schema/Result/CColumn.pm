@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::TableColumn;
+package Catalogue::Schema::Result::CColumn;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::TableColumn
+Catalogue::Schema::Result::CColumn
 
 =cut
 
@@ -34,15 +34,15 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<table_column>
+=head1 TABLE: C<c_column>
 
 =cut
 
-__PACKAGE__->table("table_column");
+__PACKAGE__->table("c_column");
 
 =head1 ACCESSORS
 
-=head2 id
+=head2 col_id
 
   data_type: 'integer'
   is_auto_increment: 1
@@ -80,8 +80,9 @@ __PACKAGE__->table("table_column");
 
 =head2 completion_rate
 
-  data_type: 'integer'
+  data_type: 'varchar'
   is_nullable: 1
+  size: 50
 
 =head2 first_record_date
 
@@ -95,7 +96,7 @@ __PACKAGE__->table("table_column");
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
-=head2 table_id
+=head2 tbl_id
 
   data_type: 'integer'
   is_foreign_key: 1
@@ -104,7 +105,7 @@ __PACKAGE__->table("table_column");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
+  "col_id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
   { data_type => "varchar", is_nullable => 0, size => 1000 },
@@ -117,7 +118,7 @@ __PACKAGE__->add_columns(
   "col_pattern",
   { data_type => "varchar", is_nullable => 1, size => 50 },
   "completion_rate",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "varchar", is_nullable => 1, size => 50 },
   "first_record_date",
   {
     data_type => "timestamp",
@@ -130,7 +131,7 @@ __PACKAGE__->add_columns(
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
   },
-  "table_id",
+  "tbl_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
@@ -138,34 +139,34 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</id>
+=item * L</col_id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key("col_id");
 
 =head1 RELATIONS
 
-=head2 table_rel
+=head2 tbl
 
 Type: belongs_to
 
-Related object: L<Catalogue::Schema::Result::SchemaTable>
+Related object: L<Catalogue::Schema::Result::CTable>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "table_rel",
-  "Catalogue::Schema::Result::SchemaTable",
-  { id => "table_id" },
+  "tbl",
+  "Catalogue::Schema::Result::CTable",
+  { tbl_id => "tbl_id" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-29 16:29:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kGz2E9wN4Ok1fmws85gxIw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 07:52:59
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qtCl0YpDyRU+qYcvivFMww
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

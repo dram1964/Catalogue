@@ -27,11 +27,6 @@ $_->content_contains("Already logged-in", "Already logged-in message") for $ua1,
 $_->get_ok("/logout", "Logout via URL") for $ua1, $ua2;
 $_->content_contains("Welcome to the Metadata Catalogue", "Welcome Page displayed after logout") for $ua1, $ua2;
 
-$ua1->get_ok("/systems/list", "Request /systems/list for empty user"); 
-$ua1->content_contains("Please enter login details", "Redirect to Login for empty user");
-$ua1->get_ok("/login?username=test01&password=mypass", "Log back in for test01");
-$ua1->content_contains("List of all Systems", "Redirect to /systems/list after login");
-
 $ua1->get_ok('/logout');
 $ua1->get_ok("/databases/list", "Request /databases/list for empty user"); 
 $ua1->content_contains("Please enter login details", "Redirect to Login for empty user");

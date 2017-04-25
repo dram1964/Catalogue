@@ -36,10 +36,10 @@ Fetch all column objects and pass to columns/list.tt2 in stash to be displayed
 sub list :Local {
     my ($self, $c) = @_;
     my $page = $c->request->param('page') || 1;
-    my $query = $c->model('DB::TableColumn')->search({},
+    my $query = $c->model('DB::CColumn')->search({},
       {
-    join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
-    prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+    join => {'tbl' => {'sch' => 'db'}},
+    prefetch => {'tbl' => {'sch' => 'db'}},
 	rows => 30,
 	page => $page,
       });
@@ -58,13 +58,13 @@ Fetch all the columns for the specified table and display in the columns/list te
 
 sub list_columns :Path('list_columns') :Args(1) {
     my ($self, $c, $table_id) = @_;
-    my $columns = [$c->model('DB::TableColumn')->search(
+    my $columns = [$c->model('DB::CColumn')->search(
 	{table_id => $table_id},
-	{ join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
-          prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+	{ join => {'tbl' => {'sch' => 'db'}},
+          prefetch => {'tbl' => {'sch' => 'db'}},
         }
     )];
-    my $table = $c->model('DB::SchemaTable')->find({id => $table_id});
+    my $table = $c->model('DB::CTable')->find({tbl_id => $table_id});
     $c->stash(
 	table => $table,
 	columns => $columns,
@@ -83,17 +83,16 @@ sub search :Path('search') :Args(0) {
     my $page = $c->request->param('page') || 1;
     my $search_term = "%" . $c->request->params->{search} . "%";
     $c->log->debug("*** Searching for $search_term ***");
-    my $column_rs = $c->model('DB::TableColumn')->search(
+    my $column_rs = $c->model('DB::CColumn')->search(
 	{-or => [
 		{'me.name' => {like => $search_term}},
-		{'table_rel.name' => {like => $search_term}},
-		{'db_schema.name' => {like => $search_term}},
-		{'sys_database.name' => {like => $search_term}},
-		{'system.name' => {like => $search_term}},
+		{'tbl.name' => {like => $search_term}},
+		{'sch.name' => {like => $search_term}},
+		{'db.name' => {like => $search_term}},
 		]
         },
-	{ join => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
-          prefetch => {'table_rel' => {'db_schema' => {'sys_database' => 'system'}}},
+	{ join => {'tbl' => {'sch' => 'db' }},
+          prefetch => {'tbl' => {'sch' => 'db'}},
 	distinct => 1,
 	rows => 30,
 	page => $page,

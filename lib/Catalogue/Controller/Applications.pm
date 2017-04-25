@@ -6,7 +6,7 @@ BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 
-Catalogue::Controller::Applications - Catalyst Controller
+Catalogue::Controller::CApplications - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched Catalogue::Controller::Applications in Applications.');
+    $c->response->body('Matched Catalogue::Controller::CApplications in CApplications.');
 }
 
 =head2 base
@@ -35,7 +35,7 @@ Can place common logic to start a chained dispatch here
 
 sub base :Chained('/') :PathPart('applications') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::Application'));
+    $c->stash(resultset => $c->model('DB::CApplication'));
     $c->load_status_msgs;
 }
 
@@ -55,7 +55,7 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
 =head2 list 
 
-List all Applications 
+List all CApplications 
 
 =cut
 
@@ -107,7 +107,7 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
 
 =head2 add
 
-Add new Dataset
+Add new Application
 
 =cut
 
@@ -117,7 +117,7 @@ sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
     if ($form->submitted_and_valid) {
         my $application_name = $c->request->params->{name};
 	my $application_description = $c->request->params->{description};
-        my $application = $c->model('DB::Application')->new_result({
+        my $application = $c->model('DB::CApplication')->new_result({
 		name => $application_name,
 		description => $application_description,
 	});
@@ -142,11 +142,6 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $application = $c->stash->{object};
-    my $system = $application->system;
-    my $supplier = $application->supplier;
-    my $kpe = $application->kpe;
-    my $erid = $application->erid;
-    my $category2 = $application->cat2;
     unless ($application) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid application -- Cannot edit")}));
@@ -157,14 +152,9 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
         $application->update({
 		name => $c->request->params->{application_name},
 		description => $c->request->params->{application_description},
-		system_id => $application->system_id,
-		erid_id => $c->request->params->{erid},
-		kpe_id => $c->request->params->{kpe_class},
-		supplier_id => $c->request->params->{supplier},
-		cat2_id => $c->request->params->{category2},
 	}); 
 	$c->response->redirect($c->uri_for($self->action_for('list'),
-	    {mid => $c->set_status_msg("Dataset updated")}));
+	    {mid => $c->set_status_msg("Application updated")}));
 	$c->detach;
     } else {
         my $name = $form->get_element({name => 'application_name'});
@@ -173,41 +163,6 @@ sub edit :Chained('object') :PathPart('edit') :Args(0) :FormConfig() {
 	$description->value($application->description);
 	$c->stash(application => $application);
 
-        my @kpe_objs = $c->model('DB::KpeClass')->all();
-        my @kpes;
-        foreach (sort @kpe_objs) {
-	    push(@kpes, [$_->id, $_->name]);
-	}
-	my $kpe_select = $form->get_element({name => 'kpe_class'});
-	$kpe_select->options(\@kpes);
-	$kpe_select->value($kpe->id) if $kpe;
-
-        my @category2_objs = $c->model('DB::Category2')->all();
-        my @category2s;
-        foreach (sort @category2_objs) {
-	    push(@category2s, [$_->id, $_->name]);
-	}
-	my $category2_select = $form->get_element({name => 'category2'});
-	$category2_select->options(\@category2s);
-	$category2_select->value($category2->id) if $category2;
-
-        my @supplier_objs = $c->model('DB::Supplier')->all();
-        my @suppliers;
-        foreach (sort @supplier_objs) {
-	    push(@suppliers, [$_->id, $_->name]);
-	}
-	my $supplier_select = $form->get_element({name => 'supplier'});
-	$supplier_select->options(\@suppliers);
-	$supplier_select->value($supplier->id) if $supplier;
-
-        my @erid_objs = $c->model('DB::Erid')->all();
-        my @erids;
-        foreach (sort @erid_objs) {
-	    push(@erids, [$_->id, $_->name]);
-	}
-	my $erid_select = $form->get_element({name => 'erid'});
-	$erid_select->options(\@erids);
-	$erid_select->value($erid->id) if $erid;
     }
     $c->stash(template => 'applications/edit.tt2');
 }
