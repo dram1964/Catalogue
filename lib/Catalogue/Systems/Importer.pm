@@ -36,7 +36,7 @@ $record->delete_all; # deletes all records for system_name
 
 use Catalogue::Schema;
 
-my $schema = Catalogue::Schema->connect('dbi:mysql:catalogue', 'tutorial', 'thispassword');
+my $schema = Catalogue::Schema->connect('dbi:mysql:catalogue_test', 'tutorial', 'thispassword');
 
 
 =head1 METHODS
@@ -85,7 +85,7 @@ sub add_or_update_kpe () {
 		erid_id => $erid,
 		supplier_id => $supplier_id,
 		kpe_id => $kpe_id,
-		application_id => $applicaiton_id,
+		application_id => $application_id,
 	});
     } else {
     $rs->update({
@@ -98,54 +98,54 @@ sub add_or_update_kpe () {
     }
 }
 
-=head2 add_or_update_system
+=head2 add_or_update_database
 
-Checks that the record has all the required elements, and then updates or adds the Catalogue System and child records
+Checks that the record has all the required elements, and then updates or adds the database and child/parent records
 
 =cut
 
-sub add_or_update_system () {
+sub add_or_update_database () {
     my ($self) = @_;
-    $self->_check_record;
+    $self->_check_db_record;
     return 0 if $self->error_msg;
-    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
+    my $rs = $schema->resultset('CServer')->find({name => $self->server_name});
     if (!$rs) {
-	$rs = $schema->resultset('CatalogueSystem')->create({
-		name => $self->system_name});
+	$rs = $schema->resultset('CServer')->create({
+		name => $self->server_name});
     } 
-    my $db_rs = $rs->system_databases->find({name => $self->database_name});
+    my $db_rs = $rs->dbs->find({name => $self->database_name});
     if (!$db_rs) {
-	$db_rs = $rs->system_databases->create({
+	$db_rs = $rs->dbs->create({
 	    name => $self->database_name,
 	    description => $self->database_description});
     } else {
 	my $update = $db_rs->update({
 		description => $self->database_description});
     }
-    my $schema_rs = $db_rs->database_schemas->find({
+    my $schema_rs = $db_rs->c_schemas->find({
 	name => $self->schema_name});
     if (!$schema_rs) {
-	$schema_rs = $db_rs->database_schemas->create({
+	$schema_rs = $db_rs->c_schemas->create({
 	    name => $self->schema_name,
 	    description => $self->schema_description});
     } else {
 	my $update = $schema_rs->update({
 	    description => $self->schema_description});
     }
-    my $table_rs = $schema_rs->schema_tables->find({
+    my $table_rs = $schema_rs->c_tables->find({
 	name => $self->table_name});
     if (!$table_rs) {
-	$table_rs = $schema_rs->schema_tables->create({
+	$table_rs = $schema_rs->c_tables->create({
 	    name => $self->table_name,
 	    description => $self->table_description});
     } else {
 	my $update = $table_rs->update({
 	    description => $self->table_name});
     }
-    my $column_rs = $table_rs->table_columns->find({
+    my $column_rs = $table_rs->c_columns->find({
 	name => $self->column_name});
     if (!$column_rs) {
-	$column_rs = $table_rs->table_columns->create({
+	$column_rs = $table_rs->c_columns->create({
 	     name => $self->column_name,
 	     col_type => $self->column_type,
 	     col_size => $self->column_size});
@@ -156,14 +156,18 @@ sub add_or_update_system () {
     }
 }
 
-=head2 _check_record
+=head2 _check_db_record
 
 Checks that the record to be updated has minimal required fields to add a Catalogue System and child records
 
 =cut
 
-sub _check_record {
+sub _check_db_record {
         my ($self) = @_;
+	if (!defined($self->server_name)) {
+	    $self->error_msg("No server name provided");
+	    return;
+	}
 	if (!defined($self->database_name)) {
 	    $self->error_msg("No database name provided");
 	    return;

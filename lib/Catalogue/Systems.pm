@@ -15,7 +15,7 @@ Used as Base Class for Catalogue::Systems::* Utility Modules
 use Catalogue::Systems
 
 my $data = {
-	system_name => 'TestServer',
+	server_name => 'TestServer',
 	database_name => 'DBName',
 	database_description => 'DB Description',
 	schema_name => 'SchemaName',
@@ -32,7 +32,7 @@ $record->system_name('testserver') # set system_name
 
 =cut
 
-has 'system_name' => ( is => 'rw');
+has 'server_name' => ( is => 'rw');
 has 'database_name' => ( is => 'rw');
 has 'database_description' => ( is => 'rw');
 has 'schema_name' => ( is => 'rw');
