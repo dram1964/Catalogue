@@ -53,13 +53,13 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
 	{-or => [
 		{'me.name' => {like => $search_term}},
 		{'me.description' => {like => $search_term}},
-		{'database_schemas.name' => {like => $search_term}},
-		{'database_schemas.description' => {like => $search_term}},
+		{'c_schemas.name' => {like => $search_term}},
+		{'c_schemas.description' => {like => $search_term}},
 		]
         },
 	{
 	 join => {
-		'database_schemas'
+		'c_schemas'
 	 },
 	 distinct => 1
 	}
