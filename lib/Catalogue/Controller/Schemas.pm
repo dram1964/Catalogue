@@ -48,8 +48,8 @@ Chained dispatch for /schemas/id/?/? to store a schema object on the stash
 sub object :Chained('base') :PathPart('id') :CaptureArgs(2) {
    my ($self, $c, $schema_id, $db_id) = @_;
    $c->stash(object => $c->stash->{resultset}->find(
-	{id => $schema_id, 
-	database_id => $db_id} 
+	{sch_id => $schema_id, 
+	db_id => $db_id} 
    ));
 
    die "Class not found" if !$c->stash->{object};
@@ -150,7 +150,7 @@ sub edit_current :Chained('object') :PathPart('edit_current') :Args(0)
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $schema = $c->stash->{object};
-    my $database = $schema->database;
+    my $database = $schema->db;
     unless ($schema) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Schema -- Cannot edit")}));

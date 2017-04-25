@@ -32,9 +32,9 @@
         <td><a href="[% c.uri_for(c.controller('Tables').action_for('list_tables'), [schema.sch_id]) %]">List Tables</a></td>
         <td>[% schema.description %]</td>
 [% IF database %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [schema.id, schema.database.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [schema.id, schema.db_id]) %]">Update Description</a></td>
 [% ELSE %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [schema.id, schema.database.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [schema.id, schema.db_id]) %]">Update Description</a></td>
 [% END %]
       </tr>
 [% END %]

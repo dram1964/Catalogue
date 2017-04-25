@@ -7,8 +7,8 @@ use Spreadsheet::XLSX;
 use Text::Iconv;
 
 my $converter = Text::Iconv->new("utf-8", "windows-1251");
-my $server_name = 'Uinfoflexl';
-my $first_data_row = 1;
+my $server_name = 'Tomcat';
+my $first_data_row = 0;
 
 my $excel = Spreadsheet::XLSX->new("/home/dr00/Catalogue/data/$server_name.xlsx", $converter);
 
