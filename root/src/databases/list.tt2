@@ -9,7 +9,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>System</th>
+        <th>Server</th>
         <th>Database</th>
         <th>Schemas</th>
         <th>Description</th>
@@ -19,7 +19,11 @@
     <tbody>
 [% FOREACH database IN databases %]
       <tr>
-        <td>[% database.system.name %]</td>
+        <td>
+	[% FOREACH server IN database.c_db_servers %]
+	[% server.name %]
+	[% END %]
+	</td>
         <td>[% database.name %]</td>
         <td>
 <a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.id]) %]">List Schemas</a>

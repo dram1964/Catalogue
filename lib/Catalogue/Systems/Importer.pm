@@ -24,7 +24,7 @@ my $data = {
 }
 my $record = Catalogue::Systems::Importer->new($data);
 $record->table_name; # prints 'TableName'
-$record->add_or_update_system;
+$record->add_or_update_database;
 $record->column_name('Column2');
 $record->column_type('varchar');
 $record->column_size(50);
@@ -118,6 +118,9 @@ sub add_or_update_database () {
 	$db_rs = $rs->dbs->create({
 	    name => $self->database_name,
 	    description => $self->database_description});
+	my $db_server_rs = $rs->c_db_servers->create({
+	    db_id => $db_rs->id,
+	    srv_id => $rs->id});
     } else {
 	my $update = $db_rs->update({
 		description => $self->database_description});
