@@ -41,17 +41,33 @@ my $schema = Catalogue::Schema->connect('dbi:mysql:catalogue_test', 'tutorial', 
 
 =head1 METHODS
 
-=head2 delete_all
+=head2 delete_db
 
-Deletes Catalogue System and all child records (Databases, Schemas, Tables and columns associated with the system
+Deletes Catalogue Database and all child records (Schemas, Tables and columns associated with the system
 
 =cut
 
-sub delete_all {
+sub delete_db {
     my ($self) = @_;
-    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->system_name});
+    my $rs = $schema->resultset('CDatabase')->find({name => $self->database_name});
     if (!$rs) {
-		print $self->system_name, " not found: nothing to delete\n";
+		print $self->database_name, " not found: nothing to delete\n";
+    } else {
+		$rs->delete;
+    }
+}
+
+=head2 delete_srv
+
+Deletes Catalogue Server by name if no references exist
+
+=cut
+
+sub delete_srv {
+    my ($self) = @_;
+    my $rs = $schema->resultset('CServer')->find({name => $self->server_name});
+    if (!$rs) {
+		print $self->server_name, " not found: nothing to delete\n";
     } else {
 		$rs->delete;
     }

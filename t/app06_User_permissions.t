@@ -3,9 +3,20 @@ use warnings;
 use Test::More;
 use_ok("Test::WWW::Mechanize::Catalyst" => "Catalogue");
 
+my $anon_ua = Test::WWW::Mechanize::Catalyst->new;
 my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 my $ua2 = Test::WWW::Mechanize::Catalyst->new;
 my $ua3 = Test::WWW::Mechanize::Catalyst->new;
+$anon_ua->get("/databases/list");
+$anon_ua->content_contains("Please enter login details", "Anonymous denied databases/list");
+$anon_ua->get("/applications/list");
+$anon_ua->content_contains("Please enter login details", "Anonymous denied applications/list");
+$anon_ua->get("/schemas/list");
+$anon_ua->content_contains("Please enter login details", "Anonymous denied schemas/list");
+$anon_ua->get("/tables/list");
+$anon_ua->content_contains("Please enter login details", "Anonymous denied tables/list");
+$anon_ua->get("/columns/list");
+$anon_ua->content_contains("Please enter login details", "Anonymous denied columns/list");
 
 $ua1->get("/login?username=test01&password=mypass");
 $ua1->content_contains("Welcome to the Metadata Catalogue", "Test01 logged-in");
