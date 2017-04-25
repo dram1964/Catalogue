@@ -180,12 +180,12 @@ sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
     my ($self, $c, $schema_id) = @_;
     my $page = $c->request->param('page') || 1;
     my $query = $c->stash->{resultset}->search(
-    	{schema_id => $schema_id},
+    	{sch_id => $schema_id},
     	{rows => 30, page => $page}
     );
     my $tables = [$query->all];
     my $pager = $query->pager;
-    my $schema = $c->model('DB::CDatabase')->find({sch_id => $schema_id});
+    my $schema = $c->model('DB::CSchema')->find({sch_id => $schema_id});
     $c->stash(
     	pager => $pager,
 		schema => $schema,

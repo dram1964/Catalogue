@@ -1,5 +1,5 @@
 [% META title = 'Database Tables' %]
-[% IF schema %]<p class="lead">Showing tables for [% schema.database.name %].[% schema.name %] Database.Schema on [% schema.database.system.name %]</p>
+[% IF schema %]<p class="lead">Showing tables for [% schema.db.name %].[% schema.name %] Database.Schema on [% schema.db.server_name_list %]</p>
 [% ELSE %]
 <p class="lead">Tables for all schemas</p>
 [% END %]
