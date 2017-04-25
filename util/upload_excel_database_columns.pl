@@ -39,8 +39,8 @@ sub load_data {
 			'schema_name' => $record[1],
 			'table_name' => $record[2],
 			'column_name' => $record[3],
-			'column_type' => $record[6],
-			'column_size' => $record[7],
+			'column_type' => $record[7],
+			'column_size' => $record[8],
     	};
 		my $import = Catalogue::Systems::Importer->new($data);
 		print join(":", "($row of $row_max)", $data->{server_name}, 
