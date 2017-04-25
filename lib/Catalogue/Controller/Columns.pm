@@ -59,7 +59,7 @@ Fetch all the columns for the specified table and display in the columns/list te
 sub list_columns :Path('list_columns') :Args(1) {
     my ($self, $c, $table_id) = @_;
     my $columns = [$c->model('DB::CColumn')->search(
-	{table_id => $table_id},
+	{'me.tbl_id' => $table_id},
 	{ join => {'tbl' => {'sch' => 'db'}},
           prefetch => {'tbl' => {'sch' => 'db'}},
         }

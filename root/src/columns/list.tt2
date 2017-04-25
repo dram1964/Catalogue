@@ -22,10 +22,10 @@
     <tbody>
 [% FOREACH column IN columns %]
       <tr>
-        <td>[% column.table_rel.db_schema.sys_database.system.name %]</td>
-        <td>[% column.table_rel.db_schema.sys_database.name %]</td>
-        <td>[% column.table_rel.db_schema.name %]</td>
-	<td>[% column.table_rel.name %]</td>
+        <td>[% column.tbl.sch.db.server_name_list %]</td>
+        <td>[% column.tbl.sch.db.name %]</td>
+        <td>[% column.tbl.sch.name %]</td>
+	<td>[% column.tbl.name %]</td>
         <td>[% column.name %]</td>
         <td>[% column.col_type %]</td>
         <td>[% column.col_size %]</td>
