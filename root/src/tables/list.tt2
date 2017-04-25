@@ -23,9 +23,9 @@
         <td><a href="[% c.uri_for(c.controller('Columns').action_for('list_columns'), [table.tbl_id]) %]">List Columns</a></td>
         <td>[% table.description %]</td>
 [% IF schema %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [table.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_current'), [table.tbl_id]) %]">Update Description</a></td>
 [% ELSE %]
-        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [table.id]) %]">Update Description</a></td>
+        <td><a href="[% c.uri_for(c.controller.action_for('edit_description'), [table.tbl_id]) %]">Update Description</a></td>
 [% END %]
       </tr>
 [% END %]

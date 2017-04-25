@@ -47,7 +47,7 @@ Chained dispatch for /tables/id/?/? to store a table object in the stash
 sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    my ($self, $c, $table_id)  = @_;
    $c->stash(object => $c->stash->{resultset}->find(
-	{id => $table_id} 
+	{tbl_id => $table_id} 
    ));
 
    die "Class not found" if !$c->stash->{object};
@@ -127,7 +127,7 @@ sub edit_current :Chained('object') :PathPart('edit_current') :Args(0)
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $table = $c->stash->{object};
-    my $schema = $table->schema;
+    my $schema = $table->sch;
     unless ($table) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Table -- Cannot edit")}));
