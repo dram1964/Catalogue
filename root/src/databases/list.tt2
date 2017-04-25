@@ -22,7 +22,7 @@
         <td> [% database.server_name_list %] </td>
         <td>[% database.name %]</td>
         <td>
-<a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.id]) %]">List Schemas</a>
+<a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.db_id]) %]">List Schemas</a>
         </td>
         <td>[% database.description %]</td>
 [% IF system %]

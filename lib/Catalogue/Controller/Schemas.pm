@@ -184,7 +184,7 @@ sub list_schemas :Path('list') :Args(1) {
     my ($self, $c, $db_id) = @_;
     my $page = $c->request->param('page') || 1;
     my $query = $c->model('DB::CSchema')->search(
-	{database_id => $db_id},
+	{db_id => $db_id},
     	{rows => 30, page => $page});
     my $schemas = [$query->all];
     my $pager = $query->pager;
