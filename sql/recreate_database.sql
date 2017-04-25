@@ -3,7 +3,9 @@ DROP TABLE IF EXISTS c_application;
 DROP TABLE IF EXISTS c_column;
 DROP TABLE IF EXISTS c_table;
 DROP TABLE IF EXISTS c_schema;
+DROP TABLE IF EXISTS c_db_server;
 DROP TABLE IF EXISTS c_database;
+DROP TABLE IF EXISTS c_server;
 
 CREATE TABLE c_application (
 app_id int(11) NOT NULL AUTO_INCREMENT,
@@ -26,9 +28,9 @@ CREATE TABLE c_app_db (
 db_id int(11) NOT NULL,
 app_id int(11) NOT NULL,
 PRIMARY KEY(db_id, app_id),
-CONSTRAINT db_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id) 
+CONSTRAINT app_db_database_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id) 
 ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT app_fk FOREIGN KEY (app_id) REFERENCES c_application (app_id) 
+CONSTRAINT app_db_application_fk FOREIGN KEY (app_id) REFERENCES c_application (app_id) 
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
@@ -68,3 +70,21 @@ PRIMARY KEY(col_id),
 CONSTRAINT column_table_fk FOREIGN KEY (tbl_id) REFERENCES c_table (tbl_id)
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE c_server (
+srv_id int(11) NOT NULL AUTO_INCREMENT,
+name varchar(100) NOT NULL,
+description text,
+PRIMARY KEY(srv_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE c_db_server (
+db_id int(11) NOT NULL,
+srv_id int(11) NOT NULL,
+PRIMARY KEY(db_id, srv_id),
+CONSTRAINT db_srv_database_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT db_srv_server_fk FOREIGN KEY (srv_id) REFERENCES c_server (srv_id) 
+ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+

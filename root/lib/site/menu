@@ -8,7 +8,6 @@
   [% END %]
 	</ul></li>
 [% END %]
-  <li><a href="[% c.uri_for('/systems/list') %]">Systems</a></li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
   <li><a href="[% c.uri_for('/applications/list') %]">Applications</a></li>
   <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
@@ -18,10 +17,6 @@
 [% IF c.check_user_roles('curator') %]
 <ul class="nav nav-sidebar">
   <li>Reference Tables</li>
-  <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
-  <li><a href="[% c.uri_for('/erid/list') %]">ERIDs</a></li>
-  <li><a href="[% c.uri_for('/supplier/list') %]">Suppliers</a></li>
-  <li><a href="[% c.uri_for('/category2/list') %]">Category2s</a></li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
 </ul>
 [% END %]
