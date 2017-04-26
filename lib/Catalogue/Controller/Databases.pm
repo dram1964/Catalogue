@@ -118,27 +118,6 @@ sub edit_description :Chained('object') :PathPart('edit_description') :Args(0)
 	template => 'databases/edit_description.tt2');
 }
 
-=head2 list_databases
-
-
-=cut
-
-sub list_databases :Chained('base') :Pathpart('list_databases') :Args(1) {
-    my ($self, $c, $application_id) = @_;
-    my $page = $c->request->param('page') || 1;
-    my $query = $c->stash->{resultset}->search(
-    	{application_id => $application_id},
-    	{rows => 30, page => $page});
-    my $databases = [$query->all];
-    my $pager = $query->pager;
-    my $application = $c->model('DB::CatalogueSystem')->find($application_id);
-    $c->stash(
-	application => $application,
-	databases => $databases,
-	pager => $pager,
-	template => 'databases/list.tt2');
-}
-
 =head2 list
 
 Fetch all database objects and pass to databases/list.tt2 in stash to be displayed
