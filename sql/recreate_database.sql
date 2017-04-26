@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS cat2;
 DROP TABLE IF EXISTS c_column;
 DROP TABLE IF EXISTS c_table;
 DROP TABLE IF EXISTS c_schema;
-DROP TABLE IF EXISTS c_db_server;
 DROP TABLE IF EXISTS c_database;
 DROP TABLE IF EXISTS c_server;
 
@@ -55,25 +54,22 @@ ON DELETE CASCADE ON UPDATE CASCADE,
 UNIQUE KEY application_name_uni (name)
 ) ENGINE=InnoDB;
 
+CREATE TABLE c_server (
+srv_id int(11) NOT NULL AUTO_INCREMENT,
+name varchar(100) NOT NULL,
+description text,
+PRIMARY KEY(srv_id)
+) ENGINE=InnoDB;
 
 CREATE TABLE c_database (
 db_id int(11) NOT NULL AUTO_INCREMENT,
 name varchar(100) NOT NULL,
 description text,
+srv_id int(11) NOT NULL,
+CONSTRAINT server_fk FOREIGN KEY (srv_id) REFERENCES c_server (srv_id)
+ON DELETE CASCADE ON UPDATE CASCADE,
 PRIMARY KEY(db_id)
 ) ENGINE=InnoDB;
-
-
-CREATE TABLE c_app_db (
-db_id int(11) NOT NULL,
-app_id int(11) NOT NULL,
-PRIMARY KEY(db_id, app_id),
-CONSTRAINT app_db_database_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id) 
-ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT app_db_application_fk FOREIGN KEY (app_id) REFERENCES c_application (app_id) 
-ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 
 CREATE TABLE c_schema (
 sch_id int(11) NOT NULL AUTO_INCREMENT,
@@ -108,23 +104,6 @@ last_record_date timestamp NULL DEFAULT NULL,
 tbl_id int(11) NOT NULL,
 PRIMARY KEY(col_id, tbl_id),
 CONSTRAINT column_table_fk FOREIGN KEY (tbl_id) REFERENCES c_table (tbl_id)
-ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-CREATE TABLE c_server (
-srv_id int(11) NOT NULL AUTO_INCREMENT,
-name varchar(100) NOT NULL,
-description text,
-PRIMARY KEY(srv_id)
-) ENGINE=InnoDB;
-
-CREATE TABLE c_db_server (
-db_id int(11) NOT NULL,
-srv_id int(11) NOT NULL,
-PRIMARY KEY(db_id, srv_id),
-CONSTRAINT db_srv_database_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id) 
-ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT db_srv_server_fk FOREIGN KEY (srv_id) REFERENCES c_server (srv_id) 
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 

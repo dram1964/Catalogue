@@ -19,7 +19,7 @@
     <tbody>
 [% FOREACH database IN databases %]
       <tr>
-        <td> [% database.server_name_list %] </td>
+        <td> [% database.srv.name %] </td>
         <td>[% database.name %]</td>
         <td>
 <a href="[% c.uri_for(c.controller('Schemas').action_for('list_schemas'), [database.db_id]) %]">List Schemas</a>

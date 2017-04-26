@@ -59,6 +59,12 @@ __PACKAGE__->table("c_database");
   data_type: 'text'
   is_nullable: 1
 
+=head2 srv_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -68,6 +74,8 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 100 },
   "description",
   { data_type => "text", is_nullable => 1 },
+  "srv_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -84,36 +92,6 @@ __PACKAGE__->set_primary_key("db_id");
 
 =head1 RELATIONS
 
-=head2 c_app_dbs
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::CAppDb>
-
-=cut
-
-__PACKAGE__->has_many(
-  "c_app_dbs",
-  "Catalogue::Schema::Result::CAppDb",
-  { "foreign.db_id" => "self.db_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 c_db_servers
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::CDbServer>
-
-=cut
-
-__PACKAGE__->has_many(
-  "c_db_servers",
-  "Catalogue::Schema::Result::CDbServer",
-  { "foreign.db_id" => "self.db_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 c_schemas
 
 Type: has_many
@@ -129,47 +107,27 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 apps
+=head2 srv
 
-Type: many_to_many
+Type: belongs_to
 
-Composing rels: L</c_app_dbs> -> app
-
-=cut
-
-__PACKAGE__->many_to_many("apps", "c_app_dbs", "app");
-
-=head2 srvs
-
-Type: many_to_many
-
-Composing rels: L</c_db_servers> -> srv
+Related object: L<Catalogue::Schema::Result::CServer>
 
 =cut
 
-__PACKAGE__->many_to_many("srvs", "c_db_servers", "srv");
+__PACKAGE__->belongs_to(
+  "srv",
+  "Catalogue::Schema::Result::CServer",
+  { srv_id => "srv_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 09:47:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5LG6eogIaIMXKwc8DTmBvA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 19:58:22
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6jwfkv95zsONZRCjBu6+Bw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
-
-=head2 server_name_list
-
-Return a comma-separated list of servers for the current database
-
-=cut 
-
-sub server_name_list {
-    my ($self) = @_;
-    my @servers;
-    foreach my $server ($self->srvs) {
-	push(@servers, $server->name);
-    }
-    return join(', ', @servers);
-}
 
 =head2 edit_allowed_by
 

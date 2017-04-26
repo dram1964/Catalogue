@@ -134,45 +134,50 @@ sub add_or_update_database () {
 	$rs = $schema->resultset('CServer')->create({
 		name => $self->server_name});
     } 
-    my $db_rs = $rs->dbs->find({name => $self->database_name});
+    my $db_rs = $rs->c_databases->find({name => $self->database_name,
+		srv_id => $rs->srv_id});
     if (!$db_rs) {
-	$db_rs = $rs->dbs->create({
+	$db_rs = $rs->c_databases->create({
 	    name => $self->database_name,
-	    description => $self->database_description});
-	my $db_server_rs = $rs->c_db_servers->create({
-	    db_id => $db_rs->id,
-	    srv_id => $rs->id});
+	    description => $self->database_description,
+	    srv_id => $rs->srv_id});
     } else {
 	my $update = $db_rs->update({
 		description => $self->database_description});
     }
     my $schema_rs = $db_rs->c_schemas->find({
-	name => $self->schema_name});
+	name => $self->schema_name,
+	db_id => $db_rs->db_id});
     if (!$schema_rs) {
 	$schema_rs = $db_rs->c_schemas->create({
 	    name => $self->schema_name,
-	    description => $self->schema_description});
+	    description => $self->schema_description,
+	    db_id => $db_rs->db_id});
     } else {
 	my $update = $schema_rs->update({
 	    description => $self->schema_description});
     }
     my $table_rs = $schema_rs->c_tables->find({
-	name => $self->table_name});
+	name => $self->table_name,
+	sch_id => $schema_rs->sch_id});
     if (!$table_rs) {
 	$table_rs = $schema_rs->c_tables->create({
 	    name => $self->table_name,
-	    description => $self->table_description});
+	    description => $self->table_description,
+	    sch_id => $schema_rs->sch_id});
     } else {
 	my $update = $table_rs->update({
 	    description => $self->table_name});
     }
     my $column_rs = $table_rs->c_columns->find({
-	name => $self->column_name});
+	name => $self->column_name,
+	tbl_id => $table_rs->tbl_id});
     if (!$column_rs) {
 	$column_rs = $table_rs->c_columns->create({
 	     name => $self->column_name,
 	     col_type => $self->column_type,
-	     col_size => $self->column_size});
+	     col_size => $self->column_size,
+	     tbl_id => $table_rs->tbl_id});
     } else {
 	my $update = $column_rs->update({
 	     col_type => $self->column_type,

@@ -84,34 +84,24 @@ __PACKAGE__->set_primary_key("srv_id");
 
 =head1 RELATIONS
 
-=head2 c_db_servers
+=head2 c_databases
 
 Type: has_many
 
-Related object: L<Catalogue::Schema::Result::CDbServer>
+Related object: L<Catalogue::Schema::Result::CDatabase>
 
 =cut
 
 __PACKAGE__->has_many(
-  "c_db_servers",
-  "Catalogue::Schema::Result::CDbServer",
+  "c_databases",
+  "Catalogue::Schema::Result::CDatabase",
   { "foreign.srv_id" => "self.srv_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 dbs
 
-Type: many_to_many
-
-Composing rels: L</c_db_servers> -> db
-
-=cut
-
-__PACKAGE__->many_to_many("dbs", "c_db_servers", "db");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 09:47:58
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0Gag4s4psGv9S/NI6hkctA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 19:58:22
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZUa1WyPTBn4TCtWQGRPrfQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

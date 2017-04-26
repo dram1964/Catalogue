@@ -130,21 +130,6 @@ __PACKAGE__->add_unique_constraint("application_name_uni", ["name"]);
 
 =head1 RELATIONS
 
-=head2 c_app_dbs
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::CAppDb>
-
-=cut
-
-__PACKAGE__->has_many(
-  "c_app_dbs",
-  "Catalogue::Schema::Result::CAppDb",
-  { "foreign.app_id" => "self.app_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 cat2
 
 Type: belongs_to
@@ -225,19 +210,9 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 dbs
 
-Type: many_to_many
-
-Composing rels: L</c_app_dbs> -> db
-
-=cut
-
-__PACKAGE__->many_to_many("dbs", "c_app_dbs", "db");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 16:49:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:me9EG0YnZitar7JMs7epFw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 19:58:22
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lUwReKPwQK+rPPJzyFsCLQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
