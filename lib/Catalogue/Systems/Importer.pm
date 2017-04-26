@@ -57,6 +57,22 @@ sub delete_db {
     }
 }
 
+=head2 delete_srv
+
+Deletes server record 
+
+=cut
+
+sub delete_srv {
+    my ($self) = @_;
+    my $rs = $schema->resultset('CServer')->find({name => $self->server_name});
+    if (!$rs) {
+		print $self->server_name, " not found: nothing to delete\n";
+    } else {
+		$rs->delete;
+    }
+}
+
 =head2 add_or_update_application
 
 updates or adds the Application and child records
