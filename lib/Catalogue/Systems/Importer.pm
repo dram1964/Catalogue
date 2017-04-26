@@ -28,9 +28,9 @@ $record->add_or_update_database;
 $record->column_name('Column2');
 $record->column_type('varchar');
 $record->column_size(50);
-$record->add_or_update_system;
+$record->add_or_update_application;
 
-$record->delete_all; # deletes all records for system_name 
+$record->delete_db; # deletes all records for system_name 
 
 =cut
 
@@ -57,51 +57,30 @@ sub delete_db {
     }
 }
 
-=head2 delete_srv
+=head2 add_or_update_application
 
-Deletes Catalogue Server by name if no references exist
-
-=cut
-
-sub delete_srv {
-    my ($self) = @_;
-    my $rs = $schema->resultset('CServer')->find({name => $self->server_name});
-    if (!$rs) {
-		print $self->server_name, " not found: nothing to delete\n";
-    } else {
-		$rs->delete;
-    }
-}
-
-=head2 add_or_update_kpe
-
-Checks that the record has all the required elements, and then updates or adds the Catalogue System and child records
+updates or adds the Application and child records
 
 =cut
 
-sub add_or_update_kpe () {
+sub add_or_update_application () {
     my ($self) = @_;
-    my $category2_rs = $schema->resultset('Category2')->find_or_create({name => $self->category2});
+    my $category2_rs = $schema->resultset('Cat2')->find_or_create({name => $self->category2});
     my $category2_id = $category2_rs->id;
     my $erid_rs = $schema->resultset('Erid')->find_or_create({name => $self->erid});
     my $erid = $erid_rs->id;
     my $supplier_rs = $schema->resultset('Supplier')->find_or_create({name => $self->supplier});
     my $supplier_id = $supplier_rs->id;
-    my $kpe_rs = $schema->resultset('KpeClass')->find_or_create({name => $self->kpe});
+    my $kpe_rs = $schema->resultset('Kpe')->find_or_create({name => $self->kpe});
     my $kpe_id = $kpe_rs->id;
-    my $application_rs = $schema->resultset('Application')->find_or_create(
-	{name => $self->application});
-    my $application_id = $application_rs->id;
-    $application_rs->update({description => $self->application_desc});
-    my $rs = $schema->resultset('CatalogueSystem')->find({name => $self->application});
+    my $rs = $schema->resultset('CApplication')->find({name => $self->application});
     if (!$rs) {
-	$rs = $schema->resultset('CatalogueSystem')->create({
+	$rs = $schema->resultset('CApplication')->create({
 		name => $self->application,
 		cat2_id => $category2_id,
 		erid_id => $erid,
 		supplier_id => $supplier_id,
 		kpe_id => $kpe_id,
-		application_id => $application_id,
 	});
     } else {
     $rs->update({
@@ -109,7 +88,6 @@ sub add_or_update_kpe () {
 		erid_id => $erid,
 		supplier_id => $supplier_id,
 		kpe_id => $kpe_id,
-		application_id => $application_id,
 	});
     }
 }

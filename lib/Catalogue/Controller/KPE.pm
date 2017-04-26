@@ -49,7 +49,7 @@ Can place common logic to start a chained dispatch here
 
 sub base :Chained('/') :PathPart('kpe') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::KpeClass'));
+    $c->stash(resultset => $c->model('DB::Kpe'));
     $c->load_status_msgs;
 }
 

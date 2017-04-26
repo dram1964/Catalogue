@@ -1,5 +1,9 @@
 DROP TABLE IF EXISTS c_app_db;
 DROP TABLE IF EXISTS c_application;
+DROP TABLE IF EXISTS erid;
+DROP TABLE IF EXISTS kpe;
+DROP TABLE IF EXISTS supplier;
+DROP TABLE IF EXISTS cat2;
 DROP TABLE IF EXISTS c_column;
 DROP TABLE IF EXISTS c_table;
 DROP TABLE IF EXISTS c_schema;
@@ -7,11 +11,47 @@ DROP TABLE IF EXISTS c_db_server;
 DROP TABLE IF EXISTS c_database;
 DROP TABLE IF EXISTS c_server;
 
+CREATE TABLE cat2 (
+cat2_id int(11) NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+PRIMARY KEY (cat2_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE supplier (
+supplier_id int(11) NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+PRIMARY KEY (supplier_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE kpe (
+kpe_id int(11) NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+PRIMARY KEY (kpe_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE erid (
+erid_id int(11) NOT NULL AUTO_INCREMENT,
+name VARCHAR(100) NOT NULL,
+PRIMARY KEY (erid_id)
+) ENGINE=InnoDB;
+
 CREATE TABLE c_application (
 app_id int(11) NOT NULL AUTO_INCREMENT,
 name varchar(100) NOT NULL,
 description text,
+erid_id int(11),
+kpe_id int(11),
+supplier_id int(11),
+cat2_id int(11),
 PRIMARY KEY(app_id),
+CONSTRAINT cat2_fk FOREIGN KEY (cat2_id) REFERENCES cat2 (cat2_id) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT supplier_fk FOREIGN KEY (supplier_id) REFERENCES supplier (supplier_id) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT kpe_fk FOREIGN KEY (kpe_id) REFERENCES kpe (kpe_id) 
+ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT erid_fk FOREIGN KEY (erid_id) REFERENCES erid (erid_id) 
+ON DELETE CASCADE ON UPDATE CASCADE,
 UNIQUE KEY application_name_uni (name)
 ) ENGINE=InnoDB;
 

@@ -59,6 +59,30 @@ __PACKAGE__->table("c_application");
   data_type: 'text'
   is_nullable: 1
 
+=head2 erid_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 kpe_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 supplier_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
+=head2 cat2_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -68,6 +92,14 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 100 },
   "description",
   { data_type => "text", is_nullable => 1 },
+  "erid_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "kpe_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "supplier_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  "cat2_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -113,6 +145,86 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 cat2
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Cat2>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "cat2",
+  "Catalogue::Schema::Result::Cat2",
+  { cat2_id => "cat2_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 erid
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Erid>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "erid",
+  "Catalogue::Schema::Result::Erid",
+  { erid_id => "erid_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 kpe
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Kpe>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "kpe",
+  "Catalogue::Schema::Result::Kpe",
+  { kpe_id => "kpe_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+=head2 supplier
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::Supplier>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "supplier",
+  "Catalogue::Schema::Result::Supplier",
+  { supplier_id => "supplier_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
 =head2 dbs
 
 Type: many_to_many
@@ -124,8 +236,8 @@ Composing rels: L</c_app_dbs> -> db
 __PACKAGE__->many_to_many("dbs", "c_app_dbs", "db");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-25 07:52:59
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uJvjdshaa2EBxRS1Kq3r/w
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 16:49:27
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:me9EG0YnZitar7JMs7epFw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

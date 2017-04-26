@@ -18,6 +18,10 @@
 <ul class="nav nav-sidebar">
   <li>Reference Tables</li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
+  <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
+  <li><a href="[% c.uri_for('/category2/list') %]">Cat2s</a></li>
+  <li><a href="[% c.uri_for('/supplier/list') %]">Suppliers</a></li>
+  <li><a href="[% c.uri_for('/erid/list') %]">ERIDs</a></li>
 </ul>
 [% END %]
 [% IF c.check_user_roles('admin') %]
