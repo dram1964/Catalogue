@@ -25,5 +25,4 @@ cmp_ok($app1->application_desc, 'eq', 'ablaskj', 'Application Description Value'
 
 ok($app1->add_or_update_application, "Can insert System Application");
 
-
 done_testing();

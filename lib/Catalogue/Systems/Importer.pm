@@ -65,27 +65,38 @@ updates or adds the Application and child records
 
 sub add_or_update_application () {
     my ($self) = @_;
-    my $category2_rs = $schema->resultset('Cat2')->find_or_create({name => $self->category2});
-    my $category2_id = $category2_rs->id;
-    my $erid_rs = $schema->resultset('Erid')->find_or_create({name => $self->erid});
-    my $erid = $erid_rs->id;
-    my $supplier_rs = $schema->resultset('Supplier')->find_or_create({name => $self->supplier});
-    my $supplier_id = $supplier_rs->id;
-    my $kpe_rs = $schema->resultset('Kpe')->find_or_create({name => $self->kpe});
-    my $kpe_id = $kpe_rs->id;
+    my $category2_rs; my $erid_rs; my $supplier_rs; my $kpe_rs;
+    my $category2_id; my $erid_id; my $supplier_id; my $kpe_id;
+    if ($self->category2) {
+	$category2_rs = $schema->resultset('Cat2')->find_or_create({name => $self->category2});
+	$category2_id = $category2_rs->id;
+    }
+    if ($self->erid) {
+	$erid_rs = $schema->resultset('Erid')->find_or_create({name => $self->erid});
+	$erid_id = $erid_rs->id;
+    }
+    if ($self->supplier) {
+	$supplier_rs = $schema->resultset('Supplier')->find_or_create({name => $self->supplier});
+	$supplier_id = $supplier_rs->id;
+    }
+    if ($self->kpe) {
+ 	$kpe_rs = $schema->resultset('Kpe')->find_or_create({name => $self->kpe});
+	$kpe_id = $kpe_rs->id;
+    }
     my $rs = $schema->resultset('CApplication')->find({name => $self->application});
     if (!$rs) {
 	$rs = $schema->resultset('CApplication')->create({
 		name => $self->application,
+		description => $self->application_desc,
 		cat2_id => $category2_id,
-		erid_id => $erid,
+		erid_id => $erid_id,
 		supplier_id => $supplier_id,
 		kpe_id => $kpe_id,
 	});
     } else {
     $rs->update({
 		cat2_id => $category2_id,
-		erid_id => $erid,
+		erid_id => $erid_id,
 		supplier_id => $supplier_id,
 		kpe_id => $kpe_id,
 	});
