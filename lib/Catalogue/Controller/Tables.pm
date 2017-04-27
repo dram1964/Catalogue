@@ -176,10 +176,10 @@ Fetch the table objects for the specified schema and display in the list/tables 
 
 =cut 
 
-sub list_tables :Chained('base') :PathPart('list_tables') :Args(1) {
+sub list_tables :Path('list_tables') :Args(1) {
     my ($self, $c, $schema_id) = @_;
     my $page = $c->request->param('page') || 1;
-    my $query = $c->stash->{resultset}->search(
+    my $query = $c->model('DB::CTable')->search(
     	{sch_id => $schema_id},
     	{rows => 30, page => $page}
     );
