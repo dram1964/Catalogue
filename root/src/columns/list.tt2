@@ -1,5 +1,5 @@
 [% META title = 'Table Columns' %]
-[% IF table %]<p class="lead">Columns for [% table.name %] Table on [% table.schema.database.system.name %].[% table.schema.database.name %].[% table.schema.name %] </p> 
+[% IF table %]<p class="lead">Columns for [% table.name %] Table on [% table.sch.db.srv.name %].[% table.sch.db.name %].[% table.sch.name %] </p> 
 [% ELSE %]
 <p class="lead">Columns for all tables </p> 
 [% END %]
@@ -22,7 +22,7 @@
     <tbody>
 [% FOREACH column IN columns %]
       <tr>
-        <td>[% column.tbl.sch.db.server_name_list %]</td>
+        <td>[% column.tbl.sch.db.srv.name %]</td>
         <td>[% column.tbl.sch.db.name %]</td>
         <td>[% column.tbl.sch.name %]</td>
 	<td>[% column.tbl.name %]</td>

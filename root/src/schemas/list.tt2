@@ -1,5 +1,5 @@
 [% META title = 'Database Schemas' %]
-[% IF database %]<p class="lead">Showing Schemas for [% database.name %] Database on [% database.server_name_list %] System</p>
+[% IF database %]<p class="lead">Showing Schemas for [% database.name %] Database on [% database.srv.name %] Server</p>
 [% ELSE %]
 <p class="lead">Showing Schemas for all Databases</p>
 [% END %]
@@ -26,7 +26,7 @@
     <tbody>
 [% FOREACH schema IN schemas %]
       <tr>
-        <td>[% schema.db.server_name_list %]</td>
+        <td>[% schema.db.srv.name %]</td>
         <td>[% schema.db.name %]
         <td>[% schema.name %]</td>
         <td><a href="[% c.uri_for(c.controller('Tables').action_for('list_tables'), [schema.sch_id]) %]">List Tables</a></td>
