@@ -20,24 +20,25 @@ my $schemas = [$db->c_schemas];
 $mech->get_ok("/databases/list");
 $mech->content_contains($db->name, "Database list contains " . $db->name);
 $mech->get_ok("/schemas/list/" . $db->db_id, "Select schemas for db_id = " . $db->db_id);
-for my $db_schema (@$schemas) {
-     $mech->content_contains($db_schema->name, "Database " . $db->name . ": " . $db_schema->name . " schema name found");
+for (my $i = 0; $i < 10 && defined($schemas->[$i]) ; $i++) {
+     $mech->content_contains($schemas->[$i]->name, "Database " . $db->name . ": " . $schemas->[$i]->name . " schema name found");
 }
 
 my $schema_rs = $connection->resultset('CSchema');
 my $schema = $schema_rs->next;
 my $tables = [$schema->c_tables];
 $mech->get_ok("/tables/list_tables/" . $schema->sch_id, "Select tables for schema_id = " . $schema->sch_id);
-for my $schema_table (@$tables) {
-    $mech->content_contains($schema_table->name, "Schema " . $schema->name . ": " . $schema_table->name . " table name found");
+for (my $i = 0; $i < 10 && defined($tables->[$i]); $i++) { 
+    $mech->content_contains($tables->[$i]->name, "Schema " . $schema->name . ": " . $tables->[$i]->name . " table name found");
 }
 
 my $table_rs = $connection->resultset('CTable');
 my $table = $table_rs->next;
 my $columns = [$table->c_columns];
 $mech->get_ok("/columns/list_columns/" . $table->tbl_id, "Select columns for table_id = " . $table->tbl_id);
-for my $table_column (@$columns) {
-    $mech->content_contains($table_column->name, "Table " . $table->name . ": " . $table_column->name . " column name found");
+#for my $table_column (@$columns[0..10]) {
+for (my $i = 0; $i < 10 && defined($columns->[$i]); $i++) {
+    $mech->content_contains($columns->[$i]->name, "Table " . $table->name . ": " . $columns->[$i]->name . " column name found");
 }
 
 done_testing;
