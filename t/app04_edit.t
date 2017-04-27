@@ -78,13 +78,13 @@ my $tbl_rs = $connection->resultset('CTable');
 my $tbl = $tbl_rs->first;
 
 $test01->get_ok("/tables/id/" . 
-	$tbl->tbl_id . "/" . $tbl->sch_id . "/edit_current", 
+	$tbl->tbl_id . "/edit_current", 
 	"test01 request to tables edit current");
 $test01->content_contains('Permission Denied', 
 	"test01 Denied tables edit current");
 
 $test02->get_ok("/tables/id/" . 
-	$tbl->tbl_id . "/" . $tbl->sch_id . "/edit_current", 
+	$tbl->tbl_id . "/edit_current", 
 	"test01 request to tables edit current");
 $test02->content_contains('Editing Description for', 
 	"test02 Allowed tables edit current");
@@ -92,13 +92,13 @@ $test02->content_lacks('Permission Denied',
 	"test02 Not denied tables edit current");
 
 $test01->get_ok("/tables/id/" . 
-	$tbl->tbl_id . "/" . $tbl->sch_id . "/edit_description", 
+	$tbl->tbl_id . "/edit_description", 
 	"test01 request to tables edit description");
 $test01->content_contains('Permission Denied', 
 	"test01 Denied tables edit description");
 
 $test02->get_ok("/tables/id/" . 
-	$tbl->tbl_id . "/" . $tbl->sch_id . "/edit_description", 
+	$tbl->tbl_id . "/edit_description", 
 	"test01 request to tables edit description");
 $test02->content_contains('Editing Description for', 
 	"test02 Allowed tables edit description");
@@ -109,30 +109,6 @@ $test02->content_lacks('Permission Denied',
 
 SKIP : {
 	skip "Need to reinsert data to database for these tests to work", 1;
-
-	$test01->get_ok("/tables/id/38/edit_current", 
-		"test01 request to tables edit current");
-	$test01->content_contains('Permission Denied', 
-		"test01 Denied tables edit current");
-
-	$test02->get_ok("/tables/id/38/edit_current", 
-		"test02 request to tables edit current");
-	$test02->content_contains('Editing Description for', 
-		"test02 Allowed tables edit current");
-	$test02->content_lacks('Permission Denied', 
-		"test02 Not denied tables edit current");
-
-	$test01->get_ok("/tables/id/38/edit_description", 
-		"test01 request to tables edit_description");
-	$test01->content_contains('Permission Denied', 
-		"test01 Denied tables edit_description");
-
-	$test02->get_ok("/tables/id/38/edit_description", 
-		"test02 request to tables edit description");
-	$test02->content_contains('Editing Description for', 
-		"test02 Allowed tables edit description");
-	$test02->content_lacks('Permission Denied', 
-		"test02 Not denied tables edit description");
 
 	$test01->get_ok("/tasks/id/9/edit", 
 		"test01 request to tasks edit");
