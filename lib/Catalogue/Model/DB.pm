@@ -13,7 +13,7 @@ __PACKAGE__->config(
         user => 'tutorial',
         password => 'thispassword',
         AutoCommit => q{1},
-    }
+    },
 );
 
 =head1 NAME
