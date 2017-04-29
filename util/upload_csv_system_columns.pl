@@ -9,7 +9,7 @@ my @rows;
 my $line = 0;
 
 my $csv = Text::CSV->new( {binary => 0} ) or die "Cannot use CSV: " . Text::CSV->error_diag();
-open my $fh, "<:encoding(utf8)", "/home/dr00/Catalogue/data/TOMCAT_schema_dump.csv" or die $!;
+open my $fh, "<:encoding(utf8)", "/home/dr00/Catalogue/data/urisl.csv" or die $!;
 
 while (my $row = $csv->getline( $fh) ) {
   $row->[0] =~ s/\W//;
@@ -29,22 +29,22 @@ my $test_run = 1;
 
 sub load_data {
 	my $data;
-	my $limit = $test_run ? 5 : (scalar @rows) - 1;
+	my $limit = $test_run ? 15 : (scalar @rows) - 1;
 	for my $row (0..$limit ) {
-    		$data = {'system_name' => $rows[$row]->[0],
-			'database_name' => $rows[$row]->[0],
-			'schema_name' => $rows[$row]->[1],
-			'table_name' => $rows[$row]->[2],
-			'column_name' => $rows[$row]->[3],
-			'column_type' => $rows[$row]->[7],
-			'column_size' => $rows[$row]->[8],
+    		$data = {'server_name' => 'urisl',
+			'database_name' => 'RIS',
+			'schema_name' => $rows[$row]->[0],
+			'table_name' => $rows[$row]->[1],
+			'column_name' => $rows[$row]->[2],
+			'column_type' => $rows[$row]->[3],
+			'column_size' => $rows[$row]->[6],
         	};
 		my $import = Catalogue::Systems::Importer->new($data);
-		print join(":", "($row of $limit)", $data->{system_name}, 
-		  $data->{database_name}, $data->{schema_name}, 
-		  $data->{table_name}, $data->{column_name}, 
-		  $data->{column_type}, $data->{column_size}), "\n";
-		$import->add_or_update_system unless $test_run;
+		print join(":", "($row of $limit)", $import->server_name, 
+		  $import->database_name, $import->schema_name, 
+		  $import->table_name, $import->column_name, 
+		  $import->column_type, $import->column_size), "\n";
+		$import->add_or_update_database unless $test_run;
 		$data = ();
 	}
 	if ($test_run) {

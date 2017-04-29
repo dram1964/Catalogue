@@ -76,7 +76,7 @@ sch_id int(11) NOT NULL AUTO_INCREMENT,
 name varchar(50) NOT NULL,
 description text,
 db_id int(11) NOT NULL,
-PRIMARY KEY(sch_id, db_id),
+PRIMARY KEY(sch_id),
 CONSTRAINT schema_db_fk FOREIGN KEY (db_id) REFERENCES c_database (db_id)
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
@@ -86,7 +86,7 @@ tbl_id int(11) NOT NULL AUTO_INCREMENT,
 name varchar(1000) not null,
 description text,
 sch_id int(11) NOT NULL,
-PRIMARY KEY(tbl_id, sch_id),
+PRIMARY KEY(tbl_id),
 CONSTRAINT table_schema_fk FOREIGN KEY (sch_id) REFERENCES c_schema (sch_id)
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
@@ -102,7 +102,7 @@ completion_rate varchar(50) DEFAULT NULL,
 first_record_date timestamp NULL DEFAULT NULL,
 last_record_date timestamp NULL DEFAULT NULL,
 tbl_id int(11) NOT NULL,
-PRIMARY KEY(col_id, tbl_id),
+PRIMARY KEY(col_id),
 CONSTRAINT column_table_fk FOREIGN KEY (tbl_id) REFERENCES c_table (tbl_id)
 ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;

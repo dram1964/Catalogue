@@ -85,10 +85,10 @@ sub load_data {
 			'column_size' => $record[8],
     	};
 		my $import = Catalogue::Systems::Importer->new($data);
-		print join(":", "($row of $row_max)", $data->{server_name}, 
-		  $data->{database_name}, $data->{schema_name}, 
-		  $data->{table_name}, $data->{column_name}, 
-		  $data->{column_type}, $data->{column_size}), "\n";
+		print join(":", "($row of $row_max)", $import->server_name, 
+		  $import->database_name, $import->schema_name, 
+		  $import->table_name, $import->column_name, 
+		  $import->column_type, $import->column_size), "\n";
 		$import->add_or_update_database unless $test_run;
 		$data = ();
 	}

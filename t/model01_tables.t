@@ -23,18 +23,20 @@ my @tables = qw(
 	Todolist
 	UserRole
 	User
+	Supplier
+	Erid 
+	Kpe
+	Cat2 
 );
 my @old_tables = qw(
 	SystemKpe 
 	SystemDatabase 
 	DatabaseSchema 
 	SystemCategory2 
-	Supplier
 	Category2 
 	KpeClass 
 	SystemSupplier 
 	Application 
-	Erid 
 	CatalogueSystem 
 	SystemDbType 
 	SchemaTable 
