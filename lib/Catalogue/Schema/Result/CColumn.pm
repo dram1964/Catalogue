@@ -141,13 +141,11 @@ __PACKAGE__->add_columns(
 
 =item * L</col_id>
 
-=item * L</tbl_id>
-
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("col_id", "tbl_id");
+__PACKAGE__->set_primary_key("col_id");
 
 =head1 RELATIONS
 
@@ -167,8 +165,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 08:27:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:55ZN2nOMWKyPlj5aOjLYuw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-27 22:04:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pIAh//wmOZi191ZPWE+/lQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

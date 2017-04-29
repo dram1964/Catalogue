@@ -84,13 +84,11 @@ __PACKAGE__->add_columns(
 
 =item * L</sch_id>
 
-=item * L</db_id>
-
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("sch_id", "db_id");
+__PACKAGE__->set_primary_key("sch_id");
 
 =head1 RELATIONS
 
@@ -125,8 +123,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-26 08:27:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SW4XZTE67cQqFYLDo7vwyA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-27 22:04:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nhHvjAzcyd23Z5yBPRlmWg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
