@@ -14,7 +14,7 @@ Used as Base Class for Catalogue::Systems::* Utility Modules
 
 use Catalogue::Systems
 
-my $data = {
+my $db_record = {
 	server_name => 'TestServer',
 	database_name => 'DBName',
 	database_description => 'DB Description',
@@ -26,7 +26,9 @@ my $data = {
 	column_type => 'integer',
 	column_size => '11',
 }
-my $record = Catalogue::Systems::Importer->new($data);
+my $record = Catalogue::Systems::Importer->new($db);
+
+
 $record->system_name # prints 'TestServer'
 $record->system_name('testserver') # set system_name
 

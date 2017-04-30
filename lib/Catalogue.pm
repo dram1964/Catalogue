@@ -74,7 +74,7 @@ __PACKAGE__->setup();
 
 =head1 NAME
 
-Catalogue - Catalyst based application
+Catalogue - A Catalogue of Datasets
 
 =head1 SYNOPSIS
 
@@ -82,7 +82,9 @@ Catalogue - Catalyst based application
 
 =head1 DESCRIPTION
 
-[enter your description here]
+The Catalogue can be used to create a library of databases and the data
+that they hold. Catalogue uses the Catalyst MVC framework. This particular
+implementation uses MySQL and TT to store its data and present its pages
 
 =head1 SEE ALSO
 
