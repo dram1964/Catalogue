@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Catalogue::Systems::Importer;
+use Catalogue::Importer::Application;
 use Spreadsheet::XLSX;
 use Text::Iconv;
 
@@ -39,7 +39,7 @@ sub load_data {
 				'application' => $record[4],
 				'application_desc' => $record[5],
 		};
-		my $import = Catalogue::Systems::Importer->new($data);
+		my $import = Catalogue::Importer::Application->new($data);
 		print join(":", "($row of $row_max)", 
 			$import->kpe, 
 			$import->erid,
@@ -47,30 +47,10 @@ sub load_data {
 			$import->supplier, 
 			$import->application,
 			$import->application_desc), "\n";
-#                if (!$data->{kpe}) {
-#	    print "skipping row $row: no kpe name\n" unless $data->{kpe};
-#	    next;
-#	}
-#                if (!$data->{erid}) {
-#	    print "skipping row $row: no erid name\n" unless $data->{erid};
-#	    next;
-#	}
-#                if (!$data->{category2}) {
-#	    print "skipping row $row: no category2 name\n" unless $data->{category2};
-#	    next;
-#	}
-#                if (!$data->{supplier}) {
-#	    print "skipping row $row: no supplier name\n" unless $data->{supplier};
-#	    next;
-#	}
                 if (!$import->application) {
-	    print "skipping row $row: no application name\n" unless $data->{application};
-	    next;
-	}
-#                if (!$data->{application_desc}) {
-#	    print "skipping row $row: no application_desc\n" unless $data->{application_desc};
-#	    next;
-#	}
+		    print "skipping row $row: no application name\n" unless $data->{application};
+		    next;
+		}
 		$import->add_or_update_application unless $test_run;
 		$data = ();
 	}
