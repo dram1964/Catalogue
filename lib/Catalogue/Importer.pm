@@ -21,6 +21,7 @@ Sets up a connection to the Catalogue database
 
 has 'schema' => (
 	is => 'ro',
+	required => 1,
 	lazy_build => 1,
 );
 
