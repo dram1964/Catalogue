@@ -11,7 +11,7 @@ __PACKAGE__->config(
     connect_info => {
         dsn => $dsn,
         user => 'tutorial',
-        password => 'thispassword',
+        password => 'password',
         AutoCommit => q{1},
     },
 );
