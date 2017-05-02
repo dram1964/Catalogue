@@ -21,12 +21,10 @@ Sets up a connection to the Catalogue database
 
 has 'schema' => (
 	is => 'ro',
-	required => 1,
-	lazy => 1,
-	builder => '_schema'
+	lazy_build => 1,
 );
 
-sub _schema {
+sub _build_schema {
 	return Catalogue::Schema->connect(
 		'dbi:mysql:catalogue_test', 'tutorial', 'thispassword');
 }
