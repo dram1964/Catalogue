@@ -5,11 +5,11 @@ extends 'Catalogue::Importer';
 
 =head1 NAME
 
-Catalogue::Importer::Winpath::Laboratory
+Catalogue::Importer::Winpath::TestCode
 
 =head1 Description
 
-Module to import Winpath Laboratory Definitions to wp_laboratory table
+Module to import Winpath Test Codes to wp_test table
 
 =head1 Synopsis
 

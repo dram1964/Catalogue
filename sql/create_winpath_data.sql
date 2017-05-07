@@ -43,6 +43,7 @@ year_of_birth int,
 year_of_result int,
 gender char(1),
 requests int,
+PRIMARY KEY (order_code, test_code, laboratory_code, cluster_name, year_of_birth, year_of_result, gender),
 CONSTRAINT order_code_fk FOREIGN KEY (order_code) REFERENCES wp_order (code) on DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT test_code_fk FOREIGN KEY (test_code) REFERENCES wp_test (code) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT laboratory_code_fk FOREIGN KEY (laboratory_code) REFERENCES wp_laboratory (code) ON DELETE CASCADE ON UPDATE CASCADE

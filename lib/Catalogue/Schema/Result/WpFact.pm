@@ -67,23 +67,23 @@ __PACKAGE__->table("wp_fact");
 =head2 cluster_name
 
   data_type: 'varchar'
-  is_nullable: 1
+  is_nullable: 0
   size: 30
 
 =head2 year_of_birth
 
   data_type: 'integer'
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 year_of_result
 
   data_type: 'integer'
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 gender
 
   data_type: 'char'
-  is_nullable: 1
+  is_nullable: 0
   size: 1
 
 =head2 requests
@@ -107,15 +107,47 @@ __PACKAGE__->add_columns(
     size => 2,
   },
   "cluster_name",
-  { data_type => "varchar", is_nullable => 1, size => 30 },
+  { data_type => "varchar", is_nullable => 0, size => 30 },
   "year_of_birth",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 0 },
   "year_of_result",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 0 },
   "gender",
-  { data_type => "char", is_nullable => 1, size => 1 },
+  { data_type => "char", is_nullable => 0, size => 1 },
   "requests",
   { data_type => "integer", is_nullable => 1 },
+);
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</order_code>
+
+=item * L</test_code>
+
+=item * L</laboratory_code>
+
+=item * L</cluster_name>
+
+=item * L</year_of_birth>
+
+=item * L</year_of_result>
+
+=item * L</gender>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key(
+  "order_code",
+  "test_code",
+  "laboratory_code",
+  "cluster_name",
+  "year_of_birth",
+  "year_of_result",
+  "gender",
 );
 
 =head1 RELATIONS
@@ -166,8 +198,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-03 11:52:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+kPtNLB+piFj2Goq2N9AtQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-03 18:05:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5bLJ3YmZWBuyzUdFQp+/aw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
