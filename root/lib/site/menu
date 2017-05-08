@@ -30,6 +30,7 @@
   <li><a href="[% c.uri_for('/users/list') %]">Users</a></li>
   <li><a href="#">Upload Schema</a></li>
   <li><a href="#">Upload KPI</a></li>
+  <li><a href="[% c.uri_for('/winpath/list') %]">Winpath Data</a></li>
 </ul>
 [% END %]
 <ul class="nav nav-sidebar">
