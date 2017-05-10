@@ -27,6 +27,10 @@ my @tables = qw(
 	Erid 
 	Kpe
 	Cat2 
+	WpTest
+	WpLaboratory
+	WpOrder
+	WpFact
 );
 my @old_tables = qw(
 	SystemKpe 

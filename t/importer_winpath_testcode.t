@@ -33,12 +33,12 @@ ok($test->update_or_add, "Can add order record");
 ok($test->name('White Cell Count'), "Update the Description");
 ok($test->update_or_add, "Can update the record");
 
-my $count = $test_rs->search({code => 'WCC'})->count();
+my $count = $test_rs->search({code => 'WCC', laboratory_code => 'BA'})->count();
 cmp_ok($count, '==', 1, "Only one record for updated test code");
 
 
 ok($test->delete, "Can delete test record");
-$count = $test_rs->search({code => 'WCC'})->count();
+$count = $test_rs->search({code => 'WCC', laboratory_code => 'BA'})->count();
 cmp_ok($count, "==", 0, "Record no longer exists in database");
 
 
