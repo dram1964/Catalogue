@@ -1,8 +1,9 @@
 [% META title = 'Metadata Catalogue Login' %]
-<p class="lead">In order to use this system you must either 
-<a href="[% c.controller('Register').action_for(c.uri_for('register')) %]">Register</a>
- as a New User or login if you already have an account</p>
-
+<p>In order to use this system you must either 
+<a href="[% c.uri_for(c.controller('Register').action_for('register')) %]">Register</a>
+ as a New User or login if you already have an account. Alternatively you can 
+<a href="[% c.uri_for(c.controller('Datasets').action_for('list')) %]">Explore</a> 
+the available datasets without logging-in</p>
 <!-- Login form -->
 <form method="post" action="[% c.uri_for('/login') %]" >
   <table>
