@@ -1,4 +1,7 @@
 [% META title = 'Metadata Catalogue Login' %]
+<p class="lead">In order to use this system you must either 
+<a href="[% c.controller('Register').action_for(c.uri_for('register')) %]">Register</a>
+ as a New User or login if you already have an account</p>
 
 <!-- Login form -->
 <form method="post" action="[% c.uri_for('/login') %]" >
@@ -12,7 +15,7 @@
       <td><input type="password" name="password" size="40" /></td>
     </tr>
     <tr>
-      <td colspan="2"><input type="submit" name="submit" value="Submit" /></td>
+      <td colspan="2"><input type="submit" name="submit" value="Login"/></td>
     </tr>
   </table>
 </form>
