@@ -96,6 +96,10 @@ Add new Dataset
 
 sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
    my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      defined($c->user) &&
+      $c->stash->{resultset}->edit_allowed_by($c->user->get_object);
+
     my $form = $c->stash->{form};
     if ($form->submitted_and_valid) {
         my $dataset_name = $c->request->params->{name};
