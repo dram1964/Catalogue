@@ -12,8 +12,13 @@
 
    # define a data structure to hold sitewide data
    site = {
-     title     => 'Metadata Catalogue',
+     title     => 'Data Catalogue',
      copyright => '2017 David Ramlakhan',
+     organisation => {
+	name => 'UCLH\UCL Clinical Research Informatics'
+	cri => 'Clinical Research Informatics'
+     },
+     application => { name => 'Data Catalogue'}
    };
 
    # load up any other configuration items

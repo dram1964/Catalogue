@@ -1,3 +1,6 @@
-[% META title = 'The Metadata Catalogue' %]
-<p class="lead">Welcome to the Metadata Catalogue</p>
+[% META title = 'The Clinical Research Informatics Data Catalogue' %]
+<p class="lead">Welcome to the [% site.organisation.name %] [% site.application.name %]</p>
 
+<p>The [% site.application.name %] is a library of clinical datasets held by [% site.organisation.name %]. The [% site.application.name %] is managed by the [% site.organisation.cri %] team</p>
+
+<p>You can <a href="[% c.uri_for(c.controller('Datasets').action_for('list')) %]">explore</a> the datasets or <a href="[% c.uri_for(c.controller('Request').action_for('datarequest')) %]">request</a> access to datasets using the links in the main menu</p>
