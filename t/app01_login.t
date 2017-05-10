@@ -6,6 +6,7 @@ BEGIN { use_ok("Test::WWW::Mechanize::Catalyst" => "Catalogue") }
 
 my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 my $ua2 = Test::WWW::Mechanize::Catalyst->new;
+my $welcome_msg = "Welcome to the ";
 
 $_->get_ok("/", "Request root page") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for Redirect to login page") for $ua1, $ua2;
@@ -17,7 +18,7 @@ $ua2->submit_form_ok(
     { fields => {
 	username => 'test02',
 	password => 'mypass'}}, "Login test02 via form");
-$_->content_contains("Welcome to the Metadata Catalogue", "Welcome Page displayed after login") for $ua1, $ua2;
+$_->content_contains($welcome_msg, "Welcome Page displayed after login") for $ua1, $ua2;
 
 $_->get_ok("/login", "Return to '/login'") for $ua1, $ua2;
 $_->title_is("Metadata Catalogue Login", "Check for login title") for $ua1, $ua2;
@@ -25,7 +26,7 @@ $_->content_contains("Logout", "Logout link available") for $ua1, $ua2;
 $_->content_contains("Already logged-in", "Already logged-in message") for $ua1, $ua2;
 
 $_->get_ok("/logout", "Logout via URL") for $ua1, $ua2;
-$_->content_contains("Welcome to the Metadata Catalogue", "Welcome Page displayed after logout") for $ua1, $ua2;
+$_->content_contains($welcome_msg, "Welcome Page displayed after logout") for $ua1, $ua2;
 
 $ua1->get_ok('/logout');
 $ua1->get_ok("/databases/list", "Request /databases/list for empty user"); 
