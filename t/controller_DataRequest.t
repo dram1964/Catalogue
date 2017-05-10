@@ -6,5 +6,5 @@ use Test::More;
 use Catalyst::Test 'Catalogue';
 use Catalogue::Controller::DataRequest;
 
-ok( request('/datarequest')->is_success, 'Request should succeed' );
+ok( request('/datarequest')->is_redirect, 'Request should succeed' );
 done_testing();

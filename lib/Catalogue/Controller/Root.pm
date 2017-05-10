@@ -115,6 +115,9 @@ sub auto :Private {
     if ($c->request->path eq 'welcome') {
 	return 1;
     }
+    if ($c->request->path eq '') {
+	return 1;
+    }
 
     if (!$c->user_exists) {
 	$c->flash->{original_path} = '/' . $c->req->path;

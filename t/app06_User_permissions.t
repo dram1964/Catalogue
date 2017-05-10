@@ -3,6 +3,9 @@ use warnings;
 use Test::More;
 use_ok("Test::WWW::Mechanize::Catalyst" => "Catalogue");
 
+my $welcome_msg = "Welcome to the ";
+my $page_title = 'The Clinical Research Informatics Data Catalogue';
+
 my $anon_ua = Test::WWW::Mechanize::Catalyst->new;
 my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 my $ua2 = Test::WWW::Mechanize::Catalyst->new;
@@ -19,7 +22,7 @@ $anon_ua->get("/columns/list");
 $anon_ua->content_contains("Please enter login details", "Anonymous denied columns/list");
 
 $ua1->get("/login?username=test01&password=mypass");
-$ua1->content_contains("Welcome to the Metadata Catalogue", "Test01 logged-in");
+$ua1->content_contains($welcome_msg, "Test01 logged-in");
 $ua1->get("/users/list");
 $ua1->content_contains("Permission Denied", "test01 denied users/list");
 $ua1->get("/users/add");
@@ -32,7 +35,7 @@ $ua1->get("/users/id/1/delete");
 $ua1->content_contains("Permission Denied", "test01 denied user/delete");
 
 $ua2->get("/login?username=test02&password=mypass");
-$ua2->content_contains("Welcome to the Metadata Catalogue", "Test02 logged-in");
+$ua2->content_contains($welcome_msg, "Test02 logged-in");
 $ua2->get("/users/list");
 $ua2->content_contains("Permission Denied", "test02 denied users/list");
 $ua2->get("/users/add");
@@ -53,7 +56,7 @@ my $test_user = {
     active => 1
 };
 $ua3->get("/login?username=test03&password=mypass");
-$ua3->content_contains("Welcome to the Metadata Catalogue", "Test03 logged-in");
+$ua3->content_contains($welcome_msg, "Test03 logged-in");
 $ua3->get_ok("/users/add", "test03 allowed to request add user");
 $ua3->content_contains("Editing User", "On user add/edit page");
 $ua3->get("/users/list");

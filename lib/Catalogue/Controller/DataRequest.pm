@@ -33,7 +33,7 @@ Displays a form for requesting data
 
 =cut
 
-sub request :Path :Args(0) {
+sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(template => 'datarequest/request.tt2');
 }

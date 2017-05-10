@@ -8,14 +8,16 @@
   [% END %]
 	</ul></li>
 [% END %]
+  <li><a href="[% c.uri_for('/datarequest/request') %]">Data Request</a></li>
+</ul>
+[% IF c.check_user_roles('curator') %]
+<ul class="nav nav-sidebar">
+  <li>System Maintenance</li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
   <li><a href="[% c.uri_for('/applications/list') %]">Applications</a></li>
   <li><a href="[% c.uri_for('/schemas/list') %]">Schemas</a></li>
   <li><a href="[% c.uri_for('/tables/list') %]">Tables</a></li>
   <li><a href="[% c.uri_for('/columns/list') %]">Columns</a></li>
-</ul>
-[% IF c.check_user_roles('curator') %]
-<ul class="nav nav-sidebar">
   <li>Reference Tables</li>
   <li><a href="[% c.uri_for('/tasks/list') %]">Todo List</a></li>
   <li><a href="[% c.uri_for('/kpe/list') %]">KPEs</a></li>
