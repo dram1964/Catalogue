@@ -21,5 +21,7 @@ agree3 varchar(3),
 request_date datetime not null default CURRENT_TIMESTAMP,
 approval_date datetime,
 approved_by varchar(50),
-PRIMARY KEY (email_address)
+user_id int,
+PRIMARY KEY (email_address),
+CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

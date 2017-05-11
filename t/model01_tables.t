@@ -31,6 +31,7 @@ my @tables = qw(
 	WpLaboratory
 	WpOrder
 	WpFact
+	RegistrationRequest
 );
 my @old_tables = qw(
 	SystemKpe 

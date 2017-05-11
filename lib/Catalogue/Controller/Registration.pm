@@ -105,16 +105,28 @@ sub create_user_from_request :Chained('object') :PathPart('create_user_from_requ
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $registration = $c->stash->{object};
+    my $roles = $c->request->params->{roles};
+    my @roles;
+    push @roles, $c->request->params->{role_user};
+    push @roles, $c->request->params->{role_admin};
+    push @roles, $c->request->params->{role_curator};
+    push @roles, $c->request->params->{role_requestor};
     unless ($registration) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Request -- Cannot edit")}));
 	$c->detach;
     }
    my $update_time = time2str("%Y-%m-%d %H-%M-%S", time);
-   my $user_check = $c->model('DB::User')->find($registration->email_address);
+   my $user_check = $c->model('DB::User')->search({
+     -or => [
+	id => $registration->email_address, 
+	username => $registration->email_address,
+	email_address => $registration->email_address,
+     ]}
+   );
    my $status_msg;
-   if (defined $user_check) {
-	$c->stash(error_msg => 'User ' . $registration->email_address . 'already in use'); 
+   if ($user_check->next) {
+	$c->stash(error_msg => $registration->email_address . 'already in use as a username or email address'); 
 	$c->log->debug("*** " . $c->stash->{error_msg} . " ***");
    } else {
         my $user = $c->model('DB::User')->create({
@@ -125,21 +137,23 @@ sub create_user_from_request :Chained('object') :PathPart('create_user_from_requ
 		password => $registration->password,
 		active => 1,
 	});
-	my $user_role = $c->model('DB::UserRole')->create({
-		user_id => $user->id,
-		role_id => 4,
-	}); 
+	for my $role (@roles) {
+	    next unless defined $role;
+	    my $user_role = $c->model('DB::UserRole')->create({
+			user_id => $user->id,
+			role_id => $role,
+	    }); 
+	}
 	$registration->approval_date($update_time);
 	$registration->approved_by($c->user->username);
+	$registration->user_id($user->id);
 	$registration->update;
 	$status_msg = "User created!" if defined($user);
    }
 
-    my $requests = [$c->stash->{resultset}->all];
     $c->stash(
 	status_msg => $status_msg,
-	requests => $requests,
-	registration => $registration,
+	requests => $registration,
 	template => 'registration/list.tt2');
 }
 
@@ -157,6 +171,13 @@ sub ng_new :Path('ng_new') :Args(0) {
 	test_data => 'Some random text from ng_new method',
 	template => 'registration/new.tt2');
 }
+
+=head2 ng_new_submitted
+
+adds new registration request to the database
+
+=cut
+
 
 sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     my ( $self, $c, $user ) = @_;

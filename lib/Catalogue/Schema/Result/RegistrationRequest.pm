@@ -163,6 +163,12 @@ __PACKAGE__->table("registration_request");
   is_nullable: 1
   size: 50
 
+=head2 user_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -215,6 +221,8 @@ __PACKAGE__->add_columns(
   },
   "approved_by",
   { data_type => "varchar", is_nullable => 1, size => 50 },
+  "user_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -229,9 +237,31 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("email_address");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 12:50:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bf/F+KUMBPbCC+5QxHAyIQ
+=head2 user
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "Catalogue::Schema::Result::User",
+  { id => "user_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "CASCADE",
+    on_update     => "CASCADE",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 21:29:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:M/8Pq/XjReGXeBAE78KwvA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

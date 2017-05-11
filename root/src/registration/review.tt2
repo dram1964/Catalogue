@@ -59,11 +59,22 @@
 	<label>Mobile</label>
 	<input name="mobile" value="[% request.mobile %]" type="text" class="form-control" columns="0" rows="0" title="Post Code" />
     </div>
-    [% UNLESS request.approved_by %]
-    <div class="col-md-6">
-	<input name="submit" type="submit" value="Approve and Create User" class="btn btn-primary" />
+    <div class="col-md-12">
+      <fieldset>
+        <legend>Roles</legend>
+        <span class="form-control" title="Roles">
+          <span> <input name="role_user" type="checkbox" value="1" /> <label>user</label> </span>
+	  <span> <input name="role_curator" type="checkbox" value="2" /> <label>admin</label> </span>
+	  <span> <input name="role_admin" type="checkbox" value="3" /> <label>curator</label> </span>
+	  <span> <input name="role_requestor" type="checkbox" value="4" checked="checked"/> <label>requestor</label> </span>
+	</span>
+      </fieldset>
     </div>
-    [% END %]
+    <br>
+    <br>
   <div><!-- end row div -->
+    [% UNLESS request.approved_by %]
+	<input name="submit" type="submit" value="Approve and Create User" class="btn btn-primary" />
+    [% END %]
   </form>
 </div><!-- end form group -->

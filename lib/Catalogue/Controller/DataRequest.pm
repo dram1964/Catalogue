@@ -33,31 +33,10 @@ Displays a form for requesting data
 
 =cut
 
-sub request :Path('request') :Args(0) :FormConfig {
+sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    my $form = $c->stash->{form};
     $c->stash(template => 'datarequest/request.tt2');
 }
-
-sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
-   my ($self, $c) = @_;
-    my $form = $c->stash->{form};
-    if ($form->submitted_and_valid) {
-        my $application_name = $c->request->params->{name};
-	my $application_description = $c->request->params->{description};
-        my $application = $c->model('DB::CApplication')->new_result({
-		name => $application_name,
-		description => $application_description,
-	});
-        $form->model->update($application);
-        $c->response->redirect($c->uri_for($self->action_for('list'),
-	    {mid => $c->set_status_msg("Dataset Added")}));
-        $c->detach;
-    }
-    $c->stash(template => 'applications/add.tt2');
-}
-
-
 
 =encoding utf8
 
