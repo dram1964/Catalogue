@@ -2,7 +2,7 @@ package Catalogue::Controller::Registration;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -31,15 +31,15 @@ sub index :Path :Args(0) {
 
 displays page for new users to register their details
 
-=cut
 
 sub new_account :Path('new_account') :Args(0) :FormConfig {
     my ( $self, $c ) = @_;
     my $form = $c->stash->{form};
     $c->stash(template => 'registration/new_account.tt2');
 }
+=cut
 
-=head2 new_account
+=head2 ng_new
 
 displays page for new users to register their details on angularised form
 
@@ -57,13 +57,11 @@ sub ng_new :Path('ng_new') :Args(0) {
 sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     my ( $self, $c, $user ) = @_;
     my $details = {
-    	 lastName => $c->request->params->{lastName},
-    	 firstName => $c->request->params->{firstName},
-    	 email1 => $c->request->params->{email1},
-    	 email2 => $c->request->params->{email2},
-    	 password1 => $c->request->params->{password1},
-    	 password2 => $c->request->params->{password2},
-    	 jobTitle => $c->request->params->{jobTitle},
+    	 last_name => $c->request->params->{lastName},
+    	 first_name => $c->request->params->{firstName},
+    	 email_address => $c->request->params->{email1},
+    	 password => $c->request->params->{password1},
+    	 job_title => $c->request->params->{jobTitle},
     	 department => $c->request->params->{department},
     	 organisation => $c->request->params->{organisation},
     	 address1 => $c->request->params->{address1},
@@ -77,6 +75,9 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     	 agree2 => $c->request->params->{agree2},
     	 agree3 => $c->request->params->{agree3},
    };
+    	 my $password2 => $c->request->params->{password2},
+    	 my $email2 => $c->request->params->{email2},
+   my $reg = $c->model('DB::RegistrationRequest')->create($details);
 
     $c->stash(
 	details => $details,
