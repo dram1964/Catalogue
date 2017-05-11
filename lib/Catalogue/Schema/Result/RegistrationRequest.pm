@@ -151,6 +151,18 @@ __PACKAGE__->table("registration_request");
   default_value: 'CURRENT_TIMESTAMP'
   is_nullable: 0
 
+=head2 approval_date
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 approved_by
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 50
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -195,6 +207,14 @@ __PACKAGE__->add_columns(
     default_value => "CURRENT_TIMESTAMP",
     is_nullable => 0,
   },
+  "approval_date",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "approved_by",
+  { data_type => "varchar", is_nullable => 1, size => 50 },
 );
 
 =head1 PRIMARY KEY
@@ -210,8 +230,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("email_address");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 11:48:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1w6mWSaY3TG78NCcgchTKA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 12:50:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bf/F+KUMBPbCC+5QxHAyIQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

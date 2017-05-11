@@ -77,7 +77,13 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
    };
     	 my $password2 => $c->request->params->{password2},
     	 my $email2 => $c->request->params->{email2},
-   my $reg = $c->model('DB::RegistrationRequest')->create($details);
+   my $user_check = $c->model('DB::RegistrationRequest')->find($details->{email_address});
+   if (defined $user_check) {
+	$c->stash(error_msg => 'User ' . $details->{email_address} . 'already in use'); 
+	$c->log->debug("*** " . $c->stash->{error_msg} . " ***");
+   } else {
+	my $reg = $c->model('DB::RegistrationRequest')->create($details);
+   }
 
     $c->stash(
 	details => $details,

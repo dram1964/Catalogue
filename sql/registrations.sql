@@ -19,5 +19,7 @@ agree1 varchar(3),
 agree2 varchar(3),
 agree3 varchar(3),
 request_date datetime not null default CURRENT_TIMESTAMP,
+approval_date datetime,
+approved_by varchar(50),
 PRIMARY KEY (email_address)
 );
