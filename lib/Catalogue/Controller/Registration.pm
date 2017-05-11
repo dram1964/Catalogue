@@ -61,18 +61,20 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     	 firstName => $c->request->params->{firstName},
     	 email1 => $c->request->params->{email1},
     	 email2 => $c->request->params->{email2},
+    	 password1 => $c->request->params->{password1},
+    	 password2 => $c->request->params->{password2},
+    	 jobTitle => $c->request->params->{jobTitle},
+    	 department => $c->request->params->{department},
+    	 organisation => $c->request->params->{organisation},
+    	 address1 => $c->request->params->{address1},
+    	 address2 => $c->request->params->{address2},
+    	 address3 => $c->request->params->{address3},
+    	 postcode => $c->request->params->{postcode},
+    	 city => $c->request->params->{city},
+    	 telephone => $c->request->params->{telephone},
+    	 mobile => $c->request->params->{mobile},
    };
-=comment
-    my $lastName = $c->request->params->{lastName};
-    my $firstName = $c->request->params->{firstName};
-    my $email1 = $c->request->params->{email1};
-    my $email2 = $c->request->params->{email2};
-=cut
 
-    $c->log->debug("*** lastName: $details->{lastName} ***");
-    $c->log->debug("*** firstName: $details->{firstName} ***");
-    $c->log->debug("*** email1: $details->{email1} ***");
-    $c->log->debug("*** email2: $details->{email2} ***");
     $c->stash(
 	details => $details,
 	template => 'registration/ng_new_submitted.tt2');
