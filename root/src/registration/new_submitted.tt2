@@ -1,0 +1,31 @@
+[% IF error_msg %]
+<p>Registration unsuccessful: Please <a href="[% c.uri_for('ng_new') %]">try again</a> or 
+<a href="[% site.administrator.mailto %]">contact us</a> to report a problem</p>
+[% ELSE %]
+<p>The following details have been successfully submitted to our registration team. Your application will 
+be reviewed we will be in touch to confirm your registration status shortly</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Field Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email/Username</td>
+        <td>[% details.email_address | html %]
+      </tr>
+      <tr>
+        <td>First Name</td>
+        <td>[% details.first_name | html %]
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td>[% details.last_name | html %]
+      </tr>
+      </tbody>
+    </table>
+</div>
+[% END %]

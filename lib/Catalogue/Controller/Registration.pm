@@ -87,7 +87,7 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
 
     $c->stash(
 	details => $details,
-	template => 'registration/ng_new_submitted.tt2');
+	template => 'registration/new_submitted.tt2');
     $c->detach;
 }
 

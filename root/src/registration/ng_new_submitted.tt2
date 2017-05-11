@@ -1,6 +1,0 @@
-<p>Thanks for submitting your details</p>
-<ul>
-[% FOR detail IN details.keys %]
-<li>[% detail %] is [% details.$detail %]</li>
-[% END %]
-</ul>

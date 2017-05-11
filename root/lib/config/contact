@@ -11,6 +11,7 @@
       email = 'jane.doe@example.com'
       phone = '816-80085'
       role = 'Curator'
-    }
+    },
   ]
+  site.administrator.mailto = 'mailto://site.admin@example.com'
 %]
