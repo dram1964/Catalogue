@@ -1,0 +1,77 @@
+[% META title="New User Registration" %]
+[% USE JSON %]
+<script type="text/javascript">
+  var foo = [% test_data.json %];
+</script>
+<div ng-app="register">
+  <div ng-controller="MainCtrl as ctrl">
+    <form name="newUser" ng-submit="MainCtrl.add()" action="ng_new_submitted" role="form">
+      <div class="messages"></div>
+      <div class="controls">
+        <div class="row">
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_firstname">First Name</label>
+	      <input id="form_firstname" type="text" name="firstName" class="form-control" 
+  		ng-model="ctrl.firstName" placeholder="Please enter your first name"
+		required="required" data-error="First Name is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div>
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_lastname">Last Name</label>
+	      <input id="form_lastname" type="text" name="lastName" class="form-control" 
+  		ng-model="ctrl.lastName" placeholder="Please enter your last name"
+		required="required" data-error="Last Name is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div>
+	</div>
+        <div class="row">
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_email1">Email Address</label>
+	      <input id="form_email1" type="text" name="email1" class="form-control" 
+  		ng-model="ctrl.email1" placeholder="Please enter your email address"
+		required="required" data-error="Email Address is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div>
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_email2">Re-enter Email Address</label>
+	      <input id="form_email2" type="text" name="email2" class="form-control" 
+  		ng-model="ctrl.email2" placeholder="Please re-enter your email address"
+		required="required" data-error="Email Address is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div>
+	</div>
+	<input type="text" ng-model="ctrl.username" placeholder="Email Address">
+	<input type="password" ng-model="ctrl.password1" placeholder="Password">
+	<input type="password" ng-model="ctrl.password2" placeholder="Re-enter Password">
+	<input type="text" ng-model="ctrl.lastName" placeholder="Last Name">
+	<input type="text" ng-model="ctrl.jobTitle" placeholder="Job Title">
+	<input type="text" ng-model="ctrl.department" placeholder="Department">
+	<input type="text" ng-model="ctrl.workPlace" placeholder="Organisation Name">
+	<input type="text" ng-model="ctrl.address1" placeholder="Address Line 1">
+	<input type="text" ng-model="ctrl.address2" placeholder="Address Line 2>
+	<input type="text" ng-model="ctrl.address3" placeholder="Town">
+	<input type="text" ng-model="ctrl.address4" placeholder="City">
+	<input type="text" ng-model="ctrl.postcode" placeholder="Post Code">
+	<button ng-click="ctrl.change()">Change Values</button>
+	<button ng-click="ctrl.submit()">Submit</button>
+      </div><!-- end controls div -->
+    </form>
+  </div><!-- end ng-controller div -->
+<span>{{ ctrl.data }}</span>
+
+
+
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript" src="[% site.url.ng %]/ng_register.js">
+</script>
+
+  </div><!-- end ng-controller div -->
+</div><!-- end ng-app div -->
