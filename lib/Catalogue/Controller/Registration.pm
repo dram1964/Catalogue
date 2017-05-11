@@ -47,6 +47,8 @@ displays page for new users to register their details on angularised form
 
 sub ng_new :Path('ng_new') :Args(0) {
     my ( $self, $c ) = @_;
+  
+
     $c->stash(
 	test_data => 'Some random text',
 	template => 'registration/new.tt2');
@@ -54,10 +56,26 @@ sub ng_new :Path('ng_new') :Args(0) {
 
 sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     my ( $self, $c, $user ) = @_;
-    $c->log->debug("*** User: $user ***");
+    my $details = {
+    	 lastName => $c->request->params->{lastName},
+    	 firstName => $c->request->params->{firstName},
+    	 email1 => $c->request->params->{email1},
+    	 email2 => $c->request->params->{email2},
+   };
+=comment
+    my $lastName = $c->request->params->{lastName};
+    my $firstName = $c->request->params->{firstName};
+    my $email1 = $c->request->params->{email1};
+    my $email2 = $c->request->params->{email2};
+=cut
+
+    $c->log->debug("*** lastName: $details->{lastName} ***");
+    $c->log->debug("*** firstName: $details->{firstName} ***");
+    $c->log->debug("*** email1: $details->{email1} ***");
+    $c->log->debug("*** email2: $details->{email2} ***");
     $c->stash(
-	test_data => 'Thanks for sending that data',
-	template => 'registration/new.tt2');
+	details => $details,
+	template => 'registration/ng_new_submitted.tt2');
     $c->detach;
 }
 
