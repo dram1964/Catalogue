@@ -103,6 +103,9 @@ sub auto :Private {
     if ($c->controller eq $c->controller('Datasets')) {
 	return 1;
     }
+    if ($c->controller eq $c->controller('Registration')) {
+	return 1;
+    }
     if ($c->request->path eq 'about') {
 	return 1;
     }

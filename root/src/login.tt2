@@ -1,6 +1,7 @@
 [% META title = 'Metadata Catalogue Login' %]
 <p>In order to use this system you must either 
-<a href="[% c.uri_for(c.controller('Register').action_for('register')) %]">Register</a>
+<a href="[% c.uri_for(c.controller('Registration').action_for('new_account')) %]">Register</a> or 
+<a href="[% c.uri_for(c.controller('Registration').action_for('ng_new')) %]">Angular Register</a>
  as a New User or login if you already have an account. Alternatively you can 
 <a href="[% c.uri_for(c.controller('Datasets').action_for('list')) %]">Explore</a> 
 the available datasets without logging-in</p>
