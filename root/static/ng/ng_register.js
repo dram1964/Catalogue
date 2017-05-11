@@ -5,7 +5,7 @@ angular.module('register', [])
 	  self.email1 = 'bob@example.com';
 	  self.email2 = self.email1;
 	  self.firstName = 'Robert';
-	  self.lastName = 'Robot'; 
+	 // self.lastName = 'Robot'; 
     	 self.password1 = 'letmein';
     	 self.password2 = 'letmein';
     	 self.jobTitle = 'Data Mining Manager';

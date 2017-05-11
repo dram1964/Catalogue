@@ -94,27 +94,18 @@
 	      <div class="help-block with-errors"></div>
 	    </div>
 	  </div>
+		<br/>
 	  <div class="col-md-6">
 	    <div class="form-group">
-	      <label for="form_address1">Address Line 1</label>
+	      <label for="form_address1">Address</label>
 	      <input id="form_address1" type="text" name="address1" class="form-control" 
   		ng-model="ctrl.address1" placeholder="First line of your organisation address"
 		required="required" data-error="Address Line 1 is required">
-	      <div class="help-block with-errors"></div>
-	    </div>
-	  </div>
-	  <div class="col-md-6">
-	    <div class="form-group">
-	      <label for="form_address2">Address Line 2</label>
+	      <label for="form_address2"></label>
 	      <input id="form_address2" type="text" name="address2" class="form-control" 
   		ng-model="ctrl.address2" placeholder="Second line of your organisation address"
 		required="required" data-error="Address Line 2 is required">
-	      <div class="help-block with-errors"></div>
-	    </div>
-	  </div>
-	  <div class="col-md-6">
-	    <div class="form-group">
-	      <label for="form_address3">Address Line 3</label>
+	      <label for="form_address3"></label>
 	      <input id="form_address3" type="text" name="address3" class="form-control" 
   		ng-model="ctrl.address3" placeholder="Third line of your organisation address"
 		required="not-required" data-error="Address Line 3 is required">
@@ -157,7 +148,15 @@
 	      <div class="help-block with-errors"></div>
 	    </div>
 	  </div>
-	</div>
+	</div><!-- end row div -->
+	<div class="row">To gain access to this system you must read the Data User Agreement and tick the following boxes to show that you agree with the terms of this service. Please <a href="[% site.url.dataUsageAgreement %]">click here</a> to open a copy of the Data User Agreement.
+
+          <div class="form-group">
+	     <input type="checkbox" name="agree1" required="required">Yes, I agree with the Responsibilities of the Recipient as detailed in the Data User Agreement<br> 
+	     <input type="checkbox" name="agree2" required="required">Yes, I agree with the Permitted Uses and Discloures as detailed in the Data User Agreement<br> 
+	     <input type="checkbox" name="agree3" required="required">Yes, I declare that the information submitted on this form is both complete and accurate to the best of my knowledge<br> 
+	  </div>
+	</div><!-- end row div -->
 	<button ng-click="ctrl.change()">Autofill</button>
 	<button ng-click="ctrl.submit()">Submit</button>
       </div><!-- end controls div -->

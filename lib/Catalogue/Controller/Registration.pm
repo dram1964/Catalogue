@@ -73,6 +73,9 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     	 city => $c->request->params->{city},
     	 telephone => $c->request->params->{telephone},
     	 mobile => $c->request->params->{mobile},
+    	 agree1 => $c->request->params->{agree1},
+    	 agree2 => $c->request->params->{agree2},
+    	 agree3 => $c->request->params->{agree3},
    };
 
     $c->stash(
