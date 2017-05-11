@@ -2,7 +2,7 @@ package Catalogue::Controller::DataRequest;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 =head1 NAME
 

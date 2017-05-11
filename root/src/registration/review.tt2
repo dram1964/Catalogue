@@ -1,0 +1,69 @@
+[% META title = 'Review Registration Request' %]
+<p class="lead">Reviewing Request for Database: [% request.email_address %]</p>
+<div class="form-group">
+  <form action="[% c.uri_for(c.controller.action_for('create_user_from_request'), [request.email_address]) %]" method="post">
+  <div class="row">
+    <div class="col-md-6">
+	<label for="first_name">First Name</label>
+	<input name="first_name" value="[% request.first_name %]" type="text" class="form-control" title="First Name" />
+    </div>
+    <div class="col-md-6">
+	<label>Last Name</label>
+	<input name="last_name" value="[% request.last_name %]" type="text" class="form-control" title="Last Name" />
+    </div>
+    <div class="col-md-6">
+	<label>Email Address</label>
+	<input name="email_address" value="[% request.email_address %]" type="text" value="bob1@example.com" class="form-control" columns="0" rows="0" title="Enter email address" />
+    </div>
+    <div class="col-md-6">
+	<label>Job Title</label>
+	<input name="job_title" value="[% request.job_title %]" type="text" class="form-control" columns="0" rows="0" title="Job Title" />
+    </div>
+    <div class="col-md-6">
+	<label>Department</label>
+	<input name="department" value="[% request.department %]" type="text" class="form-control" columns="0" rows="0" title="Department" />
+    </div>
+    <div class="col-md-6">
+	<label>Organisation</label>
+	<input name="organisation" value="[% request.organisation %]" type="text" class="form-control" columns="0" rows="0" title="Organisation" />
+    </div>
+    <div class="col-md-6">
+	<label>Address Line 1</label>
+	<input name="address1" value="[% request.address1 %]" type="text" class="form-control" columns="0" rows="0" title="Address Line 1" />
+    </div>
+    <div class="col-md-6">
+	<label>Address Line 2</label>
+	<input name="address2" value="[% request.address2 %]" type="text" class="form-control" columns="0" rows="0" title="Address Line 2" />
+    </div>
+    <div class="col-md-6">
+	<label>Town</label>
+	<input name="address3" value="[% request.address3 %]" type="text" class="form-control" columns="0" rows="0" title="Town" />
+    </div>
+    <div class="col-md-6">
+	<label>City</label>
+	<input name="address4" value="[% request.address4 %]" type="text" class="form-control" columns="0" rows="0" title="City" />
+    </div>
+    <div class="col-md-6">
+	<label>Post Code</label>
+	<input name="postcode" value="[% request.postcode %]" type="text" class="form-control" columns="0" rows="0" title="Post Code" />
+    </div>
+    <div class="col-md-6">
+	<label>City</label>
+	<input name="city" value="[% request.city %]" type="text" class="form-control" columns="0" rows="0" title="Post Code" />
+    </div>
+    <div class="col-md-6">
+	<label>Telephone</label>
+	<input name="telephone" value="[% request.telephone %]" type="text" class="form-control" columns="0" rows="0" title="Post Code" />
+    </div>
+    <div class="col-md-6">
+	<label>Mobile</label>
+	<input name="mobile" value="[% request.mobile %]" type="text" class="form-control" columns="0" rows="0" title="Post Code" />
+    </div>
+    [% UNLESS request.approved_by %]
+    <div class="col-md-6">
+	<input name="submit" type="submit" value="Approve and Create User" class="btn btn-primary" />
+    </div>
+    [% END %]
+  <div><!-- end row div -->
+  </form>
+</div><!-- end form group -->
