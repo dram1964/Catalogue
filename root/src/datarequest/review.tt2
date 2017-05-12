@@ -7,19 +7,27 @@
     <tbody>
       <tr>
         <th>Username</th>
+        <th>Name</th>
         <th>Job Title</th>
+        <th>Department</th>
         <th>Organisation</th>
-        <th>Request Date</th>
-        <th>Approval Date</th>
-        <th>Actions</th>
+        <th>Telephone</th>
       </tr>
       <tr>
         <td>[% request.user.email_address %]</td>
-        <td>[% request.job_title %]</td>
-        <td>[% request.organisation %]</td>
-        <td>[% request.request_date %]</td>
-        <td>[% request.approval_date %]</td>
-        <td>
+        <td>[% requestor.first_name %] [% requestor.last_name %]</td>
+        <td>[% requestor.job_title %]</td>
+        <td>[% requestor.department %]</td>
+        <td>[% requestor.organisation %]<br>
+	    [% requestor.address1 %]<br>
+	    [% requestor.address2 %]<br>
+	    [% requestor.address3 %]<br>
+	    [% requestor.city %]<br>
+	    [% requestor.postcode %]<br>
+        </td>
+	<td>[% requestor.telephone %]<br>
+	    [% requestor.mobile %]
+        </td>
       </tr>
     </tbody>
   </table>

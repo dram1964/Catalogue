@@ -92,13 +92,18 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	  my $friendly_key = $key;
 	  $friendly_key =~ s/^([a-z])/\u$1/;
 	  $friendly_key =~ s/_details//;
-	  $c->log->debug("*** $friendly_key ***");
 	  $data_items->{$friendly_key} = $data_request->$key;
 	}
       }
     }
 
+   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+	email_address => $data_request->user->email_address
+   });
+   my $requestor = $requestor_rs->first;
+
    $c->stash(
+	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
 	template => 'datarequest/review.tt2');
