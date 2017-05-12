@@ -30,8 +30,8 @@
         <td>[% request.theatre_details %]</td>
         <td>
 [% IF c.check_user_roles('admin') %]
-<a href="[% c.uri_for(c.controller.action_for('review'), [request.email_address]) %]">review</a>
-<a href="[% c.uri_for(c.controller.action_for('delete'), [request.email_address]) %]">delete</a>
+<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">review</a>
+<a href="[% c.uri_for(c.controller.action_for('delete'), [request.id]) %]">delete</a>
 [% END %]
         </td>
       </tr>

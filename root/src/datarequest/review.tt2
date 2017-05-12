@@ -1,0 +1,44 @@
+[% META title = 'Review Data Request' %]
+<p class="lead">Reviewing Data Request ID: [% request.id %]</p>
+<p class="lead">User Details</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Username</th>
+        <th>Job Title</th>
+        <th>Organisation</th>
+        <th>Request Date</th>
+        <th>Approval Date</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <td>[% request.user.email_address %]</td>
+        <td>[% request.job_title %]</td>
+        <td>[% request.organisation %]</td>
+        <td>[% request.request_date %]</td>
+        <td>[% request.approval_date %]</td>
+        <td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="lead">Data Requested</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Data Item</th>
+        <th>Data Requested</th>
+      </tr>
+[% FOREACH item IN data_items.keys %]
+      <tr>
+        <td>[% item %]</td>
+        <td>[% data_items.$item %]</td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>

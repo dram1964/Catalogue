@@ -69,7 +69,7 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 review
 
-review selected registration request
+review selected data request
 
 =cut
 
@@ -78,16 +78,30 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
     $c->detach('/error_noperms') unless 
       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
-    my $request = $c->stash->{object};
-    unless ($request) {
+    my $data_request = $c->stash->{object};
+    unless ($data_request) {
 	$c->response->redirect($c->uri_for($self->action_for('list'),
 	    {mid => $c->set_error_msg("Invalid Request -- Cannot edit")}));
 	$c->detach;
     }
+    my $data_items = {};
+    my @columns = $data_request->columns;
+    for my $key (@columns) {
+      if ($key =~ /_details/) {
+	if ($data_request->$key) {
+	  my $friendly_key = $key;
+	  $friendly_key =~ s/^([a-z])/\u$1/;
+	  $friendly_key =~ s/_details//;
+	  $c->log->debug("*** $friendly_key ***");
+	  $data_items->{$friendly_key} = $data_request->$key;
+	}
+      }
+    }
 
    $c->stash(
-	request => $request,
-	template => 'registration/review.tt2');
+	data_items => $data_items,
+	request => $data_request,
+	template => 'datarequest/review.tt2');
 }
 
 =head2 request
