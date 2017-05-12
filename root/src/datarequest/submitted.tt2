@@ -1,0 +1,20 @@
+[% META title="Request Sumitted" %]
+<p>Your request has been submitted</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+[% FOREACH parameter IN parameters.keys %]
+      <tr>
+        <td>[% parameter %]</td>
+        <td>[% parameters.$parameter %]</td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>

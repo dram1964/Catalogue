@@ -1,3 +1,50 @@
 [% META title = 'Data Request Form' %]
 
 <p>Please fill-in the details</p>
+<div ng-app="datarequest">
+  <div ng-controller="MainCtrl as ctrl">
+    <form name="newRequest" ng-submit="MainCtrl.add()" method="post" action="ng_request_submitted" role="form">
+      <div class="controls">
+        <div class="row">
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_firstname">First Name</label>
+	      <input id="form_firstname" type="text" name="firstName" class="form-control" 
+  		ng-model="ctrl.firstName" placeholder="Please enter your first name"
+		value="[% user.first_name %]"
+		required="required" data-error="First Name is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div><!-- end column -->
+	  <div class="col-md-6">
+	    <div class="form-group">
+	      <label for="form_lastname">Last Name</label>
+	      <input id="form_lastname" type="text" name="lastname" class="form-control" 
+  		ng-model="ctrl.lastName" placeholder="Please enter your last name"
+		value="[% user.last_name %]"
+		required="required" data-error="Last Name is required">
+	      <div class="help-block with-errors"></div>
+	    </div>
+	  </div><!-- end column -->
+        </div><!-- end row -->
+        <div class="row">
+	  <div class="col-md-12">
+	     <input type="checkbox" name="agree3" required="required">Yes, I declare that the information submitted on this form is both complete and accurate to the best of my knowledge<br> 
+	  </div><!-- end column -->
+        </div><!-- end row -->
+        <div class="row">
+	  <div class="col-md-12">
+	    <button ng-click="ctrl.change()">Autofill</button>
+	  </div><!-- end column -->
+	  <div class="col-md-6">
+	    <button ng-click="ctrl.submit()">Submit</button>
+	  </div><!-- end column -->
+        </div><!-- end row -->
+      </div><!-- end controls -->
+    </form>
+  </div><!-- end ng-controlller -->
+</div><!-- end ng-app -->
+
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript" src="[% site.url.ng %]/ng_request.js">
+</script>

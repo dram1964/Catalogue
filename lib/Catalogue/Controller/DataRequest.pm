@@ -35,7 +35,21 @@ Displays a form for requesting data
 
 sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash(template => 'datarequest/request.tt2');
+    my $user = $c->user->get_object;
+    $c->stash(
+      user => $user, 
+      template => 'datarequest/request.tt2');
+}
+
+sub ng_request_submitted :Path('ng_request_submitted') :Args() {
+   my ( $self, $c ) = @_;
+
+   my $parameters = $c->request->body_parameters;
+
+
+   $c->stash(
+     parameters => $parameters,
+     template => 'datarequest/submitted.tt2');
 }
 
 =encoding utf8
