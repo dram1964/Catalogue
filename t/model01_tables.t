@@ -32,6 +32,7 @@ my @tables = qw(
 	WpOrder
 	WpFact
 	RegistrationRequest
+	DataRequest
 );
 my @old_tables = qw(
 	SystemKpe 
