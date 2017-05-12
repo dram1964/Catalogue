@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS registration_request;
 
 CREATE TABLE registration_request(
-email_address varchar(50) not null,
-first_name varchar(30) not null,
-last_name varchar(30) not null,
+email_address varchar(100) not null,
+first_name varchar(100) not null,
+last_name varchar(100) not null,
 password varchar(255) not null,
 job_title varchar(100) not null,
 department varchar(100) not null,

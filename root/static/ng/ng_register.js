@@ -18,6 +18,9 @@ angular.module('register', [])
     	 self.city = 'London';
     	 self.telephone = '08001232343';
     	 self.mobile = '07807554911';
+	 self.agree1 = 1;
+	 self.agree2 = True;
+	 self.agree3 = 'on';
 	};
 	self.submit = function() {
 	  console.log('User clicked submit with ', 

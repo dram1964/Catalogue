@@ -52,7 +52,7 @@ __PACKAGE__->table("users");
 
   data_type: 'varchar'
   is_nullable: 1
-  size: 50
+  size: 100
 
 =head2 password
 
@@ -89,7 +89,7 @@ __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "username",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
+  { data_type => "varchar", is_nullable => 1, size => 100 },
   "password",
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "email_address",
@@ -171,8 +171,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 21:29:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:K2LEqpQ9x2esR7upxXuCEg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 11:06:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V1itvpnb4UPBvkCf8YNE2g
 
 =head2 has_role
 

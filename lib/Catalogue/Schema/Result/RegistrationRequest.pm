@@ -46,19 +46,19 @@ __PACKAGE__->table("registration_request");
 
   data_type: 'varchar'
   is_nullable: 0
-  size: 50
+  size: 100
 
 =head2 first_name
 
   data_type: 'varchar'
   is_nullable: 0
-  size: 30
+  size: 100
 
 =head2 last_name
 
   data_type: 'varchar'
   is_nullable: 0
-  size: 30
+  size: 100
 
 =head2 password
 
@@ -173,11 +173,11 @@ __PACKAGE__->table("registration_request");
 
 __PACKAGE__->add_columns(
   "email_address",
-  { data_type => "varchar", is_nullable => 0, size => 50 },
+  { data_type => "varchar", is_nullable => 0, size => 100 },
   "first_name",
-  { data_type => "varchar", is_nullable => 0, size => 30 },
+  { data_type => "varchar", is_nullable => 0, size => 100 },
   "last_name",
-  { data_type => "varchar", is_nullable => 0, size => 30 },
+  { data_type => "varchar", is_nullable => 0, size => 100 },
   "password",
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "job_title",
@@ -260,8 +260,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-11 21:29:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:M/8Pq/XjReGXeBAE78KwvA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 11:06:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gLXZl3KExzbhcwrgSLdjCA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
