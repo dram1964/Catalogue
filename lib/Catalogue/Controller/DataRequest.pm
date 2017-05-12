@@ -2,7 +2,7 @@ package Catalogue::Controller::DataRequest;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -27,6 +27,69 @@ sub index :Path :Args(0) {
     $c->response->body('Matched Catalogue::Controller::DataRequest in DataRequest.');
 }
 
+=head2 base
+
+Can place common logic to start a chained dispatch here
+
+=cut 
+
+sub base :Chained('/') :PathPart('datarequest') :CaptureArgs(0) {
+    my ($self, $c) = @_;
+    $c->stash(resultset => $c->model('DB::DataRequest'));
+    $c->load_status_msgs;
+}
+
+=head2 object
+
+Fetch the specified data request object based on the class id and store it in the stash
+
+=cut 
+
+sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
+   my ($self, $c, $id) = @_;
+   $c->stash(object => $c->stash->{resultset}->find($id));
+
+   die "Class not found" if !$c->stash->{object};
+
+}
+
+=head2 list 
+
+List all data requests 
+
+=cut
+
+sub list :Chained('base') :PathPart('list') :Args(0) {
+    my ($self, $c) = @_;
+    my $data_requests = [$c->stash->{resultset}->all];
+    $c->stash(
+	data_requests => $data_requests,
+	template => 'datarequest/list.tt2');
+}
+
+=head2 review
+
+review selected registration request
+
+=cut
+
+sub review :Chained('object') :PathPart('review') :Args(0) {
+    my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->edit_allowed_by($c->user->get_object);
+
+    my $request = $c->stash->{object};
+    unless ($request) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Request -- Cannot edit")}));
+	$c->detach;
+    }
+
+   $c->stash(
+	request => $request,
+	template => 'registration/review.tt2');
+}
+
 =head2 request
 
 Displays a form for requesting data
@@ -41,10 +104,30 @@ sub request :Path('request') :Args(0) {
       template => 'datarequest/request.tt2');
 }
 
+=head2 ng_request_submitted
+
+Submits data request to database
+
+=cut
+
 sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
 
+   my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
+   my $data_request = $c->model('DB::DataRequest')->create({
+	user_id => $requestor->id,
+	cardiology_details => $parameters->{cardiologyDetails},
+	chemotherapy_details => $parameters->{chemotherapyDetails},
+	diagnosis_details => $parameters->{diagnosisDetails},
+	episode_details => $parameters->{episodeDetails},
+	other_details => $parameters->{otherDetails},
+	pathology_details => $parameters->{pathologyDetails},
+	pharmacy_details => $parameters->{pharmacyDetails},
+	radiology_details => $parameters->{radiologyDetails},
+	theatre_details => $parameters->{theatreDetails},
+	
+   });
 
 
    $c->stash(

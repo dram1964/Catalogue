@@ -32,13 +32,24 @@
         </div><!-- end row -->
 
 	<div class="row">
+	  <label for="diagnosis">Diagnosis Data</label>
+	  <input type="checkbox" ng-model="ctrl.diagnosis" name="diagnosis" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.diagnosis">	
+	  <div class="col-md-12">
+            <label for="diagnosisDetails">Please specify diagnosis classifications for data</label>
+		<textarea name="diagnosisDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
 	  <label for="pathology">Pathology Data</label>
 	  <input type="checkbox" ng-model="ctrl.pathology" name="pathology" >
         </div><!-- end row -->
 	<div class="row" ng-show="ctrl.pathology">	
 	  <div class="col-md-12">
             <label for="pathologyDetails">Please specify required pathology test data</label>
-		<textarea name="pathologyDetails" class="form-control"></textarea>
+		<textarea name="pathologyDetails" ng-model="ctrl.pathologyDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 

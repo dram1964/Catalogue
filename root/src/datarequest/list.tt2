@@ -1,0 +1,41 @@
+[% META title = "Data Requests" %]
+<p class="lead">List of Data Requests</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Username</th>
+        <th>Cardiology Data</th>
+        <th>Chemotherapy Data</th>
+        <th>Diagnosis Data</th>
+        <th>Episode Data</th>
+        <th>Other</th>
+        <th>Pathology Data</th>
+        <th>Pharmacy Data</th>
+        <th>Radiology Data</th>
+        <th>Theatre Data</th>
+      </tr>
+[%     FOREACH request IN data_requests %]
+      <tr>
+        <td>[% request.user_id %]</td>
+        <td>[% request.cardiology_details %]</td>
+        <td>[% request.chemotherapy_details %]</td>
+        <td>[% request.diagnosis_details %]</td>
+        <td>[% request.episode_details %]</td>
+        <td>[% request.other_details %]</td>
+        <td>[% request.pathology_details %]</td>
+        <td>[% request.pharmacy_details %]</td>
+        <td>[% request.radiology_details %]</td>
+        <td>[% request.theatre_details %]</td>
+        <td>
+[% IF c.check_user_roles('admin') %]
+<a href="[% c.uri_for(c.controller.action_for('review'), [request.email_address]) %]">review</a>
+<a href="[% c.uri_for(c.controller.action_for('delete'), [request.email_address]) %]">delete</a>
+[% END %]
+        </td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>

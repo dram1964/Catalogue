@@ -130,6 +130,21 @@ __PACKAGE__->add_unique_constraint("ux_username", ["username"]);
 
 =head1 RELATIONS
 
+=head2 data_requests
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::DataRequest>
+
+=cut
+
+__PACKAGE__->has_many(
+  "data_requests",
+  "Catalogue::Schema::Result::DataRequest",
+  { "foreign.user_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 registration_requests
 
 Type: has_many
@@ -171,8 +186,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 11:06:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V1itvpnb4UPBvkCf8YNE2g
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 14:58:25
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G29nVUQhGAVXKWYbaSeZ0w
 
 =head2 has_role
 
