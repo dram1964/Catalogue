@@ -15,6 +15,7 @@ __PACKAGE__->config({
     POSTCHOMP    => 1,
     TIMER        => 0,
     render_die   => 1,
+    TEMPLATE_EXTENSION => '.tt2',
 });
 
 =head1 NAME

@@ -103,10 +103,10 @@ sub auto :Private {
     if ($c->controller eq $c->controller('Datasets')) {
 	return 1;
     }
-    if ($c->controller eq $c->controller('Registration')) {
+    if ($c->request->path eq 'about') {
 	return 1;
     }
-    if ($c->request->path eq 'about') {
+    if ($c->request->path eq 'registration/ng_new') {
 	return 1;
     }
     if ($c->request->path eq 'contact') {
@@ -140,6 +140,16 @@ Permissions error page
 sub error_noperms :Chained('/') :PathPart('error_noperms') :Args(0) {
   my ($self, $c) = @_;
   $c->stash(template => 'error_noperms.tt2');
+}
+
+=head2 logged_in
+
+Error page for logged-in users requesting an action for anonymous users
+=cut
+
+sub logged_in :Chained('/') :PathPart('logged_in') :Args(0) {
+  my ($self, $c) = @_;
+  $c->stash(template => 'logged_in.tt2');
 }
 
 =head2 end

@@ -37,6 +37,10 @@ Can place common logic to start a chained dispatch here
 sub base :Chained('/') :PathPart('registration') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::RegistrationRequest'));
+
+    $c->detach('/error_noperms') unless 
+      $c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
+
     $c->load_status_msgs;
 }
 
@@ -62,6 +66,7 @@ List all registration requests
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
+
     my $requests = [$c->stash->{resultset}->search(
 	{approved_by => { '=', undef}}, {order_by => {-asc => 'approval_date'}})];
     $c->stash(
@@ -77,8 +82,6 @@ review selected registration request
 
 sub review :Chained('object') :PathPart('review') :Args(0) {
     my ($self, $c) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $request = $c->stash->{object};
     unless ($request) {
@@ -100,9 +103,6 @@ use the provided details to create the user account
 
 sub create_user_from_request :Chained('object') :PathPart('create_user_from_request') :Args(0) {
     my ($self, $c) = @_;
-
-    $c->detach('/error_noperms') unless 
-      $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $registration = $c->stash->{object};
     my $roles = $c->request->params->{roles};
@@ -167,9 +167,13 @@ displays page for new users to register their details on angularised form
 sub ng_new :Path('ng_new') :Args(0) {
     my ( $self, $c ) = @_;
 
+    if ($c->user_exists) {
+	$c->detach('/logged_in'); 
+    }
+
     $c->stash(
 	test_data => 'Some random text from ng_new method',
-	template => 'registration/new.tt2');
+	template => 'registration/ng_new.tt2');
 }
 
 =head2 ng_new_submitted
