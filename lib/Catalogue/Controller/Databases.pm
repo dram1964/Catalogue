@@ -148,6 +148,8 @@ Download model contents to CSV file
 
 sub download :Path('download') :Args(1) {
     my ($self, $c, $content_type) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::CDatabase')->first->edit_allowed_by($c->user->get_object);
     my $filename = 'data.csv';
     my $data;    
     my $rs = $c->model('DB::CDatabase')->search;

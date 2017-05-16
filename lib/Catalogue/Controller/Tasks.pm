@@ -80,6 +80,8 @@ Fetch all items in the todo list
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
+     $c->detach('/error_noperms') unless 
+	$c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
     $c->stash({
 	tasks => [$c->stash->{resultset}->all],
 	template => 'tasks/list.tt2',

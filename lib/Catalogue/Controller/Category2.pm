@@ -75,6 +75,8 @@ Add new Category2
 
 sub add :Chained('base') :PathPart('add') :Args(0) {
    my ($self, $c) = @_;
+     $c->detach('/error_noperms') unless 
+	$c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
    my $name = $c->request->params->{name};
    my $category2 = $c->stash->{resultset}->create({
 	name => $name});

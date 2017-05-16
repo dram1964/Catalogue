@@ -82,7 +82,6 @@ sub search :Path('search') :Args(0) {
     my ($self, $c) = @_;
     my $page = $c->request->param('page') || 1;
     my $search_term = "%" . $c->request->params->{search} . "%";
-    $c->log->debug("*** Searching for $search_term ***");
     my $column_rs = $c->model('DB::CColumn')->search(
 	{-or => [
 		{'me.name' => {like => $search_term}},

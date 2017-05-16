@@ -101,6 +101,7 @@ sub search :Chained('base') :PathPart('search') :Args(0) {
     	);
     my $applications = [$application_rs->all];
     $c->stash(
+	search_term => $search_term,
 	applications => $applications,
 	template => 'applications/list.tt2');
 }
@@ -111,8 +112,11 @@ Add new Application
 
 =cut
 
-sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
+sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig('applications/edit.yml') {
    my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->stash->{resultset}->first->edit_allowed_by($c->user->get_object);
+
     my $form = $c->stash->{form};
     if ($form->submitted_and_valid) {
         my $application_name = $c->request->params->{name};
@@ -126,7 +130,7 @@ sub add :Chained('base') :PathPart('add') :Args(0) :FormConfig {
 	    {mid => $c->set_status_msg("Dataset Added")}));
         $c->detach;
     }
-    $c->stash(template => 'applications/add.tt2');
+    $c->stash(template => 'applications/edit.tt2');
 }
 
 =head2 edit
