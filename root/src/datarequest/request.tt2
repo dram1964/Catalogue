@@ -37,8 +37,8 @@
         </div><!-- end row -->
 	<div class="row" ng-show="ctrl.diagnosis">	
 	  <div class="col-md-12">
-            <label for="diagnosisDetails">Please specify diagnosis classifications for data</label>
-		<textarea name="diagnosisDetails" class="form-control"></textarea>
+            <label for="diagnosisDetails">Please specify required diagnosis test data</label>
+		<textarea name="diagnosisDetails" ng-model="ctrl.diagnosisDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -60,7 +60,7 @@
 	<div class="row" ng-show="ctrl.radiology">	
 	  <div class="col-md-12">
             <label for="radiologyDetails">Please specify required radiology test data</label>
-		<textarea name="radiologyDetails" class="form-control"></textarea>
+		<textarea name="radiologyDetails" ng-model="ctrl.radiologyDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -71,7 +71,7 @@
 	<div class="row" ng-show="ctrl.pharmacy">	
 	  <div class="col-md-12">
             <label for="pharmacyDetails">Please specify required pharmacy data</label>
-		<textarea name="pharmacyDetails" class="form-control"></textarea>
+		<textarea name="pharmacyDetails" ng-model="ctrl.pharmacyDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -82,7 +82,7 @@
 	<div class="row" ng-show="ctrl.episode">	
 	  <div class="col-md-12">
             <label for="episodeDetails">Please specify required episode data</label>
-		<textarea name="episodeDetails" class="form-control"></textarea>
+		<textarea name="episodeDetails" ng-model="ctrl.episodeDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -93,7 +93,7 @@
 	<div class="row" ng-show="ctrl.theatre">	
 	  <div class="col-md-12">
             <label for="theatreDetails">Please specify required theatre data</label>
-		<textarea name="theatreDetails" class="form-control"></textarea>
+		<textarea name="theatreDetails" ng-model="ctrl.theatreDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -104,7 +104,7 @@
 	<div class="row" ng-show="ctrl.cardiology">	
 	  <div class="col-md-12">
             <label for="cardiologyDetails">Please specify required cardiology test data</label>
-		<textarea name="cardiologyDetails" class="form-control"></textarea>
+		<textarea name="cardiologyDetails" ng-model="ctrl.cardiologyDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -115,7 +115,7 @@
 	<div class="row" ng-show="ctrl.chemotherapy">	
 	  <div class="col-md-12">
             <label for="chemotherapyDetails">Please specify required chemotherapy data</label>
-		<textarea name="chemotherapyDetails" class="form-control"></textarea>
+		<textarea name="chemotherapyDetails" ng-model="ctrl.chemotherapyDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
@@ -126,7 +126,7 @@
 	<div class="row" ng-show="ctrl.other">	
 	  <div class="col-md-12">
             <label for="otherDetails">Please specify required other data</label>
-		<textarea name="otherDetails" class="form-control"></textarea>
+		<textarea name="otherDetails" ng-model="ctrl.otherDetails" class="form-control"></textarea>
 	  </div><!-- end col -->
         </div><!-- end row -->
 
