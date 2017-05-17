@@ -3,12 +3,11 @@
 <p>Please fill-in the details</p>
 <div ng-app="datarequest">
   <div ng-controller="MainCtrl as ctrl">
-	  <div class="col-md-12">
+    <div class="col-md-12">
 	    <button ng-click="ctrl.change()">Autofill</button>
-	  </div><!-- end column -->
+    </div><!-- end column -->
     <form name="newRequest" ng-submit="ctrl.submit()" method="post" action="ng_request_submitted">
       <div class="controls">
-
         <div class="row">
 	  <div class="col-md-6">
 	    <div class="form-group">
@@ -30,7 +29,7 @@
 	    </div>
 	  </div><!-- end column -->
         </div><!-- end row -->
-
+[% INSERT datarequest/request_type_panel %]
 	<div class="row">
 	  <label for="diagnosis">Diagnosis Data</label>
 	  <input type="checkbox" ng-model="ctrl.diagnosis" name="diagnosis" >
