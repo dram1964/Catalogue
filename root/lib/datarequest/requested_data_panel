@@ -1,0 +1,110 @@
+	<div class="row">
+	  <label for="diagnosis">Diagnosis Data</label>
+	  <input type="checkbox" ng-model="ctrl.diagnosis" name="diagnosis" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.diagnosis">	
+	  <div class="col-md-12">
+            <label for="diagnosisDetails">Please specify required diagnosis test data</label>
+		<textarea name="diagnosisDetails" ng-model="ctrl.diagnosisDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="pathology">Pathology Data</label>
+	  <input type="checkbox" ng-model="ctrl.pathology" name="pathology" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.pathology">	
+	  <div class="col-md-12">
+            <label for="pathologyDetails">Please specify required pathology test data</label>
+		<textarea name="pathologyDetails" ng-model="ctrl.pathologyDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="radiology">Radiology Data</label>
+	  <input type="checkbox" ng-model="ctrl.radiology" name="radiology" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.radiology">	
+	  <div class="col-md-12">
+            <label for="radiologyDetails">Please specify required radiology test data</label>
+		<textarea name="radiologyDetails" ng-model="ctrl.radiologyDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="pharmacy">Pharmacy Data</label>
+	  <input type="checkbox" ng-model="ctrl.pharmacy" name="pharmacy" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.pharmacy">	
+	  <div class="col-md-12">
+            <label for="pharmacyDetails">Please specify required pharmacy data</label>
+		<textarea name="pharmacyDetails" ng-model="ctrl.pharmacyDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="episode">Episode Data</label>
+	  <input type="checkbox" ng-model="ctrl.episode" name="episode" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.episode">	
+	  <div class="col-md-12">
+            <label for="episodeDetails">Please specify required episode data</label>
+		<textarea name="episodeDetails" ng-model="ctrl.episodeDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="theatre">Theatre Data</label>
+	  <input type="checkbox" ng-model="ctrl.theatre" name="theatre" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.theatre">	
+	  <div class="col-md-12">
+            <label for="theatreDetails">Please specify required theatre data</label>
+		<textarea name="theatreDetails" ng-model="ctrl.theatreDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="cardiology">Cardiology Data</label>
+	  <input type="checkbox" ng-model="ctrl.cardiology" name="cardiology" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.cardiology">	
+	  <div class="col-md-12">
+            <label for="cardiologyDetails">Please specify required cardiology test data</label>
+		<textarea name="cardiologyDetails" ng-model="ctrl.cardiologyDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="chemotherapy">Chemotherapy Data</label>
+	  <input type="checkbox" ng-model="ctrl.chemotherapy" name="chemotherapy" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.chemotherapy">	
+	  <div class="col-md-12">
+            <label for="chemotherapyDetails">Please specify required chemotherapy data</label>
+		<textarea name="chemotherapyDetails" ng-model="ctrl.chemotherapyDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+	<div class="row">
+	  <label for="other">Other Data</label>
+	  <input type="checkbox" ng-model="ctrl.other" name="other" >
+        </div><!-- end row -->
+	<div class="row" ng-show="ctrl.other">	
+	  <div class="col-md-12">
+            <label for="otherDetails">Please specify required other data</label>
+		<textarea name="otherDetails" ng-model="ctrl.otherDetails" class="form-control"></textarea>
+	  </div><!-- end col -->
+        </div><!-- end row -->
+
+        <div class="row">
+	  <div class="col-md-12">
+	     <input type="checkbox" name="agree3" required >Yes, I declare that the information submitted on this form is both complete and accurate to the best of my knowledge<br> 
+	  </div><!-- end column -->
+        </div><!-- end row -->
+        <div class="row">
+	  <div class="col-md-12">
+	    <input type="submit" value="Submit" ng-disabled="newRequest.$invalid">
+	  </div><!-- end column -->
+        </div><!-- end row -->
+
