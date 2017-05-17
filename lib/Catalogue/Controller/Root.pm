@@ -109,6 +109,9 @@ sub auto :Private {
     if ($c->request->path eq 'registration/ng_new') {
 	return 1;
     }
+    if ($c->request->path eq 'registration/ng_new_submitted') {
+	return 1;
+    }
     if ($c->request->path eq 'contact') {
 	return 1;
     }
