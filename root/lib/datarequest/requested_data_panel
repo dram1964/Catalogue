@@ -102,9 +102,4 @@
 	     <input type="checkbox" name="agree3" required >Yes, I declare that the information submitted on this form is both complete and accurate to the best of my knowledge<br> 
 	  </div><!-- end column -->
         </div><!-- end row -->
-        <div class="row">
-	  <div class="col-md-12">
-	    <input type="submit" value="Submit" ng-disabled="newRequest.$invalid">
-	  </div><!-- end column -->
-        </div><!-- end row -->
 

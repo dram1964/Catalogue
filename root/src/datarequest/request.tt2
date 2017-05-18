@@ -3,14 +3,15 @@
 <p>Please fill-in the details</p>
 <div ng-app="datarequest">
   <div ng-controller="MainCtrl as ctrl">
+	    <form><button ng-click="ctrl.change()">Autofill</button></form>
     <div class="col-md-12">
-	    <button ng-click="ctrl.change()">Autofill</button>
     </div><!-- end column -->
     <form name="newRequest" ng-submit="ctrl.submit()" method="post" action="ng_request_submitted">
       <div class="controls">
 [% INSERT datarequest/requestor_details_panel %]
 [% INSERT datarequest/request_type_panel %]
 [% INSERT datarequest/requested_data_panel %]
+[% INSERT datarequest/submit_save.tt2 %]
       </div><!-- end controls -->
 
     </form>

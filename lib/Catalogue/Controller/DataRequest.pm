@@ -76,7 +76,7 @@ review selected data request
 sub review :Chained('object') :PathPart('review') :Args(0) {
     my ($self, $c) = @_;
     $c->detach('/error_noperms') unless 
-      $c->stash->{object}->edit_allowed_by($c->user->get_object);
+       $c->stash->{object}->edit_allowed_by($c->user->get_object);
 
     my $data_request = $c->stash->{object};
     unless ($data_request) {
@@ -117,9 +117,9 @@ Displays a form for requesting data
 
 sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash->{user} = $c->user->get_object;
-    $c->detach('/error_noperms') unless 
-      $c->model('DB::DataRequest')->first->request_allowed_by($c->stash->{user});
+#    $c->stash->{user} = $c->user->get_object;
+#    $c->detach('/error_noperms') unless 
+#      $c->model('DB::DataRequest')->first->request_allowed_by($c->stash->{user});
     $c->stash(
       template => 'datarequest/request.tt2');
 }
@@ -146,6 +146,8 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	pharmacy_details => $parameters->{pharmacyDetails},
 	radiology_details => $parameters->{radiologyDetails},
 	theatre_details => $parameters->{theatreDetails},
+	request_type => $parameters->{requestType},
+	status => $parameters->{Submit},
 	
    });
 

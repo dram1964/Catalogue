@@ -12,6 +12,8 @@ pathology_details text,
 pharmacy_details text,
 radiology_details text,
 theatre_details text,
+request_type varchar(10),
+status varchar(10),
 PRIMARY KEY (id),
 CONSTRAINT request_user_fk FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

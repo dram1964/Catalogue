@@ -6,29 +6,27 @@
  	  <div class="form-group">
             <div class="radio">
               <label>
-              <input type="radio" name="studyType" id="studyType" value="studyTypeA" ><strong>Type A - REC Approved</strong><br/>If your study has already received ethical approval and has a CUH R&D number, please upload all documents that were approved by the REC, the REC approval letter and the R&D approval letter for review.
+              <input type="radio" name="requestType" value="typeA"><strong>Type A - REC Approved</strong><br/>If your study has already received ethical approval and has a CUH R&D number, please upload all documents that were approved by the REC, the REC approval letter and the R&D approval letter for review.
               <br/> &nbsp; </label>
               <br/>
               <label>
-              <input type="radio" name="studyType" id="studyType" value="studyTypeB" ><strong>Type B - Anonymous</strong><br/>If this is a request for anonymous data please fill in the study details below.
+              <input type="radio" name="requestType" value="typeB"><strong>Type B - Anonymous</strong><br/>If this is a request for anonymous data please fill in the study details below.
               <br/> &nbsp; </label>
               <br/>
               <label>
-              <input type="radio" name="studyType" id="studyType" value="studyTypeS" ><strong>Type S - Service Evaluations</strong><br/>If this is a service evaluation please upload the protocol, the sevice evaluation application form, and the confirmation of registration.
+              <input type="radio" name="requestType" value="typeS"><strong>Type S - Service Evaluations</strong><br/>If this is a service evaluation please upload the protocol, the sevice evaluation application form, and the confirmation of registration.
               <br/> &nbsp; </label>
               <br/>
               <label>
-              <input type="radio" name="studyType" id="studyType" value="studyTypeC"  disabled ><strong>Type C - Consent for Contact</strong><br/>If you wish to undertake a study that makes uses of the consent for contact patient register.
+              <input type="radio" name="requestType" value="typeC"><strong>Type C - Consent for Contact</strong><br/>If you wish to undertake a study that makes uses of the consent for contact patient register.
               <br/> &nbsp; </label>
               <br/>
               <label>
-              <input type="radio" name="studyType" id="studyType" value="studyTypeR"  disabled ><strong>Type R - Aggregated View Only</strong><br/>If you only require to see aggregated level data from the e-Hospital system.
+              <input type="radio" name="requestType" value="typeR"><strong>Type R - Aggregated View Only</strong><br/>If you only require to see aggregated level data from the e-Hospital system.
               &nbsp; </label>
             </div><!-- end radio div -->
             &nbsp;
-            <div class="help-block with-errors"></div>
           </div><!-- end form-group div -->
-          <button class="btn btn-default btn-success">Continue</button>
       </div><!-- end panel-body div -->
     </div><!-- end panel-panel div -->
   </div><!-- end col-lg-12 div -->
