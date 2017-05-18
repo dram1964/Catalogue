@@ -184,5 +184,10 @@ sub edit_allowed_by {
   return $user->has_role('curator');
 }
 
+sub request_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('requestor');
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

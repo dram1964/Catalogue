@@ -117,9 +117,10 @@ Displays a form for requesting data
 
 sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    my $user = $c->user->get_object;
+    $c->stash->{user} = $c->user->get_object;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::DataRequest')->first->request_allowed_by($c->stash->{user});
     $c->stash(
-      user => $user, 
       template => 'datarequest/request.tt2');
 }
 
