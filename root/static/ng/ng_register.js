@@ -26,5 +26,8 @@ angular.module('register', [])
 	  console.log('User clicked submit with ', 
 	    self.username, self.password);
 	};
+	self.checkPassword = function() {
+	    self.password1 == self.password2 ? false : true;
+	};
 	self.data = foo;
   }]);
