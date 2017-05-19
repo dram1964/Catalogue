@@ -64,7 +64,7 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
     my $data_requests = [$c->stash->{resultset}->all];
     $c->stash(
 	data_requests => $data_requests,
-	template => 'datarequest/list.tt2');
+	template => 'datareview/list.tt2');
 }
 
 =head2 review
@@ -106,7 +106,7 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
-	template => 'datarequest/review.tt2');
+	template => 'datareview/review.tt2');
 }
 
 

@@ -1,0 +1,53 @@
+[% META title = 'Review Data Request' %]
+<p class="lead">Reviewing Data Request ID: [% request.id %]</p>
+<p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
+<p class="lead">User Details</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Job Title</th>
+        <th>Department</th>
+        <th>Organisation</th>
+        <th>Telephone</th>
+      </tr>
+      <tr>
+        <td>[% request.user.email_address %]</td>
+        <td>[% requestor.first_name %] [% requestor.last_name %]</td>
+        <td>[% requestor.job_title %]</td>
+        <td>[% requestor.department %]</td>
+        <td>[% requestor.organisation %]<br>
+	    [% requestor.address1 %]<br>
+	    [% requestor.address2 %]<br>
+	    [% requestor.address3 %]<br>
+	    [% requestor.city %]<br>
+	    [% requestor.postcode %]<br>
+        </td>
+	<td>[% requestor.telephone %]<br>
+	    [% requestor.mobile %]
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="lead">Data Requested</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tbody>
+      <tr>
+        <th>Data Item</th>
+        <th>Data Requested</th>
+      </tr>
+[% FOREACH item IN data_items.keys %]
+      <tr>
+        <td>[% item %]</td>
+        <td>[% data_items.$item %]</td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,21 @@
+[% META title = "Data Requests" %]
+  <p class="lead">List of Data Requests</p>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tbody>
+        <tr>
+  	<th>Request ID</th>
+  	<th>Request Type</th>
+  	<th>Request Status</th>
+       </tr>
+  [% FOREACH request IN data_requests %]
+        <tr>
+  	<td>[% request.id %]<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">review</a> </td>
+  	<td>[% request.request_type %]</td>
+  	<td>[% request.status %]</td>
+        </tr>
+  [% END %]
+      </tbody>
+    </table>
+  </div>

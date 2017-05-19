@@ -30,8 +30,8 @@
 <ul class="nav nav-sidebar">
   <li>Admin Menu</li>
   <li><a href="[% c.uri_for('/users/list') %]">Users</a></li>
-  <li><a href="[% c.uri_for('/registration/list') %]">Registration Requests</a></li>
-  <li><a href="[% c.uri_for('/datarequest/list') %]">Data Requests</a></li>
+  <li><a href="[% c.uri_for('/registration/list') %]">Registration Review</a></li>
+  <li><a href="[% c.uri_for('/datareview/list') %]">Data Review</a></li>
   <li><a href="#">Upload Schema</a></li>
   <li><a href="#">Upload KPI</a></li>
   <li><a href="[% c.uri_for('/winpath/list') %]">Winpath Data</a></li>
