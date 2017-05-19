@@ -14,7 +14,7 @@
   <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
   <li><a href="[% c.uri_for('/applications/list') %]">Applications</a></li>
   <li><a href="[% c.uri_for('/databases/list') %]">Databases</a></li>
-  <li><a href="[% c.uri_for('/datarequest/request') %]">Request Data</a></li>
+  <li><a href="[% c.uri_for('/datarequest/list') %]">Data Requests</a></li>
   <li><a href="[% c.uri_for('/registration/ng_new') %]">Register</a></li>
 [% IF c.user_exists %]
       <li><a href="[% c.uri_for('/logout') %]">Logout</a></li>

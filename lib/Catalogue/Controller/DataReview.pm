@@ -1,4 +1,4 @@
-package Catalogue::Controller::DataRequest;
+package Catalogue::Controller::DataReview;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-Catalogue::Controller::DataRequest - Catalyst Controller
+Catalogue::Controller::DataReview - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched Catalogue::Controller::DataRequest in DataRequest.');
+    $c->response->body('Matched Catalogue::Controller::DataReview in DataReview.');
 }
 
 =head2 base
@@ -33,7 +33,7 @@ Can place common logic to start a chained dispatch here
 
 =cut 
 
-sub base :Chained('/') :PathPart('datarequest') :CaptureArgs(0) {
+sub base :Chained('/') :PathPart('datareview') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::DataRequest'));
     $c->load_status_msgs;
@@ -55,15 +55,13 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
 =head2 list 
 
-List all data requests for current user 
+List all data requests 
 
 =cut
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
-    my $user = $c->user->get_object;
-    $c->detach('/login') unless defined($user);
-    my $data_requests = [$c->stash->{resultset}->search({user_id => $user->id})];
+    my $data_requests = [$c->stash->{resultset}->all];
     $c->stash(
 	data_requests => $data_requests,
 	template => 'datarequest/list.tt2');
@@ -77,7 +75,15 @@ review selected data request
 
 sub review :Chained('object') :PathPart('review') :Args(0) {
     my ($self, $c) = @_;
+    $c->detach('/error_noperms') unless 
+       $c->stash->{object}->edit_allowed_by($c->user->get_object);
+
     my $data_request = $c->stash->{object};
+    unless ($data_request) {
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_error_msg("Invalid Request -- Cannot edit")}));
+	$c->detach;
+    }
     my $data_items = {};
     my @columns = $data_request->columns;
     for my $key (@columns) {
@@ -103,55 +109,7 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	template => 'datarequest/review.tt2');
 }
 
-=head2 request
 
-Displays a form for requesting data
-
-=cut
-
-sub request :Path('request') :Args(0) {
-    my ( $self, $c ) = @_;
-    $c->stash->{user} = $c->user->get_object;
-    $c->detach('/login') unless 
-      $c->model('DB::DataRequest')->first->request_allowed_by($c->stash->{user});
-    $c->stash(
-      template => 'datarequest/request.tt2');
-}
-
-=head2 ng_request_submitted
-
-Submits data request to database
-
-=cut
-
-sub ng_request_submitted :Path('ng_request_submitted') :Args() {
-   my ( $self, $c ) = @_;
-
-   my $requestor = $c->user->get_object;
-   my $parameters = $c->request->body_parameters;
-   my $data_request = $c->model('DB::DataRequest')->create({
-	user_id => $requestor->id,
-	cardiology_details => $parameters->{cardiologyDetails},
-	chemotherapy_details => $parameters->{chemotherapyDetails},
-	diagnosis_details => $parameters->{diagnosisDetails},
-	episode_details => $parameters->{episodeDetails},
-	other_details => $parameters->{otherDetails},
-	pathology_details => $parameters->{pathologyDetails},
-	pharmacy_details => $parameters->{pharmacyDetails},
-	radiology_details => $parameters->{radiologyDetails},
-	theatre_details => $parameters->{theatreDetails},
-	request_type => $parameters->{requestType},
-	status => $parameters->{Submit},
-	
-   });
-
-   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
-
-   $c->stash(
-     data_requests => $data_requests,
-     parameters => $parameters,
-     template => 'datarequest/list.tt2');
-}
 
 =encoding utf8
 

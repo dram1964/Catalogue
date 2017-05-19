@@ -8,7 +8,7 @@
   [% END %]
 	</ul></li>
 [% END %]
-  <li><a href="[% c.uri_for('/datarequest/request') %]">Data Request</a></li>
+  <li><a href="[% c.uri_for('/datarequest/list') %]">Data Requests</a></li>
 </ul>
 [% IF c.check_user_roles('curator') %]
 <ul class="nav nav-sidebar">
