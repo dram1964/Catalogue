@@ -8,7 +8,7 @@
 [% FOREACH request_type IN request_types %]
 <label>
 <input type="radio" name="requestType" value="[% request_type.id %]" required
-[% IF request_type.id == request.data.requestType %] checked [% END %]
+[% IF request_type.id == request.data.requestType %] checked [% END %]>
 <strong>[% request_type.name %]</strong> - [% request_type.description %]
 <br/> &nbsp
 </label>

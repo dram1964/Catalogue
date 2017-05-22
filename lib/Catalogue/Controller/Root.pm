@@ -35,7 +35,7 @@ sub index :Path :Args(0) {
 
 =head2 welcome
 
-The welcome page (/)
+The welcome page (/welcome)
 
 =cut
 

@@ -116,7 +116,7 @@ sub request :Path('request') :Args(0) {
 	firstName => $user->first_name,
 	lastName => $user->last_name,
     };
-    $c->detach('/login') unless 
+    $c->detach('/error_noperms') unless 
       $c->model('DB::DataRequest')->new({})->request_allowed_by($user);
     my $request_types = [$c->model('DB::RequestType')->all];
     $c->stash(
