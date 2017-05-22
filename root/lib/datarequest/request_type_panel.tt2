@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Select Type of Study </div>
+      <div class="panel-body">
+ 	  <div class="form-group">
+            <div class="radio">
+[% FOREACH request_type IN request_types %]
+<label>
+<input type="radio" name="requestType" value="[% request_type.id %]" 
+[% IF request_type.id == request.id %] checked [% END %]
+<strong>[% request_type.name %]</strong> - [% request_type.description %]
+<br/> &nbsp
+</label>
+[% END %]
+            </div><!-- end radio div -->
+            &nbsp;
+          </div><!-- end form-group div -->
+      </div><!-- end panel-body div -->
+    </div><!-- end panel-panel div -->
+  </div><!-- end col-lg-12 div -->
+</div>
+
+
