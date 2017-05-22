@@ -138,7 +138,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	diagnosis_details => $parameters->{diagnosisDetails},
 	episode_details => $parameters->{episodeDetails},
 	other_details => $parameters->{otherDetails},
-	pathology_details => $parameters->{pathologyDetails},
+	pathology_details => $parameters->{pathologyDetails} ,
 	pharmacy_details => $parameters->{pharmacyDetails},
 	radiology_details => $parameters->{radiologyDetails},
 	theatre_details => $parameters->{theatreDetails},
@@ -167,7 +167,7 @@ sub update_request :Chained('object') :Args() {
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $data_request = $c->stash->{object};
-   $data_request->update({
+   my $data = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
 	chemotherapy_details => $parameters->{chemotherapyDetails},
@@ -181,7 +181,17 @@ sub update_request :Chained('object') :Args() {
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
 	
-   });
+   };
+   $data->{cardiology_details} = '' unless defined($parameters->{cardiology});
+   $data->{chemotherapy_details} = '' unless defined($parameters->{chemotherapy});
+   $data->{diagnosis_details} = '' unless defined($parameters->{diagnosis});
+   $data->{episode_details} = '' unless defined($parameters->{episode});
+   $data->{other_details} = '' unless defined($parameters->{other});
+   $data->{pathology_details} = '' unless defined($parameters->{pathology});
+   $data->{pharmacy_details} = '' unless defined($parameters->{pharmacy});
+   $data->{radiology_details} = '' unless defined($parameters->{radiology});
+   $data->{theatre_details} = '' unless defined($parameters->{theatre});
+   $data_request->update($data);
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
