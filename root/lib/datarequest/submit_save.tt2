@@ -1,6 +1,7 @@
         <div class="row">
 	  <div class="col-md-12">
-	    <button type="submit" value="save" name="Submit">Save</button>
-	    <button type="submit" value="submit" name="Submit" ng-disabled="newRequest.$invalid">Submit</button>
+	    <button type="submit" value="1" name="Submit">Save for Later</button>
+	    <button type="submit" value="2" name="Submit">Save and Continue</button>
+	    <button type="submit" value="3" name="Submit" ng-disabled="newRequest.$invalid">Submit Request</button>
 	  </div><!-- end column -->
         </div><!-- end row -->

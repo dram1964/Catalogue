@@ -113,8 +113,10 @@ sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{user} = $c->user->get_object;
     $c->detach('/login') unless 
-      $c->model('DB::DataRequest')->first->request_allowed_by($c->stash->{user});
+      $c->model('DB::DataRequest')->new({})->request_allowed_by($c->stash->{user});
+    my $request_types = [$c->model('DB::RequestType')->all];
     $c->stash(
+      request_types => $request_types,
       template => 'datarequest/request.tt2');
 }
 
@@ -140,8 +142,8 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	pharmacy_details => $parameters->{pharmacyDetails},
 	radiology_details => $parameters->{radiologyDetails},
 	theatre_details => $parameters->{theatreDetails},
-	request_type => $parameters->{requestType},
-	status => $parameters->{Submit},
+	request_type_id => $parameters->{requestType},
+	status_id => $parameters->{Submit},
 	
    });
 
@@ -151,6 +153,79 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
      data_requests => $data_requests,
      parameters => $parameters,
      template => 'datarequest/list.tt2');
+}
+
+=head2 update_request
+
+submit request update
+
+=cut
+
+
+sub update_request :Chained('object') :Args() {
+    my ($self, $c) = @_;
+   my $requestor = $c->user->get_object;
+   my $parameters = $c->request->body_parameters;
+   my $data_request = $c->stash->{object};
+   $data_request->update({
+	user_id => $requestor->id,
+	cardiology_details => $parameters->{cardiologyDetails},
+	chemotherapy_details => $parameters->{chemotherapyDetails},
+	diagnosis_details => $parameters->{diagnosisDetails},
+	episode_details => $parameters->{episodeDetails},
+	other_details => $parameters->{otherDetails},
+	pathology_details => $parameters->{pathologyDetails},
+	pharmacy_details => $parameters->{pharmacyDetails},
+	radiology_details => $parameters->{radiologyDetails},
+	theatre_details => $parameters->{theatreDetails},
+	request_type_id => $parameters->{requestType},
+	status_id => $parameters->{Submit},
+	
+   });
+
+   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
+
+   $c->stash(
+     status_msg => "Request " . $data_request->id . " updated",
+     data_requests => $data_requests,
+     parameters => $parameters,
+     template => 'datarequest/list.tt2');
+}
+
+
+=head2 request_edit
+
+Edit an open request
+
+=cut
+
+sub request_edit :Chained('object') :Args() {
+    my ($self, $c) = @_;
+    my $data_request = $c->stash->{object};
+    my $user = $data_request->user;
+    my $request = { 
+	id => $data_request->id,
+	user => {firstName => $user->first_name,
+	    lastName => $user->last_name
+	},
+	data => { pathologyDetails => $data_request->pathology_details,
+	    diagnosisDetails => $data_request->diagnosis_details,
+	    radiologyDetails => $data_request->radiology_details,
+	    pharmacyDetails => $data_request->pharmacy_details,
+	    episodeDetails => $data_request->episode_details,
+	    theatreDetails => $data_request->theatre_details,
+	    cardiologyDetails => $data_request->cardiology_details,
+	    chemotherapyDetails => $data_request->chemotherapy_details,
+	    otherDetails => $data_request->other_details,
+	    requestType => $data_request->request_type_id,
+	},
+    };
+    my $request_types = [$c->model('DB::RequestType')->all];
+
+    $c->stash(
+      request_types => $request_types,
+      request => $request,
+      template => 'datarequest/request.tt2');
 }
 
 =encoding utf8

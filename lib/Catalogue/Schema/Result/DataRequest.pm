@@ -99,17 +99,24 @@ __PACKAGE__->table("data_request");
   data_type: 'text'
   is_nullable: 1
 
-=head2 request_type
+=head2 request_type_id
 
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 10
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
 
-=head2 status
+=head2 status_id
 
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 10
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 status_date
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
 
 =cut
 
@@ -136,10 +143,17 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "theatre_details",
   { data_type => "text", is_nullable => 1 },
-  "request_type",
-  { data_type => "varchar", is_nullable => 1, size => 10 },
-  "status",
-  { data_type => "varchar", is_nullable => 1, size => 10 },
+  "request_type_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "status_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "status_date",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
+    is_nullable => 0,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -155,6 +169,36 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
+
+=head2 request_type
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::RequestType>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "request_type",
+  "Catalogue::Schema::Result::RequestType",
+  { id => "request_type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 status
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::RequestStatus>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "status",
+  "Catalogue::Schema::Result::RequestStatus",
+  { id => "status_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
 
 =head2 user
 
@@ -172,8 +216,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-18 19:08:57
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QuQwAGxa+2NjkW6sWACbpg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-22 08:30:37
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5UCqR4Ck+J6/rk9taTV9dg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

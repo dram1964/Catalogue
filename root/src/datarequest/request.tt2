@@ -1,16 +1,27 @@
 [% META title = 'Data Request Form' %]
 
+[% IF request %]
+[% USE JSON %]
+<script type="text/javascript">
+  var foo = [% request.json %];
+</script>
+[% END %]
+
 <p>Please fill-in the details</p>
 <div ng-app="datarequest">
   <div ng-controller="MainCtrl as ctrl">
 	    <form><button ng-click="ctrl.change()">Autofill</button></form>
     <div class="col-md-12">
     </div><!-- end column -->
+[% IF request %]
+    <form name="newRequest" ng-submit="ctrl.submit()" method="post" action="[% c.uri_for(c.controller.action_for('update_request'), [request.id]) %]">
+[% ELSE %]
     <form name="newRequest" ng-submit="ctrl.submit()" method="post" action="ng_request_submitted">
+[% END %]
       <div class="controls">
-[% INSERT datarequest/requestor_details_panel %]
-[% INSERT datarequest/request_type_panel %]
-[% INSERT datarequest/requested_data_panel %]
+[% INCLUDE datarequest/requestor_details_panel.tt2 %]
+[% INCLUDE datarequest/request_type_panel.tt2 %]
+[% INCLUDE datarequest/requested_data_panel.tt2 %]
 [% INSERT datarequest/submit_save.tt2 %]
       </div><!-- end controls -->
 
