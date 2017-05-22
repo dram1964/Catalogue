@@ -153,10 +153,14 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
-   $c->stash(
+   if ($parameters->{Submit} == 2) {
+	$c->response->redirect($c->uri_for($self->action_for('request_edit'), [$data_request->id]));
+   } else {
+   	$c->stash(
      data_requests => $data_requests,
      parameters => $parameters,
      template => 'datarequest/list.tt2');
+   }
 }
 
 =head2 update_request
