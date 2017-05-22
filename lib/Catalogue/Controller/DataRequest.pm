@@ -111,9 +111,13 @@ Displays a form for requesting data
 
 sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash->{user} = $c->user->get_object;
+    my $user = $c->user->get_object;
+    $c->stash->{requestor} = {
+	firstName => $user->first_name,
+	lastName => $user->last_name,
+    };
     $c->detach('/login') unless 
-      $c->model('DB::DataRequest')->new({})->request_allowed_by($c->stash->{user});
+      $c->model('DB::DataRequest')->new({})->request_allowed_by($user);
     my $request_types = [$c->model('DB::RequestType')->all];
     $c->stash(
       request_types => $request_types,

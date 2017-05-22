@@ -1,10 +1,15 @@
 [% META title = 'Data Request Form' %]
 
-[% IF request %]
 [% USE JSON %]
+[% IF request %]
 <script type="text/javascript">
   var foo = [% request.json %];
 </script>
+[% ELSIF requestor %]
+<script type="text/javascript">
+  var foo = { user : [% requestor.json %]};
+</script>
+
 [% END %]
 
 <p>Please fill-in the details</p>

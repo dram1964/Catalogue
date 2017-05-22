@@ -31,16 +31,29 @@ angular.module('datarequest', [])
     };
 if (typeof foo !== 'undefined') {
     self.user = foo.user;
-    self.data = foo.data;
-    self.data.pathology = self.data.pathologyDetails == '' ? false : true;
-    self.data.diagnosis = self.data.diagnosisDetails == '' ? false : true;
-    self.data.radiology = self.data.radiologyDetails == '' ? false : true;
-    self.data.pharmacy = self.data.pharmacyDetails == '' ? false : true;
-    self.data.episode = self.data.episodeDetails == '' ? false : true;
-    self.data.theatre = self.data.theatreDetails == '' ? false : true;
-    self.data.cardiology = self.data.cardiologyDetails == '' ? false : true;
-    self.data.chemotherapy = self.data.chemotherapyDetails == '' ? false : true;
-    self.data.other = self.data.otherDetails == '' ? false : true;
+    if (typeof foo.data !== 'undefined') {
+	    self.data = foo.data;
+	    self.data.pathology = self.data.pathologyDetails == '' ? false : true;
+	    self.data.diagnosis = self.data.diagnosisDetails == '' ? false : true;
+	    self.data.radiology = self.data.radiologyDetails == '' ? false : true;
+	    self.data.pharmacy = self.data.pharmacyDetails == '' ? false : true;
+	    self.data.episode = self.data.episodeDetails == '' ? false : true;
+	    self.data.theatre = self.data.theatreDetails == '' ? false : true;
+	    self.data.cardiology = self.data.cardiologyDetails == '' ? false : true;
+	    self.data.chemotherapy = self.data.chemotherapyDetails == '' ? false : true;
+	    self.data.other = self.data.otherDetails == '' ? false : true;
+   } else {
+	    self.data = {'pathology' : false,
+		'diagnosis' : false,
+		'radiology' : false,
+		'pharmacy' : false,
+		'episode' : false,
+		'theatre' : false,
+		'cardiology' : false,
+		'chemotherapy' : false,
+		'other' : false
+	    };
+   }
 }
 
   }]);
