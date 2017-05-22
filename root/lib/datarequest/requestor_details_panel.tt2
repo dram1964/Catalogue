@@ -8,7 +8,6 @@
 	  <input id="form_firstname" type="text" name="firstName" class="form-control" 
   		ng-model="ctrl.user.firstName" placeholder="Please enter your first name"
 		value="[% user.first_name %]"
-		ng-minlength=5
 		required><span ng-show="newRequest.firstName.$invalid">Minimum length five characters</span>
 	</div>
 	  </div><!-- end column -->
