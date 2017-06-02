@@ -71,7 +71,7 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 review
 
-review selected data request
+allow current user to review data request submitted by self
 
 =cut
 

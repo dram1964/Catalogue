@@ -33,6 +33,8 @@ my @tables = qw(
 	WpFact
 	RegistrationRequest
 	DataRequest
+	RequestStatus
+	RequestType
 );
 my @old_tables = qw(
 	SystemKpe 

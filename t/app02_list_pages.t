@@ -41,7 +41,7 @@ $ua1->content_contains("Columns for all tables", "Check Columns List content");
 $ua1->content_lacks("delete</a>", "Check Columns list has no delete link");
 
 $ua1->get_ok("/tasks/list", "'test01' tasks list");
-$ua1->title_is("Project Task List", "Check Task List title");
+$ua1->content_contains("Permission Denied", "Test01 denied Task List");
 
 
 # use 'diag $ua1->content' to see content of current response

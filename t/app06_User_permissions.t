@@ -39,8 +39,7 @@ my $user_login_required = {
 '/columns/list_columns/' . $table->id => 'Table Columns',
 '/columns/search?search=patient' => 'Table Columns',
 '/databases/list' => 'System Databases',
-'/datarequest/list' => 'List of Data Requests',
-'/datarequest/request' => 'First Name',
+'/datarequest/list' => 'new Request',
 '/erid/list' => 'ERIDs',
 '/kpe/list' => 'Key Production Environments',
 '/schemas/list' => 'Database Schemas',
@@ -58,7 +57,6 @@ my $curator_login_required = {
 '/databases/download/csv' => 'System Databases',
 '/databases/download/text' => 'System Databases',
 '/databases/download/html' => 'System Databases',
-'/datarequest/id/' . $datarequest->id . '/review' => 'Data Requests',
 '/registration/list' => 'Registration Requests',
 '/tasks/list' => 'Project Task List',
 '/users/list' => 'User Maintenance',
@@ -66,6 +64,11 @@ my $curator_login_required = {
 
 my $admin_login_required = {
 '/application/delete' => 'Delete Application',
+};
+
+my $requestor_login_required = {
+'/datarequest/request' => 'First Name',
+'/datarequest/id/' . $datarequest->id . '/review' => 'Reviewing Data Request ID: ',
 };
 
 while (my ($action, $response) = each %$allowed_anon) {
