@@ -47,7 +47,10 @@ Fetch the specified data request object based on the class id and store it in th
 
 sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    my ($self, $c, $id) = @_;
+   my $user = $c->user->get_object;
    $c->stash(object => $c->stash->{resultset}->find($id));
+   $c->detach('/error_noperms') unless 
+      $c->stash->{object}->user_id eq $user->id;
 
    die "Class not found" if !$c->stash->{object};
 
