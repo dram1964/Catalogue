@@ -7,7 +7,7 @@
             <div class="radio">
 [% FOREACH request_type IN request_types %]
 <label>
-<input type="radio" name="requestType" value="[% request_type.id %]" required
+<input type="radio" ng-model="ctrl.data.requestType" name="requestType" value="[% request_type.id %]" required
 [% IF request_type.id == request.data.requestType %] checked [% END %]>
 <strong>[% request_type.name %]</strong> - [% request_type.description %]
 <br/> &nbsp
@@ -20,5 +20,3 @@
     </div><!-- end panel-panel div -->
   </div><!-- end col-lg-12 div -->
 </div>
-
-
