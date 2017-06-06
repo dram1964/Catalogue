@@ -13,7 +13,7 @@ angular.module('register', [])
     	 self.organisation = 'Sloggum, Bashum and Run';
     	 self.address1 = '31 Mile End Road';
     	 self.address2 = 'Bow';
-    	 self.address3 = 'East London';
+    	 self.address3 = 'London';
     	 self.postcode = 'E11 11P';
     	 self.city = 'London';
     	 self.telephone = '08001232343';
@@ -27,7 +27,10 @@ angular.module('register', [])
 	    self.username, self.password);
 	};
 	self.checkPassword = function() {
-	    self.password1 == self.password2 ? false : true;
+	    return self.password1 == self.password2 ? 0 : 1;
+	};
+	self.checkEmail = function() {
+	    return self.email1 == self.email2 ? 0 : 1;
 	};
 	self.data = foo;
   }]);
