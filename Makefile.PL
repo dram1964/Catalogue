@@ -39,6 +39,7 @@ requires 'DateTime::Format::MySQL';
 requires 'Config::General'; # This should reflect the config file format you've chosen
 requires 'Perl6::Junction';
                  # See Catalyst::Plugin::ConfigLoader for supported formats
+requires 'Template::Plugin::JSON';
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::Pod';
 test_requires 'Test::Pod::Coverage';
