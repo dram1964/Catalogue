@@ -4,92 +4,19 @@
       <div class="panel-heading">Data Handling </div>
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 1">
-	<label>This is the panel for UCL REC Approved Requests</label>
+	[% INSERT datarequest/requestType1.tt2 %]
       </div><!-- end panel-body div -->
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 2">
-	<div class="row">
-          <div class="form-group">
-<label>Do you require data with patient identifiers?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable" name="identifiable" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable" name="identifiable" value="0">No</label>
-          </div><!-- end form-group -->
-	</div><!-- end row -->
-
-	<div class="row">
-	  <div class="form-group" ng-show="ctrl.data.identifiable == 1">
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="ptName">Patient Name<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="dob">Patient Date of Birth<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="addr">Patient Address<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="ptNumber">Patient Hospital Number<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="nhsNumber">Patient NHS Number<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-12">
-<br><label>Additional Identifiers:</label>
-	    </div><!-- end columnn -->
-<textarea name="identifiableSpecification" ng-model="identifiableSpecification" 
-	class="form-control"></textarea>
-
-	  </div><!-- end form-group -->
-	</div><!-- end row -->
-
-        <div class="form-group">
-<label>Will you be publishing patient identifiers to any third parties?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId" name="publish" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId" name="publish" value="0">No</label>
-        </div><!-- end form-group -->
-
-        <div class="form-group" ng-show="ctrl.data.publishId == 1">
-	    <div class="col-md-12">
-<br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
-	    </div><!-- end columnn -->
-<textarea name="publishIdSpecification" ng-model="publishIdSpecification" 
-	class="form-control"></textarea>
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Where will you be storing and processing this data</label>
-<input type="textarea" name="storing">
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>What will you do with the data once you have completed the project</label>
-<input type="textarea" name="completion">
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Do you have REC approval for the study</label>
-<label class="radio-inline"><input type="radio" name="identifiable" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="identifiable" value="0">No</label>
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Do you have patient consent to process this information</label>
-<label class="radio-inline"><input type="radio" name="identifiable" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="identifiable" value="0">No</label>
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Additional information:</label>
-<input type="textarea" name="additional">
-        </div><!-- end form-group -->
+	[% INSERT datarequest/requestType2.tt2 %]
       </div><!-- end panel-body div -->
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 3">
-	<label>This is the panel for Anonymised Clinical Data</label>
+	[% INSERT datarequest/requestType3.tt2 %]
       </div><!-- end panel-body div -->
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 4">
-	<label>This is the panel for Aggregated Data</label>
+	[% INSERT datarequest/requestType4.tt2 %]
       </div><!-- end panel-body div -->
 
     </div><!-- end panel-panel div -->
