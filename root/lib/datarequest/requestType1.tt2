@@ -1,2 +1,14 @@
 
 	<label>This is the panel for UCL REC Approved Requests</label>
+        <div class="form-group">
+<label>Do you have REC approval for the study</label>
+<label class="radio-inline"><input type="radio" name="recApproval" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="recApproval" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Do you have patient consent to process this information</label>
+<label class="radio-inline"><input type="radio" name="patientConsent" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="patientConsent" value="0">No</label>
+        </div><!-- end form-group -->
+

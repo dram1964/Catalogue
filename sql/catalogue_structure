@@ -1,0 +1,499 @@
+-- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
+--
+-- Host: localhost    Database: catalogue_test
+-- ------------------------------------------------------
+-- Server version	5.7.18-0ubuntu0.16.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `c_application`
+--
+
+DROP TABLE IF EXISTS `c_application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_application` (
+  `app_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  `erid_id` int(11) DEFAULT NULL,
+  `kpe_id` int(11) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `cat2_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`app_id`),
+  UNIQUE KEY `application_name_uni` (`name`),
+  KEY `cat2_fk` (`cat2_id`),
+  KEY `supplier_fk` (`supplier_id`),
+  KEY `kpe_fk` (`kpe_id`),
+  KEY `erid_fk` (`erid_id`),
+  CONSTRAINT `cat2_fk` FOREIGN KEY (`cat2_id`) REFERENCES `cat2` (`cat2_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `erid_fk` FOREIGN KEY (`erid_id`) REFERENCES `erid` (`erid_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `kpe_fk` FOREIGN KEY (`kpe_id`) REFERENCES `kpe` (`kpe_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `supplier_fk` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `c_column`
+--
+
+DROP TABLE IF EXISTS `c_column`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_column` (
+  `col_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(1000) NOT NULL,
+  `col_type` varchar(50) DEFAULT NULL,
+  `col_size` varchar(50) DEFAULT NULL,
+  `col_enum` varchar(50) DEFAULT NULL,
+  `col_pattern` varchar(50) DEFAULT NULL,
+  `completion_rate` varchar(50) DEFAULT NULL,
+  `first_record_date` timestamp NULL DEFAULT NULL,
+  `last_record_date` timestamp NULL DEFAULT NULL,
+  `tbl_id` int(11) NOT NULL,
+  PRIMARY KEY (`col_id`),
+  KEY `column_table_fk` (`tbl_id`),
+  CONSTRAINT `column_table_fk` FOREIGN KEY (`tbl_id`) REFERENCES `c_table` (`tbl_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=117019 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `c_database`
+--
+
+DROP TABLE IF EXISTS `c_database`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_database` (
+  `db_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  `srv_id` int(11) NOT NULL,
+  PRIMARY KEY (`db_id`),
+  KEY `server_fk` (`srv_id`),
+  CONSTRAINT `server_fk` FOREIGN KEY (`srv_id`) REFERENCES `c_server` (`srv_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `c_schema`
+--
+
+DROP TABLE IF EXISTS `c_schema`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_schema` (
+  `sch_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `db_id` int(11) NOT NULL,
+  PRIMARY KEY (`sch_id`),
+  KEY `schema_db_fk` (`db_id`),
+  CONSTRAINT `schema_db_fk` FOREIGN KEY (`db_id`) REFERENCES `c_database` (`db_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `c_server`
+--
+
+DROP TABLE IF EXISTS `c_server`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_server` (
+  `srv_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  PRIMARY KEY (`srv_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `c_table`
+--
+
+DROP TABLE IF EXISTS `c_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_table` (
+  `tbl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(1000) NOT NULL,
+  `description` text,
+  `sch_id` int(11) NOT NULL,
+  PRIMARY KEY (`tbl_id`),
+  KEY `table_schema_fk` (`sch_id`),
+  CONSTRAINT `table_schema_fk` FOREIGN KEY (`sch_id`) REFERENCES `c_schema` (`sch_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7970 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cat2`
+--
+
+DROP TABLE IF EXISTS `cat2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat2` (
+  `cat2_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`cat2_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `data_request`
+--
+
+DROP TABLE IF EXISTS `data_request`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_request` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `cardiology_details` text,
+  `chemotherapy_details` text,
+  `diagnosis_details` text,
+  `episode_details` text,
+  `other_details` text,
+  `pathology_details` text,
+  `pharmacy_details` text,
+  `radiology_details` text,
+  `theatre_details` text,
+  `request_type_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `status_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `request_user_fk` (`user_id`),
+  KEY `status_type_fk` (`status_id`),
+  KEY `request_type_fk` (`request_type_id`),
+  CONSTRAINT `request_type_fk` FOREIGN KEY (`request_type_id`) REFERENCES `request_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `request_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `status_type_fk` FOREIGN KEY (`status_id`) REFERENCES `request_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `dataset_facts`
+--
+
+DROP TABLE IF EXISTS `dataset_facts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dataset_facts` (
+  `dataset_id` int(11) NOT NULL,
+  `fact_type` varchar(50) NOT NULL,
+  `fact` json DEFAULT NULL,
+  PRIMARY KEY (`dataset_id`,`fact_type`),
+  CONSTRAINT `dataset_facts_ibfk_1` FOREIGN KEY (`dataset_id`) REFERENCES `datasets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `datasets`
+--
+
+DROP TABLE IF EXISTS `datasets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `datasets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `db_type`
+--
+
+DROP TABLE IF EXISTS `db_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `db_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `erid`
+--
+
+DROP TABLE IF EXISTS `erid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `erid` (
+  `erid_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`erid_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `kpe`
+--
+
+DROP TABLE IF EXISTS `kpe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kpe` (
+  `kpe_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`kpe_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `registration_request`
+--
+
+DROP TABLE IF EXISTS `registration_request`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `registration_request` (
+  `email_address` varchar(100) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `job_title` varchar(100) NOT NULL,
+  `department` varchar(100) NOT NULL,
+  `organisation` varchar(100) NOT NULL,
+  `address1` varchar(100) NOT NULL,
+  `address2` varchar(100) DEFAULT NULL,
+  `address3` varchar(100) DEFAULT NULL,
+  `postcode` varchar(10) DEFAULT NULL,
+  `city` varchar(100) NOT NULL,
+  `telephone` varchar(20) NOT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `agree1` varchar(3) DEFAULT NULL,
+  `agree2` varchar(3) DEFAULT NULL,
+  `agree3` varchar(3) DEFAULT NULL,
+  `request_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `approval_date` datetime DEFAULT NULL,
+  `approved_by` varchar(50) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`email_address`),
+  KEY `user_fk` (`user_id`),
+  CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `request_status`
+--
+
+DROP TABLE IF EXISTS `request_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `request_status` (
+  `id` int(11) NOT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `request_type`
+--
+
+DROP TABLE IF EXISTS `request_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `request_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `role` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supplier`
+--
+
+DROP TABLE IF EXISTS `supplier`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supplier` (
+  `supplier_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`supplier_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `todolist`
+--
+
+DROP TABLE IF EXISTS `todolist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `todolist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `task` varchar(100) NOT NULL,
+  `comment` text,
+  `project` varchar(50) NOT NULL DEFAULT 'Catalogue',
+  `assigned_by` varchar(50) NOT NULL DEFAULT 'anon',
+  `assigned_to` varchar(100) DEFAULT NULL,
+  `completed_by` varchar(50) DEFAULT NULL,
+  `completed_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_roles`
+--
+
+DROP TABLE IF EXISTS `user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_roles` (
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `role_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email_address` varchar(100) DEFAULT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `active` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ux_username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_fact`
+--
+
+DROP TABLE IF EXISTS `wp_fact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_fact` (
+  `order_code` varchar(4) NOT NULL,
+  `test_code` varchar(4) NOT NULL,
+  `laboratory_code` varchar(2) NOT NULL DEFAULT 'U',
+  `cluster_name` varchar(30) NOT NULL,
+  `year_of_birth` int(11) NOT NULL,
+  `year_of_result` int(11) NOT NULL,
+  `gender` char(1) NOT NULL,
+  `requests` int(11) DEFAULT NULL,
+  PRIMARY KEY (`order_code`,`test_code`,`laboratory_code`,`cluster_name`,`year_of_birth`,`year_of_result`,`gender`),
+  KEY `test_code_fk` (`test_code`),
+  KEY `laboratory_code_fk` (`laboratory_code`),
+  CONSTRAINT `laboratory_code_fk` FOREIGN KEY (`laboratory_code`) REFERENCES `wp_laboratory` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `order_code_fk` FOREIGN KEY (`order_code`) REFERENCES `wp_order` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `test_code_fk` FOREIGN KEY (`test_code`) REFERENCES `wp_test` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_laboratory`
+--
+
+DROP TABLE IF EXISTS `wp_laboratory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_laboratory` (
+  `code` varchar(2) NOT NULL,
+  `discipline` varchar(30) DEFAULT NULL,
+  `cluster` varchar(30) DEFAULT NULL,
+  `specialty` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_order`
+--
+
+DROP TABLE IF EXISTS `wp_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_order` (
+  `code` varchar(4) NOT NULL,
+  `type` char(1) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `laboratory_code` varchar(2) NOT NULL DEFAULT 'U',
+  PRIMARY KEY (`code`),
+  KEY `laboratory_order_fk` (`laboratory_code`),
+  CONSTRAINT `laboratory_order_fk` FOREIGN KEY (`laboratory_code`) REFERENCES `wp_laboratory` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_test`
+--
+
+DROP TABLE IF EXISTS `wp_test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_test` (
+  `code` varchar(4) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `laboratory_code` varchar(2) NOT NULL DEFAULT 'U',
+  `units` varchar(30) DEFAULT NULL,
+  `function` varchar(30) DEFAULT NULL,
+  `flags` varchar(30) DEFAULT NULL,
+  `report_section` varchar(2) DEFAULT NULL,
+  `line_number` int(11) DEFAULT NULL,
+  PRIMARY KEY (`code`,`laboratory_code`),
+  KEY `laboratory_test_fk` (`laboratory_code`),
+  CONSTRAINT `laboratory_test_fk` FOREIGN KEY (`laboratory_code`) REFERENCES `wp_laboratory` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-06-25 11:51:52
