@@ -120,6 +120,7 @@ sub request :Path('request') :Args(0) {
     $c->stash->{requestor} = {
 	firstName => $user->first_name,
 	lastName => $user->last_name,
+	emailAddress => $user->email_address,
     };
     my $request_types = [$c->model('DB::RequestType')->all];
     $c->stash(

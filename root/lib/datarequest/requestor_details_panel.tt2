@@ -1,24 +1,13 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Requestor Details</div>
+  <div class="panel-heading">Your Details</div>
   <div class="panel-body">
     <div class="row">
 	  <div class="col-md-6">
-	<div class="form-group">
-	  <label for="form_firstname">First Name</label>
-	  <input id="form_firstname" type="text" name="firstName" class="form-control" 
-  		ng-model="ctrl.user.firstName" placeholder="Please enter your first name"
-		value="[% user.first_name %]"
-		required><span ng-show="newRequest.firstName.$invalid">Minimum length five characters</span>
-	</div>
-	  </div><!-- end column -->
-	  <div class="col-md-6">
-	<div class="form-group">
-	  <label for="form_lastname">Last Name</label>
-	  <input id="form_lastname" type="text" name="lastname" class="form-control" 
-  		ng-model="ctrl.user.lastName" placeholder="Please enter your last name"
-		value="[% user.last_name %]"
-		required>
-	</div>
+	    <dl class="dl-horizontal">
+	      <dt>First Name: </dt><dd>[% requestor.firstName %]</dd>
+	      <dt>Last Name: </dt><dd>[% requestor.lastName %]</dd>
+	      <dt>Email Address: </dt><dd>[% requestor.emailAddress %]</dd>
+            </dl>
 	  </div><!-- end column -->
     </div><!-- end row -->
   </div><!-- end panel-body -->
