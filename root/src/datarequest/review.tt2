@@ -2,48 +2,46 @@
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
-<p class="lead">User Details</p>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tbody>
-      <tr>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Job Title</th>
-        <th>Department</th>
-        <th>Organisation</th>
-        <th>Telephone</th>
-      </tr>
-      <tr>
-        <td>[% request.user.email_address %]</td>
-        <td>[% requestor.first_name %] [% requestor.last_name %]</td>
-        <td>[% requestor.job_title %]</td>
-        <td>[% requestor.department %]</td>
-        <td>[% requestor.organisation %]<br>
+<p class="lead">Requestor Details</p>
+      <dl class="row">
+        <dt class="col-sm-2 text-left">Username</dt>
+        <dd class="col-sm-10 text-left">[% request.user.email_address %]</dd>
+        <dt class="col-sm-2 text-left">Name</dt>
+        <dd class="col-sm-10 text-left">[% requestor.first_name %] [% requestor.last_name %]</dd>
+        <dt class="col-sm-2 text-left">Job Title</dt>
+        <dd class="col-sm-10 text-left">[% requestor.job_title %]</dd>
+        <dt class="col-sm-2 text-left">Department</dt>
+        <dd class="col-sm-10 text-left">[% requestor.department %]</dd>
+        <dt class="col-sm-2 text-left">Organisation</dt>
+        <dd class="col-sm-10 text-left">[% requestor.organisation %]<br>
 	    [% requestor.address1 %]<br>
 	    [% requestor.address2 %]<br>
 	    [% requestor.address3 %]<br>
 	    [% requestor.city %]<br>
 	    [% requestor.postcode %]<br>
-        </td>
-	<td>[% requestor.telephone %]<br>
+        </dd>
+        <dt class="col-sm-2 text-left">Telephone</dt>
+	<dd class="col-sm-10 text-left">[% requestor.telephone %]<br>
 	    [% requestor.mobile %]
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </dd>
+      </dl>
 [% IF dh %]
 <p class="lead">Data Handling</p>
   <dl>
-    <dt>Identifiable Data Required: </dt><dd>[% dh.identifiable %]</dd>
-    <dt>Identifiers: </dt><dd>[% dh.identifiers %]</dd>
-    <dt>Additional Identifiers: </dt><dd>[% dh.additional_identifiers %]</dd>
-    <dt>Identifiers Published to: </dt><dd>[% dh.publish %]</dd>
-    <dt>Data Processed on: </dt><dd>[% dh.storing %]</dd>
-    <dt>Disposal of data: </dt><dd>[% dh.completion %]</dd>
-    <dt>Additional Information: </dt><dd>[% dh.additional_info %]</dd>
+    <dt class="col-sm-4 text-left">Identifiable Data Required: </dt>
+    <dd class="col-sm-8 text-left">[% dh.identifiable || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Identifiers: </dt>
+    <dd class="col-sm-8 text-left">[% dh.identifiers || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Additional Identifiers: </dt>
+    <dd class="col-sm-8 text-left">[% dh.additional_identifiers || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Identifiers Published to: </dt>
+    <dd class="col-sm-8 text-left">[% dh.publish || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Data Processed on: </dt>
+    <dd class="col-sm-8 text-left">[% dh.storing || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Disposal of data: </dt>
+    <dd class="col-sm-8 text-left">[% dh.completion || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Additional Information: </dt>
+    <dd class="col-sm-8 text-left">[% dh.additional_info || "&nbsp;" %]</dd>
   </dl>
 [% END %]
 <p class="lead">Data Requested</p>

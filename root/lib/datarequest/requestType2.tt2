@@ -10,24 +10,34 @@
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable == 1">
 	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="ptName">Patient Name<br>
+<input type="checkbox" name="identifiers" 
+ng-checked="ctrl.data.identifiers.ptName"
+value="ptName">Patient Name<br>
 	    </div><!-- end columnn -->
 	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="dob">Patient Date of Birth<br>
+<input type="checkbox" name="identifiers" 
+ng-checked="ctrl.data.identifiers.dob"
+value="dob">Patient Date of Birth<br>
 	    </div><!-- end columnn -->
 	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="addr">Patient Address<br>
+<input type="checkbox" name="identifiers" 
+ng-checked="ctrl.data.identifiers.addr"
+value="addr">Patient Address<br>
 	    </div><!-- end columnn -->
 	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="ptNumber">Patient Hospital Number<br>
+<input type="checkbox" name="identifiers" 
+ng-checked="ctrl.data.identifiers.ptNumber"
+value="ptNumber">Patient Hospital Number<br>
 	    </div><!-- end columnn -->
 	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" value="nhsNumber">Patient NHS Number<br>
+<input type="checkbox" name="identifiers" 
+ng-checked="ctrl.data.identifiers.nhsNumber"
+value="nhsNumber">Patient NHS Number<br>
 	    </div><!-- end columnn -->
 	    <div class="col-md-12">
 <br><label>Additional Identifiers:</label>
 	    </div><!-- end columnn -->
-<textarea name="identifiableSpecification" ng-model="identifiableSpecification" 
+<textarea name="identifiableSpecification" ng-model="ctrl.data.identifiableSpecification" 
 	class="form-control"></textarea>
 	  </div><!-- end form-group -->
 	</div><!-- end row -->
@@ -42,24 +52,24 @@
 	    <div class="col-md-12">
 <br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
 	    </div><!-- end columnn -->
-<textarea name="publishIdSpecification" ng-model="publishIdSpecification" 
+<textarea name="publishIdSpecification" ng-model="ctrl.data.publishIdSpecification" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Where will you be storing and processing this data</label>
-<input type="textarea" name="storing" ng-model="storing"
+<input type="textarea" name="storing" ng-model="ctrl.data.storing"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>What will you do with the data once you have completed the project</label>
-<input type="textarea" name="completion"
+<input type="textarea" name="completion" ng-model="ctrl.data.completion"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Additional information:</label>
-<input type="textarea" name="additional"
+<input type="textarea" name="additional" ng-model="ctrl.data.additional"
 	class="form-control"></textarea>
         </div><!-- end form-group -->

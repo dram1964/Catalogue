@@ -162,10 +162,16 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    });
 
    if ($data_request->request_type_id == 2) {
+        my $identifiers;
+	if (ref $parameters->{identifiers} eq "ARRAY") {
+	  $identifiers = join(", ", @{$parameters->{identifiers}});
+	} else {
+	  $identifiers = $parameters->{identifiers};
+	}
 	my $data_handling = $c->model('DB::DataHandling')->create({
 	  request_id => $data_request->id,
 	  identifiable => $parameters->{identifiable},
-	  identifiers => $parameters->{identifiers},
+	  identifiers => $identifiers,
 	  additional_identifiers => $parameters->{identifiableSpecification},
 	  publish => $parameters->{publish},
 	  publish_to => $parameters->{publishIdSpecification},
@@ -265,7 +271,32 @@ sub request_edit :Chained('object') :Args() {
     };
     my $request_types = [$c->model('DB::RequestType')->all];
 
+    my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+    }); 
+    my $dh = $dh_rs->first;
+
+    if (defined $dh) {
+        $request->{data}->{identifiable} = $dh->identifiable;
+        if ($dh->identifiers =~ /, /) {
+    	my @ids = split /, /, $dh->identifiers;
+    	for my $id (@ids) {
+    	  $request->{data}->{identifiers}->{$id} = 1;
+    	}
+        } elsif ( $dh->identifiers =~ /(\w+)/g) {
+    	  $request->{data}->{identifiers}->{$1} = 1;
+        }
+        $c->log->debug("*** " . $dh->identifiers . " ***");
+        $request->{data}->{identifiableSpecification} = $dh->additional_identifiers;
+        $request->{data}->{publishId} = $dh->publish;
+        $request->{data}->{publishIdSpecification} = $dh->publish_to;
+        $request->{data}->{storing} = $dh->storing;
+        $request->{data}->{completion} = $dh->completion;
+        $request->{data}->{additional} = $dh->additional_info;
+    }
+
     $c->stash(
+      requestor => $user,
       request_types => $request_types,
       request => $request,
       template => 'datarequest/request.tt2');
