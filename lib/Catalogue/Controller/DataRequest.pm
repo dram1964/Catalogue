@@ -117,13 +117,13 @@ sub request :Path('request') :Args(0) {
     $c->detach('/error_noperms') unless 
       $c->model('DB::DataRequest')->new({})->request_allowed_by($c->user->get_object);
     my $user = $c->user->get_object;
-    $c->stash->{requestor} = {
-	firstName => $user->first_name,
-	lastName => $user->last_name,
-	emailAddress => $user->email_address,
-    };
+    my $requestor = $c->model('DB::User')->find({
+	id => $user->id,
+    });
+
     my $request_types = [$c->model('DB::RequestType')->all];
     $c->stash(
+      requestor => $requestor,
       request_types => $request_types,
       template => 'datarequest/request.tt2');
 }

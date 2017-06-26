@@ -135,6 +135,16 @@ sub create_user_from_request :Chained('object') :PathPart('create_user_from_requ
 		first_name => $registration->first_name,
 		last_name => $registration->last_name,
 		password => $registration->password,
+                job_title => $registration->job_title,
+		department => $registration->department,
+		organisation => $registration->organisation,
+		address1 => $registration->address1,
+		address2 => $registration->address2,
+		address3 => $registration->address3,
+		postcode => $registration->postcode,
+		city => $registration->city,
+		telephone => $registration->telephone,
+		mobile => $registration->mobile,
 		active => 1,
 	});
 	for my $role (@roles) {
@@ -185,6 +195,7 @@ adds new registration request to the database
 
 sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
     my ( $self, $c, $user ) = @_;
+    my $reg;
     my $details = {
     	 last_name => $c->request->params->{lastName},
     	 first_name => $c->request->params->{firstName},
@@ -206,14 +217,14 @@ sub ng_new_submitted :Path('ng_new_submitted') :Args(0) {
    };
    my $user_check = $c->model('DB::RegistrationRequest')->find($details->{email_address});
    if (defined $user_check) {
-	$c->stash(error_msg => 'User ' . $details->{email_address} . 'already in use'); 
+	$c->stash(error_msg => 'User ' . $details->{email_address} . ' already in use'); 
 	$c->log->debug("*** " . $c->stash->{error_msg} . " ***");
    } else {
-	my $reg = $c->model('DB::RegistrationRequest')->create($details);
+	$reg = $c->model('DB::RegistrationRequest')->create($details);
    }
 
     $c->stash(
-	details => $details,
+	reg => $reg,
 	template => 'registration/new_submitted.tt2');
     $c->detach;
 }

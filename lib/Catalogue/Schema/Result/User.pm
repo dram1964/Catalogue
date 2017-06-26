@@ -83,6 +83,66 @@ __PACKAGE__->table("users");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 job_title
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 department
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 organisation
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 address1
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 address2
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 address3
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 postcode
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 10
+
+=head2 city
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 100
+
+=head2 telephone
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 20
+
+=head2 mobile
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 20
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -100,6 +160,26 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 100 },
   "active",
   { data_type => "integer", is_nullable => 1 },
+  "job_title",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "department",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "organisation",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "address1",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "address2",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "address3",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "postcode",
+  { data_type => "varchar", is_nullable => 1, size => 10 },
+  "city",
+  { data_type => "varchar", is_nullable => 1, size => 100 },
+  "telephone",
+  { data_type => "varchar", is_nullable => 1, size => 20 },
+  "mobile",
+  { data_type => "varchar", is_nullable => 1, size => 20 },
 );
 
 =head1 PRIMARY KEY
@@ -186,8 +266,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 14:58:25
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G29nVUQhGAVXKWYbaSeZ0w
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-26 07:47:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:C0qylZ+ZkMvJ8YvJk81W0Q
 
 =head2 has_role
 

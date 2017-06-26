@@ -17,7 +17,7 @@
 	      <label for="form_department">Department</label>
 	      <input id="form_department" type="text" name="department" class="form-control" 
   		ng-model="ctrl.department" placeholder="Department you work for"
-		required minlength=6><span class="alert-danger" ng-show="newUser.department.$invalid">Must be at least 6 characters</span>
+		required minlength=6><span class="alert-danger" ng-show="newUser.department.$invalid && newUser.department.$dirty">Must be at least 6 characters</span>
 
 	    </div>
 	  </div>
@@ -40,7 +40,7 @@
 
 	      <label for="form_address2"></label>
 	      <input id="form_address2" type="text" name="address2" class="form-control" 
-  		ng-model="ctrl.address2" placeholder="Second line of your organisation address" minlength=6><span class="alert-danger" ng-show="newUser.address2.$invalid && newUser.address2.$dirty">Must be at least 6 characters</span>
+  		ng-model="ctrl.address2" placeholder="Second line of your organisation address" required="not-required" >
 
 	      <label for="form_address3"></label>
 	      <input id="form_address3" type="text" name="address3" class="form-control" 
