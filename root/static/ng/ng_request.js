@@ -29,10 +29,10 @@ angular.module('datarequest', [])
 	  console.log('User clicked submit with ', 
 	    self.username, self.password);
     };
-if (typeof foo !== 'undefined') {
-    self.user = foo.user;
-    if (typeof foo.data !== 'undefined') {
-	    self.data = foo.data;
+if (typeof request !== 'undefined') {
+    self.user = request.user;
+    if (typeof request.data !== 'undefined') {
+	    self.data = request.data;
 	    self.data.pathology = self.data.pathologyDetails == '' ? false : true;
 	    self.data.diagnosis = self.data.diagnosisDetails == '' ? false : true;
 	    self.data.radiology = self.data.radiologyDetails == '' ? false : true;

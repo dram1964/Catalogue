@@ -195,6 +195,7 @@ sub update_request :Chained('object') :Args() {
 	
    };
    $data->{cardiology_details} = '' unless defined($parameters->{cardiology});
+   $data->{cardiology_details} = '' unless defined($parameters->{cardiology});
    $data->{chemotherapy_details} = '' unless defined($parameters->{chemotherapy});
    $data->{diagnosis_details} = '' unless defined($parameters->{diagnosis});
    $data->{episode_details} = '' unless defined($parameters->{episode});

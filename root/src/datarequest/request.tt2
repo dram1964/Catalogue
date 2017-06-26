@@ -3,7 +3,7 @@
 [% USE JSON %]
 [% IF request %]
 <script type="text/javascript">
-  var foo = [% request.json %];
+  var request = [% request.json %];
 </script>
 [% END %]
 
