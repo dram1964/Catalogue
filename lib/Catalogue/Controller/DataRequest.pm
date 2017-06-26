@@ -232,6 +232,52 @@ sub update_request :Chained('object') :Args() {
    $data->{theatre_details} = '' unless defined($parameters->{theatre});
    $data_request->update($data);
 
+   my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+   });
+   my $dh = $dh_rs->first;
+
+   if (defined $dh) {
+       if ($data_request->request_type_id == 2) {
+           my $identifiers;
+	   if (ref $parameters->{identifiers} eq "ARRAY") {
+	     $identifiers = join(", ", @{$parameters->{identifiers}});
+	   } else {
+	     $identifiers = $parameters->{identifiers};
+	   }
+           $dh->update({
+	      identifiers => $identifiers,
+              identifiable => $parameters->{identifiable},
+	      additional_identifiers => $parameters->{identifiableSpecification},
+	      publish => $parameters->{publish},
+	      publish_to => $parameters->{publishIdSpecification},
+	      storing => $parameters->{storing},
+	      completion => $parameters->{completion},
+	      additional_info => $parameters->{additional},
+	   });
+       }
+   } else {
+       if ($data_request->request_type_id == 2) {
+           my $identifiers;
+	   if (ref $parameters->{identifiers} eq "ARRAY") {
+	     $identifiers = join(", ", @{$parameters->{identifiers}});
+	   } else {
+	     $identifiers = $parameters->{identifiers};
+	   }
+	   my $data_handling = $c->model('DB::DataHandling')->create({
+	     request_id => $data_request->id,
+	     identifiable => $parameters->{identifiable},
+	     identifiers => $identifiers,
+	     additional_identifiers => $parameters->{identifiableSpecification},
+	     publish => $parameters->{publish},
+	     publish_to => $parameters->{publishIdSpecification},
+	     storing => $parameters->{storing},
+	     completion => $parameters->{completion},
+	     additional_info => $parameters->{additional},
+           });
+      }
+   }
+
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
    $c->stash(
