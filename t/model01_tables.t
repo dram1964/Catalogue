@@ -17,6 +17,7 @@ my @tables = qw(
 	CServer
 	CTable
 	DatasetFact
+	DataHandling
 	Dataset
 	DbType
 	Role

@@ -259,6 +259,12 @@ sub edit_allowed_by {
   return $user->has_role('curator');
 }
 
+=head2 request_allowed_by
+
+Can the specified user make a Registration Request?
+
+=cut
+
 sub request_allowed_by {
   my ($self, $user) = @_;
   return $user->has_role('requestor');

@@ -102,7 +102,13 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
    });
    my $requestor = $requestor_rs->first;
 
+   my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+   });
+   my $dh = $dh_rs->first;
+
    $c->stash(
+        dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
