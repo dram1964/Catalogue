@@ -74,7 +74,7 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 review
 
-allow current user to review data request submitted by self
+allow current user to view data request submitted by self
 
 =cut
 
@@ -99,7 +99,13 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
    });
    my $requestor = $requestor_rs->first;
 
+   my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+   });
+   my $dh = $dh_rs->first;
+
    $c->stash(
+        dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
@@ -154,6 +160,20 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	status_id => $parameters->{Submit},
 	
    });
+
+   if ($data_request->request_type_id == 2) {
+	my $data_handling = $c->model('DB::DataHandling')->create({
+	  request_id => $data_request->id,
+	  identifiable => $parameters->{identifiable},
+	  identifiers => $parameters->{identifiers},
+	  additional_identifiers => $parameters->{identifiableSpecification},
+	  publish => $parameters->{publish},
+	  publish_to => $parameters->{publishIdSpecification},
+	  storing => $parameters->{storing},
+	  completion => $parameters->{completion},
+	  additional_info => $parameters->{additional},
+        });
+   }
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 

@@ -34,6 +34,18 @@
     </tbody>
   </table>
 </div>
+[% IF dh %]
+<p class="lead">Data Handling</p>
+  <dl>
+    <dt>Identifiable Data Required: </dt><dd>[% dh.identifiable %]</dd>
+    <dt>Identifiers: </dt><dd>[% dh.identifiers %]</dd>
+    <dt>Additional Identifiers: </dt><dd>[% dh.additional_identifiers %]</dd>
+    <dt>Identifiers Published to: </dt><dd>[% dh.publish %]</dd>
+    <dt>Data Processed on: </dt><dd>[% dh.storing %]</dd>
+    <dt>Disposal of data: </dt><dd>[% dh.completion %]</dd>
+    <dt>Additional Information: </dt><dd>[% dh.additional_info %]</dd>
+  </dl>
+[% END %]
 <p class="lead">Data Requested</p>
 <div class="table-responsive">
   <table class="table table-striped">

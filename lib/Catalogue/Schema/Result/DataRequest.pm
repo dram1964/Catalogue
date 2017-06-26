@@ -170,6 +170,21 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 data_handlings
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::DataHandling>
+
+=cut
+
+__PACKAGE__->has_many(
+  "data_handlings",
+  "Catalogue::Schema::Result::DataHandling",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 request_type
 
 Type: belongs_to
@@ -216,8 +231,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-22 08:30:37
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5UCqR4Ck+J6/rk9taTV9dg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-26 11:55:27
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kWrehHH1y//V6UoN1HPQcw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
