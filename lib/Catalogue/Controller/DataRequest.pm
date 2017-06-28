@@ -190,6 +190,38 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
 
+   my $request_history = $c->model('DB::RequestHistory')->create({
+	  request_id => $data_request->id,
+	  user_id => $requestor->id,
+	cardiology_details => $parameters->{cardiologyDetails},
+	chemotherapy_details => $parameters->{chemotherapyDetails},
+	diagnosis_details => $parameters->{diagnosisDetails},
+	episode_details => $parameters->{episodeDetails},
+	other_details => $parameters->{otherDetails},
+	pathology_details => $parameters->{pathologyDetails} ,
+	pharmacy_details => $parameters->{pharmacyDetails},
+	radiology_details => $parameters->{radiologyDetails},
+	theatre_details => $parameters->{theatreDetails},
+	request_type_id => $parameters->{requestType},
+	status_id => $parameters->{Submit},
+        status_date => $data_request->status_date,
+	  identifiers => $identifiers,
+	  service_area => $parameters->{serviceArea},
+	  research_area => $parameters->{researchArea},
+          rec_approval => $parameters->{recApproval},
+	  consent => $parameters->{consent},
+	  identifiable => $parameters->{"identifiable" . $request_type},
+	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
+	  publish => $parameters->{"publish" . $request_type},
+	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
+	  storing => $parameters->{"storing" . $request_type},
+	  completion => $parameters->{"completion" . $request_type},
+	  additional_info => $parameters->{"additional" . $request_type},
+          objective => $parameters->{"objective" . $request_type},
+	  population => $parameters->{"population" . $request_type},
+   });
+	
+
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
    if ($parameters->{Submit} == 2) {
