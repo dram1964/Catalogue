@@ -40,12 +40,15 @@
 
 	      <label for="form_address2"></label>
 	      <input id="form_address2" type="text" name="address2" class="form-control" 
-  		ng-model="ctrl.address2" placeholder="Second line of your organisation address" required="not-required" >
+  		ng-model="ctrl.address2" placeholder="Second line of your organisation address" required ><span class="alert-danger" ng-show="newUser.address2.$invalid && newUser.address2.$dirty">Not Valid</span>
+
+
 
 	      <label for="form_address3"></label>
 	      <input id="form_address3" type="text" name="address3" class="form-control" 
   		ng-model="ctrl.address3" placeholder="Third line of your organisation address"
-		required="not-required" >
+		><span class="alert-danger" ng-show="newUser.address3.$invalid && newUser.address3.$dirty">Not Valid</span>
+
 	    </div>
 	  </div>
 	  <div class="col-md-6">
