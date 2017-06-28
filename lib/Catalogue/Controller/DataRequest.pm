@@ -183,10 +183,17 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	  population => $parameters->{population},
         });
    } elsif ($data_request->request_type_id == 1) {
-       my $data = {
-       };
+        my $identifiers;
+	if (ref $parameters->{identifiers} eq "ARRAY") {
+	  $identifiers = join(", ", @{$parameters->{identifiers}});
+	} else {
+	  $identifiers = $parameters->{identifiers};
+	}
        my $data_handling = $c->model('DB::DataHandling')->create({
 	  request_id => $data_request->id,
+	  identifiable => $parameters->{identifiable1},
+	  identifiers => $identifiers,
+	  additional_identifiers => $parameters->{identifiableSpecification1},
           rec_approval => $parameters->{recApproval},
 	  consent => $parameters->{consent},
 	  publish => $parameters->{publish1},
@@ -278,7 +285,14 @@ sub update_request :Chained('object') :Args() {
 	  population => $parameters->{population},
 	   });
        } elsif ($data_request->request_type_id == 1) {
+           my $identifiers;
+	   if (ref $parameters->{identifiers} eq "ARRAY") {
+	     $identifiers = join(", ", @{$parameters->{identifiers}});
+	   } else {
+	     $identifiers = $parameters->{identifiers};
+	   }
            $dh->update({
+	      identifiers => $identifiers,
               identifiable => $parameters->{identifiable1},
 	      additional_identifiers => $parameters->{identifiableSpecification1},
 	      publish => $parameters->{publish1},
@@ -317,7 +331,30 @@ sub update_request :Chained('object') :Args() {
 	  service_area => $parameters->{serviceArea},
 	  population => $parameters->{population},
            });
-      }
+      } elsif ($data_request->request_type_id == 1) {
+           my $identifiers;
+	   if (ref $parameters->{identifiers} eq "ARRAY") {
+	     $identifiers = join(", ", @{$parameters->{identifiers}});
+	   } else {
+	     $identifiers = $parameters->{identifiers};
+	   }
+	   my $data_handling = $c->model('DB::DataHandling')->create({
+	     request_id => $data_request->id,
+          rec_approval => $parameters->{recApproval},
+	  consent => $parameters->{consent},
+	     identifiable => $parameters->{identifiable1},
+	     identifiers => $identifiers,
+	     additional_identifiers => $parameters->{identifiableSpecification1},
+	     publish => $parameters->{publish1},
+	     publish_to => $parameters->{publishIdSpecification1},
+	     storing => $parameters->{storing1},
+	     completion => $parameters->{completion1},
+	     additional_info => $parameters->{additional1},
+          objective => $parameters->{objective1},
+	  research_area => $parameters->{researchArea},
+	  population => $parameters->{population1},
+           });
+      } 
    }
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
@@ -378,7 +415,7 @@ sub request_edit :Chained('object') :Args() {
 		}
 		$c->log->debug("*** " . $dh->identifiers . " ***");
 		$request->{data}->{identifiableSpecification} = $dh->additional_identifiers;
-		$request->{data}->{publishId} = $dh->publish;
+		$request->{data}->{publish} = $dh->publish;
 		$request->{data}->{publishIdSpecification} = $dh->publish_to;
 		$request->{data}->{storing} = $dh->storing;
 		$request->{data}->{completion} = $dh->completion;
@@ -387,7 +424,18 @@ sub request_edit :Chained('object') :Args() {
 		$request->{data}->{serviceArea} = $dh->service_area;
 		$request->{data}->{population} = $dh->population;
         } elsif ($data_request->request_type_id == 1) {
-		$request->{data}->{publishId1} = $dh->publish;
+		$request->{data}->{identifiable1} = $dh->identifiable;
+		if ($dh->identifiers =~ /, /) {
+		my @ids = split /, /, $dh->identifiers;
+		for my $id (@ids) {
+		  $request->{data}->{identifiers}->{$id} = 1;
+		}
+		} elsif ( $dh->identifiers =~ /(\w+)/g) {
+		  $request->{data}->{identifiers}->{$1} = 1;
+		}
+		$c->log->debug("*** " . $dh->identifiers . " ***");
+		$request->{data}->{identifiableSpecification1} = $dh->additional_identifiers;
+		$request->{data}->{publish1} = $dh->publish;
 		$request->{data}->{publishIdSpecification1} = $dh->publish_to;
 		$request->{data}->{storing1} = $dh->storing;
 		$request->{data}->{completion1} = $dh->completion;

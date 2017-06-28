@@ -34,13 +34,31 @@
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
+
+	<div class="row">
+          <div class="form-group">
+            <label>Do you require data with patient identifiers?</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable1" name="identifiable1" value="1">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable1" name="identifiable1" value="0">No</label>
+          </div><!-- end form-group -->
+	</div><!-- end row -->
+
+[% INCLUDE datarequest/identifiers.tt2 %]
+	<div class="row">
+	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
+<label>Additional Patient Identifiers</label>
+<textarea name="identifiableSpecification1" ng-model="ctrl.data.identifiableSpecification1" 
+	class="form-control"></textarea>
+	  </div><!-- end form-group -->
+	</div><!-- end row -->
+
         <div class="form-group">
 <label>Will you be publishing patient identifiers to any third parties?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId1" name="publish1" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId1" name="publish1" value="0">No</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="0">No</label>
         </div><!-- end form-group -->
 
-        <div class="form-group" ng-show="ctrl.data.publishId == 1">
+        <div class="form-group" ng-show="ctrl.data.publish1 == 1">
 	    <div class="col-md-12">
 <br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
 	    </div><!-- end columnn -->

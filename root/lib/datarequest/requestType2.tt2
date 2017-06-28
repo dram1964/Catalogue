@@ -24,36 +24,10 @@
           </div><!-- end form-group -->
 	</div><!-- end row -->
 
+[% INCLUDE datarequest/identifiers.tt2 %]
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable == 1">
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" 
-ng-checked="ctrl.data.identifiers.ptName"
-value="ptName">Patient Name<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" 
-ng-checked="ctrl.data.identifiers.dob"
-value="dob">Patient Date of Birth<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" 
-ng-checked="ctrl.data.identifiers.addr"
-value="addr">Patient Address<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" 
-ng-checked="ctrl.data.identifiers.ptNumber"
-value="ptNumber">Patient Hospital Number<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-3">
-<input type="checkbox" name="identifiers" 
-ng-checked="ctrl.data.identifiers.nhsNumber"
-value="nhsNumber">Patient NHS Number<br>
-	    </div><!-- end columnn -->
-	    <div class="col-md-12">
-<br><label>Additional Identifiers:</label>
-	    </div><!-- end columnn -->
+<label>Additional Patient Identifiers</label>
 <textarea name="identifiableSpecification" ng-model="ctrl.data.identifiableSpecification" 
 	class="form-control"></textarea>
 	  </div><!-- end form-group -->
@@ -61,11 +35,11 @@ value="nhsNumber">Patient NHS Number<br>
 
         <div class="form-group">
 <label>Will you be publishing patient identifiers to any third parties?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId" name="publish" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId" name="publish" value="0">No</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish" name="publish" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish" name="publish" value="0">No</label>
         </div><!-- end form-group -->
 
-        <div class="form-group" ng-show="ctrl.data.publishId == 1">
+        <div class="form-group" ng-show="ctrl.data.publish == 1">
 	    <div class="col-md-12">
 <br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
 	    </div><!-- end columnn -->
