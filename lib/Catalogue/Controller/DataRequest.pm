@@ -246,7 +246,7 @@ sub update_request :Chained('object') :Args() {
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $data_request = $c->stash->{object};
-   my $data = {
+   my $dr = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
 	chemotherapy_details => $parameters->{chemotherapyDetails},
@@ -259,119 +259,91 @@ sub update_request :Chained('object') :Args() {
 	theatre_details => $parameters->{theatreDetails},
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
+        status_date => undef,
 	
    };
-   $data->{cardiology_details} = '' unless defined($parameters->{cardiology});
-   $data->{cardiology_details} = '' unless defined($parameters->{cardiology});
-   $data->{chemotherapy_details} = '' unless defined($parameters->{chemotherapy});
-   $data->{diagnosis_details} = '' unless defined($parameters->{diagnosis});
-   $data->{episode_details} = '' unless defined($parameters->{episode});
-   $data->{other_details} = '' unless defined($parameters->{other});
-   $data->{pathology_details} = '' unless defined($parameters->{pathology});
-   $data->{pharmacy_details} = '' unless defined($parameters->{pharmacy});
-   $data->{radiology_details} = '' unless defined($parameters->{radiology});
-   $data->{theatre_details} = '' unless defined($parameters->{theatre});
-   $data_request->update($data);
+   $c->log->debug("*** Original:" . $data_request->status_date . " ***");
+   $data_request->update($dr);
+   my $update = $data_request->get_column("status_date");
+   $c->log->debug("*** Original:" . $data_request->status_date . " ***");
+   $c->log->debug("*** Update:" . $update . " ***");
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
-	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+   my $request_type = $data_request->request_type_id;
+   my $dh = {
+     request_id => $data_request->id,
+     service_area => $parameters->{serviceArea},
+     research_area => $parameters->{researchArea},
+     rec_approval => $parameters->{recApproval},
+     consent => $parameters->{consent},
+     identifiable => $parameters->{"identifiable" . $request_type},
+     publish => $parameters->{"publish" . $request_type},
+     storing => $parameters->{"storing" . $request_type},
+     completion => $parameters->{"completion" . $request_type},
+     additional_info => $parameters->{"additional" . $request_type},
+     objective => $parameters->{"objective" . $request_type},
+     population => $parameters->{"population" . $request_type},
+   };
 
-   if (defined $dh) {
-       if ($data_request->request_type_id == 2) {
-           my $identifiers;
-	   if (ref $parameters->{identifiers} eq "ARRAY") {
-	     $identifiers = join(", ", @{$parameters->{identifiers}});
-	   } else {
-	     $identifiers = $parameters->{identifiers};
-	   }
-           $dh->update({
-	      identifiers => $identifiers,
-              identifiable => $parameters->{identifiable},
-	      additional_identifiers => $parameters->{identifiableSpecification},
-	      publish => $parameters->{publish},
-	      publish_to => $parameters->{publishIdSpecification},
-	      storing => $parameters->{storing},
-	      completion => $parameters->{completion},
-	      additional_info => $parameters->{additional},
-          objective => $parameters->{objective},
-	  service_area => $parameters->{serviceArea},
-	  population => $parameters->{population},
-	   });
-       } elsif ($data_request->request_type_id == 1) {
-           my $identifiers;
-	   if (ref $parameters->{identifiers} eq "ARRAY") {
-	     $identifiers = join(", ", @{$parameters->{identifiers}});
-	   } else {
-	     $identifiers = $parameters->{identifiers};
-	   }
-           $dh->update({
-	      identifiers => $identifiers,
-              identifiable => $parameters->{identifiable1},
-	      additional_identifiers => $parameters->{identifiableSpecification1},
-	      publish => $parameters->{publish1},
-	      publish_to => $parameters->{publishIdSpecification1},
-	      storing => $parameters->{storing1},
-	      completion => $parameters->{completion1},
-	      additional_info => $parameters->{additional1},
-          objective => $parameters->{objective1},
-	  research_area => $parameters->{researchArea},
-	  population => $parameters->{population1},
-	  consent => $parameters->{consent},
-	  rec_approval => $parameters->{recApproval},
-	   });
-       }
+   if ($dh->{identifiable} eq "1") {
+     my $identifiers;
+     if (ref $parameters->{identifiers} eq "ARRAY") {
+         $identifiers = join(", ", @{$parameters->{identifiers}});
+     } else {
+         $identifiers = $parameters->{identifiers};
+     }
+     $dh->{identifiers} = $identifiers;
+     $dh->{additional_identifiers} = $parameters->{"identifiableSpecification" . $request_type};
    } else {
-       if ($data_request->request_type_id == 2) {
-           my $identifiers;
-	   if (ref $parameters->{identifiers} eq "ARRAY") {
-	     $identifiers = join(", ", @{$parameters->{identifiers}});
-	   } else {
-	     $identifiers = $parameters->{identifiers};
-	   }
-	   my $data_handling = $c->model('DB::DataHandling')->create({
-	     request_id => $data_request->id,
-          rec_approval => $parameters->{recApproval},
-	  consent => $parameters->{consent},
-	     identifiable => $parameters->{identifiable},
-	     identifiers => $identifiers,
-	     additional_identifiers => $parameters->{identifiableSpecification},
-	     publish => $parameters->{publish},
-	     publish_to => $parameters->{publishIdSpecification},
-	     storing => $parameters->{storing},
-	     completion => $parameters->{completion},
-	     additional_info => $parameters->{additional},
-          objective => $parameters->{objective},
-	  service_area => $parameters->{serviceArea},
-	  population => $parameters->{population},
-           });
-      } elsif ($data_request->request_type_id == 1) {
-           my $identifiers;
-	   if (ref $parameters->{identifiers} eq "ARRAY") {
-	     $identifiers = join(", ", @{$parameters->{identifiers}});
-	   } else {
-	     $identifiers = $parameters->{identifiers};
-	   }
-	   my $data_handling = $c->model('DB::DataHandling')->create({
-	     request_id => $data_request->id,
-          rec_approval => $parameters->{recApproval},
-	  consent => $parameters->{consent},
-	     identifiable => $parameters->{identifiable1},
-	     identifiers => $identifiers,
-	     additional_identifiers => $parameters->{identifiableSpecification1},
-	     publish => $parameters->{publish1},
-	     publish_to => $parameters->{publishIdSpecification1},
-	     storing => $parameters->{storing1},
-	     completion => $parameters->{completion1},
-	     additional_info => $parameters->{additional1},
-          objective => $parameters->{objective1},
-	  research_area => $parameters->{researchArea},
-	  population => $parameters->{population1},
-           });
-      } 
+     $dh->{identifiers} = '';
+     $dh->{additional_identifiers} = '';
+   } 
+   if ($dh->{publish} eq "1") {
+     $dh->{publish_to} = $parameters->{"publishIdSpecification" . $request_type};
+   } else {
+     $dh->{publish_to} = '';
    }
 
+   my $data_handling_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+   });
+   my $data_handling = $data_handling_rs->first;
+   if (defined $data_handling) {
+       # update values
+       $data_handling->update($dh);
+   } else {
+       # insert values
+       $data_handling = $c->model->('DB::DataHandling')->create($dh);
+   }
+   my $request_history = $c->model('DB::RequestHistory')->create({
+	request_id => $data_request->id,
+	user_id => $requestor->id,
+	cardiology_details => $dr->{cardiologyDetails},
+	chemotherapy_details => $dr->{chemotherapyDetails},
+	diagnosis_details => $dr->{diagnosisDetails},
+	episode_details => $dr->{episodeDetails},
+	other_details => $dr->{otherDetails},
+	pathology_details => $dr->{pathologyDetails} ,
+	pharmacy_details => $dr->{pharmacyDetails},
+	radiology_details => $dr->{radiologyDetails},
+	theatre_details => $dr->{theatreDetails},
+	request_type_id => $dr->{requestType},
+	status_id => $dr->{Submit},
+        status_date => undef,
+	  identifiers => $dh->{identifiers},
+	  service_area => $dh->{serviceArea},
+	  research_area => $dh->{researchArea},
+          rec_approval => $dh->{recApproval},
+	  consent => $dh->{consent},
+	  identifiable => $dh->{identifiable},
+	  additional_identifiers => $dh->{identifiableSpecification},
+	  publish => $dh->{publish},
+	  publish_to => $dh->{publishIdSpecification},
+	  storing => $dh->{storing},
+	  completion => $dh->{completion},
+	  additional_info => $dh->{additional},
+          objective => $dh->{objective},
+	  population => $dh->{population},
+   });
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
    $c->stash(

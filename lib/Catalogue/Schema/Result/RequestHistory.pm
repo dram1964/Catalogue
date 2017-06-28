@@ -109,9 +109,8 @@ __PACKAGE__->table("request_history");
 
 =head2 status_date
 
-  data_type: 'timestamp'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: current_timestamp
   is_nullable: 0
 
 =head2 identifiable
@@ -215,9 +214,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "status_date",
   {
-    data_type => "timestamp",
+    data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    default_value => \"current_timestamp",
     is_nullable => 0,
   },
   "identifiable",
@@ -265,8 +263,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-28 17:51:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7iofbmY2/XKGSSLy7p70qQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-28 19:38:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1Zum529/IoYuiMVfaeR70A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
