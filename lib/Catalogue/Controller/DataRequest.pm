@@ -94,8 +94,8 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
       }
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
-	email_address => $data_request->user->email_address
+   my $requestor_rs = $c->model('DB::User')->search({
+	username => $data_request->user->username
    });
    my $requestor = $requestor_rs->first;
 
@@ -178,7 +178,26 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	  storing => $parameters->{storing},
 	  completion => $parameters->{completion},
 	  additional_info => $parameters->{additional},
+          objective => $parameters->{objective},
+	  service_area => $parameters->{serviceArea},
+	  population => $parameters->{population},
         });
+   } elsif ($data_request->request_type_id == 1) {
+       my $data = {
+       };
+       my $data_handling = $c->model('DB::DataHandling')->create({
+	  request_id => $data_request->id,
+          rec_approval => $parameters->{recApproval},
+	  consent => $parameters->{consent},
+	  publish => $parameters->{publish1},
+	  publish_to => $parameters->{publishIdSpecification1},
+	  storing => $parameters->{storing1},
+	  completion => $parameters->{completion1},
+	  additional_info => $parameters->{additional1},
+          objective => $parameters->{objective1},
+	  research_area => $parameters->{researchArea},
+	  population => $parameters->{population1},
+       });
    }
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
@@ -254,6 +273,24 @@ sub update_request :Chained('object') :Args() {
 	      storing => $parameters->{storing},
 	      completion => $parameters->{completion},
 	      additional_info => $parameters->{additional},
+          objective => $parameters->{objective},
+	  service_area => $parameters->{serviceArea},
+	  population => $parameters->{population},
+	   });
+       } elsif ($data_request->request_type_id == 1) {
+           $dh->update({
+              identifiable => $parameters->{identifiable1},
+	      additional_identifiers => $parameters->{identifiableSpecification1},
+	      publish => $parameters->{publish1},
+	      publish_to => $parameters->{publishIdSpecification1},
+	      storing => $parameters->{storing1},
+	      completion => $parameters->{completion1},
+	      additional_info => $parameters->{additional1},
+          objective => $parameters->{objective1},
+	  research_area => $parameters->{researchArea},
+	  population => $parameters->{population1},
+	  consent => $parameters->{consent},
+	  rec_approval => $parameters->{recApproval},
 	   });
        }
    } else {
@@ -266,6 +303,8 @@ sub update_request :Chained('object') :Args() {
 	   }
 	   my $data_handling = $c->model('DB::DataHandling')->create({
 	     request_id => $data_request->id,
+          rec_approval => $parameters->{recApproval},
+	  consent => $parameters->{consent},
 	     identifiable => $parameters->{identifiable},
 	     identifiers => $identifiers,
 	     additional_identifiers => $parameters->{identifiableSpecification},
@@ -274,6 +313,9 @@ sub update_request :Chained('object') :Args() {
 	     storing => $parameters->{storing},
 	     completion => $parameters->{completion},
 	     additional_info => $parameters->{additional},
+          objective => $parameters->{objective},
+	  service_area => $parameters->{serviceArea},
+	  population => $parameters->{population},
            });
       }
    }
@@ -323,22 +365,39 @@ sub request_edit :Chained('object') :Args() {
     my $dh = $dh_rs->first;
 
     if (defined $dh) {
-        $request->{data}->{identifiable} = $dh->identifiable;
-        if ($dh->identifiers =~ /, /) {
-    	my @ids = split /, /, $dh->identifiers;
-    	for my $id (@ids) {
-    	  $request->{data}->{identifiers}->{$id} = 1;
-    	}
-        } elsif ( $dh->identifiers =~ /(\w+)/g) {
-    	  $request->{data}->{identifiers}->{$1} = 1;
+        if ($data_request->request_type_id == 2) {
+
+		$request->{data}->{identifiable} = $dh->identifiable;
+		if ($dh->identifiers =~ /, /) {
+		my @ids = split /, /, $dh->identifiers;
+		for my $id (@ids) {
+		  $request->{data}->{identifiers}->{$id} = 1;
+		}
+		} elsif ( $dh->identifiers =~ /(\w+)/g) {
+		  $request->{data}->{identifiers}->{$1} = 1;
+		}
+		$c->log->debug("*** " . $dh->identifiers . " ***");
+		$request->{data}->{identifiableSpecification} = $dh->additional_identifiers;
+		$request->{data}->{publishId} = $dh->publish;
+		$request->{data}->{publishIdSpecification} = $dh->publish_to;
+		$request->{data}->{storing} = $dh->storing;
+		$request->{data}->{completion} = $dh->completion;
+		$request->{data}->{additional} = $dh->additional_info;
+		$request->{data}->{objective} = $dh->objective;
+		$request->{data}->{serviceArea} = $dh->service_area;
+		$request->{data}->{population} = $dh->population;
+        } elsif ($data_request->request_type_id == 1) {
+		$request->{data}->{publishId1} = $dh->publish;
+		$request->{data}->{publishIdSpecification1} = $dh->publish_to;
+		$request->{data}->{storing1} = $dh->storing;
+		$request->{data}->{completion1} = $dh->completion;
+		$request->{data}->{additional1} = $dh->additional_info;
+		  $request->{data}->{objective1} = $dh->objective;
+		  $request->{data}->{researchArea} = $dh->research_area;
+		  $request->{data}->{population1} = $dh->population;
+          	  $request->{data}->{recApproval} = $dh->rec_approval;
+	          $request->{data}->{consent} = $dh->consent;
         }
-        $c->log->debug("*** " . $dh->identifiers . " ***");
-        $request->{data}->{identifiableSpecification} = $dh->additional_identifiers;
-        $request->{data}->{publishId} = $dh->publish;
-        $request->{data}->{publishIdSpecification} = $dh->publish_to;
-        $request->{data}->{storing} = $dh->storing;
-        $request->{data}->{completion} = $dh->completion;
-        $request->{data}->{additional} = $dh->additional_info;
     }
 
     $c->stash(

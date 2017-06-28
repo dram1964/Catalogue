@@ -2,13 +2,66 @@
 	<label>This is the panel for UCL REC Approved Requests</label>
         <div class="form-group">
 <label>Do you have REC approval for the study</label>
-<label class="radio-inline"><input type="radio" name="recApproval" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="recApproval" value="0">No</label>
+<label class="radio-inline"><input type="radio" name="recApproval" 
+  ng-model = "ctrl.data.recApproval" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="recApproval" 
+  ng-model = "ctrl.data.recApproval" value="0">No</label>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Do you have patient consent to process this information</label>
-<label class="radio-inline"><input type="radio" name="patientConsent" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="patientConsent" value="0">No</label>
+<label class="radio-inline"><input type="radio" name="consent" 
+  ng-model = "ctrl.data.consent" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="consent" 
+  ng-model = "ctrl.data.consent" value="0">No</label>
         </div><!-- end form-group -->
 
+        <div class="form-group">
+<label>Research Area</label>
+<input type="textarea" name="researchArea" ng-model="ctrl.data.researchArea"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Objective/Purpose Study</label>
+<input type="textarea" name="objective1" ng-model="ctrl.data.objective1"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Data Poplution - how will you select patient population for this request?</label>
+<input type="textarea" name="population1" ng-model="ctrl.data.population1"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Will you be publishing patient identifiers to any third parties?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId1" name="publish1" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publishId1" name="publish1" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.publishId == 1">
+	    <div class="col-md-12">
+<br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
+	    </div><!-- end columnn -->
+<textarea name="publishIdSpecification1" ng-model="ctrl.data.publishIdSpecification1" 
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Where will you be storing and processing this data</label>
+<input type="textarea" name="storing1" ng-model="ctrl.data.storing1"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>What will you do with the data once you have completed the project</label>
+<input type="textarea" name="completion1" ng-model="ctrl.data.completion1"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Additional information:</label>
+<input type="textarea" name="additional1" ng-model="ctrl.data.additional1"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
