@@ -1,6 +1,6 @@
 
 	<div class="row">
-	  <div class="form-group" ng-show="ctrl.data.identifiable == 1 || ctrl.data.identifiable1 == 1">
+	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1 || ctrl.data.identifiable2 == 1">
 	    <div class="col-md-3">
 <input type="checkbox" name="identifiers" 
 ng-checked="ctrl.data.identifiers.ptName"

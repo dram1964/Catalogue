@@ -145,7 +145,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
-   my $data_request = $c->model('DB::DataRequest')->create({
+   my $dr = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
 	chemotherapy_details => $parameters->{chemotherapyDetails},
@@ -158,54 +158,37 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	theatre_details => $parameters->{theatreDetails},
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
-	
-   });
+   };
+   my $data_request = $c->model('DB::DataRequest')->create(
+	$dr
+   );
+   my $identifiers;
+   if (ref $parameters->{identifiers} eq "ARRAY") {
+       $identifiers = join(", ", @{$parameters->{identifiers}});
+   } else {
+       $identifiers = $parameters->{identifiers};
+   }
 
-   if ($data_request->request_type_id == 2) {
-        my $identifiers;
-	if (ref $parameters->{identifiers} eq "ARRAY") {
-	  $identifiers = join(", ", @{$parameters->{identifiers}});
-	} else {
-	  $identifiers = $parameters->{identifiers};
-	}
-	my $data_handling = $c->model('DB::DataHandling')->create({
+   my $request_type = $data_request->request_type_id;
+   my $dh = {
 	  request_id => $data_request->id,
-	  identifiable => $parameters->{identifiable},
 	  identifiers => $identifiers,
-	  additional_identifiers => $parameters->{identifiableSpecification},
-	  publish => $parameters->{publish},
-	  publish_to => $parameters->{publishIdSpecification},
-	  storing => $parameters->{storing},
-	  completion => $parameters->{completion},
-	  additional_info => $parameters->{additional},
-          objective => $parameters->{objective},
 	  service_area => $parameters->{serviceArea},
-	  population => $parameters->{population},
-        });
-   } elsif ($data_request->request_type_id == 1) {
-        my $identifiers;
-	if (ref $parameters->{identifiers} eq "ARRAY") {
-	  $identifiers = join(", ", @{$parameters->{identifiers}});
-	} else {
-	  $identifiers = $parameters->{identifiers};
-	}
-       my $data_handling = $c->model('DB::DataHandling')->create({
-	  request_id => $data_request->id,
-	  identifiable => $parameters->{identifiable1},
-	  identifiers => $identifiers,
-	  additional_identifiers => $parameters->{identifiableSpecification1},
+	  research_area => $parameters->{researchArea},
           rec_approval => $parameters->{recApproval},
 	  consent => $parameters->{consent},
-	  publish => $parameters->{publish1},
-	  publish_to => $parameters->{publishIdSpecification1},
-	  storing => $parameters->{storing1},
-	  completion => $parameters->{completion1},
-	  additional_info => $parameters->{additional1},
-          objective => $parameters->{objective1},
-	  research_area => $parameters->{researchArea},
-	  population => $parameters->{population1},
-       });
-   }
+	  identifiable => $parameters->{"identifiable" . $request_type},
+	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
+	  publish => $parameters->{"publish" . $request_type},
+	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
+	  storing => $parameters->{"storing" . $request_type},
+	  completion => $parameters->{"completion" . $request_type},
+	  additional_info => $parameters->{"additional" . $request_type},
+          objective => $parameters->{"objective" . $request_type},
+	  population => $parameters->{"population" . $request_type},
+   };
+
+   my $data_handling = $c->model('DB::DataHandling')->create($dh);
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
@@ -213,9 +196,9 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	$c->response->redirect($c->uri_for($self->action_for('request_edit'), [$data_request->id]));
    } else {
    	$c->stash(
-     data_requests => $data_requests,
-     parameters => $parameters,
-     template => 'datarequest/list.tt2');
+     		data_requests => $data_requests,
+     		parameters => $parameters,
+     		template => 'datarequest/list.tt2');
    }
 }
 
