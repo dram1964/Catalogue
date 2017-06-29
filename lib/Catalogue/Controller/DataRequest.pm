@@ -142,15 +142,11 @@ Submits data request to database
 
 
 sub _identifiers () {
-   my $c = shift;
-   my $identifiers;
-   my $parameters = $c->request->body_parameters;
-   if (ref $parameters->{identifiers} eq "ARRAY") {
-       $identifiers = join(", ", @{$parameters->{identifiers}});
-   } else {
-       $identifiers = $parameters->{identifiers};
+   my $self = shift;
+   if (ref $self->{identifiers} eq "ARRAY") {
+       $self->{identifiers} = join(", ", @{$self->{identifiers}});
    }
-   return $identifiers;
+   return $self->{identifiers};
 }
 
 sub ng_request_submitted :Path('ng_request_submitted') :Args() {
@@ -158,7 +154,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
-   my $identifiers = &_identifiers($c);
+   $self->{identifiers} = $parameters->{identifiers};
    my $dr = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
@@ -176,20 +172,11 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $data_request = $c->model('DB::DataRequest')->create(
 	$dr
    );
-=comment
-   my $identifiers;
-   if (ref $parameters->{identifiers} eq "ARRAY") {
-       $identifiers = join(", ", @{$parameters->{identifiers}});
-   } else {
-       $identifiers = $parameters->{identifiers};
-   }
-=cut
 
    my $request_type = $data_request->request_type_id;
    my $dh = {
 	  request_id => $data_request->id,
-	  #identifiers => $identifiers,
-	  identifiers => $identifiers,
+	  identifiers => $self->_identifiers,
 	  service_area => $parameters->{serviceArea},
 	  research_area => $parameters->{researchArea},
           rec_approval => $parameters->{recApproval},
@@ -222,7 +209,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
         status_date => $data_request->status_date,
-	  identifiers => $identifiers,
+	  identifiers => $self->_identifiers,
 	  service_area => $parameters->{serviceArea},
 	  research_area => $parameters->{researchArea},
           rec_approval => $parameters->{recApproval},
