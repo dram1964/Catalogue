@@ -140,11 +140,25 @@ Submits data request to database
 
 =cut
 
+
+sub _identifiers () {
+   my $c = shift;
+   my $identifiers;
+   my $parameters = $c->request->body_parameters;
+   if (ref $parameters->{identifiers} eq "ARRAY") {
+       $identifiers = join(", ", @{$parameters->{identifiers}});
+   } else {
+       $identifiers = $parameters->{identifiers};
+   }
+   return $identifiers;
+}
+
 sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
 
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
+   my $identifiers = &_identifiers($c);
    my $dr = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
@@ -162,16 +176,19 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $data_request = $c->model('DB::DataRequest')->create(
 	$dr
    );
+=comment
    my $identifiers;
    if (ref $parameters->{identifiers} eq "ARRAY") {
        $identifiers = join(", ", @{$parameters->{identifiers}});
    } else {
        $identifiers = $parameters->{identifiers};
    }
+=cut
 
    my $request_type = $data_request->request_type_id;
    my $dh = {
 	  request_id => $data_request->id,
+	  #identifiers => $identifiers,
 	  identifiers => $identifiers,
 	  service_area => $parameters->{serviceArea},
 	  research_area => $parameters->{researchArea},
