@@ -134,18 +134,11 @@ sub request :Path('request') :Args(0) {
       template => 'datarequest/request.tt2');
 }
 
-=head2 ng_request_submitted
-
-Submits data request to database
-
-=cut
-
 =head2 _identifiers
 
 Method to retrieve unique elements of identifiers array parameter to string value
 
 =cut
-
 
 sub _identifiers () {
    my $self = shift;
@@ -155,6 +148,12 @@ sub _identifiers () {
    }
    return $self->{identifiers};
 }
+
+=head2 ng_request_submitted
+
+Submits data request to database
+
+=cut
 
 sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
@@ -176,9 +175,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
    };
-   my $data_request = $c->model('DB::DataRequest')->create(
-	$dr
-   );
+   my $data_request = $c->model('DB::DataRequest')->create($dr);
 
    my $request_type = $data_request->request_type_id;
    my $dh = {
