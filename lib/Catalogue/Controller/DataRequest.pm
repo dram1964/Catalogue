@@ -319,30 +319,30 @@ sub update_request :Chained('object') :Args() {
    my $request_history = $c->model('DB::RequestHistory')->create({
 	request_id => $data_request->id,
 	user_id => $requestor->id,
-	cardiology_details => $dr->{cardiologyDetails},
-	chemotherapy_details => $dr->{chemotherapyDetails},
-	diagnosis_details => $dr->{diagnosisDetails},
-	episode_details => $dr->{episodeDetails},
-	other_details => $dr->{otherDetails},
-	pathology_details => $dr->{pathologyDetails} ,
-	pharmacy_details => $dr->{pharmacyDetails},
-	radiology_details => $dr->{radiologyDetails},
-	theatre_details => $dr->{theatreDetails},
-	request_type_id => $dr->{requestType},
-	status_id => $dr->{Submit},
+	cardiology_details => $dr->{cardiology_details},
+	chemotherapy_details => $dr->{chemotherapy_details},
+	diagnosis_details => $dr->{diagnosis_details},
+	episode_details => $dr->{episode_details},
+	other_details => $dr->{other_details},
+	pathology_details => $dr->{pathology_details} ,
+	pharmacy_details => $dr->{pharmacy_details},
+	radiology_details => $dr->{radiology_details},
+	theatre_details => $dr->{theatre_details},
+	request_type_id => $dr->{request_type_id},
+	status_id => $dr->{status_id},
         status_date => undef,
 	  identifiers => $dh->{identifiers},
-	  service_area => $dh->{serviceArea},
-	  research_area => $dh->{researchArea},
-          rec_approval => $dh->{recApproval},
+	  service_area => $dh->{service_area},
+	  research_area => $dh->{research_area},
+          rec_approval => $dh->{rec_approval},
 	  consent => $dh->{consent},
 	  identifiable => $dh->{identifiable},
-	  additional_identifiers => $dh->{identifiableSpecification},
+	  additional_identifiers => $dh->{additional_identifiers},
 	  publish => $dh->{publish},
-	  publish_to => $dh->{publishIdSpecification},
+	  publish_to => $dh->{publish_to},
 	  storing => $dh->{storing},
 	  completion => $dh->{completion},
-	  additional_info => $dh->{additional},
+	  additional_info => $dh->{additional_info},
           objective => $dh->{objective},
 	  population => $dh->{population},
    });
@@ -390,51 +390,29 @@ sub request_edit :Chained('object') :Args() {
     }); 
     my $dh = $dh_rs->first;
 
+    my $request_type = $data_request->request_type_id;
     if (defined $dh) {
-        if ($data_request->request_type_id == 2) {
-
-		$request->{data}->{identifiable2} = $dh->identifiable;
-		if ($dh->identifiers =~ /, /) {
-		my @ids = split /, /, $dh->identifiers;
-		for my $id (@ids) {
-		  $request->{data}->{identifiers}->{$id} = 1;
-		}
-		} elsif ( $dh->identifiers =~ /(\w+)/g) {
-		  $request->{data}->{identifiers}->{$1} = 1;
-		}
-		$c->log->debug("*** " . $dh->identifiers . " ***");
-		$request->{data}->{identifiableSpecification} = $dh->additional_identifiers;
-		$request->{data}->{publish} = $dh->publish;
-		$request->{data}->{publishIdSpecification} = $dh->publish_to;
-		$request->{data}->{storing} = $dh->storing;
-		$request->{data}->{completion} = $dh->completion;
-		$request->{data}->{additional} = $dh->additional_info;
-		$request->{data}->{objective} = $dh->objective;
-		$request->{data}->{serviceArea} = $dh->service_area;
-		$request->{data}->{population} = $dh->population;
-        } elsif ($data_request->request_type_id == 1) {
-		$request->{data}->{identifiable1} = $dh->identifiable;
-		if ($dh->identifiers =~ /, /) {
-		my @ids = split /, /, $dh->identifiers;
-		for my $id (@ids) {
-		  $request->{data}->{identifiers}->{$id} = 1;
-		}
-		} elsif ( $dh->identifiers =~ /(\w+)/g) {
-		  $request->{data}->{identifiers}->{$1} = 1;
-		}
-		$c->log->debug("*** " . $dh->identifiers . " ***");
-		$request->{data}->{identifiableSpecification1} = $dh->additional_identifiers;
-		$request->{data}->{publish1} = $dh->publish;
-		$request->{data}->{publishIdSpecification1} = $dh->publish_to;
-		$request->{data}->{storing1} = $dh->storing;
-		$request->{data}->{completion1} = $dh->completion;
-		$request->{data}->{additional1} = $dh->additional_info;
-		  $request->{data}->{objective1} = $dh->objective;
-		  $request->{data}->{researchArea} = $dh->research_area;
-		  $request->{data}->{population1} = $dh->population;
-          	  $request->{data}->{recApproval} = $dh->rec_approval;
-	          $request->{data}->{consent} = $dh->consent;
-        }
+	$request->{data}->{"identifiable" . $request_type} = $dh->identifiable;
+	if ($dh->identifiers =~ /, /) {
+	my @ids = split /, /, $dh->identifiers;
+	for my $id (@ids) {
+	  $request->{data}->{identifiers}->{$id} = 1;
+	}
+	} elsif ( $dh->identifiers =~ /(\w+)/g) {
+	  $request->{data}->{identifiers}->{$1} = 1;
+	}
+	$request->{data}->{"identifiableSpecification" . $request_type} = $dh->additional_identifiers;
+	$request->{data}->{"publish" . $request_type} = $dh->publish;
+	$request->{data}->{"publishIdSpecification" . $request_type} = $dh->publish_to;
+	$request->{data}->{"storing" . $request_type} = $dh->storing;
+	$request->{data}->{"completion" . $request_type} = $dh->completion;
+	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
+	$request->{data}->{"objective" . $request_type} = $dh->objective;
+	$request->{data}->{"population" . $request_type} = $dh->population;
+	  $request->{data}->{serviceArea} = $dh->service_area;
+	  $request->{data}->{researchArea} = $dh->research_area;
+	  $request->{data}->{recApproval} = $dh->rec_approval;
+	  $request->{data}->{consent} = $dh->consent;
     }
 
     $c->stash(
