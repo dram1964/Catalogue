@@ -199,34 +199,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
 
    my $request_history = $c->model('DB::RequestHistory')->create({
-	  request_id => $data_request->id,
-	  user_id => $requestor->id,
-	cardiology_details => $parameters->{cardiologyDetails},
-	chemotherapy_details => $parameters->{chemotherapyDetails},
-	diagnosis_details => $parameters->{diagnosisDetails},
-	episode_details => $parameters->{episodeDetails},
-	other_details => $parameters->{otherDetails},
-	pathology_details => $parameters->{pathologyDetails} ,
-	pharmacy_details => $parameters->{pharmacyDetails},
-	radiology_details => $parameters->{radiologyDetails},
-	theatre_details => $parameters->{theatreDetails},
-	request_type_id => $parameters->{requestType},
-	status_id => $parameters->{Submit},
-        status_date => $data_request->status_date,
-	  identifiers => $self->_identifiers,
-	  service_area => $parameters->{serviceArea},
-	  research_area => $parameters->{researchArea},
-          rec_approval => $parameters->{recApproval},
-	  consent => $parameters->{consent},
-	  identifiable => $parameters->{"identifiable" . $request_type},
-	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
-	  publish => $parameters->{"publish" . $request_type},
-	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
-	  storing => $parameters->{"storing" . $request_type},
-	  completion => $parameters->{"completion" . $request_type},
-	  additional_info => $parameters->{"additional" . $request_type},
-          objective => $parameters->{"objective" . $request_type},
-	  population => $parameters->{"population" . $request_type},
+	%$dh, %$dr, status_date => $data_request->status_date,
    });
 	
 
@@ -307,42 +280,13 @@ sub update_request :Chained('object') :Args() {
    });
    my $data_handling = $data_handling_rs->first;
    if (defined $data_handling) {
-       # update values
        $data_handling->update($dh);
    } else {
-       # insert values
        $data_handling = $c->model->('DB::DataHandling')->create($dh);
    }
+
    my $request_history = $c->model('DB::RequestHistory')->create({
-	request_id => $data_request->id,
-	user_id => $requestor->id,
-	cardiology_details => $dr->{cardiology_details},
-	chemotherapy_details => $dr->{chemotherapy_details},
-	diagnosis_details => $dr->{diagnosis_details},
-	episode_details => $dr->{episode_details},
-	other_details => $dr->{other_details},
-	pathology_details => $dr->{pathology_details} ,
-	pharmacy_details => $dr->{pharmacy_details},
-	radiology_details => $dr->{radiology_details},
-	theatre_details => $dr->{theatre_details},
-	request_type_id => $dr->{request_type_id},
-	status_id => $dr->{status_id},
-        status_date => undef,
-	  identifiers => $dh->{identifiers},
-	  service_area => $dh->{service_area},
-	  research_area => $dh->{research_area},
-          rec_approval => $dh->{rec_approval},
-	  consent => $dh->{consent},
-	  identifiable => $dh->{identifiable},
-	  additional_identifiers => $dh->{additional_identifiers},
-	  publish => $dh->{publish},
-	  publish_to => $dh->{publish_to},
-	  storing => $dh->{storing},
-	  completion => $dh->{completion},
-	  additional_info => $dh->{additional_info},
-          objective => $dh->{objective},
-	  population => $dh->{population},
-   });
+	%$dr, %$dh });
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
    $c->stash(
@@ -391,12 +335,12 @@ sub request_edit :Chained('object') :Args() {
     if (defined $dh) {
 	$request->{data}->{"identifiable" . $request_type} = $dh->identifiable;
 	if ($dh->identifiers =~ /, /) {
-	my @ids = split /, /, $dh->identifiers;
-	for my $id (@ids) {
-	  $request->{data}->{identifiers}->{$id} = 1;
-	}
+	    my @ids = split /, /, $dh->identifiers;
+	    for my $id (@ids) {
+	        $request->{data}->{identifiers}->{$id} = 1;
+	    }
 	} elsif ( $dh->identifiers =~ /(\w+)/g) {
-	  $request->{data}->{identifiers}->{$1} = 1;
+	    $request->{data}->{identifiers}->{$1} = 1;
 	}
 	$request->{data}->{"identifiableSpecification" . $request_type} = $dh->additional_identifiers;
 	$request->{data}->{"publish" . $request_type} = $dh->publish;
