@@ -140,11 +140,18 @@ Submits data request to database
 
 =cut
 
+=head2 _identifiers
+
+Method to retrieve unique elements of identifiers array parameter to string value
+
+=cut
+
 
 sub _identifiers () {
    my $self = shift;
    if (ref $self->{identifiers} eq "ARRAY") {
-       $self->{identifiers} = join(", ", @{$self->{identifiers}});
+       my %hash = map { $_, 1 } @{$self->{identifiers}};
+       $self->{identifiers} = join(", ", keys(%hash));
    }
    return $self->{identifiers};
 }
@@ -249,6 +256,7 @@ sub update_request :Chained('object') :Args() {
     my ($self, $c) = @_;
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
+   $self->{identifiers} = $parameters->{identifiers};
    my $data_request = $c->stash->{object};
    my $dr = {
 	user_id => $requestor->id,
@@ -266,11 +274,7 @@ sub update_request :Chained('object') :Args() {
         status_date => undef,
 	
    };
-   $c->log->debug("*** Original:" . $data_request->status_date . " ***");
    $data_request->update($dr);
-   my $update = $data_request->get_column("status_date");
-   $c->log->debug("*** Original:" . $data_request->status_date . " ***");
-   $c->log->debug("*** Update:" . $update . " ***");
 
    my $request_type = $data_request->request_type_id;
    my $dh = {
@@ -289,13 +293,7 @@ sub update_request :Chained('object') :Args() {
    };
 
    if ($dh->{identifiable} eq "1") {
-     my $identifiers;
-     if (ref $parameters->{identifiers} eq "ARRAY") {
-         $identifiers = join(", ", @{$parameters->{identifiers}});
-     } else {
-         $identifiers = $parameters->{identifiers};
-     }
-     $dh->{identifiers} = $identifiers;
+     $dh->{identifiers} = $self->_identifiers;
      $dh->{additional_identifiers} = $parameters->{"identifiableSpecification" . $request_type};
    } else {
      $dh->{identifiers} = '';
@@ -395,7 +393,7 @@ sub request_edit :Chained('object') :Args() {
     if (defined $dh) {
         if ($data_request->request_type_id == 2) {
 
-		$request->{data}->{identifiable} = $dh->identifiable;
+		$request->{data}->{identifiable2} = $dh->identifiable;
 		if ($dh->identifiers =~ /, /) {
 		my @ids = split /, /, $dh->identifiers;
 		for my $id (@ids) {
