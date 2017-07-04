@@ -42,7 +42,7 @@
           </div><!-- end form-group -->
 	</div><!-- end row -->
 
-[% INCLUDE datarequest/identifiers.tt2 %]
+[% INCLUDE datarequest/identifiers1.tt2 %]
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
 <label>Additional Patient Identifiers</label>

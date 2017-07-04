@@ -142,6 +142,7 @@ Method to retrieve unique elements of identifiers array parameter to string valu
 
 sub _identifiers () {
    my $self = shift;
+  
    if (ref $self->{identifiers} eq "ARRAY") {
        my %hash = map { $_, 1 } @{$self->{identifiers}};
        $self->{identifiers} = join(", ", keys(%hash));
@@ -160,7 +161,6 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
-   $self->{identifiers} = $parameters->{identifiers};
    my $dr = {
 	user_id => $requestor->id,
 	cardiology_details => $parameters->{cardiologyDetails},
@@ -178,6 +178,8 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $data_request = $c->model('DB::DataRequest')->create($dr);
 
    my $request_type = $data_request->request_type_id;
+   $self->{identifiers} = $parameters->{"identifiers" . $request_type};
+$c->log->debug("*** Before:" . $self->{identifiers} . " ***");
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
@@ -196,6 +198,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	  population => $parameters->{"population" . $request_type},
    };
 
+$c->log->debug("*** After:" . $self->{identifiers} . " ***");
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
 
    my $request_history = $c->model('DB::RequestHistory')->create({
@@ -223,10 +226,9 @@ submit request update
 
 
 sub update_request :Chained('object') :Args() {
-    my ($self, $c) = @_;
+   my ($self, $c) = @_;
    my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
-   $self->{identifiers} = $parameters->{identifiers};
    my $data_request = $c->stash->{object};
    my $dr = {
 	user_id => $requestor->id,
@@ -247,6 +249,7 @@ sub update_request :Chained('object') :Args() {
    $data_request->update($dr);
 
    my $request_type = $data_request->request_type_id;
+   $self->{identifiers} = $parameters->{"identifiers" . $request_type};
    my $dh = {
      request_id => $data_request->id,
      service_area => $parameters->{serviceArea},
