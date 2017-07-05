@@ -1,2 +1,76 @@
 
-	<label>This is the panel for Anonymised Clinical Data</label>
+	<label>This is the panel for Public Health Requests</label>
+        <div class="form-group">
+<label>Sponsoring Organisation</label>
+<input type="textarea" name="sponsor" ng-model="ctrl.data.sponsor"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Participating Organisations</label>
+<input type="textarea" name="organisations" ng-model="ctrl.data.organisations"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Do you have a Data Sharing Agreement approved for each participating organisation</label>
+<label class="radio-inline"><input type="radio" name="dataSharingApproval" 
+  ng-model = "ctrl.data.dataSharingApproval" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="dataSharingApproval" 
+  ng-model = "ctrl.data.dataSharingApproval" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Data Population - how will you select patient population for this request?</label>
+<input type="textarea" name="population2" ng-model="ctrl.data.population2"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+	<div class="row">
+          <div class="form-group">
+            <label>Do you require data with patient identifiers?</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable3" name="identifiable3" value="1">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable2" name="identifiable2" value="0">No</label>
+          </div><!-- end form-group -->
+	</div><!-- end row -->
+
+[% INCLUDE datarequest/identifiers3.tt2 %]
+	<div class="row">
+	  <div class="form-group" ng-show="ctrl.data.identifiable2 == 1">
+<label>Additional Patient Identifiers</label>
+<textarea name="identifiableSpecification2" ng-model="ctrl.data.identifiableSpecification2" 
+	class="form-control"></textarea>
+	  </div><!-- end form-group -->
+	</div><!-- end row -->
+
+        <div class="form-group">
+<label>Will you be publishing patient identifiers to any entities outside of UCLH?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish2" name="publish2" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish2" name="publish2" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.publish2 == 1">
+	    <div class="col-md-12">
+<br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
+	    </div><!-- end columnn -->
+<textarea name="publishIdSpecification2" ng-model="ctrl.data.publishIdSpecification2" 
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Where will you be storing and processing this data</label>
+<input type="textarea" name="storing2" ng-model="ctrl.data.storing2"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>What will you do with the data once you have completed the project</label>
+<input type="textarea" name="completion2" ng-model="ctrl.data.completion2"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Additional information:</label>
+<input type="textarea" name="additional2" ng-model="ctrl.data.additional2"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->

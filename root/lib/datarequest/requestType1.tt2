@@ -28,7 +28,7 @@
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Data Poplution - how will you select patient population for this request?</label>
+<label>Data Population - how will you select patient population for this request?</label>
 <input type="textarea" name="population1" ng-model="ctrl.data.population1"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
@@ -52,7 +52,7 @@
 	</div><!-- end row -->
 
         <div class="form-group">
-<label>Will you be publishing patient identifiers to any third parties?</label>
+<label>Will you be publishing patient identifiers to any entities outside of UCLH?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="1">Yes</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="0">No</label>
         </div><!-- end form-group -->
