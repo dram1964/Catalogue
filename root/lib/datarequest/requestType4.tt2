@@ -2,7 +2,7 @@
 	<label>This is the panel for Planning and Policy Data</label>
         <div class="form-group">
 <label>Organisational Plan or Objective</label>
-<input type="textarea" name="serviceArea" ng-model="ctrl.data.serviceArea"
+<input type="textarea" name="planArea" ng-model="ctrl.data.planArea"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 

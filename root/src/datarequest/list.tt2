@@ -26,4 +26,4 @@
 [% ELSE %] 
 <p class="lead">No requests on record</p>
 [% END %]
-<p><a href="[% c.uri_for(c.controller.action_for('request')) %]">Submit</a> new Request</p>
+<p><a href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
