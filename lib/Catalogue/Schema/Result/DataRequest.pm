@@ -170,6 +170,21 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 approval_requestor
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::ApprovalRequestor>
+
+=cut
+
+__PACKAGE__->might_have(
+  "approval_requestor",
+  "Catalogue::Schema::Result::ApprovalRequestor",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 data_handlings
 
 Type: has_many
@@ -181,21 +196,6 @@ Related object: L<Catalogue::Schema::Result::DataHandling>
 __PACKAGE__->has_many(
   "data_handlings",
   "Catalogue::Schema::Result::DataHandling",
-  { "foreign.request_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 request_approval_requestor
-
-Type: might_have
-
-Related object: L<Catalogue::Schema::Result::RequestApprovalRequestor>
-
-=cut
-
-__PACKAGE__->might_have(
-  "request_approval_requestor",
-  "Catalogue::Schema::Result::RequestApprovalRequestor",
   { "foreign.request_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -246,8 +246,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 10:31:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:47ttlE5V6NjAjclU1xrYmw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 11:14:34
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LgMjBSahwgnWdKpU0s17vw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

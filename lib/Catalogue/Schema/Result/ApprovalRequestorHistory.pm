@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::RequestApprovalRequestor;
+package Catalogue::Schema::Result::ApprovalRequestorHistory;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::RequestApprovalRequestor
+Catalogue::Schema::Result::ApprovalRequestorHistory
 
 =cut
 
@@ -34,11 +34,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<request_approval_requestor>
+=head1 TABLE: C<approval_requestor_history>
 
 =cut
 
-__PACKAGE__->table("request_approval_requestor");
+__PACKAGE__->table("approval_requestor_history");
 
 =head1 ACCESSORS
 
@@ -46,6 +46,13 @@ __PACKAGE__->table("request_approval_requestor");
 
   data_type: 'integer'
   is_foreign_key: 1
+  is_nullable: 0
+
+=head2 approval_date
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
   is_nullable: 0
 
 =head2 validated
@@ -69,6 +76,13 @@ __PACKAGE__->table("request_approval_requestor");
 __PACKAGE__->add_columns(
   "request_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "approval_date",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
+    is_nullable => 0,
+  },
   "validated",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "verification_method",
@@ -83,11 +97,13 @@ __PACKAGE__->add_columns(
 
 =item * L</request_id>
 
+=item * L</approval_date>
+
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("request_id");
+__PACKAGE__->set_primary_key("request_id", "approval_date");
 
 =head1 RELATIONS
 
@@ -95,20 +111,20 @@ __PACKAGE__->set_primary_key("request_id");
 
 Type: belongs_to
 
-Related object: L<Catalogue::Schema::Result::DataRequest>
+Related object: L<Catalogue::Schema::Result::ApprovalRequestor>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "request",
-  "Catalogue::Schema::Result::DataRequest",
-  { id => "request_id" },
+  "Catalogue::Schema::Result::ApprovalRequestor",
+  { request_id => "request_id" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 10:31:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eiptjp0snSlUk4VNdnikXw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 11:14:34
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7vKaBteFHGhqY5hzgTKzmQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

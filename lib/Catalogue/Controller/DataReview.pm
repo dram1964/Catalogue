@@ -88,7 +88,9 @@ sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0)
     $c->log->debug("***Verification Method " . $requestor_approval->{verification_method} . " ***");
     $c->log->debug("***Verification Notes " . $requestor_approval->{notes} . " ***");
 
-    my $approval = $c->model('DB::RequestApprovalRequestor')->update_or_create(
+    my $approval = $c->model('DB::ApprovalRequestor')->update_or_create(
+	$requestor_approval);
+    my $approval_history = $c->model('DB::ApprovalRequestorHistory')->create(
 	$requestor_approval);
 
     my $data_items = {};
@@ -104,8 +106,8 @@ sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0)
       }
     }
 
-   my $requestor_rs = $c->model('DB::User')->search({
-	username => $data_request->user->username
+   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+	email_address => $data_request->user->email_address
    });
    my $requestor = $requestor_rs->first;
 
@@ -113,12 +115,13 @@ sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0)
 	request_id => $data_request->id
    });
    my $dh = $dh_rs->first;
+
    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
-	template => 'datarequest/review.tt2');
+	template => 'datareview/review.tt2');
 
 }
 
