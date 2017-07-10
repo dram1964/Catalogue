@@ -78,7 +78,7 @@ sub identifiers_approve :Chained('object') :PathPart('identifiers_approve') :Arg
     my $data_request = $c->stash->{object};
     my $approver = $c->user->get_object;
     my $parameters = $c->request->body_parameters;
-    my @ids = qw/dob ptName ptNumber/;
+    my @ids = qw/dob ptName ptNumber nhsNumber addr /;
     my $identifiers_approval = {};
     for my $id (@ids) {
 	if (defined($parameters->{$id})) {
@@ -87,6 +87,10 @@ sub identifiers_approve :Chained('object') :PathPart('identifiers_approve') :Arg
         } else {
 	$identifiers_approval->{lc $id} = 0;
         }
+    }
+    if (defined($parameters->{other})) {
+	$identifiers_approval->{other} = $parameters->{other};
+    	$c->log->debug("*** Identifier Set:" . $identifiers_approval->{other} . " ***");
     }
     $identifiers_approval->{request_id} = $data_request->id;
     $identifiers_approval->{approver} = $approver->id;

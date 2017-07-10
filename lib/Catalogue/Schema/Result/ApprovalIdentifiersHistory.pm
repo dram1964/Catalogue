@@ -73,6 +73,11 @@ __PACKAGE__->table("approval_identifiers_history");
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 other
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 approval_date
 
   data_type: 'timestamp'
@@ -100,6 +105,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", is_nullable => 1 },
   "addr",
   { data_type => "tinyint", is_nullable => 1 },
+  "other",
+  { data_type => "text", is_nullable => 1 },
   "approval_date",
   {
     data_type => "timestamp",
@@ -143,8 +150,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 18:35:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QWfgpUv8ORJN7TwuN6Dqhw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 19:50:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mx3sdY69mTuKZsuKFadNAg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

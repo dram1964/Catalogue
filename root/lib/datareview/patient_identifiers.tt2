@@ -2,15 +2,23 @@
   <div class="panel-heading">Patient Identifiers Requested</div>
   <div class="panel-body">
     <form action="[% c.uri_for(c.controller.action_for('identifiers_approve'), [request.id]) %]" method="post">
-	    <div class="col-md-3">
+	    <div class="col-md-9">
   [% FOREACH id IN dh.identifiers.split(", ") %]
        [% lid = id.lower %]
 	<label>[% id %]</label>
 	<input type="checkbox" name="[% id %]" 
-	[% IF request.approval_identifier.$lid == 1 %] checked [% END %]>Approved<br>
+	[% IF request.approval_identifier.$lid == 1 %] checked [% END %]>Approve<br>
+  [% END %]
+  [% IF dh.additional_identifiers %]
+        <label>[% dh.additional_identifiers %]</label>
+	<input type="checkbox" name="other"
+	value="[% dh.additional_identifiers %]"
+	[% IF request.approval_identifer.other == dh.additional_identifiers %] checked [% END %]>Approve<br>
   [% END %]
 	    </div><!-- end column -->
       <input type="submit" name="submit" value="Update">
     </form>
   </div><!-- end panel-body -->
 </div><!-- end panel -->
+<p>Approval Identifier: "[% request.approval_identifier.other %]"</p>
+<p>Additional Identifiers: "[% dh.additional_identifiers %]"</p>

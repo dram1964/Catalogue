@@ -73,6 +73,11 @@ __PACKAGE__->table("approval_identifiers");
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 other
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 approver
 
   data_type: 'integer'
@@ -94,6 +99,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", is_nullable => 1 },
   "addr",
   { data_type => "tinyint", is_nullable => 1 },
+  "other",
+  { data_type => "text", is_nullable => 1 },
   "approver",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
@@ -158,8 +165,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 18:35:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AtL4al6i3p2Bh3bcjCppvQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 19:50:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:m0t3DnhVq8XIFtoOljyqcg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
