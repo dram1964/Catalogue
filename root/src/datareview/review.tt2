@@ -1,29 +1,57 @@
 [% META title = 'Review Data Request' %]
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
-<p class="lead">Requestor Details</p>
-      <dl class="row">
-        <dt class="col-sm-2 text-left">Username</dt>
-        <dd class="col-sm-10 text-left">[% request.user.email_address %]</dd>
-        <dt class="col-sm-2 text-left">Name</dt>
-        <dd class="col-sm-10 text-left">[% requestor.first_name %] [% requestor.last_name %]</dd>
-        <dt class="col-sm-2 text-left">Job Title</dt>
-        <dd class="col-sm-10 text-left">[% requestor.job_title %]</dd>
-        <dt class="col-sm-2 text-left">Department</dt>
-        <dd class="col-sm-10 text-left">[% requestor.department %]</dd>
-        <dt class="col-sm-2 text-left">Organisation</dt>
-        <dd class="col-sm-10 text-left">[% requestor.organisation %]<br>
-	    [% requestor.address1 %]<br>
-	    [% requestor.address2 %]<br>
-	    [% requestor.address3 %]<br>
-	    [% requestor.city %]<br>
-	    [% requestor.postcode %]<br>
-        </dd>
-        <dt class="col-sm-2 text-left">Telephone</dt>
-	<dd class="col-sm-10 text-left">[% requestor.telephone %]<br>
-	    [% requestor.mobile %]
-        </dd>
-      </dl>
+<div class="panel panel-default">
+  <div class="panel-heading">Requestor Details</div>
+  <div class="panel-body">
+	<form action="[% c.uri_for(c.controller.action_for('requestor_approve'), [request.id]) %]" method="post">
+		<a href="[% c.uri_for(c.controller.action_for('edit'),[user.id]) %]">Edit</a>
+	      <dl class="row">
+		<dt class="col-sm-2 text-left">Username</dt>
+		<dd class="col-sm-10 text-left">[% request.user.email_address %]</dd>
+		<dt class="col-sm-2 text-left">Name</dt>
+		<dd class="col-sm-10 text-left">[% requestor.first_name %] [% requestor.last_name %]</dd>
+		<dt class="col-sm-2 text-left">Job Title</dt>
+		<dd class="col-sm-10 text-left">[% requestor.job_title %]</dd>
+		<dt class="col-sm-2 text-left">Department</dt>
+		<dd class="col-sm-10 text-left">[% requestor.department %]</dd>
+		<dt class="col-sm-2 text-left">Organisation</dt>
+		<dd class="col-sm-10 text-left">[% requestor.organisation %]<br>
+		    [% requestor.address1 %]<br>
+		    [% requestor.address2 %]<br>
+		    [% requestor.address3 %]<br>
+		    [% requestor.city %]<br>
+		    [% requestor.postcode %]<br>
+		</dd>
+		<dt class="col-sm-2 text-left">Telephone</dt>
+		<dd class="col-sm-10 text-left">[% requestor.telephone %]<br>
+		    [% requestor.mobile %]
+		</dd>
+	      </dl>
+	<div class="row"
+	  <label>Verification Method</label>
+	  <select name="verificationMethod">
+	    <option value="1">UCLH Active Directory Account</option>
+	    <option value="2">UCL Active Directory Account</option>
+	  </select>
+	</div><!-- end row -->
+	<div class="row"
+	  <label>Approval Notes</label>
+	  <input type="textarea" name="requestorNotes">
+	</div><!-- end row -->
+	<div class="row"
+	  <label>Approve?</label>
+	  <label>Yes</label>
+  	  <input type="radio" name="requestorValid" value="1">
+	  <label>No</label>
+  	  <input type="radio" name="requestorValid" value="0">
+	</div><!-- end row -->
+          <input type="submit" name="submit" value="Update">
+	</form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->
+
+
 [% IF dh %]
 <p class="lead">Data Handling</p>
   [% IF dh.request.request_type_id == 2 %]
