@@ -71,6 +71,11 @@ __PACKAGE__->table("approval_requestor_history");
   data_type: 'text'
   is_nullable: 1
 
+=head2 approver
+
+  data_type: 'integer'
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -89,6 +94,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "notes",
   { data_type => "text", is_nullable => 1 },
+  "approver",
+  { data_type => "integer", is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -123,8 +130,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 11:14:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7vKaBteFHGhqY5hzgTKzmQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 13:05:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Hf5QRC/b00ztPDTX6PZBEg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

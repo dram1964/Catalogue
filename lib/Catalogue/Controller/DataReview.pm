@@ -76,17 +76,15 @@ approve requestor details for submitted request
 sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
+    my $approver = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
     my $requestor_approval = {
 	notes => $parameters->{requestorNotes},
     	validated => $parameters->{requestorValid},
     	verification_method => $parameters->{verificationMethod},
 	request_id => $data_request->id,
+	approver => $approver->id,
     };
-    $c->log->debug("***Request ID: " . $requestor_approval->{request_id} .  " ***");
-    $c->log->debug("***Validated " . $requestor_approval->{validated} . " ***");
-    $c->log->debug("***Verification Method " . $requestor_approval->{verification_method} . " ***");
-    $c->log->debug("***Verification Notes " . $requestor_approval->{notes} . " ***");
 
     my $approval = $c->model('DB::ApprovalRequestor')->update_or_create(
 	$requestor_approval);

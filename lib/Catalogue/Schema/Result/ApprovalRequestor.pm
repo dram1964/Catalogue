@@ -64,6 +64,12 @@ __PACKAGE__->table("approval_requestor");
   data_type: 'text'
   is_nullable: 1
 
+=head2 approver
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -75,6 +81,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "notes",
   { data_type => "text", is_nullable => 1 },
+  "approver",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -106,6 +114,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 approver
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "approver",
+  "Catalogue::Schema::Result::User",
+  { id => "approver" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+);
+
 =head2 request
 
 Type: belongs_to
@@ -122,8 +145,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 11:14:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LvPX0IySkk3EC8nqUU6uww
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 13:05:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zugl6R16Ty2TOUFB/ET+gw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

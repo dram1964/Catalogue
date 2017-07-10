@@ -210,6 +210,21 @@ __PACKAGE__->add_unique_constraint("ux_username", ["username"]);
 
 =head1 RELATIONS
 
+=head2 approval_requestors
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::ApprovalRequestor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "approval_requestors",
+  "Catalogue::Schema::Result::ApprovalRequestor",
+  { "foreign.approver" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 data_requests
 
 Type: has_many
@@ -266,8 +281,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-26 07:47:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:C0qylZ+ZkMvJ8YvJk81W0Q
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 13:05:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8uJEuTU7quduhUSUgbPUuA
 
 =head2 has_role
 
