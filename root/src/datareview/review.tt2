@@ -4,6 +4,8 @@
 [% INCLUDE datareview/requestor_panel.tt2 %]
 
 [% IF dh %]
+  [% INCLUDE datareview/request_type_panel.tt2 %]
+
   [% IF dh.request.request_type_id == 2 %]
     [% INCLUDE datareview/service_area_panel.tt2 %]
   [% END %]

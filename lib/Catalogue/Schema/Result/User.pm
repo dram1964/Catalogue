@@ -225,6 +225,36 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 approval_researches
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::ApprovalResearch>
+
+=cut
+
+__PACKAGE__->has_many(
+  "approval_researches",
+  "Catalogue::Schema::Result::ApprovalResearch",
+  { "foreign.approver" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 approval_services
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::ApprovalService>
+
+=cut
+
+__PACKAGE__->has_many(
+  "approval_services",
+  "Catalogue::Schema::Result::ApprovalService",
+  { "foreign.approver" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 data_requests
 
 Type: has_many
@@ -281,8 +311,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 13:05:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8uJEuTU7quduhUSUgbPUuA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 16:11:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jrF48wF1+eKhs1FbyfMW7g
 
 =head2 has_role
 

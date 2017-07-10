@@ -185,6 +185,36 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 approval_research
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::ApprovalResearch>
+
+=cut
+
+__PACKAGE__->might_have(
+  "approval_research",
+  "Catalogue::Schema::Result::ApprovalResearch",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 approval_service
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::ApprovalService>
+
+=cut
+
+__PACKAGE__->might_have(
+  "approval_service",
+  "Catalogue::Schema::Result::ApprovalService",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 data_handlings
 
 Type: has_many
@@ -246,8 +276,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 11:14:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LgMjBSahwgnWdKpU0s17vw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 16:11:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YxJYxYKgmBxv9hfsUNRY2Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

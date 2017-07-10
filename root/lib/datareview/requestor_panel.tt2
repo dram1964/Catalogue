@@ -39,6 +39,7 @@
 	<div class="row">
 	  <label>Verification Method</label>
 	  <select name="verificationMethod">
+	    <option value="0"[% IF request.approval_requestor.verification_method <= 1 %] selected [% END %]>&nbsp;</option>
 	    <option value="1"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>UCLH Active Directory Account</option>
 	    <option value="2"[% IF request.approval_requestor.verification_method == 2 %] selected [% END %]>UCL Active Directory Account</option>
 	  </select>

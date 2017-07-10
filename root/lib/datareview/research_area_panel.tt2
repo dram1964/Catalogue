@@ -2,24 +2,35 @@
   <div class="panel-heading">Research Area: [% dh.research_area %]</div>
   <div class="panel-body">
   <p class="lead">Research Objective: [% dh.objective %]</p>
-	<form action="" method="post">
+	<form action="[% c.uri_for(c.controller.action_for('research_approve'), [request.id]) %]" method="post">
     [% IF dh.rec_approval == 1 %]
     <div class="row">
       <div class="col-sm-4 text-left">
 	<label>REC Approval Reference Number</label>
       </div><!-- end column -->
       <div class="col-sm-4 text-left">
-	<input type="text" name="recApprovalReference">
+	<input type="text" name="recApprovalReference" value="[% request.approval_research.rec_approval_ref %]">
       </div><!-- end column -->
     </div><!-- end row -->
+      [% IF request.approval_research.rec_approval_file %]
+    <div class="row">
+      <div class="col-sm-4 text-left">
+	<label>REC Approval File</label>
+      </div><!-- end column -->
+      <div class="col-sm-4">
+	<input type="text" name="recApprovalFile" value="[% request.approval_research.rec_approval_file %]" readonly>
+      </div><!-- end column -->
+    </div><!-- end row -->
+      [% ELSE %]
     <div class="row">
       <div class="col-sm-4 text-left">
 	<label>REC Approval Letter Upload</label>
       </div><!-- end column -->
       <div class="col-sm-4">
-	<input type="file" accept="text" name="recApprovalFile">
+	<input type="file" accept="text" name="recApprovalFile" value="[% request.approval_research.rec_approval_file %]">
       </div><!-- end column -->
     </div><!-- end row -->
+      [% END %]
     [% END %]
 
     [% IF dh.consent %]
@@ -29,8 +40,9 @@
       </div><!-- end column -->
       <div class="col-sm-4 text-left">
 	  <select name="consentMethod">
-	    <option value="1"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>Consent Database</option>
-	    <option value="2"[% IF request.approval_requestor.verification_method == 2 %] selected [% END %]>Consent Forms</option>
+	    <option value="0"[% IF request.approval_research.consent_method <= 1 %] selected [% END %]>&nbsp;</option>
+	    <option value="1"[% IF request.approval_research.consent_method == 1 %] selected [% END %]>Consent Database</option>
+	    <option value="2"[% IF request.approval_research.consent_method == 2 %] selected [% END %]>Consent Forms</option>
 	  </select>
       </div><!-- end column -->
     </div><!-- end row -->
