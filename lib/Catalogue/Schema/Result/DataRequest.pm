@@ -170,6 +170,21 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 approval_identifier
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::ApprovalIdentifier>
+
+=cut
+
+__PACKAGE__->might_have(
+  "approval_identifier",
+  "Catalogue::Schema::Result::ApprovalIdentifier",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 approval_requestor
 
 Type: might_have
@@ -276,8 +291,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 16:11:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YxJYxYKgmBxv9hfsUNRY2Q
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 18:35:18
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zc5+zOKGATxUTlAJgW01pg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

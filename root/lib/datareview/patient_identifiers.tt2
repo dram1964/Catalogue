@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Patient Identifiers Requested</div>
+  <div class="panel-body">
+    <form action="[% c.uri_for(c.controller.action_for('identifiers_approve'), [request.id]) %]" method="post">
+	    <div class="col-md-3">
+  [% FOREACH id IN dh.identifiers.split(", ") %]
+       [% lid = id.lower %]
+	<label>[% id %]</label>
+	<input type="checkbox" name="[% id %]" 
+	[% IF request.approval_identifier.$lid == 1 %] checked [% END %]>Approved<br>
+  [% END %]
+	    </div><!-- end column -->
+      <input type="submit" name="submit" value="Update">
+    </form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->

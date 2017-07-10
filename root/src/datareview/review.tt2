@@ -12,6 +12,11 @@
   [% IF dh.request.request_type_id == 1 %]
     [% INCLUDE datareview/research_area_panel.tt2 %]
   [% END %]
+
+  [% IF dh.identifiable == 1 %]
+    [% INCLUDE datareview/patient_identifiers.tt2 %]
+  [% END %]
+
 <p class="lead">Data Handling</p>
   <dl>
     <dt class="col-sm-4 text-left">Request Type: </dt>
