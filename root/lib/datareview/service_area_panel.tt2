@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Service Area: [% dh.service_area %]</div>
+  <div class="panel-body">
+	<p class="lead">Service Objective: [% dh.objective %]
+	<form action="" method="post">
+	<div class="row">
+	  <label>Service Area Authorisation</label>
+	  <select name="serviceAuth">
+	    <option value="0"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>&nbsp;</option>
+	    <option value="1"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>Service Lead</option>
+	    <option value="2"[% IF request.approval_requestor.verification_method == 2 %] selected [% END %]>Clinical Lead</option>
+	  </select>
+	</div><!-- end row -->
+
+</dl>
+          <input type="submit" name="submit" value="Update">
+	</form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->

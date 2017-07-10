@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Research Area: [% dh.research_area %]</div>
+  <div class="panel-body">
+  <p class="lead">Research Objective: [% dh.objective %]</p>
+	<form action="" method="post">
+    [% IF dh.rec_approval == 1 %]
+    <div class="row">
+      <div class="col-sm-4 text-left">
+	<label>REC Approval Reference Number</label>
+      </div><!-- end column -->
+      <div class="col-sm-4 text-left">
+	<input type="text" name="recApprovalReference">
+      </div><!-- end column -->
+    </div><!-- end row -->
+    <div class="row">
+      <div class="col-sm-4 text-left">
+	<label>REC Approval Letter Upload</label>
+      </div><!-- end column -->
+      <div class="col-sm-4">
+	<input type="file" accept="text" name="recApprovalFile">
+      </div><!-- end column -->
+    </div><!-- end row -->
+    [% END %]
+
+    [% IF dh.consent %]
+    <div class="row">
+      <div class="col-sm-4 text-left">
+	<label>Evidence for Consent<label>
+      </div><!-- end column -->
+      <div class="col-sm-4 text-left">
+	  <select name="consentMethod">
+	    <option value="1"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>Consent Database</option>
+	    <option value="2"[% IF request.approval_requestor.verification_method == 2 %] selected [% END %]>Consent Forms</option>
+	  </select>
+      </div><!-- end column -->
+    </div><!-- end row -->
+
+    [% END %]
+          <input type="submit" name="submit" value="Update">
+	</form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->
