@@ -18,7 +18,7 @@
     [% INCLUDE datareview/patient_identifiers.tt2 %]
   [% END %]
 
-  [% IF data_items.keys > 0 %]
+  [% IF data_items.values.first %]
     [% INCLUDE datareview/data_requested.tt2 %]
   [% END %]
 
