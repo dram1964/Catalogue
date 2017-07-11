@@ -1,8 +1,4 @@
 [% META title="New User Registration" %]
-[% USE JSON %]
-<script type="text/javascript">
-  var foo = [% test_data.json %];
-</script>
 <div ng-app="register">
   <div ng-controller="MainCtrl as ctrl">
 	<div><button ng-click="ctrl.change()">Autofill</button></div>
@@ -16,7 +12,6 @@
       </div><!-- end controls div -->
     </form>
   </div><!-- end ng-controller div -->
-<span>{{ ctrl.data }}</span>
 
 
 

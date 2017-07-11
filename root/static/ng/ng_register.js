@@ -32,5 +32,4 @@ angular.module('register', [])
 	self.checkEmail = function() {
 	    return self.email1 == self.email2 ? 0 : 1;
 	};
-	self.data = foo;
   }]);

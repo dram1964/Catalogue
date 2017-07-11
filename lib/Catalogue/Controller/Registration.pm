@@ -182,7 +182,6 @@ sub ng_new :Path('ng_new') :Args(0) {
     }
 
     $c->stash(
-	test_data => 'Some random text from ng_new method',
 	template => 'registration/ng_new.tt2');
 }
 
