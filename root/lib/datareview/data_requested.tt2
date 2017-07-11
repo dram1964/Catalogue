@@ -1,19 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Data Requested</div>
+  <div class="panel-body">
+    <form action="[% c.uri_for(c.controller.action_for('identifiers_approve'), [request.id]) %]" method="post">
 
-<p class="lead">Data Requested</p>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tbody>
-      <tr>
-        <th>Data Item</th>
-        <th>Data Requested</th>
-      </tr>
 [% FOREACH item IN data_items.keys %]
-      <tr>
-        <td>[% item %]</td>
-        <td>[% data_items.$item %]</td>
-      </tr>
+        <label>[% item %]: [% data_items.$item %]</label>
+	<input type="checkbox" name="[% item %]" 
+	value="[% data_items.$item %]"
+	[% IF request.data_request.id == 1 %] checked [% END %]>Approve<br>
 [% END %]
-    </tbody>
-  </table>
-</div>
+        <input type="submit" name="submit" value="Update">
+    </form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->
