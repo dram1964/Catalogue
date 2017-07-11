@@ -91,6 +91,8 @@ sub identifiers_approve :Chained('object') :PathPart('identifiers_approve') :Arg
     if (defined($parameters->{other})) {
 	$identifiers_approval->{other} = $parameters->{other};
     	$c->log->debug("*** Identifier Set:" . $identifiers_approval->{other} . " ***");
+    } else {
+	$identifiers_approval->{other} = 0;
     }
     $identifiers_approval->{request_id} = $data_request->id;
     $identifiers_approval->{approver} = $approver->id;
