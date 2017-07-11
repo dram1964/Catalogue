@@ -1,10 +1,11 @@
 [% META title = 'Review Data Request' %]
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
+
+[% INCLUDE datareview/request_type_panel.tt2 %]
 [% INCLUDE datareview/requestor_panel.tt2 %]
 
 [% IF dh %]
-  [% INCLUDE datareview/request_type_panel.tt2 %]
 
   [% IF dh.request.request_type_id == 2 %]
     [% INCLUDE datareview/service_area_panel.tt2 %]
@@ -17,20 +18,26 @@
     [% INCLUDE datareview/patient_identifiers.tt2 %]
   [% END %]
 
+  [% IF data_items.keys > 0 %]
+    [% INCLUDE datareview/data_requested.tt2 %]
+  [% END %]
+
+[%# debug = 'Yes' %]
+  [% IF debug == 'Yes' %]
 <p class="lead">Data Handling</p>
   <dl>
     <dt class="col-sm-4 text-left">Request Type: </dt>
     <dd class="col-sm-8 text-left">[% request.request_type.name %]</dd>
     <dt class="col-sm-4 text-left">Request Type Description: </dt>
     <dd class="col-sm-8 text-left">[% request.request_type.description %]</dd>
-  [% IF dh.request.request_type_id == 1 %]
+    [% IF dh.request.request_type_id == 1 %]
     <dt class="col-sm-4 text-left">REC Approval: </dt>
     <dd class="col-sm-8 text-left">[% dh.rec_approval || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Patient Consent: </dt>
     <dd class="col-sm-8 text-left">[% dh.consent || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Research Area: </dt>
     <dd class="col-sm-8 text-left">[% dh.research_area || "&nbsp;" %]</dd>
-  [% END %]
+    [% END %]
     <dt class="col-sm-4 text-left">Objective: </dt>
     <dd class="col-sm-8 text-left">[% dh.objective || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Patient Selection: </dt>
@@ -50,31 +57,14 @@
     <dt class="col-sm-4 text-left">Additional Information: </dt>
     <dd class="col-sm-8 text-left">[% dh.additional_info || "&nbsp;" %]</dd>
   </dl>
-  [% IF dh.request.request_type_id == 1 %]
+    [% IF dh.request.request_type_id == 1 %]
     <dt class="col-sm-4 text-left">REC Approval: </dt>
     <dd class="col-sm-8 text-left">[% dh.rec_approval || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Patient Consent: </dt>
     <dd class="col-sm-8 text-left">[% dh.consent || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Research Area: </dt>
     <dd class="col-sm-8 text-left">[% dh.research_area || "&nbsp;" %]</dd>
-  [% END %]
+    [% END %]
   </dl>
+  [% END %]
 [% END %]
-<p class="lead">Data Requested</p>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tbody>
-      <tr>
-        <th>Data Item</th>
-        <th>Data Requested</th>
-      </tr>
-[% FOREACH item IN data_items.keys %]
-      <tr>
-        <td>[% item %]</td>
-        <td>[% data_items.$item %]</td>
-      </tr>
-[% END %]
-    </tbody>
-  </table>
-</div>
