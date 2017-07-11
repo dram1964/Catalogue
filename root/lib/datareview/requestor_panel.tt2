@@ -1,5 +1,9 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Requestor Details</div>
+[% IF request.approval_requestor %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
+  <div class="panel-heading">Requestor Details </div>
   <div class="panel-body">
     <form action="[% c.uri_for(c.controller.action_for('requestor_approve'), [request.id]) %]" method="post">
       <dl>

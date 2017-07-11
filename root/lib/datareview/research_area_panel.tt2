@@ -1,4 +1,8 @@
-<div class="panel panel-default">
+[% IF request.approval_research %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
   <div class="panel-heading">Research Area: [% dh.research_area %]</div>
   <div class="panel-body">
   <p class="lead">Research Objective: [% dh.objective %]</p>

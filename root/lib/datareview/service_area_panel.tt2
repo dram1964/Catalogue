@@ -1,4 +1,8 @@
-<div class="panel panel-default">
+[% IF request.approval_service %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
   <div class="panel-heading">Service Area: [% dh.service_area %]</div>
   <div class="panel-body">
 	<p class="lead">Service Objective: [% dh.objective %]

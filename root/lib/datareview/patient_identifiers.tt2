@@ -1,4 +1,8 @@
-<div class="panel panel-default">
+[% IF request.approval_identifier %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
   <div class="panel-heading">Patient Identifiers Requested</div>
   <div class="panel-body">
     <form action="[% c.uri_for(c.controller.action_for('identifiers_approve'), [request.id]) %]" method="post">
