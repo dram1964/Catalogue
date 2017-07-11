@@ -11,7 +11,7 @@
       <div class="controls">
 [% INSERT registration/user_details.tt2 %]
 [% INSERT registration/user_work_details.tt2 %]
-[% INSERT registration/user_agree.tt2 %]
+[% INCLUDE registration/user_agree.tt2 %]
 	  <input type="submit" value="Submit" ng-disabled="newUser.$invalid">
       </div><!-- end controls div -->
     </form>
