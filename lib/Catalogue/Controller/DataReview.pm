@@ -101,6 +101,7 @@ sub identifiers_approve :Chained('object') :PathPart('identifiers_approve') :Arg
 	$identifiers_approval);
     my $identifiers_history = $c->model('DB::ApprovalIdentifiersHistory')->create(
 	$identifiers_approval);
+    $data_request->update({ status_id => 4});
     
     my $data_items = {};
     my @columns = $data_request->columns;
@@ -158,6 +159,7 @@ sub research_approve :Chained('object') :PathPart('research_approve') :Args(0) {
 	$research_approval);
     my $research_history = $c->model('DB::ApprovalResearchHistory')->create(
 	$research_approval);
+    $data_request->update({ status_id => 4});
 
     my $data_items = {};
     my @columns = $data_request->columns;
@@ -215,6 +217,7 @@ sub service_approve :Chained('object') :PathPart('service_approve') :Args(0) {
 	$service_approval);
     my $approval_history = $c->model('DB::ApprovalServiceHistory')->create(
 	$service_approval);
+    $data_request->update({ status_id => 4});
 
     my $data_items = {};
     my @columns = $data_request->columns;
@@ -271,6 +274,7 @@ sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0)
 	$requestor_approval);
     my $approval_history = $c->model('DB::ApprovalRequestorHistory')->create(
 	$requestor_approval);
+    $data_request->update({ status_id => 4});
 
     my $data_items = {};
     my @columns = $data_request->columns;
