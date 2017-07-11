@@ -1,6 +1,8 @@
 [% META title = 'Review Data Request' %]
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
+[% IF request.status_id < 4 %]
 <a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a>
+[% END %]
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 <p class="lead">Requestor Details</p>
       <dl class="row">

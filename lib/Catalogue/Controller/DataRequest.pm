@@ -309,6 +309,8 @@ Edit an open request
 sub request_edit :Chained('object') :Args() {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
+    $c->detach('/error_noperms') unless 
+      $c->stash->{object}->status_id < 4;
     my $user = $data_request->user;
     my $request = { 
 	id => $data_request->id,
