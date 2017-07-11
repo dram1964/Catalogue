@@ -1,5 +1,3 @@
-
-	<label>This is the panel for Public Health Requests</label>
         <div class="form-group">
 <label>Sponsoring Organisation</label>
 <input type="textarea" name="sponsor" ng-model="ctrl.data.sponsor"

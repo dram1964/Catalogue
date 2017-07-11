@@ -1,5 +1,3 @@
-
-	<label>This is the panel for Educational Data</label>
         <div class="form-group">
 <label>Educational Institution</label>
 <input type="textarea" name="organisation" ng-model="ctrl.data.organisation"
