@@ -163,6 +163,10 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $parameters = $c->request->body_parameters;
    my $dr = {
 	user_id => $requestor->id,
+	request_type_id => $parameters->{requestType},
+	status_id => $parameters->{Submit},
+   };
+=comment
 	cardiology_details => $parameters->{cardiologyDetails},
 	chemotherapy_details => $parameters->{chemotherapyDetails},
 	diagnosis_details => $parameters->{diagnosisDetails},
@@ -172,10 +176,14 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	pharmacy_details => $parameters->{pharmacyDetails},
 	radiology_details => $parameters->{radiologyDetails},
 	theatre_details => $parameters->{theatreDetails},
-	request_type_id => $parameters->{requestType},
-	status_id => $parameters->{Submit},
-   };
+=cut
    my $data_request = $c->model('DB::DataRequest')->create($dr);
+
+   my $pathology_details = $c->model('DB::DataRequestDetail')->create({
+	data_request_id => $data_request->id,
+	data_category => 6,
+	detail => $parameters->{pathologyDetails}, 
+   });
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
@@ -198,7 +206,6 @@ $c->log->debug("*** Before:" . $self->{identifiers} . " ***");
 	  population => $parameters->{"population" . $request_type},
    };
 
-$c->log->debug("*** After:" . $self->{identifiers} . " ***");
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
 
    my $request_history = $c->model('DB::RequestHistory')->create({

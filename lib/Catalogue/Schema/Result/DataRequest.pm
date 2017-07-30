@@ -54,51 +54,6 @@ __PACKAGE__->table("data_request");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 cardiology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 chemotherapy_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 diagnosis_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 episode_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 other_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 pathology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 pharmacy_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 radiology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 theatre_details
-
-  data_type: 'text'
-  is_nullable: 1
-
 =head2 request_type_id
 
   data_type: 'integer'
@@ -125,24 +80,6 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "user_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "cardiology_details",
-  { data_type => "text", is_nullable => 1 },
-  "chemotherapy_details",
-  { data_type => "text", is_nullable => 1 },
-  "diagnosis_details",
-  { data_type => "text", is_nullable => 1 },
-  "episode_details",
-  { data_type => "text", is_nullable => 1 },
-  "other_details",
-  { data_type => "text", is_nullable => 1 },
-  "pathology_details",
-  { data_type => "text", is_nullable => 1 },
-  "pharmacy_details",
-  { data_type => "text", is_nullable => 1 },
-  "radiology_details",
-  { data_type => "text", is_nullable => 1 },
-  "theatre_details",
-  { data_type => "text", is_nullable => 1 },
   "request_type_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "status_id",
@@ -245,6 +182,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 data_request_details
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::DataRequestDetail>
+
+=cut
+
+__PACKAGE__->has_many(
+  "data_request_details",
+  "Catalogue::Schema::Result::DataRequestDetail",
+  { "foreign.data_request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 request_type
 
 Type: belongs_to
@@ -291,8 +243,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 18:35:18
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zc5+zOKGATxUTlAJgW01pg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:15:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a6ipFx8XQulJMKAIjf44ZA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
