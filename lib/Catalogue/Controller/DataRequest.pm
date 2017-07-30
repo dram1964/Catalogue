@@ -179,11 +179,13 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 =cut
    my $data_request = $c->model('DB::DataRequest')->create($dr);
 
-   my $pathology_details = $c->model('DB::DataRequestDetail')->create({
+   if ($parameters->{pathology} = 'on') {
+     my $pathology_details = $c->model('DB::DataRequestDetail')->create({
 	data_request_id => $data_request->id,
 	data_category => 6,
 	detail => $parameters->{pathologyDetails}, 
-   });
+     });
+   }
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
