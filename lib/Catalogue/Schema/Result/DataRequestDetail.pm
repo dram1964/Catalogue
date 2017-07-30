@@ -42,12 +42,6 @@ __PACKAGE__->table("data_request_detail");
 
 =head1 ACCESSORS
 
-=head2 id
-
-  data_type: 'integer'
-  is_auto_increment: 1
-  is_nullable: 0
-
 =head2 data_request_id
 
   data_type: 'integer'
@@ -68,8 +62,6 @@ __PACKAGE__->table("data_request_detail");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "data_request_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "data_category",
@@ -82,13 +74,15 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</id>
+=item * L</data_request_id>
+
+=item * L</data_category>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key("data_request_id", "data_category");
 
 =head1 RELATIONS
 
@@ -123,8 +117,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:15:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RfFesfGZ8qisRsXyI2z/Bg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:46:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yo/Fz5FRqCDOoqPLOSqQhw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
