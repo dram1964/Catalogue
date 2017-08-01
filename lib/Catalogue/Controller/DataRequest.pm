@@ -314,6 +314,26 @@ sub request_edit :Chained('object') :Args() {
     $c->detach('/error_noperms') unless 
       $c->stash->{object}->status_id < 4;
     my $user = $data_request->user;
+
+    my $data_categorys_rs = $c->model('DB::DataCategory');
+    my $data_categorys = [$data_categorys_rs->all];
+
+    my $data = {};
+    my $request_details = [$data_request->data_request_details];
+    for my $detail (@$request_details) {
+	my $data_category = $data_categorys_rs->find({id => $detail->data_category_id});
+        $data->{$data_category->category . 'Details'} = $detail->detail;
+    }
+    $data->{requestType} = $data_request->request_type_id;
+    my $request = { 
+	id => $data_request->id,
+	user => {firstName => $user->first_name,
+	    lastName => $user->last_name
+	},
+        data => $data,
+    };
+    
+=old
     my $request = { 
 	id => $data_request->id,
 	user => {firstName => $user->first_name,
@@ -331,6 +351,7 @@ sub request_edit :Chained('object') :Args() {
 	    requestType => $data_request->request_type_id,
 	},
     };
+=cut 
     my $request_types = [$c->model('DB::RequestType')->all];
 
     my $dh_rs = $c->model('DB::DataHandling')->search({
@@ -364,6 +385,7 @@ sub request_edit :Chained('object') :Args() {
     }
 
     $c->stash(
+      data_categorys => $data_categorys,
       requestor => $user,
       request_types => $request_types,
       request => $request,
