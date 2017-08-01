@@ -79,22 +79,9 @@ allow current user to view data request submitted by self
 =cut
 
 sub review :Chained('object') :PathPart('review') :Args(0) {
-    my ($self, $c) = @_;
-    my $data_request = $c->stash->{object};
-    my $data_items = {};
-=old
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
-    }
-=cut
+   my ($self, $c) = @_;
+   my $data_request = $c->stash->{object};
+   my $data_items = {};
    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
 	data_request_id => $data_request->id});
 
@@ -184,13 +171,11 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $data_categorys_rs = $c->model('DB::DataCategory');
 
    while (my $row = $data_categorys_rs->next) {
-	my $category = $row->category;
-	my $id = $row->id;
-	if ($parameters->{$category} eq 'on') {
+	if ($parameters->{$row->category} eq 'on') {
 	    $c->model('DB::DataRequestDetail')->create({
 		data_request_id => $data_request->id,
-		data_category_id => $id,
-		detail => $parameters->{$category . "Details"}, 
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"}, 
 	     });
 	   }
    }
@@ -198,7 +183,6 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-$c->log->debug("*** Before:" . $self->{identifiers} . " ***");
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
