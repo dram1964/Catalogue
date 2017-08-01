@@ -128,9 +128,11 @@ sub request :Path('request') :Args(0) {
     });
 
     my $request_types = [$c->model('DB::RequestType')->all];
+    my $data_categorys = [$c->model('DB::DataCategory')->all];
     $c->stash(
       requestor => $requestor,
       request_types => $request_types,
+      data_categorys => $data_categorys,
       template => 'datarequest/request.tt2');
 }
 
@@ -166,26 +168,22 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
    };
-=comment
-	cardiology_details => $parameters->{cardiologyDetails},
-	chemotherapy_details => $parameters->{chemotherapyDetails},
-	diagnosis_details => $parameters->{diagnosisDetails},
-	episode_details => $parameters->{episodeDetails},
-	other_details => $parameters->{otherDetails},
-	pathology_details => $parameters->{pathologyDetails} ,
-	pharmacy_details => $parameters->{pharmacyDetails},
-	radiology_details => $parameters->{radiologyDetails},
-	theatre_details => $parameters->{theatreDetails},
-=cut
    my $data_request = $c->model('DB::DataRequest')->create($dr);
 
-   if ($parameters->{pathology} = 'on') {
-     my $pathology_details = $c->model('DB::DataRequestDetail')->create({
-	data_request_id => $data_request->id,
-	data_category => 6,
-	detail => $parameters->{pathologyDetails}, 
-     });
+   my $data_categorys_rs = $c->model('DB::DataCategory');
+
+   while (my $row = $data_categorys_rs->next) {
+	my $category = $row->category;
+	my $id = $row->id;
+	if ($parameters->{$category} eq 'on') {
+	    $c->model('DB::DataRequestDetail')->create({
+		data_request_id => $data_request->id,
+		data_category => $id,
+		detail => $parameters->{$category . "Details"}, 
+	     });
+	   }
    }
+
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
