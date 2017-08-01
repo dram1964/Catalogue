@@ -21,7 +21,20 @@ angular.module('datarequest', [])
 		'chemotherapy' : false, 
 		'other' : true, 
 		'otherDetails' : 'Outstanding PPI claims',
-		'requestType' : 1
+		'requestType' : 1,
+		'recApproval' : 1,
+		'consent' : 1,
+		'researchArea' : 'CardioPulmonary Obtusion',
+		'objective1' : 'Study Effects of Beetroot diet',
+		'population1' : 'Subjects recruited to XYZ study',
+		'identifiable1' : 1,
+		'identifiers' : {'ptName' : 1, 'ptNumber' : 1},
+		'identifiableSpecification1' : 'National Insurance Number',
+		'publish1' : 1,
+		'publishIdSpecification1' : 'Daily Star',
+		'storing1' : 'UCLH Computers',
+		'completion1' : 'Deleting data permanently',
+		'additional1' : 'More info to follow...'
 	  };
     };
 
