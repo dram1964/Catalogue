@@ -48,7 +48,7 @@ __PACKAGE__->table("data_request_detail");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 data_category
+=head2 data_category_id
 
   data_type: 'integer'
   is_foreign_key: 1
@@ -64,7 +64,7 @@ __PACKAGE__->table("data_request_detail");
 __PACKAGE__->add_columns(
   "data_request_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
-  "data_category",
+  "data_category_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "detail",
   { data_type => "text", is_nullable => 1 },
@@ -76,13 +76,13 @@ __PACKAGE__->add_columns(
 
 =item * L</data_request_id>
 
-=item * L</data_category>
+=item * L</data_category_id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("data_request_id", "data_category");
+__PACKAGE__->set_primary_key("data_request_id", "data_category_id");
 
 =head1 RELATIONS
 
@@ -97,7 +97,7 @@ Related object: L<Catalogue::Schema::Result::DataCategory>
 __PACKAGE__->belongs_to(
   "data_category",
   "Catalogue::Schema::Result::DataCategory",
-  { id => "data_category" },
+  { id => "data_category_id" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
@@ -117,8 +117,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:46:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yo/Fz5FRqCDOoqPLOSqQhw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-01 22:00:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+7vpFVvmxpKbmk3aEcCc8w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

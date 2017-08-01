@@ -88,13 +88,13 @@ Related object: L<Catalogue::Schema::Result::DataRequestDetail>
 __PACKAGE__->has_many(
   "data_request_details",
   "Catalogue::Schema::Result::DataRequestDetail",
-  { "foreign.data_category" => "self.id" },
+  { "foreign.data_category_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:15:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hCI9gGSque+N9+Glg80xbA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-01 22:00:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yzSSnAtnSlfKkFvP94QDpA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

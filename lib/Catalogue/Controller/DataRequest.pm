@@ -82,6 +82,7 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
     my $data_items = {};
+=old
     my @columns = $data_request->columns;
     for my $key (@columns) {
       if ($key =~ /_details/) {
@@ -93,6 +94,16 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	}
       }
     }
+=cut
+   my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+
+   while (my $row = $data_request_details_rs->next) {
+     my $friendly_key = $row->data_category->category;
+     $friendly_key =~ s/^([a-z])/\u$1/;
+     $data_items->{$friendly_key} = $row->detail;
+
+   }
 
    my $requestor_rs = $c->model('DB::User')->search({
 	username => $data_request->user->username
@@ -178,7 +189,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	if ($parameters->{$category} eq 'on') {
 	    $c->model('DB::DataRequestDetail')->create({
 		data_request_id => $data_request->id,
-		data_category => $id,
+		data_category_id => $id,
 		detail => $parameters->{$category . "Details"}, 
 	     });
 	   }
