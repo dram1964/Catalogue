@@ -153,6 +153,7 @@ sub _identifiers () {
 =head2 ng_request_submitted
 
 Submits data request to database
+Needs logic to update request_history
 
 =cut
 
@@ -223,6 +224,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 =head2 update_request
 
 submit request update
+Needs logic to update request_history
 
 =cut
 
@@ -240,33 +242,22 @@ sub update_request :Chained('object') :Args() {
 	
    };
    $data_request->update($dr);
-   my $dr_details = {
-	cardiology => $parameters->{cardiologyDetails},
-	chemotherapy => $parameters->{chemotherapyDetails},
-	diagnosis => $parameters->{diagnosisDetails},
-	episode => $parameters->{episodeDetails},
-	pathology => $parameters->{pathologyDetails},
-	pharmacy => $parameters->{pharmacyDetails},
-	radiology => $parameters->{radiologyDetails},
-	theatre => $parameters->{theatreDetails},
-   };
    my $data_categorys_rs = $c->model('DB::DataCategory');
- 
-   for my $key (keys %$dr_details) {
-	my $category = $data_categorys_rs->search({
-		category => $key });
-        if (defined $dr_details->{$key}) {
+
+   while (my $row = $data_categorys_rs->next) {
+	if ($parameters->{$row->category} eq 'on') {
 	    $c->model('DB::DataRequestDetail')->update_or_create({
-	      data_request_id => $data_request->id,
-	      data_category_id => $category->first->id,
-	      detail => $dr_details->{$key},
-            });
-        } else {
-	   $c->model('DB::DateRequestDetail')->delete({
-	      data_request_id => $data_request->id,
-	      data_category_id => $category->first->id,
-	   });
-        }
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"}, 
+	     });
+	} else {
+	    my $request_detail_rs = $c->model('DB::DataRequestDetail')->search({
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+	    });
+	    $request_detail_rs->delete;
+	}
    }
    
 
