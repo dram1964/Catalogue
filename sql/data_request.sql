@@ -41,3 +41,36 @@ CONSTRAINT status_type_fk FOREIGN KEY (status_id) REFERENCES request_status (id)
 CONSTRAINT request_type_fk FOREIGN KEY (request_type_id) REFERENCES request_type (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS request_detail_history;
+DROP TABLE IF EXISTS request_history;
+
+CREATE TABLE request_history (
+  request_id int(11) NOT NULL,
+  user_id int(11) NOT NULL,
+  request_type_id int(11) DEFAULT NULL,
+  status_id int(11) DEFAULT NULL,
+  status_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  identifiable int(11) DEFAULT NULL,
+  identifiers text,
+  additional_identifiers text,
+  publish int(11) DEFAULT NULL,
+  publish_to text,
+  storing text,
+  completion text,
+  additional_info text,
+  objective text,
+  service_area text,
+  population text,
+  research_area text,
+  rec_approval text,
+  consent text,
+  PRIMARY KEY (request_id,status_date)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE request_detail_history (
+  data_request_id int NOT NULL, 
+  data_category_id int NOT NULL,
+  status_date timestamp NOT NULL,
+  detail text,
+  PRIMARY KEY (data_request_id, data_category_id, status_date)
+);

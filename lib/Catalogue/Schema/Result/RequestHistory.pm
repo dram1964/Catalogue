@@ -52,51 +52,6 @@ __PACKAGE__->table("request_history");
   data_type: 'integer'
   is_nullable: 0
 
-=head2 cardiology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 chemotherapy_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 diagnosis_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 episode_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 other_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 pathology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 pharmacy_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 radiology_details
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 theatre_details
-
-  data_type: 'text'
-  is_nullable: 1
-
 =head2 request_type_id
 
   data_type: 'integer'
@@ -191,24 +146,6 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 0 },
   "user_id",
   { data_type => "integer", is_nullable => 0 },
-  "cardiology_details",
-  { data_type => "text", is_nullable => 1 },
-  "chemotherapy_details",
-  { data_type => "text", is_nullable => 1 },
-  "diagnosis_details",
-  { data_type => "text", is_nullable => 1 },
-  "episode_details",
-  { data_type => "text", is_nullable => 1 },
-  "other_details",
-  { data_type => "text", is_nullable => 1 },
-  "pathology_details",
-  { data_type => "text", is_nullable => 1 },
-  "pharmacy_details",
-  { data_type => "text", is_nullable => 1 },
-  "radiology_details",
-  { data_type => "text", is_nullable => 1 },
-  "theatre_details",
-  { data_type => "text", is_nullable => 1 },
   "request_type_id",
   { data_type => "integer", is_nullable => 1 },
   "status_id",
@@ -265,8 +202,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-10 10:31:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:x90UCi4crxCzkzsR9w3YUQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-04 18:54:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nToih5/6imXjCcA4rwcm5w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
