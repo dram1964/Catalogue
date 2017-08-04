@@ -46,15 +46,14 @@ if (typeof request !== 'undefined') {
     self.user = request.user;
     if (typeof request.data !== 'undefined') {
 	    self.data = request.data;
-	    self.data.pathology = self.data.pathologyDetails == '' ? false : true;
-	    self.data.diagnosis = self.data.diagnosisDetails == '' ? false : true;
-	    self.data.radiology = self.data.radiologyDetails == '' ? false : true;
-	    self.data.pharmacy = self.data.pharmacyDetails == '' ? false : true;
-	    self.data.episode = self.data.episodeDetails == '' ? false : true;
-	    self.data.theatre = self.data.theatreDetails == '' ? false : true;
-	    self.data.cardiology = self.data.cardiologyDetails == '' ? false : true;
-	    self.data.chemotherapy = self.data.chemotherapyDetails == '' ? false : true;
-	    self.data.other = self.data.otherDetails == '' ? false : true;
+            if (self.data.pathologyDetails) { self.data.pathology = true; }
+            if (self.data.diagnosisDetails) { self.data.diagnosis = true; }
+            if (self.data.radiologyDetails) { self.data.radiology = true; }
+            if (self.data.pharmacyDetails) { self.data.pharmacy = true; }
+            if (self.data.episodeDetails) { self.data.episode = true; }
+            if (self.data.theatreDetails) { self.data.theatre = true; }
+            if (self.data.cardiologyDetails) { self.data.cardiology = true; }
+            if (self.data.chemotherapyDetails) { self.data.chemotherapy = true; }
    } else {
 	    self.data = {'pathology' : false,
 		'diagnosis' : false,
@@ -64,7 +63,6 @@ if (typeof request !== 'undefined') {
 		'theatre' : false,
 		'cardiology' : false,
 		'chemotherapy' : false,
-		'other' : false
 	    };
    }
 }

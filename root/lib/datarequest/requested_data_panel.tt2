@@ -7,7 +7,7 @@
 [% category = row.category %]
 	<div class="row">
 	  <label for="[% category %]">[% category %] Data</label>
-	  <input type="checkbox" ng-model="ctrl.data.[% category %]" name="[% category %]" >
+	  <input type="checkbox" ng-checked="ctrl.data.[% category %] == true" ng-model="ctrl.data.[% category %]" name="[% category %]" >
         </div><!-- end row -->
 	<div class="row" ng-show="ctrl.data.[% category %]">	
 	  <div class="col-md-12">

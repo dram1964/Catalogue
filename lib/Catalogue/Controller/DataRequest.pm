@@ -234,21 +234,41 @@ sub update_request :Chained('object') :Args() {
    my $data_request = $c->stash->{object};
    my $dr = {
 	user_id => $requestor->id,
-	cardiology_details => $parameters->{cardiologyDetails},
-	chemotherapy_details => $parameters->{chemotherapyDetails},
-	diagnosis_details => $parameters->{diagnosisDetails},
-	episode_details => $parameters->{episodeDetails},
-	other_details => $parameters->{otherDetails},
-	pathology_details => $parameters->{pathologyDetails},
-	pharmacy_details => $parameters->{pharmacyDetails},
-	radiology_details => $parameters->{radiologyDetails},
-	theatre_details => $parameters->{theatreDetails},
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
         status_date => undef,
 	
    };
    $data_request->update($dr);
+   my $dr_details = {
+	cardiology => $parameters->{cardiologyDetails},
+	chemotherapy => $parameters->{chemotherapyDetails},
+	diagnosis => $parameters->{diagnosisDetails},
+	episode => $parameters->{episodeDetails},
+	pathology => $parameters->{pathologyDetails},
+	pharmacy => $parameters->{pharmacyDetails},
+	radiology => $parameters->{radiologyDetails},
+	theatre => $parameters->{theatreDetails},
+   };
+   my $data_categorys_rs = $c->model('DB::DataCategory');
+ 
+   for my $key (keys %$dr_details) {
+	my $category = $data_categorys_rs->search({
+		category => $key });
+        if (defined $dr_details->{$key}) {
+	    $c->model('DB::DataRequestDetail')->update_or_create({
+	      data_request_id => $data_request->id,
+	      data_category_id => $category->first->id,
+	      detail => $dr_details->{$key},
+            });
+        } else {
+	   $c->model('DB::DateRequestDetail')->delete({
+	      data_request_id => $data_request->id,
+	      data_category_id => $category->first->id,
+	   });
+        }
+   }
+   
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
