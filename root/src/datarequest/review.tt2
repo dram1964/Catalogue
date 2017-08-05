@@ -58,11 +58,11 @@
     <dd class="col-sm-8 text-left">[% dh.identifiers || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Additional Identifiers: </dt>
     <dd class="col-sm-8 text-left">[% dh.additional_identifiers || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Identifiers Published to: </dt>
+    <dd class="col-sm-8 text-left">[% dh.publish_to || "&nbsp;" %]</dd>
   [% ELSE %]
     <dd class="col-sm-8 text-left">Error: Out of range. Identifiable = [% dh.identifiable  %]</dd>
   [% END %]
-    <dt class="col-sm-4 text-left">Identifiers Published to: </dt>
-    <dd class="col-sm-8 text-left">[% dh.publish_to || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Data Processed on: </dt>
     <dd class="col-sm-8 text-left">[% dh.storing || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Disposal of data: </dt>
