@@ -104,29 +104,27 @@ sub identifiers_approve :Chained('object') :PathPart('identifiers_approve') :Arg
     $data_request->update({ status_id => 4});
     
     my $data_items = {};
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
-   });
-   my $requestor = $requestor_rs->first;
+    });
+    my $requestor = $requestor_rs->first;
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
+    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+    });
+    my $dh = $dh_rs->first;
 
-   $c->stash(
+    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
@@ -162,29 +160,27 @@ sub research_approve :Chained('object') :PathPart('research_approve') :Args(0) {
     $data_request->update({ status_id => 4});
 
     my $data_items = {};
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
-   });
-   my $requestor = $requestor_rs->first;
+    });
+    my $requestor = $requestor_rs->first;
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
+    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+    });
+    my $dh = $dh_rs->first;
 
-   $c->stash(
+    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
@@ -220,29 +216,27 @@ sub service_approve :Chained('object') :PathPart('service_approve') :Args(0) {
     $data_request->update({ status_id => 4});
 
     my $data_items = {};
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
-   });
-   my $requestor = $requestor_rs->first;
+    });
+    my $requestor = $requestor_rs->first;
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
+    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+    });
+    my $dh = $dh_rs->first;
 
-   $c->stash(
+    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
@@ -277,29 +271,27 @@ sub requestor_approve :Chained('object') :PathPart('requestor_approve') :Args(0)
     $data_request->update({ status_id => 4});
 
     my $data_items = {};
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
-   });
-   my $requestor = $requestor_rs->first;
+    });
+    my $requestor = $requestor_rs->first;
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
+    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+    });
+    my $dh = $dh_rs->first;
 
-   $c->stash(
+    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
@@ -326,29 +318,27 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	$c->detach;
     }
     my $data_items = {};
-    my @columns = $data_request->columns;
-    for my $key (@columns) {
-      if ($key =~ /_details/) {
-	if ($data_request->$key) {
-	  my $friendly_key = $key;
-	  $friendly_key =~ s/^([a-z])/\u$1/;
-	  $friendly_key =~ s/_details//;
-	  $data_items->{$friendly_key} = $data_request->$key;
-	}
-      }
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
     }
 
-   my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
-   });
-   my $requestor = $requestor_rs->first;
+    });
+    my $requestor = $requestor_rs->first;
 
-   my $dh_rs = $c->model('DB::DataHandling')->search({
+    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
-   });
-   my $dh = $dh_rs->first;
+    });
+    my $dh = $dh_rs->first;
 
-   $c->stash(
+    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
