@@ -314,6 +314,19 @@ sub update_request :Chained('object') :Args() {
 
    my $request_history = $c->model('DB::RequestHistory')->create({
 	%$dr, %$dh });
+   
+   my $request_details_rs = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+
+   while (my $request_detail = $request_details_rs->next) {
+	$c->model('DB::RequestDetailHistory')->create({
+		data_request_id => $request_detail->data_request_id,
+		data_category_id => $request_detail->data_category_id,
+		status_date => $data_request->status_date,
+		detail => $request_detail->detail,
+	});
+   }
+
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
 
    $c->stash(
@@ -355,25 +368,6 @@ sub request_edit :Chained('object') :Args() {
         data => $data,
     };
     
-=old
-    my $request = { 
-	id => $data_request->id,
-	user => {firstName => $user->first_name,
-	    lastName => $user->last_name
-	},
-	data => { pathologyDetails => $data_request->pathology_details,
-	    diagnosisDetails => $data_request->diagnosis_details,
-	    radiologyDetails => $data_request->radiology_details,
-	    pharmacyDetails => $data_request->pharmacy_details,
-	    episodeDetails => $data_request->episode_details,
-	    theatreDetails => $data_request->theatre_details,
-	    cardiologyDetails => $data_request->cardiology_details,
-	    chemotherapyDetails => $data_request->chemotherapy_details,
-	    otherDetails => $data_request->other_details,
-	    requestType => $data_request->request_type_id,
-	},
-    };
-=cut 
     my $request_types = [$c->model('DB::RequestType')->all];
 
     my $dh_rs = $c->model('DB::DataHandling')->search({
