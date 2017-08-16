@@ -90,6 +90,36 @@ sub update :Chained('object') :PathPart('update') :Args(0) {
      );
 }
 
+=head2 change_password
+
+allows user to change their password
+
+=cut
+
+sub change_password :Chained('object') :PathPart('change_password') :Args(0) {
+    my ($self, $c) = @_;
+    my $profile = $c->stash->{object};
+    my $username = $profile->username;
+    my $password = $c->request->params->{password};
+
+    $c->log->debug("*** Current Password: " . $profile->password . "****");
+    $c->log->debug("*** Entered Password: " . $password . "****");
+
+    if ($c->authenticate({ username => $username,
+				password => $password }) ) {
+        $profile->update({password => $c->req->params->{password1}});
+        $c->stash(status_msg => 'Password Updated');
+    } else {
+	$c->stash(error_msg => 'Password Not Updated: Incorrect Current Password');
+    }
+   
+     $c->stash(
+	template => 'profile/show.tt2',
+	user => $profile,
+     );
+}
+
+
 
 
 =encoding utf8
