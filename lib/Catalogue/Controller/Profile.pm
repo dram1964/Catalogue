@@ -102,9 +102,6 @@ sub change_password :Chained('object') :PathPart('change_password') :Args(0) {
     my $username = $profile->username;
     my $password = $c->request->params->{password};
 
-    $c->log->debug("*** Current Password: " . $profile->password . "****");
-    $c->log->debug("*** Entered Password: " . $password . "****");
-
     if ($c->authenticate({ username => $username,
 				password => $password }) ) {
         $profile->update({password => $c->req->params->{password1}});
