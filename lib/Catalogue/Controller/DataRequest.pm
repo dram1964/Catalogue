@@ -118,9 +118,9 @@ Displays a form for requesting data
 
 sub request :Path('request') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->model('DB::DataRequest')->new({})->request_allowed_by($c->user->get_object);
     my $user = $c->user->get_object;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::DataRequest')->new({})->request_allowed_by($user);
     my $requestor = $c->model('DB::User')->find({
 	id => $user->id,
     });
