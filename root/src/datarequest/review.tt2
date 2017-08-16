@@ -36,14 +36,14 @@
     <dd class="col-sm-8 text-left">[% request.request_type.description %]</dd>
   [% IF dh.request.request_type_id == 2 %]
     <dt class="col-sm-4 text-left">Service Area: </dt>
-    <dd class="col-sm-8 text-left">[% dh.service_area || "&nbsp;" %]</dd>
+    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
   [% ELSIF dh.request.request_type_id == 1 %]
     <dt class="col-sm-4 text-left">REC Approval: </dt>
     <dd class="col-sm-8 text-left">[% dh.rec_approval || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Patient Consent: </dt>
     <dd class="col-sm-8 text-left">[% dh.consent || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Research Area: </dt>
-    <dd class="col-sm-8 text-left">[% dh.research_area || "&nbsp;" %]</dd>
+    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
   [% END %]
     <dt class="col-sm-4 text-left">Objective: </dt>
     <dd class="col-sm-8 text-left">[% dh.objective || "&nbsp;" %]</dd>

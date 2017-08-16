@@ -3,7 +3,7 @@
 [% ELSE %]
 <div class="panel panel-warning">
 [% END %]
-  <div class="panel-heading">Research Area: [% dh.research_area %]</div>
+  <div class="panel-heading">Research Area: [% dh.area %]</div>
   <div class="panel-body">
   <p class="lead">Research Objective: [% dh.objective %]</p>
 	<form action="[% c.uri_for(c.controller.action_for('research_approve'), [request.id]) %]" method="post">

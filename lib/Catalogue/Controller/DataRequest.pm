@@ -187,10 +187,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
-	  service_area => $parameters->{serviceArea},
-	  research_area => $parameters->{researchArea},
-          rec_approval => $parameters->{recApproval},
-	  consent => $parameters->{consent},
+	  area => $parameters->{"area" . $request_type},
 	  identifiable => $parameters->{"identifiable" . $request_type},
 	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
 	  publish => $parameters->{"publish" . $request_type},
@@ -200,6 +197,8 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	  additional_info => $parameters->{"additional" . $request_type},
           objective => $parameters->{"objective" . $request_type},
 	  population => $parameters->{"population" . $request_type},
+          rec_approval => $parameters->{recApproval},
+	  consent => $parameters->{consent},
    };
 
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
@@ -276,10 +275,7 @@ sub update_request :Chained('object') :Args() {
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
    my $dh = {
      request_id => $data_request->id,
-     service_area => $parameters->{serviceArea},
-     research_area => $parameters->{researchArea},
-     rec_approval => $parameters->{recApproval},
-     consent => $parameters->{consent},
+     area => $parameters->{"area" . $request_type},
      identifiable => $parameters->{"identifiable" . $request_type},
      publish => $parameters->{"publish" . $request_type},
      storing => $parameters->{"storing" . $request_type},
@@ -287,6 +283,8 @@ sub update_request :Chained('object') :Args() {
      additional_info => $parameters->{"additional" . $request_type},
      objective => $parameters->{"objective" . $request_type},
      population => $parameters->{"population" . $request_type},
+     rec_approval => $parameters->{recApproval},
+     consent => $parameters->{consent},
    };
 
    if ($dh->{identifiable} eq "1") {
@@ -394,8 +392,7 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
 	$request->{data}->{"population" . $request_type} = $dh->population;
-	  $request->{data}->{serviceArea} = $dh->service_area;
-	  $request->{data}->{researchArea} = $dh->research_area;
+	  $request->{data}->{"area" . $request_type} = $dh->area;
 	  $request->{data}->{recApproval} = $dh->rec_approval;
 	  $request->{data}->{consent} = $dh->consent;
     }

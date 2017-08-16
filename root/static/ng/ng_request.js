@@ -24,7 +24,7 @@ angular.module('datarequest', [])
 		'requestType' : 1,
 		'recApproval' : 1,
 		'consent' : 1,
-		'researchArea' : 'CardioPulmonary Obtusion',
+		'area1' : 'CardioPulmonary Obtusion',
 		'objective1' : 'Study Effects of Beetroot diet',
 		'population1' : 'Subjects recruited to XYZ study',
 		'identifiable1' : 1,

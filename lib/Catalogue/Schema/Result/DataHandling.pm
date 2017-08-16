@@ -99,17 +99,12 @@ __PACKAGE__->table("data_handling");
   data_type: 'text'
   is_nullable: 1
 
-=head2 service_area
+=head2 area
 
   data_type: 'text'
   is_nullable: 1
 
 =head2 population
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 research_area
 
   data_type: 'text'
   is_nullable: 1
@@ -149,11 +144,9 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "objective",
   { data_type => "text", is_nullable => 1 },
-  "service_area",
+  "area",
   { data_type => "text", is_nullable => 1 },
   "population",
-  { data_type => "text", is_nullable => 1 },
-  "research_area",
   { data_type => "text", is_nullable => 1 },
   "rec_approval",
   { data_type => "text", is_nullable => 1 },
@@ -191,8 +184,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-06-28 11:37:50
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AIl9Rq62DfjHa0XxoebRtw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-16 09:31:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P17sm0rCp34dlwIp9EIPjw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

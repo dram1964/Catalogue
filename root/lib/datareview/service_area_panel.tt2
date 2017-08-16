@@ -3,7 +3,7 @@
 [% ELSE %]
 <div class="panel panel-warning">
 [% END %]
-  <div class="panel-heading">Service Area: [% dh.service_area %]</div>
+  <div class="panel-heading">Service Area: [% dh.area %]</div>
   <div class="panel-body">
 	<p class="lead">Service Objective: [% dh.objective %]
 	<form action="[% c.uri_for(c.controller.action_for('service_approve'), [request.id]) %]" method="post">

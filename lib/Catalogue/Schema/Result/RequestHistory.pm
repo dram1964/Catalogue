@@ -114,17 +114,12 @@ __PACKAGE__->table("request_history");
   data_type: 'text'
   is_nullable: 1
 
-=head2 service_area
+=head2 area
 
   data_type: 'text'
   is_nullable: 1
 
 =head2 population
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 research_area
 
   data_type: 'text'
   is_nullable: 1
@@ -175,11 +170,9 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "objective",
   { data_type => "text", is_nullable => 1 },
-  "service_area",
+  "area",
   { data_type => "text", is_nullable => 1 },
   "population",
-  { data_type => "text", is_nullable => 1 },
-  "research_area",
   { data_type => "text", is_nullable => 1 },
   "rec_approval",
   { data_type => "text", is_nullable => 1 },
@@ -202,8 +195,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-04 18:54:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nToih5/6imXjCcA4rwcm5w
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-16 10:47:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WA4SL3yFa8kvT/1DV9AbAw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

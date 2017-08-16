@@ -1,6 +1,6 @@
         <div class="form-group">
 <label>Organisational Plan or Objective</label>
-<input type="textarea" name="planArea" ng-model="ctrl.data.planArea"
+<input type="textarea" name="area4" ng-model="ctrl.data.area4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
