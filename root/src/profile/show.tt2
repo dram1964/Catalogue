@@ -1,6 +1,6 @@
-<p>Template for editing your profile</p>
 <div class="form-group">
-  <form action="[% c.uri_for(c.controller.action_for('create_user_from_user'), [request.email_address]) %]" method="post">
+  <form action="[% c.uri_for(c.controller.action_for('update')) %]" method="post">
+<label>Your current profile:</label>
   <div class="row">
     <div class="col-md-6">
 	<label for="first_name">First Name</label>
@@ -54,25 +54,12 @@
 	<label>Mobile</label>
 	<input name="mobile" value="[% user.mobile %]" type="text" class="form-control" columns="0" rows="0" />
     </div>
-    <div class="col-md-12">
-      <fieldset>
-        <legend>Roles</legend>
-        <span class="form-control" title="Roles">
-          <span> <input name="role_user" type="checkbox" value="1" /> <label>user</label> </span>
-	  <span> <input name="role_curator" type="checkbox" value="2" /> <label>admin</label> </span>
-	  <span> <input name="role_admin" type="checkbox" value="3" /> <label>curator</label> </span>
-	  <span> <input name="role_user.r" type="checkbox" value="4" checked="checked"/> <label>requestor</label> </span>
-	</span>
-      </fieldset>
-    </div>
     <br>
     <br>
   <div><!-- end row div -->
   <div class="row">
     <div class="col-md-12">
-    [% UNLESS user.approved_by %]
-	<input name="submit" type="submit" value="Approve and Create User" class="btn btn-primary" />
-    [% END %]
+	<input name="Update" type="submit" value="Update" class="btn btn-primary" />
     </div>
   </div>
   </form>

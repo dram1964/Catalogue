@@ -27,6 +27,20 @@ sub index :Path :Args(0) {
     $c->response->body('Matched Catalogue::Controller::Profile in Profile.');
 }
 
+=head2 base
+
+Can place common logic to start a chained dispatch here
+
+=cut 
+
+sub object :Chained('/') :PathPart('profile') :CaptureArgs(0) {
+    my ($self, $c) = @_;
+    my $user = $c->user->get_object;
+    $c->stash(object => $c->model('DB::User')->find($user->id));
+
+    $c->load_status_msgs;
+}
+
 
 =head2 show
 
@@ -34,12 +48,46 @@ Shows current users profile data in form
 
 =cut
 
-sub show :Path('show') :Args(0) {
+sub show :Chained('object') :PathPart('show') :Args(0) {
     my ($self, $c) = @_;
-    my $user = $c->user->get_object;
-    my $profile = $c->model('DB::User')->find($user->id);
+    my $profile = $c->stash->{object};
     $c->stash(template => 'profile/show.tt2',
 	user => $profile);
+}
+
+=head2 update
+
+Updates the current user from form data submitted 
+
+=cut 
+
+sub update :Chained('object') :PathPart('update') :Args(0) {
+    my ($self, $c) = @_;
+    my $profile = $c->stash->{object};
+
+    my $registration = $c->request->params;
+
+    $profile->update({
+		email_address => $registration->{email_address},
+		first_name => $registration->{first_name},
+		last_name => $registration->{last_name},
+                job_title => $registration->{job_title},
+		department => $registration->{department},
+		organisation => $registration->{organisation},
+		address1 => $registration->{address1},
+		address2 => $registration->{address2},
+		address3 => $registration->{address3},
+		postcode => $registration->{postcode},
+		city => $registration->{city},
+		telephone => $registration->{telephone},
+		mobile => $registration->{mobile},
+	});
+
+     $c->stash(
+	template => 'profile/show.tt2',
+	user => $profile,
+	status_msg => 'Profile Updated'
+     );
 }
 
 
