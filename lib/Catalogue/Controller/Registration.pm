@@ -174,7 +174,7 @@ displays page for new users to register their details on angularised form
 
 =cut
 
-sub ng_new :Path('ng_new') :Args(0) {
+sub ng_new :Path('new') :Args(0) {
     my ( $self, $c ) = @_;
 
     if ($c->user_exists) {
@@ -182,7 +182,7 @@ sub ng_new :Path('ng_new') :Args(0) {
     }
 
     $c->stash(
-	template => 'registration/ng_new.tt2');
+	template => 'registration/new.tt2');
 }
 
 =head2 ng_new_submitted

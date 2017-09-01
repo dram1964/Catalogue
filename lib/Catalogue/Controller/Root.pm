@@ -41,7 +41,7 @@ The welcome page (/welcome)
 
 sub welcome :Path('welcome') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash(template => 'index.tt2');
+    $c->stash(template => 'welcome.tt2');
 }
 
 =head2 about
@@ -106,7 +106,7 @@ sub auto :Private {
     if ($c->request->path eq 'about') {
 	return 1;
     }
-    if ($c->request->path eq 'registration/ng_new') {
+    if ($c->request->path eq 'registration/new') {
 	return 1;
     }
     if ($c->request->path eq 'registration/ng_new_submitted') {
