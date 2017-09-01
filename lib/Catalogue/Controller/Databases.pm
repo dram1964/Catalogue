@@ -16,6 +16,17 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
+
+block access to all but curators and admins
+
+=cut 
+
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::CDatabase')->first->list_allowed_by($c->user->get_object);
+}
 
 =head2 index
 
@@ -23,7 +34,6 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
     $c->response->body('Matched Catalogue::Controller::Databases in Databases.');
 }
 

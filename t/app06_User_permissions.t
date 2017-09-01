@@ -11,8 +11,10 @@ my $page_title = 'The Clinical Research Informatics Data Catalogue';
 my $anon_ua = Test::WWW::Mechanize::Catalyst->new;
 my $user = Test::WWW::Mechanize::Catalyst->new;
 $user->get("/login?username=test01&password=mypass");
+my $requestor = Test::WWW::Mechanize::Catalyst->new;
+$requestor->get("/login?username=test02&password=mypass");
 my $curator = Test::WWW::Mechanize::Catalyst->new;
-$curator->get("/login?username=test02&password=mypass");
+$curator->get("/login?username=test03&password=mypass");
 my $admin = Test::WWW::Mechanize::Catalyst->new;
 $admin->get("/login?username=test03&password=mypass");
 
@@ -29,8 +31,19 @@ my $allowed_anon = {
 "/registration/ng_new" => "New User Registration",
 "/login" => "Please enter login details",
 "/datasets/list" => "Catalogue Datasets",
+"/about" => "This site is powered by Catalyst",
+"/contact" => "Metadata Catalogue Contacts List",
+"/help" => "Use your mouse to click "
 };
 
+while (my ($action, $response) = each %$allowed_anon) {
+    $anon_ua->get($action);
+    $anon_ua->content_contains($response,  "Anonymous allowed " . $action);
+}
+
+
+SKIP: {
+	skip "Not yet implemented", 1;
 my $user_login_required = {
 '/applications/list' => 'List of all Applications on the Metadata Catalogue',
 '/applications/search?search=cardiology' => 'Applications matching search term <strong>%cardiology%</strong>', 
@@ -38,7 +51,6 @@ my $user_login_required = {
 '/columns/list' => 'Table Columns',
 '/columns/list_columns/' . $table->id => 'Table Columns',
 '/columns/search?search=patient' => 'Table Columns',
-'/databases/list' => 'System Databases',
 '/datarequest/list' => 'new Request',
 '/erid/list' => 'ERIDs',
 '/kpe/list' => 'Key Production Environments',
@@ -55,6 +67,7 @@ my $curator_login_required = {
 '/category2/add' => 'Category2s',
 '/databases/id/' . $db->id . '/edit_description' => 'System Databases',
 '/databases/download/csv' => 'System Databases',
+'/databases/list' => 'System Databases',
 '/databases/download/text' => 'System Databases',
 '/databases/download/html' => 'System Databases',
 '/registration/list' => 'Registration Requests',
@@ -70,11 +83,6 @@ my $requestor_login_required = {
 '/datarequest/request' => 'First Name',
 '/datarequest/id/' . $datarequest->id . '/review' => 'Reviewing Data Request ID: ',
 };
-
-while (my ($action, $response) = each %$allowed_anon) {
-    $anon_ua->get($action);
-    $anon_ua->content_contains($response,  "Anonymous allowed " . $action);
-}
 
 for (keys %$user_login_required) {
     my $url_action = $_;
@@ -99,8 +107,6 @@ for (keys %$curator_login_required) {
     $user->content_lacks($curator_login_required->{$url_action}, "Requested page blocked for User");
 }
 
-SKIP: {
-	skip "Not yet implemented", 1;
 
 my $allowed_with_permission = {
 '/datasets/id/' . $dataset->id . '/edit' => 'Catalogue Datasets',
