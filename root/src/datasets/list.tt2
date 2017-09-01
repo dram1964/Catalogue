@@ -17,7 +17,9 @@
       <tr>
         <td>[% dataset.name %]</td>
         <td>
+[% IF c.user.has_role('curator') %]
 	<a href="[% c.uri_for(c.controller.action_for('edit'), [dataset.id]) %]">Edit</a>
+[% END %]
 	<a href="[% c.uri_for(c.controller.action_for('explore_json'), [dataset.id]) %]">Explore</a>
         </td>
         <td>[% dataset.description %]</td>
