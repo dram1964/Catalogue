@@ -127,7 +127,7 @@ sub auto :Private {
 
     if (!$c->user_exists) {
 	$c->flash->{original_path} = '/' . $c->req->path;
-        $c->response->redirect($c->uri_for('/login'));
+        $c->response->redirect($c->uri_for('/login/required'));
 	return 0;
     }
 

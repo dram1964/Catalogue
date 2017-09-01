@@ -30,7 +30,7 @@ sub index :Path :Args(0) {
     my $password = $c->request->params->{password};
 
     if ($c->user_exists) {
-	$c->stash(status_msg => "Already logged-in as " . $c->user->username);
+	$c->stash(warning_msg => "Already logged-in as " . $c->user->username);
     }
     elsif ($username && $password) {
 	if ($c->authenticate({ username => $username,
@@ -49,6 +49,13 @@ sub index :Path :Args(0) {
 	    unless ($c->user_exists);
     }
 	    
+    $c->stash(template => 'login.tt2');
+}
+
+sub required :Path('required') :Args(0) {
+    my ($self, $c) = @_;
+
+    $c->stash(status_msg => "You need to logon to access the requested page");
     $c->stash(template => 'login.tt2');
 }
 
