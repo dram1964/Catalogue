@@ -6,7 +6,7 @@ use_ok("Test::WWW::Mechanize::Catalyst" => "Catalogue");
 
 
 my $welcome_msg = "Welcome to the ";
-my $page_title = 'The Clinical Research Informatics Data Catalogue';
+my $page_title = 'Clinical Research Informatics Data Catalogue';
 
 my $anon_ua = Test::WWW::Mechanize::Catalyst->new;
 my $user = Test::WWW::Mechanize::Catalyst->new;
@@ -28,12 +28,17 @@ my $dataset = $connection->resultset('Dataset')->first;
 my $datarequest = $connection->resultset('DataRequest')->first;
 
 my $allowed_anon = {
-"/registration/ng_new" => "New User Registration",
 "/login" => "Please enter login details",
 "/datasets/list" => "Catalogue Datasets",
+"/datasets/id/" .  $dataset->id . "/explore_json" => "Showing Dataset information",
+"/datasets/id/" .  $dataset->id . "/explore_ng" => "Datasets ExploreNG",
+"/datasets/search?search=what" => "Catalogue Datasets",
 "/about" => "This site is powered by Catalyst",
+"/registration/ng_new" => "New User Registration",
 "/contact" => "Metadata Catalogue Contacts List",
-"/help" => "Use your mouse to click "
+"/help" => "Use your mouse to click ",
+"/welcome" => "Welcome to the ",
+"/" => "Welcome to the ",
 };
 
 while (my ($action, $response) = each %$allowed_anon) {
@@ -42,26 +47,51 @@ while (my ($action, $response) = each %$allowed_anon) {
 }
 
 my $user_logon_required = [
+'/applications/add',
+'/applications/id/' . $app->id . '/edit',
 '/applications/list',
 '/applications/search?search=cardiology', 
 '/category2/list',
+'/category2/add',
+'/databases/id/' . $db->id . '/edit_description',
+'/databases/search?search=what',
+'/databases/download/csv',
+'/databases/download/text',
+'/databases/download/html',
+'/databases/list',
+'/datarequest/list',
+'/datarequest/id/1/request_edit',
 '/columns/list',
 '/columns/list_columns/' . $table->id,
 '/columns/search?search=patient',
 '/datarequest/list',
+'/database/list',
 '/erid/list',
 '/kpe/list',
 '/schemas/list',
 '/supplier/list',
 '/tables/list',
-
+'/registration/list',
+'/tasks/list',
+'/users/list',
 ];
 
 for (@{$user_logon_required}) {
     my $url_action = $_;
     $anon_ua->get($url_action);
-    $anon_ua->content_contains("Please enter login details", "Anonymous denied " . $url_action);
+    $anon_ua->content_contains("Please enter login details", "Logon required for $url_action");
 
+}
+
+my $permission_denied = [
+'/datasets/add',
+'/datasets/id/' . $dataset->id . '/edit',
+];
+
+for (@{$permission_denied}) {
+    my $url_action = $_;
+    $anon_ua->get($url_action);
+    $anon_ua->content_contains("Permission Denied", "Permission Denied for $url_action");
 }
 
 SKIP: {
