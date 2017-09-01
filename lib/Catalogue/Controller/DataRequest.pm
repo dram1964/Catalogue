@@ -36,6 +36,7 @@ Can place common logic to start a chained dispatch here
 sub base :Chained('/') :PathPart('datarequest') :CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->stash(resultset => $c->model('DB::DataRequest'));
+    $c->stash(user => $c->user->get_object);
     $c->load_status_msgs;
 }
 
@@ -47,12 +48,13 @@ Fetch the specified data request object based on the class id and store it in th
 
 sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    my ($self, $c, $id) = @_;
-   my $user = $c->user->get_object;
+   #my $user = $c->user->get_object;
    $c->stash(object => $c->stash->{resultset}->find($id));
-   $c->detach('/error_noperms') unless 
-      $c->stash->{object}->user_id eq $user->id;
-
    die "Class not found" if !$c->stash->{object};
+
+   $c->detach('/error_noperms') unless 
+      $c->stash->{object}->user_id eq $c->stash->{user}->id;
+
 
 }
 
@@ -64,9 +66,7 @@ List all data requests for current user
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
-    my $user = $c->user->get_object;
-    $c->detach('/login') unless defined($user);
-    my $data_requests = [$c->stash->{resultset}->search({user_id => $user->id})];
+    my $data_requests = [$c->stash->{resultset}->search({user_id => $c->stash->{user}->id})];
     $c->stash(
 	data_requests => $data_requests,
 	template => 'datarequest/list.tt2');
@@ -116,13 +116,12 @@ Displays a form for requesting data
 
 =cut
 
-sub request :Path('request') :Args(0) {
+sub request :Chained('base') :PathPart('request') :Args(0) {
     my ( $self, $c ) = @_;
-    my $user = $c->user->get_object;
     $c->detach('/error_noperms') unless 
-      $c->model('DB::DataRequest')->new({})->request_allowed_by($user);
+      $c->stash->{resultset}->new({})->request_allowed_by($c->stash->{user});
     my $requestor = $c->model('DB::User')->find({
-	id => $user->id,
+	id => $c->stash->{user}->id,
     });
 
     my $request_types = [$c->model('DB::RequestType')->all];
@@ -157,13 +156,13 @@ Needs logic to update request_history
 
 =cut
 
-sub ng_request_submitted :Path('ng_request_submitted') :Args() {
+sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
 
-   my $requestor = $c->user->get_object;
+#   my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $dr = {
-	user_id => $requestor->id,
+	user_id => $c->stash->{user}->id,
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
    };
@@ -219,7 +218,7 @@ sub ng_request_submitted :Path('ng_request_submitted') :Args() {
 	});
    }
 
-   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
+   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
 
    if ($parameters->{Submit} == 2) {
 	$c->response->redirect($c->uri_for($self->action_for('request_edit'), [$data_request->id]));
@@ -241,11 +240,11 @@ Needs logic to update request_history
 
 sub update_request :Chained('object') :Args() {
    my ($self, $c) = @_;
-   my $requestor = $c->user->get_object;
+#   my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $data_request = $c->stash->{object};
    my $dr = {
-	user_id => $requestor->id,
+	user_id => $c->stash->{user}->id,
 	request_type_id => $parameters->{requestType},
 	status_id => $parameters->{Submit},
         status_date => undef,
@@ -325,7 +324,7 @@ sub update_request :Chained('object') :Args() {
 	});
    }
 
-   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $requestor->id})];
+   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
 
    $c->stash(
      status_msg => "Request " . $data_request->id . " updated",
