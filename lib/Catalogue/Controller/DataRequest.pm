@@ -48,7 +48,6 @@ Fetch the specified data request object based on the class id and store it in th
 
 sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    my ($self, $c, $id) = @_;
-   #my $user = $c->user->get_object;
    $c->stash(object => $c->stash->{resultset}->find($id));
    die "Class not found" if !$c->stash->{object};
 
@@ -159,7 +158,6 @@ Needs logic to update request_history
 sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
 
-#   my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $dr = {
 	user_id => $c->stash->{user}->id,
@@ -240,7 +238,6 @@ Needs logic to update request_history
 
 sub update_request :Chained('object') :Args() {
    my ($self, $c) = @_;
-#   my $requestor = $c->user->get_object;
    my $parameters = $c->request->body_parameters;
    my $data_request = $c->stash->{object};
    my $dr = {
