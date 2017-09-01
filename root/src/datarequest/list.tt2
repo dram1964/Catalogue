@@ -1,31 +1,36 @@
 [% META title = "Data Requests" %]
-[% IF data_requests.0 %]
-  <p class="lead">List of Data Requests</p>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-      <tbody>
-        <tr>
+[% IF c.user.has_role('requestor') %]
+  [% IF data_requests.0 %]
+    <p class="lead">List of Data Requests</p>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tbody>
+  	<tr>
   	<th>Request ID</th>
   	<th>Request Type</th>
   	<th>Current Request Status</th>
-       </tr>
-  [% FOREACH request IN data_requests %]
-        <tr>
+         </tr>
+    [% FOREACH request IN data_requests %]
+  	<tr>
   	<td>[% request.id %]
-		<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">review</a> 
-	[% IF request.status_id < 4 %]
-		<a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a> 
-	[% END %]
-	</td>
+  		<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">review</a> 
+  	[% IF request.status_id < 4 %]
+  		<a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a> 
+  	[% END %]
+  	</td>
   	<td>[% request.request_type.name %]</td>
   	<td>[% request.status.description %]</td>
-        </tr>
+  	</tr>
+    [% END %]
+        </tbody>
+      </table>
+    </div>
+  [% ELSE %] 
+  <p class="lead">No requests on record</p>
   [% END %]
-      </tbody>
-    </table>
-  </div>
-[% ELSE %] 
-<p class="lead">No requests on record</p>
+  <p><a href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
+[% ELSE %]
+<p>Your account does not have permission to make data requests. Please contact the system administrator to request 
+permission to make data requests</p>
 [% END %]
-<p><a href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
