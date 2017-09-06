@@ -189,13 +189,15 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
 	  publish => $parameters->{"publish" . $request_type},
 	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
+	  disclosure => $parameters->{"disclosure" . $request_type},
+	  disclosure_to => $parameters->{"disclosureIdSpecification" . $request_type},
 	  storing => $parameters->{"storing" . $request_type},
 	  completion => $parameters->{"completion" . $request_type},
 	  additional_info => $parameters->{"additional" . $request_type},
           objective => $parameters->{"objective" . $request_type},
+          benefits => $parameters->{"benefits" . $request_type},
 	  population => $parameters->{"population" . $request_type},
           rec_approval => $parameters->{recApproval},
-	  consent => $parameters->{consent},
    };
 
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
@@ -274,13 +276,14 @@ sub update_request :Chained('object') :Args() {
      area => $parameters->{"area" . $request_type},
      identifiable => $parameters->{"identifiable" . $request_type},
      publish => $parameters->{"publish" . $request_type},
+     disclosure => $parameters->{"disclosure" . $request_type},
      storing => $parameters->{"storing" . $request_type},
      completion => $parameters->{"completion" . $request_type},
      additional_info => $parameters->{"additional" . $request_type},
      objective => $parameters->{"objective" . $request_type},
+     benefits => $parameters->{"benefits" . $request_type},
      population => $parameters->{"population" . $request_type},
      rec_approval => $parameters->{recApproval},
-     consent => $parameters->{consent},
    };
 
    if ($dh->{identifiable} eq "1") {
@@ -295,6 +298,12 @@ sub update_request :Chained('object') :Args() {
    } else {
      $dh->{publish_to} = '';
    }
+   if ($dh->{disclosure} eq "1") {
+     $dh->{disclosure_to} = $parameters->{"disclosureIdSpecification" . $request_type};
+   } else {
+     $dh->{disclosure_to} = '';
+   }
+
 
    my $data_handling_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
@@ -383,14 +392,16 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"identifiableSpecification" . $request_type} = $dh->additional_identifiers;
 	$request->{data}->{"publish" . $request_type} = $dh->publish;
 	$request->{data}->{"publishIdSpecification" . $request_type} = $dh->publish_to;
+	$request->{data}->{"disclosure" . $request_type} = $dh->disclosure;
+	$request->{data}->{"disclosureIdSpecification" . $request_type} = $dh->disclosure_to;
 	$request->{data}->{"storing" . $request_type} = $dh->storing;
 	$request->{data}->{"completion" . $request_type} = $dh->completion;
 	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
+	$request->{data}->{"benefits" . $request_type} = $dh->benefits;
 	$request->{data}->{"population" . $request_type} = $dh->population;
 	  $request->{data}->{"area" . $request_type} = $dh->area;
 	  $request->{data}->{recApproval} = $dh->rec_approval;
-	  $request->{data}->{consent} = $dh->consent;
     }
 
     $c->stash(

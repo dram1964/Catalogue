@@ -1,21 +1,19 @@
         <div class="form-group">
-<label>Sponsoring Organisation</label>
-<input type="textarea" name="sponsor" ng-model="ctrl.data.sponsor"
+<label>Organisation requesting this data</label>
+<input type="textarea" name="area4" ng-model="ctrl.data.area4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Participating Organisations</label>
-<input type="textarea" name="organisations" ng-model="ctrl.data.organisations"
+<label>Objective/Purpose for Data Request</label>
+<input type="textarea" name="objective4" ng-model="ctrl.data.objective4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Do you have a Data Sharing Agreement approved for each participating organisation</label>
-<label class="radio-inline"><input type="radio" name="dataSharingApproval" 
-  ng-model = "ctrl.data.dataSharingApproval" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="dataSharingApproval" 
-  ng-model = "ctrl.data.dataSharingApproval" value="0">No</label>
+<label>Potential Benefits of Processing the Data</label>
+<input type="textarea" name="benefits4" ng-model="ctrl.data.benefits4"
+	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
@@ -33,23 +31,56 @@
 	</div><!-- end row -->
 
 [% INCLUDE datarequest/identifiers4.tt2 %]
+
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable4 == 1">
-<label>Additional Patient Identifiers</label>
-<textarea name="identifiableSpecification4" ng-model="ctrl.data.identifiableSpecification4" 
-	class="form-control"></textarea>
+	<div class="row">
+<label>Legal basis for requesting Patient Identifiers</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="6">Public Health Interest</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="5">Statutory Requirement</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="4">Direct patient care</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="3">Contractual obligation to monitor and improve clinical service provision</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="1">Consent obtained from all data subjects</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="2">Section 251 Exemption granted for all data subjects</label>
+	</div><!-- end row -->
 	  </div><!-- end form-group -->
 	</div><!-- end row -->
 
         <div class="form-group">
-<label>Will you be publishing patient identifiers to any entities outside of UCLH?</label>
+<label>Will you be disclosing patient identifiers to any entities outside of UCLH?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure4" name="disclosure4" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure4" name="disclosure4" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.disclosure4 == 1">
+	    <div class="col-md-12">
+<br><label>Please specify all third-parties you intend to disclose patient identifiers to:</label>
+	    </div><!-- end columnn -->
+<textarea name="disclosureIdSpecification4" ng-model="ctrl.data.disclosureIdSpecification4" 
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Do you expect to be publishing the results of this study to any entities outside of UCLH?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish4" name="publish4" value="1">Yes</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish4" name="publish4" value="0">No</label>
         </div><!-- end form-group -->
 
         <div class="form-group" ng-show="ctrl.data.publish4 == 1">
 	    <div class="col-md-12">
-<br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
+<br><label>Please specify where you intend to publish your results:</label>
 	    </div><!-- end columnn -->
 <textarea name="publishIdSpecification4" ng-model="ctrl.data.publishIdSpecification4" 
 	class="form-control"></textarea>

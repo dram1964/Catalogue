@@ -114,7 +114,17 @@ __PACKAGE__->table("data_handling");
   data_type: 'text'
   is_nullable: 1
 
-=head2 consent
+=head2 disclosure
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 disclosure_to
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 benefits
 
   data_type: 'text'
   is_nullable: 1
@@ -150,7 +160,11 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "rec_approval",
   { data_type => "text", is_nullable => 1 },
-  "consent",
+  "disclosure",
+  { data_type => "integer", is_nullable => 1 },
+  "disclosure_to",
+  { data_type => "text", is_nullable => 1 },
+  "benefits",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -184,8 +198,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-16 09:31:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P17sm0rCp34dlwIp9EIPjw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-06 16:28:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lS4LSeqXf5B+d20f4mHGhA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

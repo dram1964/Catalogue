@@ -129,7 +129,17 @@ __PACKAGE__->table("request_history");
   data_type: 'text'
   is_nullable: 1
 
-=head2 consent
+=head2 disclosure
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 disclosure_to
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 benefits
 
   data_type: 'text'
   is_nullable: 1
@@ -176,7 +186,11 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "rec_approval",
   { data_type => "text", is_nullable => 1 },
-  "consent",
+  "disclosure",
+  { data_type => "integer", is_nullable => 1 },
+  "disclosure_to",
+  { data_type => "text", is_nullable => 1 },
+  "benefits",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -195,8 +209,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-08-16 10:47:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WA4SL3yFa8kvT/1DV9AbAw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-06 16:28:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fLfoQ+E0yTHPa3u5/HdjHA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

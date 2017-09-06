@@ -11,6 +11,12 @@
         </div><!-- end form-group -->
 
         <div class="form-group">
+<label>Potential Benefits of the Processing the Data</label>
+<input type="textarea" name="benefits2" ng-model="ctrl.data.benefits2"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
 <label>Data Population - how will you select patient population for this request?</label>
 <input type="textarea" name="population2" ng-model="ctrl.data.population2"
 	class="form-control"></textarea>
@@ -25,23 +31,47 @@
 	</div><!-- end row -->
 
 [% INCLUDE datarequest/identifiers2.tt2 %]
+
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable2 == 1">
-<label>Additional Patient Identifiers</label>
-<textarea name="identifiableSpecification2" ng-model="ctrl.data.identifiableSpecification2" 
-	class="form-control"></textarea>
+	<div class="row">
+<label>Legal basis for requesting Patient Identifiers</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="3">Contractual obligation to monitor and improve clinical service provision</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="1">Consent obtained from all data subjects</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="2">Section 251 Exemption granted for all data subjects</label>
+	</div><!-- end row -->
 	  </div><!-- end form-group -->
 	</div><!-- end row -->
 
         <div class="form-group">
-<label>Will you be publishing patient identifiers to any entities outside of UCLH?</label>
+<label>Will you be disclosing patient identifiers to any entities external to this study?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure2" name="disclosure2" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure2" name="disclosure2" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.disclosure2 == 1">
+	    <div class="col-md-12">
+<br><label>Please specify all third-parties you intend to disclose patient identifiers to:</label>
+	    </div><!-- end columnn -->
+<textarea name="disclosureIdSpecification2" ng-model="ctrl.data.disclosureIdSpecification2" 
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Do you expect to be publishing the results of this study to any entities outside of UCLH?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish2" name="publish2" value="1">Yes</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish2" name="publish2" value="0">No</label>
         </div><!-- end form-group -->
 
         <div class="form-group" ng-show="ctrl.data.publish2 == 1">
 	    <div class="col-md-12">
-<br><label>Please specify all third-parties you intend to publish patient identifiers to:</label>
+<br><label>Please specify where you intend to publish your results:</label>
 	    </div><!-- end columnn -->
 <textarea name="publishIdSpecification2" ng-model="ctrl.data.publishIdSpecification2" 
 	class="form-control"></textarea>
