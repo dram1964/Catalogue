@@ -6,13 +6,6 @@
   ng-model = "ctrl.data.recApproval" value="0">No</label>
         </div><!-- end form-group -->
 
-        <div class="form-group">
-<label>Do you have patient consent to process this information</label>
-<label class="radio-inline"><input type="radio" name="consent" 
-  ng-model = "ctrl.data.consent" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="consent" 
-  ng-model = "ctrl.data.consent" value="0">No</label>
-        </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Research Area</label>
@@ -42,11 +35,16 @@
 	</div><!-- end row -->
 
 [% INCLUDE datarequest/identifiers1.tt2 %]
-	<div class="row">
+
 	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
+	<div class="row">
 <label>Legal basis for requesting Patient Identifiers</label>
-<textarea name="identifiableSpecification1" ng-model="ctrl.data.identifiableSpecification1" 
-	class="form-control"></textarea>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification1" name="identifiableSpecification1" value="0">Consent obtained from all study subjects</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification1" name="identifiableSpecification1" value="1">Section 251 Exemption granted for all data subjects</label>
 	  </div><!-- end form-group -->
 	</div><!-- end row -->
 
