@@ -14,6 +14,8 @@
     [% INCLUDE datareview/research_area_panel.tt2 %]
   [% END %]
 
+[% INCLUDE datareview/data_handling_panel.tt2 %]
+
   [% IF dh.identifiable == 1 %]
     [% INCLUDE datareview/patient_identifiers.tt2 %]
   [% END %]

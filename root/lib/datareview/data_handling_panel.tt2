@@ -1,0 +1,20 @@
+[% IF request.approval_handling %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
+  <div class="panel-heading">Data Handling</div>
+  <div class="panel-body">
+	<p>Data Storage and Processing: [% dh.storing %]</p>
+        <p>Data Completion Action: [% dh.completion %]</p>
+     [% IF dh.publish == 1 %]
+        <p>Data Published to: [% dh.publish_to %]</p>
+     [% ELSE %]
+        <p>Data Published to: None</p>
+     [% END %]
+	<form action="[% c.uri_for(c.controller.action_for('handling_approve'), [request.id]) %]" method="post">
+
+          <input type="submit" name="submit" value="Update">
+	</form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->

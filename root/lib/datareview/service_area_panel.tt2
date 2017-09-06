@@ -5,7 +5,8 @@
 [% END %]
   <div class="panel-heading">Service Area: [% dh.area %]</div>
   <div class="panel-body">
-	<p class="lead">Service Objective: [% dh.objective %]
+	<p>Service Objective: [% dh.objective %]</p>
+        <p>Expected Benefits: [% dh.benefits %]</p>
 	<form action="[% c.uri_for(c.controller.action_for('service_approve'), [request.id]) %]" method="post">
 	<div class="row">
 	  <label>Service Area Authorisation</label>
@@ -16,7 +17,6 @@
 	  </select>
 	</div><!-- end row -->
 
-</dl>
           <input type="submit" name="submit" value="Update">
 	</form>
   </div><!-- end panel-body -->
