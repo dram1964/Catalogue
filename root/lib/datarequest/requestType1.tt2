@@ -44,7 +44,7 @@
 [% INCLUDE datarequest/identifiers1.tt2 %]
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
-<label>Additional Patient Identifiers</label>
+<label>Legal basis for requesting Patient Identifiers</label>
 <textarea name="identifiableSpecification1" ng-model="ctrl.data.identifiableSpecification1" 
 	class="form-control"></textarea>
 	  </div><!-- end form-group -->

@@ -16,12 +16,17 @@
       </div><!-- end panel-body div -->
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 4">
-	[% INSERT datarequest/requestType4.tt2 %]
+	[% PROCESS datarequest/requestType4.tt2 %]
       </div><!-- end panel-body div -->
 
       <div class="panel-body" ng-show="ctrl.data.requestType == 5">
 	[% INSERT datarequest/requestType5.tt2 %]
       </div><!-- end panel-body div -->
+
+      <div class="panel-body" ng-show="ctrl.data.requestType == 6">
+	[% INSERT datarequest/requestType6.tt2 %]
+      </div><!-- end panel-body div -->
+
 
     </div><!-- end panel-panel div -->
   </div><!-- end col-lg-12 div -->

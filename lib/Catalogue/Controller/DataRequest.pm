@@ -169,7 +169,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
    my $data_categorys_rs = $c->model('DB::DataCategory');
 
    while (my $row = $data_categorys_rs->next) {
-	if ($parameters->{$row->category} eq 'on') {
+	if (defined($parameters->{$row->category}) && $parameters->{$row->category} eq 'on') {
 	    $c->model('DB::DataRequestDetail')->create({
 		data_request_id => $data_request->id,
 		data_category_id => $row->id,
@@ -251,7 +251,7 @@ sub update_request :Chained('object') :Args() {
    my $data_categorys_rs = $c->model('DB::DataCategory');
 
    while (my $row = $data_categorys_rs->next) {
-	if ($parameters->{$row->category} eq 'on') {
+	if (defined($parameters->{$row->category}) && $parameters->{$row->category} eq 'on') {
 	    $c->model('DB::DataRequestDetail')->update_or_create({
 		data_request_id => $data_request->id,
 		data_category_id => $row->id,
