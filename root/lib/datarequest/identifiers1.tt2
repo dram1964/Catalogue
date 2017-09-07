@@ -1,6 +1,6 @@
 
-<label>Please select all identifiers required:</label>
 	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
+<label>Please select all identifiers required:</label>
 <input type="checkbox" name="identifiers1" ng-checked="ctrl.data.identifiers.ptName" value="ptName">Patient Name</input>
 <input type="checkbox" name="identifiers1" ng-checked="ctrl.data.identifiers.dob" value="dob">Patient Date of Birth</input>
 <input type="checkbox" name="identifiers1" ng-checked="ctrl.data.identifiers.addr" value="addr">Patient Address</input>

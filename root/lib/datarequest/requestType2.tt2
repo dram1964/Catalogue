@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">Purpose of Request </div>
-      <div class="panel-body">
+      <div class="panel-body text-left">
 
         <div class="form-group">
 <label>Clinical Service Area</label>
@@ -32,7 +32,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">Data Handling </div>
-      <div class="panel-body">
+      <div class="panel-body text-left">
 
         <div class="form-group">
 <label>Data Population</label>
@@ -41,45 +41,31 @@
 	class="form-control"></input>
         </div><!-- end form-group -->
 
-	<div class="row">
           <div class="form-group">
             <label>Do you require data with patient identifiers?</label>
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable2" name="identifiable2" value="1">Yes</label>
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable2" name="identifiable2" value="0">No</label>
           </div><!-- end form-group -->
-	</div><!-- end row -->
 
 [% INCLUDE datarequest/identifiers2.tt2 %]
 
-	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable2 == 1">
-	<div class="row">
 <label>Legal Basis for Requesting Patient Identifiers</label>
 <p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis</p>
-	</div><!-- end row -->
-	<div class="row">
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="3">Contractual obligation to monitor and improve clinical service provision</label>
-	</div><!-- end row -->
-	<div class="row">
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="1">Consent obtained from all data subjects</label>
-	</div><!-- end row -->
-	<div class="row">
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="2">Section 251 Exemption granted for all data subjects</label>
-	</div><!-- end row -->
 	  </div><!-- end form-group -->
-	</div><!-- end row -->
 
-        <div class="form-group">
+        <div class="form-group" ng-show="ctrl.data.identifiable2 == 1">
 <label>Will you be disclosing patient identifiers to any entities external to UCLH?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure2" name="disclosure2" value="1">Yes</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure2" name="disclosure2" value="0">No</label>
         </div><!-- end form-group -->
 
         <div class="form-group" ng-show="ctrl.data.disclosure2 == 1">
-	    <div class="col-md-12">
 <label>Third-Party disclosure</label>
 <p>Please specify all third-parties you intend to disclose patient identifiers to and explain what arrangements will be made to secure the data in transit for each disclosure:</p>
-	    </div><!-- end columnn -->
 <textarea name="disclosureIdSpecification2" ng-model="ctrl.data.disclosureIdSpecification2" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
@@ -91,9 +77,7 @@
         </div><!-- end form-group -->
 
         <div class="form-group" ng-show="ctrl.data.publish2 == 1">
-	    <div class="col-md-12">
 <br><label>Please specify where you intend to publish your results:</label>
-	    </div><!-- end columnn -->
 <textarea name="publishIdSpecification2" ng-model="ctrl.data.publishIdSpecification2" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
