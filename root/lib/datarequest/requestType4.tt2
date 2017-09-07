@@ -1,3 +1,9 @@
+<div class="row" ng-show="ctrl.data.requestType == 4">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Purpose of Request </div>
+      <div class="panel-body">
+
         <div class="form-group">
 <label>Organisation requesting this data</label>
 <p>Please indicate the name of the organisation responsible for initiating the data request</p>
@@ -17,6 +23,16 @@
 <textarea name="benefits4" ng-model="ctrl.data.benefits4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
+      </div><!-- end panel-body div -->
+    </div><!-- end panel-panel div -->
+  </div><!-- end col-lg-12 div -->
+</div><!-- end row div -->
+
+<div class="row" ng-show="ctrl.data.requestType == 4">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Data Handling </div>
+      <div class="panel-body">
 
         <div class="form-group">
 <label>Data Population</label>
@@ -111,3 +127,7 @@
 <input type="textarea" name="additional4" ng-model="ctrl.data.additional4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
+      </div><!-- end panel-body div -->
+    </div><!-- end panel-panel div -->
+  </div><!-- end col-lg-12 div -->
+</div><!-- end row div -->
