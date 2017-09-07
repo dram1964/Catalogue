@@ -1,25 +1,114 @@
         <div class="form-group">
 <label>Educational Institution</label>
-<input type="textarea" name="organisation" ng-model="ctrl.data.organisation"
-	class="form-control"></textarea>
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Educational Area</label>
+<p>Please name the educational institution and faculty or department requesting this data.</p>
 <input type="textarea" name="area6" ng-model="ctrl.data.area6"
+	class="form-control"></input>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Objective(s) for Requesting this Data</label>
+<input type="textarea" name="objective6" ng-model="ctrl.data.objective6"
+	class="form-control"></input>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Potential Benefits of Processing the Data</label>
+<p>Please indicate the potential benefits that could result from processing the requested data</p>
+<textarea name="benefits6" ng-model="ctrl.data.benefits6"
+<input type="textarea" name="benefits6" ng-model="ctrl.data.benefits6"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Requestor Role</label>
-<input type="textarea" name="requestorRole" ng-model="ctrl.data.requestorRole"
+<label>Data Population</label>
+<p>Please indicate how you intend to identify the data subjects for this request</p>
+<input type="textarea" name="population6" ng-model="ctrl.data.population6"
+	class="form-control"></input>
+        </div><!-- end form-group -->
+
+	<div class="row">
+          <div class="form-group">
+            <label>Do you require data with patient identifiers?</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable6" name="identifiable6" value="1">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable6" name="identifiable6" value="0">No</label>
+          </div><!-- end form-group -->
+	</div><!-- end row -->
+
+[% INCLUDE datarequest/identifiers6.tt2 %]
+
+	<div class="row">
+	  <div class="form-group" ng-show="ctrl.data.identifiable6 == 1">
+	<div class="row">
+<label>Legal basis for requesting Patient Identifiers</label>
+<p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis</p>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="3">Contractual obligation to monitor and improve clinical service provision</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="6">Public Health Interest</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="5">Statutory Requirement</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="4">Direct patient care</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="1">Consent obtained from all data subjects</label>
+	</div><!-- end row -->
+	<div class="row">
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification6" name="identifiableSpecification6" value="2">Section 251 Exemption granted for all data subjects</label>
+	</div><!-- end row -->
+	  </div><!-- end form-group -->
+	</div><!-- end row -->
+
+        <div class="form-group">
+<label>Will you be disclosing patient identifiers to any entities outside of your requesting organisation?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure6" name="disclosure6" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure6" name="disclosure6" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.disclosure6 == 1">
+	    <div class="col-md-12">
+<label>Third-Party disclosure</label>
+<p>Please specify all third-parties you intend to disclose patient identifiers to and explain what arrangements will be made to secure the data in transit for each disclosure:</p>
+	    </div><!-- end columnn -->
+<textarea name="disclosureIdSpecification6" ng-model="ctrl.data.disclosureIdSpecification6" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Purpose for Collecting Data</label>
-<input type="textarea" name="objective" ng-model="ctrl.data.objective"
+<label>Do you expect to be publishing the results of processing this data to entities outside of your educational institution?</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish6" name="publish6" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish6" name="publish6" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.publish6 == 1">
+	    <div class="col-md-12">
+<br><label>Please specify where you intend to publish your results:</label>
+	    </div><!-- end columnn -->
+<textarea name="publishIdSpecification6" ng-model="ctrl.data.publishIdSpecification6" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
+        <div class="form-group">
+<label>Where will you be storing and processing this data</label>
+<p>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</p>
+<textarea name="storing6" ng-model="ctrl.data.storing6"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
 
+        <div class="form-group">
+<label>What will you do with the data once you have completed your processing</label>
+<p>Please explain how you intend to archive or destroy all copies of the data on completion of your objectives. Provide indicative dates for when this will happen</p>
+<input type="textarea" name="completion6" ng-model="ctrl.data.completion6"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group">
+<label>Additional information:</label>
+<p>Please provide any additional information which you feel is relevant for this data access request</p>
+<input type="textarea" name="additional6" ng-model="ctrl.data.additional6"
+	class="form-control"></textarea>
+        </div><!-- end form-group -->

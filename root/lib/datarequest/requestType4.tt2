@@ -1,25 +1,28 @@
         <div class="form-group">
 <label>Organisation requesting this data</label>
+<p>Please indicate the name of the organisation responsible for initiating the data request</p>
 <input type="textarea" name="area4" ng-model="ctrl.data.area4"
-	class="form-control"></textarea>
+	class="form-control"></input>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Objective/Purpose for Data Request</label>
-<input type="textarea" name="objective4" ng-model="ctrl.data.objective4"
+<label>Objective(s) for Data Request</label>
+<textarea name="objective4" ng-model="ctrl.data.objective4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Potential Benefits of Processing the Data</label>
-<input type="textarea" name="benefits4" ng-model="ctrl.data.benefits4"
+<p>Please indicate the potential benefits that could result from processing the requested data</p>
+<textarea name="benefits4" ng-model="ctrl.data.benefits4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
-<label>Data Population - how will you select patient population for this request?</label>
+<label>Data Population</label>
+<p>Please indicate how you intend to identify the data subjects for this request</p>
 <input type="textarea" name="population4" ng-model="ctrl.data.population4"
-	class="form-control"></textarea>
+	class="form-control"></input>
         </div><!-- end form-group -->
 
 	<div class="row">
@@ -35,7 +38,8 @@
 	<div class="row">
 	  <div class="form-group" ng-show="ctrl.data.identifiable4 == 1">
 	<div class="row">
-<label>Legal basis for requesting Patient Identifiers</label>
+<label>Legal Basis for Requesting Patient Identifiers</label>
+<p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis</p>
 	</div><!-- end row -->
 	<div class="row">
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="6">Public Health Interest</label>
@@ -66,7 +70,8 @@
 
         <div class="form-group" ng-show="ctrl.data.disclosure4 == 1">
 	    <div class="col-md-12">
-<br><label>Please specify all third-parties you intend to disclose patient identifiers to:</label>
+<label>Third-Party disclosure</label>
+<p>Please specify all third-parties you intend to disclose patient identifiers to and explain what arrangements will be made to secure the data in transit for each disclosure:</p>
 	    </div><!-- end columnn -->
 <textarea name="disclosureIdSpecification4" ng-model="ctrl.data.disclosureIdSpecification4" 
 	class="form-control"></textarea>
@@ -88,18 +93,21 @@
 
         <div class="form-group">
 <label>Where will you be storing and processing this data</label>
-<input type="textarea" name="storing4" ng-model="ctrl.data.storing4"
+<p>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</p>
+<textarea name="storing4" ng-model="ctrl.data.storing4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>What will you do with the data once you have completed the project</label>
-<input type="textarea" name="completion4" ng-model="ctrl.data.completion4"
+<p>Please explain how you intend to archive or destroy all copies of the data on completion of the project. Provide indicative dates for when this will happen</p>
+<textarea name="completion4" ng-model="ctrl.data.completion4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Additional information:</label>
+<p>Please provide any additional information which you feel is relevant for this data access request</p>
 <input type="textarea" name="additional4" ng-model="ctrl.data.additional4"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
