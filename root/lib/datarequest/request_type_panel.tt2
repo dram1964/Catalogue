@@ -4,7 +4,7 @@
       <div class="panel-heading">Purpose of Request </div>
       <div class="panel-body">
  	  <div class="form-group">
-            <div class="radio">
+            <div class="radio text-left">
 [% FOREACH request_type IN request_types %]
 <label>
 <input type="radio" ng-model="ctrl.data.requestType" name="requestType" value="[% request_type.id %]" required
