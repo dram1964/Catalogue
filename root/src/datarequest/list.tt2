@@ -14,7 +14,7 @@
     [% FOREACH request IN data_requests %]
   	<tr>
   	<td>[% request.id %]
-  		<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">review</a> 
+  		<a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">Review</a> 
   	[% IF request.status_id < 4 %]
   		<a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a> 
   	[% END %]
