@@ -83,19 +83,7 @@
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable[% type %]" name="identifiable[% type %]" value="0">No</label>
           </div><!-- end form-group -->
 
-[% IF type == 1 %]
-[% INCLUDE datarequest/identifiers1.tt2 %]
-[% ELSIF type == 2 %]
-[% INCLUDE datarequest/identifiers2.tt2 %]
-[% ELSIF type == 3 %]
-[% INCLUDE datarequest/identifiers3.tt2 %]
-[% ELSIF type == 4 %]
-[% INCLUDE datarequest/identifiers4.tt2 %]
-[% ELSIF type == 5 %]
-[% INCLUDE datarequest/identifiers5.tt2 %]
-[% ELSIF type == 6 %]
-[% INCLUDE datarequest/identifiers6.tt2 %]
-[% END %]
+[% INCLUDE datarequest/identifiers.tt2 %]
 
 	  <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Legal Basis for Requesting Patient Identifiers</label>
