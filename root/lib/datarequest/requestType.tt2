@@ -1,10 +1,10 @@
-<p>Using new requestType form: type is "[% type %]"</p>
-<div class="row" ng-show="ctrl.data.requestType == 1">
+<div class="row" ng-show="ctrl.data.requestType == [% type %]">
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">Purpose of Request </div>
       <div class="panel-body text-left">
 
+[% IF type == 1 %]
         <div class="form-group">
 <label>Do you have REC approval for the study</label>
 <label class="radio-inline"><input type="radio" name="recApproval" 
@@ -12,32 +12,59 @@
 <label class="radio-inline"><input type="radio" name="recApproval" 
   ng-model = "ctrl.data.recApproval" value="0">No</label>
         </div><!-- end form-group -->
+[% END %]
 
 
         <div class="form-group">
+[% IF type == 1 %]
 <label>Research Area</label>
 <p>Please indicate the clinical or academic area of this data request</p>
-<input type="textarea" name="area1" ng-model="ctrl.data.area1"
+[% ELSIF type == 2 OR type == 3 %]
+<label>Clinical Service Area</label>
+<p>Please indicate the clinical service area for this data request</p>
+[% ELSIF type == 4 %]
+<label>Organisation requesting this data</label>
+<p>Please indicate the name of the organisation responsible for initiating the data request</p>
+[% ELSIF type == 5 %]
+<label>Responsible UCLH Service Lead</label>
+<p>Please provide name and Job Title of UCLH Service Lead responsible for delivering this objective</p>
+[% ELSIF type == 6 %]
+<label>Educational Institution</label>
+<p>Please name the educational institution and faculty or department requesting this data.</p>
+<input type="textarea" name="area6" ng-model="ctrl.data.area6"
+[% END %]
+<input type="textarea" name="area[% type %]" ng-model="ctrl.data.area[% type %]"
 	class="form-control"></input>
         </div><!-- end form-group -->
 
         <div class="form-group">
+[% IF type == 1 %]
 <label>Objective(s) of the Study</label>
-<textarea name="objective1" ng-model="ctrl.data.objective1"
+[% ELSIF type == 2 OR type == 3 OR type == 4 OR type == 6 %]
+<label>Objective(s) prompting this Data Request</label>
+[% ELSIF type == 5 %]
+<label>UCLH Organisational Plan or Objective</label>
+<p>Please name which UCLH organisational plan or objective this data is being requested for:</p>
+[% END %]
+<textarea name="objective[% type %]" ng-model="ctrl.data.objective[% type %]"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
+[% IF type == 1 %]
 <label>Potential Benefits of the Study</label>
+[% ELSE %]
+<label>Potential Benefits of Processing the Data</label>
+[% END %]
 <p>Please indicate the potential benefits that could result from processing the requested data</p>
-<textarea name="benefits1" ng-model="ctrl.data.benefits1" class="form-control"></textarea>
+<textarea name="benefits[% type %]" ng-model="ctrl.data.benefits[% type %]" class="form-control"></textarea>
         </div><!-- end form-group -->
       </div><!-- end panel-body div -->
     </div><!-- end panel-panel div -->
   </div><!-- end col-lg-12 div -->
 </div><!-- end row div -->
 
-<div class="row" ng-show="ctrl.data.requestType == 1">
+<div class="row" ng-show="ctrl.data.requestType == [% type %]">
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">Data Handling </div>
@@ -46,69 +73,91 @@
         <div class="form-group">
 <label>Data Population</label>
 <p>Please indicate how you intend to identify the data subjects for this request</p>
-<input type="textarea" name="population1" ng-model="ctrl.data.population1"
+<input type="textarea" name="population[% type %]" ng-model="ctrl.data.population[% type %]"
 	class="form-control"></input>
         </div><!-- end form-group -->
 
 
           <div class="form-group">
             <label>Do you require data with patient identifiers?</label>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable1" name="identifiable1" value="1">Yes</label>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable1" name="identifiable1" value="0">No</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable[% type %]" name="identifiable[% type %]" value="1">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable[% type %]" name="identifiable[% type %]" value="0">No</label>
           </div><!-- end form-group -->
 
+[% IF type == 1 %]
 [% INCLUDE datarequest/identifiers1.tt2 %]
+[% ELSIF type == 2 %]
+[% INCLUDE datarequest/identifiers2.tt2 %]
+[% ELSIF type == 3 %]
+[% INCLUDE datarequest/identifiers3.tt2 %]
+[% ELSIF type == 4 %]
+[% INCLUDE datarequest/identifiers4.tt2 %]
+[% ELSIF type == 5 %]
+[% INCLUDE datarequest/identifiers5.tt2 %]
+[% ELSIF type == 6 %]
+[% INCLUDE datarequest/identifiers6.tt2 %]
+[% END %]
 
-	  <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
+	  <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Legal Basis for Requesting Patient Identifiers</label>
 <p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis</p>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification1" name="identifiableSpecification1" value="1">Consent obtained from all study subjects</label>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification1" name="identifiableSpecification1" value="2">Section 251 Exemption granted for all data subjects</label>
+[% IF type >= 4 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="6">Public Health Interest</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="5">Statutory Requirement</label>
+[% END %]
+[% IF type >= 3 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification3" name="identifiableSpecification3" value="4">Direct patient care</label>
+[% END %]
+[% IF type >= 2 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="3">Contractual obligation to monitor and improve clinical service provision</label>
+[% END %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="1">Consent obtained from all study subjects</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="2">Section 251 Exemption granted for all data subjects</label>
 	  </div><!-- end form-group -->
 
-        <div class="form-group" ng-show="ctrl.data.identifiable1 == 1">
+        <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Will you be disclosing patient identifiers to any entities external to this study?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure1" name="disclosure1" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure1" name="disclosure1" value="0">No</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="0">No</label>
         </div><!-- end form-group -->
 
-        <div class="form-group" ng-show="ctrl.data.disclosure1 == 1">
+        <div class="form-group" ng-show="ctrl.data.disclosure[% type %] == 1">
 <label>Third-Party disclosure</label>
 <p>Please specify all third-parties you intend to disclose patient identifiers to and explain what arrangements will be made to secure the data in transit for each disclosure:</p>
-<textarea name="disclosureIdSpecification1" ng-model="ctrl.data.disclosureIdSpecification1" 
+<textarea name="disclosureIdSpecification[% type %]" ng-model="ctrl.data.disclosureIdSpecification[% type %]" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Do you expect to be publishing the results of this study to any entities outside of UCLH?</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish1" name="publish1" value="0">No</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish[% type %]" name="publish[% type %]" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.publish[% type %]" name="publish[% type %]" value="0">No</label>
         </div><!-- end form-group -->
 
-        <div class="form-group" ng-show="ctrl.data.publish1 == 1">
+        <div class="form-group" ng-show="ctrl.data.publish[% type %] == 1">
 <br><label>Please specify where you intend to publish your results:</label>
-<textarea name="publishIdSpecification1" ng-model="ctrl.data.publishIdSpecification1" 
+<textarea name="publishIdSpecification[% type %]" ng-model="ctrl.data.publishIdSpecification[% type %]" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Where will you be storing and processing this data</label>
 <p>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</p>
-<textarea name="storing1" ng-model="ctrl.data.storing1"
+<textarea name="storing[% type %]" ng-model="ctrl.data.storing[% type %]"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>What will you do with the data once you have completed the project</label>
 <p>Please explain how you intend to archive or destroy all copies of the data on completion of the project. Provide indicative dates for when this will happen</p>
-<textarea name="completion1" ng-model="ctrl.data.completion1"
+<textarea name="completion[% type %]" ng-model="ctrl.data.completion[% type %]"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 
         <div class="form-group">
 <label>Additional information:</label>
 <p>Please provide any additional information which you feel is relevant for this data access request</p>
-<textarea name="additional1" ng-model="ctrl.data.additional1"
+<textarea name="additional[% type %]" ng-model="ctrl.data.additional[% type %]"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
       </div><!-- end panel-body div -->

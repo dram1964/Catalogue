@@ -1,14 +1,19 @@
 	[% type = 1; 
-	PROCESS datarequest/requestType.tt2 %]
+		PROCESS datarequest/requestType.tt2 %]
 
-	[% PROCESS datarequest/requestType2.tt2 %]
+	[% type = 2; 
+		PROCESS datarequest/requestType.tt2 %]
 
-	[% PROCESS datarequest/requestType3.tt2 %]
+	[% type = 3; 
+		PROCESS datarequest/requestType.tt2 %]
 
-	[% PROCESS datarequest/requestType4.tt2 %]
+	[% type = 4; 
+		PROCESS datarequest/requestType.tt2 %]
 
-	[% PROCESS datarequest/requestType5.tt2 %]
+	[% type = 5; 
+		PROCESS datarequest/requestType.tt2 %]
 
-	[% PROCESS datarequest/requestType6.tt2 %]
+	[% type = 6; 
+		PROCESS datarequest/requestType.tt2 %]
 
 
