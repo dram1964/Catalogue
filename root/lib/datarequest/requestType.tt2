@@ -85,22 +85,7 @@
 
 [% INCLUDE datarequest/identifiers.tt2 %]
 
-	  <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
-<label>Legal Basis for Requesting Patient Identifiers</label>
-<p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis</p>
-[% IF type >= 4 %]
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="6">Public Health Interest</label>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification4" name="identifiableSpecification4" value="5">Statutory Requirement</label>
-[% END %]
-[% IF type >= 3 %]
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification3" name="identifiableSpecification3" value="4">Direct patient care</label>
-[% END %]
-[% IF type >= 2 %]
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification2" name="identifiableSpecification2" value="3">Contractual obligation to monitor and improve clinical service provision</label>
-[% END %]
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="1">Consent obtained from all study subjects</label>
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="2">Section 251 Exemption granted for all data subjects</label>
-	  </div><!-- end form-group -->
+[% INCLUDE datarequest/legal_basis.tt2 %]
 
         <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Will you be disclosing patient identifiers to any entities external to this study?</label>

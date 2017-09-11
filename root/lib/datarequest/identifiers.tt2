@@ -1,9 +1,15 @@
 
 	  <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Please select all identifiers required:</label>
+<br>
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.ptName" value="ptName">Patient Name</input>
+<br>
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.dob" value="dob">Patient Date of Birth</input>
+<br>
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.addr" value="addr">Patient Address</input>
+<br>
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.ptNumber" value="ptNumber">Patient Hospital Number</input>
+<br>
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.nhsNumber" value="nhsNumber">Patient NHS Number</input>
+<br>
 	  </div><!-- end form-group -->

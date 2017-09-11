@@ -1,0 +1,24 @@
+
+	  <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
+<label>Legal Basis for Requesting Patient Identifiers</label>
+<p>Under the GDPR legislation, access to data that can be used to identify an individual person or persons, must have a legal basis. Please choose the correct, most relevant, legal basis from the list below:</p>
+[% IF type >= 4 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="6">Public Health Interest</label>
+<br>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="5">Statutory Requirement</label>
+<br>
+[% END %]
+[% IF type >= 3 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="4">Direct patient care</label>
+<br>
+[% END %]
+[% IF type >= 2 %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="3">Contractual obligation to monitor and improve clinical service provision</label>
+<br>
+[% END %]
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="1">Consent obtained from all study subjects</label>
+<br>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="2">Section 251 Exemption granted for all data subjects</label>
+<br>
+	  </div><!-- end form-group -->
+
