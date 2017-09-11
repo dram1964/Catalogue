@@ -31,7 +31,6 @@
 [% ELSIF type == 6 %]
 <label>Educational Institution</label>
 <p>Please name the educational institution and faculty or department requesting this data.</p>
-<input type="textarea" name="area6" ng-model="ctrl.data.area6"
 [% END %]
 <input type="textarea" name="area[% type %]" ng-model="ctrl.data.area[% type %]"
 	class="form-control"></input>
