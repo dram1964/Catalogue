@@ -110,7 +110,7 @@
 
         <div class="form-group" ng-show="ctrl.data.disclosure[% type %] == 1">
 <label>Third-Party disclosure</label>
-<p>Please specify all third-parties you intend to disclose patient identifiers to and explain what arrangements will be made to secure the data in transit for each disclosure:</p>
+<p>Please specify all third-parties you intend to disclose patient identifiers to. Please explain why each disclosure is necessary and what arrangements will be made to secure the data in transit for each disclosure:</p>
 <textarea name="disclosureIdSpecification[% type %]" ng-model="ctrl.data.disclosureIdSpecification[% type %]" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
