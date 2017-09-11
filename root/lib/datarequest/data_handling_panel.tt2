@@ -1,4 +1,5 @@
-	[% PROCESS datarequest/requestType1.tt2 %]
+	[% type = 1; 
+	PROCESS datarequest/requestType.tt2 %]
 
 	[% PROCESS datarequest/requestType2.tt2 %]
 
