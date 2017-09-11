@@ -125,10 +125,12 @@ sub request :Chained('base') :PathPart('request') :Args(0) {
 
     my $request_types = [$c->model('DB::RequestType')->all];
     my $data_categorys = [$c->model('DB::DataCategory')->all];
+    my $legal_basis = [$c->model('DB::LegalBasis')->all];
     $c->stash(
       requestor => $requestor,
       request_types => $request_types,
       data_categorys => $data_categorys,
+      legal_basis => $legal_basis,
       template => 'datarequest/request.tt2');
 }
 
