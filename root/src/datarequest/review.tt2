@@ -62,10 +62,22 @@
     <dd class="col-sm-8 text-left">Yes</dd>
     <dt class="col-sm-4 text-left">Identifiers: </dt>
     <dd class="col-sm-8 text-left">[% dh.identifiers || "&nbsp;" %]</dd>
+    <dt class="col-sm-4 text-left">Justification for PID: </dt>
+    <dd class="col-sm-8 text-left">[% dh.pid_justify || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Legal basis for PID: </dt>
     <dd class="col-sm-8 text-left">[% dh.additional_identifiers || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Identifiers Disclosed to: </dt>
+    [% IF dh.disclosure == 1 %]
     <dd class="col-sm-8 text-left">[% dh.disclosure_to || "&nbsp;" %]</dd>
+    [% ELSE %]
+    <dd class="col-sm-8 text-left">None</dd>
+    [% END %]
+    <dt class="col-sm-4 text-left">Disclosure Contractual: </dt>
+    [% IF dh.disclosure == 1 %]
+    <dd class="col-sm-8 text-left">[% dh.disclosure_contract || "&nbsp;" %]</dd>
+    [% ELSE %]
+    <dd class="col-sm-8 text-left">None</dd>
+    [% END %]
     <dt class="col-sm-4 text-left">Data Published to: </dt>
     <dd class="col-sm-8 text-left">[% dh.publish_to || "&nbsp;" %]</dd>
   [% ELSE %]

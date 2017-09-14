@@ -298,7 +298,7 @@ sub update_request :Chained('object') :Args() {
      $dh->{identifiers} = '';
      $dh->{additional_identifiers} = '';
      $dh->{pid_justify} = '';
-     $dh->{disclosure} = '';
+     $dh->{disclosure} = 0;
    } 
    if ($dh->{publish} eq "1") {
      $dh->{publish_to} = $parameters->{"publishIdSpecification" . $request_type};
@@ -415,11 +415,14 @@ sub request_edit :Chained('object') :Args() {
 	  $request->{data}->{recApproval} = $dh->rec_approval;
     }
 
+    my $legal_basis = [$c->model('DB::LegalBasis')->all];
+
     $c->stash(
       data_categorys => $data_categorys,
       requestor => $user,
       request_types => $request_types,
       request => $request,
+      legal_basis => $legal_basis,
       template => 'datarequest/request.tt2');
 }
 
