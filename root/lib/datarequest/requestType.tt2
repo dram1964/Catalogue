@@ -79,6 +79,7 @@
 
           <div class="form-group">
             <label>Do you require data with patient identifiers?</label>
+<p>Where use of personal confidential data is considered to be essential, the inclusion of each individual item of data should be considered and justified so that the minimum amount of personal confidential data is transferred or accessible as part of this data access request</p>
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable[% type %]" name="identifiable[% type %]" value="1">Yes</label>
             <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiable[% type %]" name="identifiable[% type %]" value="0">No</label>
           </div><!-- end form-group -->
