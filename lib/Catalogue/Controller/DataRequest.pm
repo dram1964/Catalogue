@@ -296,7 +296,7 @@ sub update_request :Chained('object') :Args() {
      $dh->{pid_justify} = $parameters->{"pidJustify" . $request_type};
    } else {
      $dh->{identifiers} = '';
-     $dh->{additional_identifiers} = '';
+     $dh->{legal_basis_id} = undef;
      $dh->{pid_justify} = '';
      $dh->{disclosure} = 0;
    } 
