@@ -11,7 +11,7 @@
 [% FOREACH lb IN legal_basis %]
     [% FOREACH id IN ids %]
         [% IF id == lb.id %]
-            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.identifiableSpecification[% type %]" name="identifiableSpecification[% type %]" value="[% lb.id %]">[% lb.description %]</label>
+            <label class="radio-inline"><input type="radio" ng-model="ctrl.data.legalBasis[% type %]" name="legalBasis[% type %]" value="[% lb.id %]">[% lb.description %]</label>
 <br>
         [% END %]
     [% END %]

@@ -84,9 +84,9 @@ __PACKAGE__->table("request_history");
   data_type: 'text'
   is_nullable: 1
 
-=head2 additional_identifiers
+=head2 legal_basis_id
 
-  data_type: 'text'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 publish
@@ -178,8 +178,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "pid_justify",
   { data_type => "text", is_nullable => 1 },
-  "additional_identifiers",
-  { data_type => "text", is_nullable => 1 },
+  "legal_basis_id",
+  { data_type => "integer", is_nullable => 1 },
   "publish",
   { data_type => "integer", is_nullable => 1 },
   "publish_to",
@@ -223,8 +223,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:06:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UyGuvgkpBA8X7mGz0UkA1w
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 12:48:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lPilHzwyTB2PkOivHobY4A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

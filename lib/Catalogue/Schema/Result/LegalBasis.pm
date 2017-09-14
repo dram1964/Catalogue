@@ -73,9 +73,26 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-11 19:35:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cy3zYZmGav+t399om2sXYQ
+=head2 data_handlings
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::DataHandling>
+
+=cut
+
+__PACKAGE__->has_many(
+  "data_handlings",
+  "Catalogue::Schema::Result::DataHandling",
+  { "foreign.legal_basis_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 12:40:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Okx60bvJQP6ZqUyPV7GNAg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

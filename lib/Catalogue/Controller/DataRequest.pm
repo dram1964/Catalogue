@@ -189,7 +189,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  area => $parameters->{"area" . $request_type},
 	  identifiable => $parameters->{"identifiable" . $request_type},
 	  pid_justify => $parameters->{"pidJustify" . $request_type},
-	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
+	  legal_basis_id => $parameters->{"legalBasis" . $request_type},
 	  publish => $parameters->{"publish" . $request_type},
 	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
 	  disclosure => $parameters->{"disclosure" . $request_type},
@@ -292,7 +292,7 @@ sub update_request :Chained('object') :Args() {
 
    if ($dh->{identifiable} eq "1") {
      $dh->{identifiers} = $self->_identifiers;
-     $dh->{additional_identifiers} = $parameters->{"identifiableSpecification" . $request_type};
+     $dh->{legal_basis_id} = $parameters->{"legalBasis" . $request_type};
      $dh->{pid_justify} = $parameters->{"pidJustify" . $request_type};
    } else {
      $dh->{identifiers} = '';
@@ -399,7 +399,7 @@ sub request_edit :Chained('object') :Args() {
 	    $request->{data}->{identifiers}->{$1} = 1;
 	}
 	$request->{data}->{"pidJustify" . $request_type} = $dh->pid_justify;
-	$request->{data}->{"identifiableSpecification" . $request_type} = $dh->additional_identifiers;
+	$request->{data}->{"legalBasis" . $request_type} = $dh->legal_basis_id;
 	$request->{data}->{"publish" . $request_type} = $dh->publish;
 	$request->{data}->{"publishIdSpecification" . $request_type} = $dh->publish_to;
 	$request->{data}->{"disclosure" . $request_type} = $dh->disclosure;

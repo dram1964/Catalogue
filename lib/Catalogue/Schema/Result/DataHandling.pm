@@ -69,9 +69,10 @@ __PACKAGE__->table("data_handling");
   data_type: 'text'
   is_nullable: 1
 
-=head2 additional_identifiers
+=head2 legal_basis_id
 
-  data_type: 'text'
+  data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 publish
@@ -152,8 +153,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "pid_justify",
   { data_type => "text", is_nullable => 1 },
-  "additional_identifiers",
-  { data_type => "text", is_nullable => 1 },
+  "legal_basis_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "publish",
   { data_type => "integer", is_nullable => 1 },
   "publish_to",
@@ -196,6 +197,26 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 legal_basis
+
+Type: belongs_to
+
+Related object: L<Catalogue::Schema::Result::LegalBasis>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "legal_basis",
+  "Catalogue::Schema::Result::LegalBasis",
+  { id => "legal_basis_id" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
+  },
+);
+
 =head2 request
 
 Type: belongs_to
@@ -212,8 +233,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:06:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QxB4BRorjua4WNi/Ynl4vg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 12:40:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PezNN7SaIYnJiODhkJ9ydw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

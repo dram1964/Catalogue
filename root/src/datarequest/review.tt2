@@ -65,7 +65,7 @@
     <dt class="col-sm-4 text-left">Justification for PID: </dt>
     <dd class="col-sm-8 text-left">[% dh.pid_justify || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Legal basis for PID: </dt>
-    <dd class="col-sm-8 text-left">[% dh.additional_identifiers || "&nbsp;" %]</dd>
+    <dd class="col-sm-8 text-left">[% dh.legal_basis.description || "&nbsp;" %]</dd>
     <dt class="col-sm-4 text-left">Identifiers Disclosed to: </dt>
     [% IF dh.disclosure == 1 %]
     <dd class="col-sm-8 text-left">[% dh.disclosure_to || "&nbsp;" %]</dd>
