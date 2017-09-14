@@ -242,9 +242,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 verify_handling
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-07-30 20:15:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a6ipFx8XQulJMKAIjf44ZA
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::VerifyHandling>
+
+=cut
+
+__PACKAGE__->might_have(
+  "verify_handling",
+  "Catalogue::Schema::Result::VerifyHandling",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 16:13:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6jAsBC+G36oNfZJ4bBmXNg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

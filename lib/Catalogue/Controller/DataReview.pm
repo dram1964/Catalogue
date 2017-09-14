@@ -189,35 +189,32 @@ sub research_approve :Chained('object') :PathPart('research_approve') :Args(0) {
 
 }
 
-=head2 handling_approve
+=head2 handling_verify
 
-approve handling for submitted request
+verify handling for submitted request
+
+Need to add the handling values to the data_handling and data_handling_history tables
 
 =cut 
 
-sub handling_approve :Chained('object') :PathPart('handling_approve') :Args(0) {
+sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
-=comment
-
-This section needs to update ApprovalHandling and ApprovalHandlingHistory
-
-    my $approver = $c->user->get_object;
-    my $parameters = $c->request->body_parameters;
-
-    my $service_approval = {
-	service_auth => $parameters->{serviceAuth},
+ 
+    my $verifier = $c->user->get_object;
+    my $handling_verify = {
 	request_id => $data_request->id,
-	approver => $approver->id,
+	verifier => $verifier->id,
+	verification_time => undef,
     };
 
-    my $approval = $c->model('DB::ApprovalService')->update_or_create(
-	$service_approval);
-    my $approval_history = $c->model('DB::ApprovalServiceHistory')->create(
-	$service_approval);
-    $data_request->update({ status_id => 4});
-
-=cut
+    my $verification = $c->model('DB::VerifyHandling')->update_or_create(
+	$handling_verify
+    );
+    my $verification_history = $c->model('DB::VerifyHandlingHistory')->create(
+	$handling_verify
+    );
+    $data_request->update({status_id => 4});
 
     my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
