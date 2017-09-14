@@ -79,6 +79,11 @@ __PACKAGE__->table("request_history");
   data_type: 'text'
   is_nullable: 1
 
+=head2 pid_justify
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 additional_identifiers
 
   data_type: 'text'
@@ -139,6 +144,11 @@ __PACKAGE__->table("request_history");
   data_type: 'text'
   is_nullable: 1
 
+=head2 disclosure_contract
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 benefits
 
   data_type: 'text'
@@ -166,6 +176,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "identifiers",
   { data_type => "text", is_nullable => 1 },
+  "pid_justify",
+  { data_type => "text", is_nullable => 1 },
   "additional_identifiers",
   { data_type => "text", is_nullable => 1 },
   "publish",
@@ -190,6 +202,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "disclosure_to",
   { data_type => "text", is_nullable => 1 },
+  "disclosure_contract",
+  { data_type => "text", is_nullable => 1 },
   "benefits",
   { data_type => "text", is_nullable => 1 },
 );
@@ -209,8 +223,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-06 16:28:08
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fLfoQ+E0yTHPa3u5/HdjHA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:06:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UyGuvgkpBA8X7mGz0UkA1w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

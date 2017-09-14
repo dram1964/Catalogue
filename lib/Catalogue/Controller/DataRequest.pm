@@ -188,11 +188,13 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  identifiers => $self->_identifiers,
 	  area => $parameters->{"area" . $request_type},
 	  identifiable => $parameters->{"identifiable" . $request_type},
+	  pid_justify => $parameters->{"pidJustify" . $request_type},
 	  additional_identifiers => $parameters->{"identifiableSpecification" . $request_type},
 	  publish => $parameters->{"publish" . $request_type},
 	  publish_to => $parameters->{"publishIdSpecification" . $request_type},
 	  disclosure => $parameters->{"disclosure" . $request_type},
 	  disclosure_to => $parameters->{"disclosureIdSpecification" . $request_type},
+	  disclosure_contract => $parameters->{"disclosureContract" . $request_type},
 	  storing => $parameters->{"storing" . $request_type},
 	  completion => $parameters->{"completion" . $request_type},
 	  additional_info => $parameters->{"additional" . $request_type},
@@ -291,9 +293,12 @@ sub update_request :Chained('object') :Args() {
    if ($dh->{identifiable} eq "1") {
      $dh->{identifiers} = $self->_identifiers;
      $dh->{additional_identifiers} = $parameters->{"identifiableSpecification" . $request_type};
+     $dh->{pid_justify} = $parameters->{"pidJustify" . $request_type};
    } else {
      $dh->{identifiers} = '';
      $dh->{additional_identifiers} = '';
+     $dh->{pid_justify} = '';
+     $dh->{disclosure} = '';
    } 
    if ($dh->{publish} eq "1") {
      $dh->{publish_to} = $parameters->{"publishIdSpecification" . $request_type};
@@ -302,8 +307,10 @@ sub update_request :Chained('object') :Args() {
    }
    if ($dh->{disclosure} eq "1") {
      $dh->{disclosure_to} = $parameters->{"disclosureIdSpecification" . $request_type};
+     $dh->{disclosure_contract} = $parameters->{"disclosureContract" . $request_type};
    } else {
      $dh->{disclosure_to} = '';
+     $dh->{disclosure_contract} = '';
    }
 
 
@@ -391,11 +398,13 @@ sub request_edit :Chained('object') :Args() {
 	} elsif ( $dh->identifiers =~ /(\w+)/g) {
 	    $request->{data}->{identifiers}->{$1} = 1;
 	}
+	$request->{data}->{"pidJustify" . $request_type} = $dh->pid_justify;
 	$request->{data}->{"identifiableSpecification" . $request_type} = $dh->additional_identifiers;
 	$request->{data}->{"publish" . $request_type} = $dh->publish;
 	$request->{data}->{"publishIdSpecification" . $request_type} = $dh->publish_to;
 	$request->{data}->{"disclosure" . $request_type} = $dh->disclosure;
 	$request->{data}->{"disclosureIdSpecification" . $request_type} = $dh->disclosure_to;
+	$request->{data}->{"disclosureContract" . $request_type} = $dh->disclosure_contract;
 	$request->{data}->{"storing" . $request_type} = $dh->storing;
 	$request->{data}->{"completion" . $request_type} = $dh->completion;
 	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
