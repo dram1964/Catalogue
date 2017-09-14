@@ -91,13 +91,20 @@
         <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Will you be disclosing patient identifiers to any entities external to this study?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="0">No</label>
+<label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="0" selected>No</label>
         </div><!-- end form-group -->
 
         <div class="form-group" ng-show="ctrl.data.disclosure[% type %] == 1">
 <label>Third-Party disclosure</label>
 <p>Please specify all third-parties you intend to disclose patient identifiers to. Please explain why each disclosure is necessary and what arrangements will be made to secure the data in transit for each disclosure:</p>
 <textarea name="disclosureIdSpecification[% type %]" ng-model="ctrl.data.disclosureIdSpecification[% type %]" 
+	class="form-control"></textarea>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.disclosure[% type %] == 1">
+<label>Contractual Arrangements</label>
+<p>Please specify the contractual or other formal arrangements in place to control and manage the data held by any and all third-parties as part of this data request:</p>
+<textarea name="disclosureContract[% type %]" ng-model="ctrl.data.disclosureContract[% type %]" 
 	class="form-control"></textarea>
         </div><!-- end form-group -->
 

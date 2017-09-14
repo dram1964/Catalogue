@@ -13,7 +13,7 @@
 <input type="checkbox" name="identifiers[% type %]" ng-checked="ctrl.data.identifiers.nhsNumber" value="nhsNumber">Patient NHS Number</input>
 <br>
 	  </div><!-- end form-group -->
-        <div class="form-group">
+        <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Reason for Requested PID</label>
 <p>Please explain why each requested personal identifier is essential for this request</p>
 <textarea name="pidJustify[% type %]" ng-model="ctrl.data.pidJustify[% type %]"
