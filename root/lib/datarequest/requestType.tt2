@@ -89,7 +89,7 @@
 [% INCLUDE datarequest/legal_basis_selected.tt2 %]
 
         <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
-<label>Will you be disclosing patient identifiers to any entities external to this study?</label>
+<label>Will you be disclosing patient identifiers to any entities external to your requesting organisation?</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="1">Yes</label>
 <label class="radio-inline"><input type="radio" ng-model="ctrl.data.disclosure[% type %]" name="disclosure[% type %]" value="0" selected>No</label>
         </div><!-- end form-group -->
