@@ -44,8 +44,15 @@
     <dt class="col-sm-4 text-left">Service Area: </dt>
     <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
   [% ELSIF dh.request.request_type_id == 1 %]
+    [% IF dh.rec_approval == 1 %]
     <dt class="col-sm-4 text-left">REC Approval: </dt>
-    <dd class="col-sm-8 text-left">[% dh.rec_approval || "&nbsp;" %]</dd>
+    <dd class="col-sm-8 text-left">Yes</dd>
+    <dt class="col-sm-4 text-left">REC Approval Number: </dt>
+    <dd class="col-sm-8 text-left">[% dh.rec_approval_number || "&nbsp;" %]</dd>
+    [% ELSE %]
+    <dt class="col-sm-4 text-left">REC Approval: </dt>
+    <dd class="col-sm-8 text-left">No</dd>
+    [% END %]
     <dt class="col-sm-4 text-left">Research Area: </dt>
     <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
   [% END %]

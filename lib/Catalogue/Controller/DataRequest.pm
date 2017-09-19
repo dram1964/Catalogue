@@ -202,6 +202,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
           benefits => $parameters->{"benefits" . $request_type},
 	  population => $parameters->{"population" . $request_type},
           rec_approval => $parameters->{recApproval},
+          rec_approval_number => $parameters->{recApprovalNumber},
    };
 
    my $data_handling = $c->model('DB::DataHandling')->create($dh);
@@ -288,6 +289,7 @@ sub update_request :Chained('object') :Args() {
      benefits => $parameters->{"benefits" . $request_type},
      population => $parameters->{"population" . $request_type},
      rec_approval => $parameters->{recApproval},
+     
    };
 
    if ($dh->{identifiable} eq "1") {
@@ -312,6 +314,11 @@ sub update_request :Chained('object') :Args() {
      $dh->{disclosure_to} = '';
      $dh->{disclosure_contract} = '';
    }
+   if ($dh->{rec_approval} eq "1") {
+      $dh->{rec_approval_number} = $parameters->{recApprovalNumber}
+   } else {
+      $dh->{rec_approval_number} = undef;
+   } 
 
 
    my $data_handling_rs = $c->model('DB::DataHandling')->search({
@@ -413,6 +420,7 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"population" . $request_type} = $dh->population;
 	  $request->{data}->{"area" . $request_type} = $dh->area;
 	  $request->{data}->{recApproval} = $dh->rec_approval;
+	  $request->{data}->{recApprovalNumber} = $dh->rec_approval_number;
     }
 
     my $legal_basis = [$c->model('DB::LegalBasis')->all];

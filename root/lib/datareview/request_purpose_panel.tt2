@@ -1,0 +1,31 @@
+[% IF request.approval_research %]
+<div class="panel panel-success">
+[% ELSE %]
+<div class="panel panel-warning">
+[% END %]
+  <div class="panel-heading">Request Purpose</div>
+  <div class="panel-body">
+[% IF dh.request.request_type_id == 1 %]
+  <p>Research Area: [% dh.area %]</p>
+[% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
+  <p>Clinical Service Area: [% dh.area %]</p>
+[% ELSIF dh.request.request_type_id == 4 %]
+  <p>Requesting Organisation: [% dh.area %]</p>
+[% ELSIF dh.request.request_type_id == 5 %]
+  <p>UCLH Service Lead: [% dh.area %]</p>
+[% ELSIF dh.request.request_type_id == 6 %]
+  <p>Educational Institution: [% dh.area %]</p>
+[% ELSE %]
+  <p><span class="error_msg">Unimplemented Request</span>Area: [% dh.area %]</p>
+[% END %]
+  <p>Objectives: [% dh.objective %]</p>
+  <p>Potential Benefits: [% dh.benefits %]</p>
+	<form action="[% c.uri_for(c.controller.action_for('research_approve'), [request.id]) %]" method="post">
+
+[% IF dh.request.request_type_id == 1 %]
+  [% INCLUDE datareview/rec_approval_panel.tt2 %]
+[% END %]
+          <input type="submit" name="submit" value="Update">
+	</form>
+  </div><!-- end panel-body -->
+</div><!-- end panel -->

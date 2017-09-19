@@ -4,16 +4,6 @@
       <div class="panel-heading">Purpose of Request </div>
       <div class="panel-body text-left">
 
-[% IF type == 1 %]
-        <div class="form-group">
-<label>Do you have REC approval for the study</label>
-<label class="radio-inline"><input type="radio" name="recApproval" 
-  ng-model = "ctrl.data.recApproval" value="1">Yes</label>
-<label class="radio-inline"><input type="radio" name="recApproval" 
-  ng-model = "ctrl.data.recApproval" value="0">No</label>
-        </div><!-- end form-group -->
-[% END %]
-
 
         <div class="form-group">
 [% IF type == 1 %]
@@ -68,6 +58,23 @@
     <div class="panel panel-default">
       <div class="panel-heading">Data Handling </div>
       <div class="panel-body text-left">
+
+[% IF type == 1 %]
+        <div class="form-group">
+<label>Do you have REC approval for the study</label>
+<label class="radio-inline"><input type="radio" name="recApproval" 
+  ng-model = "ctrl.data.recApproval" value="1">Yes</label>
+<label class="radio-inline"><input type="radio" name="recApproval" 
+  ng-model = "ctrl.data.recApproval" value="0">No</label>
+        </div><!-- end form-group -->
+
+        <div class="form-group" ng-show="ctrl.data.recApproval == 1">
+<label>REC Approval Reference</label>
+<p>Please specify your REC approval reference number:</p>
+<input type="textarea" name="recApprovalNumber" ng-model="ctrl.data.recApprovalNumber" 
+	class="form-control"></input>
+        </div><!-- end form-group -->
+[% END %]
 
         <div class="form-group">
 <label>Data Population</label>

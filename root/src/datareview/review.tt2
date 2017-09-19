@@ -7,14 +7,10 @@
 
 [% IF dh %]
 
-  [% IF dh.request.request_type_id == 2 %]
-    [% INCLUDE datareview/service_area_panel.tt2 %]
-  [% END %]
-  [% IF dh.request.request_type_id == 1 %]
-    [% INCLUDE datareview/research_area_panel.tt2 %]
-  [% END %]
+  [% INCLUDE datareview/request_purpose_panel.tt2 %]
 
-[% INCLUDE datareview/data_handling_panel.tt2 %]
+
+  [% INCLUDE datareview/data_handling_panel.tt2 %]
 
   [% IF dh.identifiable == 1 %]
     [% INCLUDE datareview/patient_identifiers.tt2 %]
