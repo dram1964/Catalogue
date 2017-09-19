@@ -17,3 +17,6 @@
   [% END %]
 
 [% END %]
+
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript" src="[% site.url.ng %]/ng_review.js"> </script>
