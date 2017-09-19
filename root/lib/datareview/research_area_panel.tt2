@@ -3,9 +3,11 @@
 [% ELSE %]
 <div class="panel panel-warning">
 [% END %]
-  <div class="panel-heading">Research Area: [% dh.area %]</div>
+  <div class="panel-heading">Request Purpose</div>
   <div class="panel-body">
-  <p class="lead">Research Objective: [% dh.objective %]</p>
+  <p>Research Area: [% dh.area %]</p>
+  <p>Research Objective: [% dh.objective %]</p>
+  <p>Potential Benefits: [% dh.benefits %]</p>
 	<form action="[% c.uri_for(c.controller.action_for('research_approve'), [request.id]) %]" method="post">
     [% IF dh.rec_approval == 1 %]
     <div class="row">
@@ -37,21 +39,6 @@
       [% END %]
     [% END %]
 
-    [% IF dh.consent %]
-    <div class="row">
-      <div class="col-sm-4 text-left">
-	<label>Evidence for Consent<label>
-      </div><!-- end column -->
-      <div class="col-sm-4 text-left">
-	  <select name="consentMethod">
-	    <option value="0"[% IF request.approval_research.consent_method <= 1 %] selected [% END %]>&nbsp;</option>
-	    <option value="1"[% IF request.approval_research.consent_method == 1 %] selected [% END %]>Consent Database</option>
-	    <option value="2"[% IF request.approval_research.consent_method == 2 %] selected [% END %]>Consent Forms</option>
-	  </select>
-      </div><!-- end column -->
-    </div><!-- end row -->
-
-    [% END %]
           <input type="submit" name="submit" value="Update">
 	</form>
   </div><!-- end panel-body -->
