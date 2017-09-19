@@ -456,10 +456,9 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
     });
     my $dh = $dh_rs->first;
 
-    my $verification_rs = $c->model('DB::VerifyPurpose')->search({
+    my $verification = $c->model('DB::VerifyPurpose')->find({
 	request_id => $data_request->id
     });
-    my $verification = $verification_rs->first;
     if (defined($verification)) {
 	$c->stash->{verify} = {
 	    area_comment => $verification->area_comment,
