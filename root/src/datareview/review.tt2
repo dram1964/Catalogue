@@ -1,4 +1,11 @@
 [% META title = 'Review Data Request' %]
+[% USE JSON %]
+[% IF verify %]
+<script type="text/javascript">
+  var verify = [% verify.json %];
+</script>
+[% END %]
+
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 

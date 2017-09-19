@@ -64,12 +64,27 @@ __PACKAGE__->table("verify_purpose_history");
   data_type: 'text'
   is_nullable: 1
 
+=head2 area_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 objective
 
   data_type: 'text'
   is_nullable: 1
 
+=head2 objective_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 benefits
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 benefits_comment
 
   data_type: 'text'
   is_nullable: 1
@@ -90,9 +105,15 @@ __PACKAGE__->add_columns(
   },
   "area",
   { data_type => "text", is_nullable => 1 },
+  "area_comment",
+  { data_type => "text", is_nullable => 1 },
   "objective",
   { data_type => "text", is_nullable => 1 },
+  "objective_comment",
+  { data_type => "text", is_nullable => 1 },
   "benefits",
+  { data_type => "text", is_nullable => 1 },
+  "benefits_comment",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -111,8 +132,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "verification_time");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 11:58:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7AuYWCxEYHtnIshT18zAWg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 16:08:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nPtyZYKtxc7TRWjND8L86Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

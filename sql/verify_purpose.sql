@@ -6,8 +6,11 @@ request_id int(11) not null,
 verifier int(11) not null,
 verification_time timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 area text null,
+area_comment text null,
 objective text null,
+objective_comment text null,
 benefits text null,
+benefits_comment text null,
 PRIMARY KEY (request_id),
 CONSTRAINT ifk_verify_request_purpose FOREIGN KEY (request_id) REFERENCES data_request (id),
 CONSTRAINT ifk_request_purpose_verifier FOREIGN KEY (verifier) REFERENCES users (id)
@@ -18,8 +21,11 @@ request_id int(11) not null,
 verifier int(11) not null,
 verification_time timestamp not null default CURRENT_TIMESTAMP,
 area text null,
+area_comment text null,
 objective text null,
+objective_comment text null,
 benefits text null,
+benefits_comment text null,
 PRIMARY KEY (request_id, verification_time)
 );
 

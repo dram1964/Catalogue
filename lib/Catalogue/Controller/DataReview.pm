@@ -198,6 +198,7 @@ verify or add comments to request purpose and request purpose history
 sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
+    my $parameters = $c->request->body_parameters;
 
     my $verifier = $c->user->get_object;
 
@@ -211,13 +212,17 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
 	verifier => $verifier->id,
 	verification_time => undef,
 	area => $dh->area,
+	area_comment => $parameters->{area_comment} || undef,
 	objective => $dh->objective,
+	objective_comment => $parameters->{objective_comment} || undef,
 	benefits => $dh->benefits,
+	benefits_comment => $parameters->{benefits_comment} || undef,
     };
 
     my $verification = $c->model('DB::VerifyPurpose')->update_or_create(
 	$purpose_verify
     );
+    $c->log->debug('Area Comment: ' . $verification->area_comment);
     my $verification_history = $c->model('DB::VerifyPurposeHistory')->create(
 	$purpose_verify
     );
@@ -239,13 +244,9 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
 
     }
 
-    my $dh_rs = $c->model('DB::DataHandling')->search({
-	request_id => $data_request->id
-    });
-    my $dh = $dh_rs->first;
-
     $c->stash(
         dh => $dh,
+        verify => $purpose_verify,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
@@ -454,6 +455,18 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	request_id => $data_request->id
     });
     my $dh = $dh_rs->first;
+
+    my $verification_rs = $c->model('DB::VerifyPurpose')->search({
+	request_id => $data_request->id
+    });
+    my $verification = $verification_rs->first;
+    if (defined($verification)) {
+	$c->stash->{verify} = {
+	    area_comment => $verification->area_comment,
+	    objective_comment => $verification->objective_comment,
+	    benefits_comment => $verification->benefits_comment,
+	};
+    }
 
     $c->stash(
         dh => $dh,

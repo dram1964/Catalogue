@@ -1,12 +1,13 @@
-[% IF request.approval_research %]
+[% IF request.verify_purpose %]
 <div class="panel panel-success">
 [% ELSE %]
 <div class="panel panel-warning">
 [% END %]
   <div class="panel-heading">Request Purpose</div>
-  <div class="panel-body">
+  <div class="panel-body text-left">
     <div ng-app="datareview">
       <div ng-controller="Purpose as ctrl">
+    <form action="[% c.uri_for(c.controller.action_for('purpose_verify'), [request.id]) %]" method="post">
 [% IF dh.request.request_type_id == 1 %]
   <p>Research Area: [% dh.area %]</p>
 [% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
@@ -20,13 +21,24 @@
 [% ELSE %]
   <p><span class="error_msg">Unimplemented Request</span>Area: [% dh.area %]</p>
 [% END %]
-    <form action="[% c.uri_for(c.controller.action_for('research_approve'), [request.id]) %]" method="post">
+  <div ng-show="ctrl.edit" == 1>
+    <label for="area_comment">Reviewer comments:</label>
+    <textarea name="area_comment" ng-model="ctrl.area_comment" class="form-control"></textarea>
+  </div>
   <p>Objectives: [% dh.objective %]</p>
+  <div ng-show="ctrl.edit" == 1>
+    <label for="objective_comment">Reviewer comments:</label>
+    <textarea name="objective_comment" ng-model="ctrl.objective_comment" class="form-control"></textarea>
+  </div>
   <p>Potential Benefits: [% dh.benefits %]</p>
+  <div ng-show="ctrl.edit" == 1>
+    <label for="benefits_comment">Reviewer comments:</label>
+    <textarea name="benefits_comment" ng-model="ctrl.benefits_comment" class="form-control"></textarea>
+  </div>
 
-	<input type="text" name=message ng-model="ctrl.text">
-	<input type="button" ng-click="ctrl.changeMsg()">
-        <input type="submit" value="Submit">
+	<input type="button" ng-click="ctrl.addComments()" ng-show="ctrl.edit == 0" value="Add Comments">
+	<input type="button" ng-click="ctrl.addComments()" ng-show="ctrl.edit == 1" value="No Comments">
+        <input type="submit" value="Mark Verified">
     </form>
 
       </div><!-- end ng-controller -->
