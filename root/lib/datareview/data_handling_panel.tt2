@@ -5,22 +5,27 @@
 [% END %]
   <div class="panel-heading">Data Handling</div>
   <div class="panel-body">
-	<p>Data Storage and Processing: [% dh.storing %]</p>
-    [% IF dh.disclosure == 1 %]	
-	<p>Data Disclosed to Third-Parties?: Yes</p>
-	<p>Third-Parties: [% dh.disclosure_to %]</p>
-	<p>Contractual Arrangements: [% dh.disclosure_contract %]</p>
-    [% ELSIF dh.disclosure == 0 %]
-	<p>Data Disclosed to Third-Parties?: No</p>
-    [% ELSE %]
-	<p>Data Disclosed to Third-Parties?: <span class="alert-danger">Unanswered</span></p>
+    [% IF dh.request.request_type_id == 1 %]
+       [% IF dh.rec_approval == 1 %]
+	  <p>REC Approval: Yes</p>
+	  <p>REC Approval Reference: [% dh.rec_approval_number %]</p>
+       [% ELSE %]
+	  <p>REC Approval: No</p>
+       [% END %]
     [% END %]
+	<p>Data Population: [% dh.population %]</p>
+  [% IF dh.identifiable == 1 %]
+    [% INCLUDE datareview/patient_identifiers.tt2 %]
+  [% END %]
+
+	<p>Data Storage and Processing: [% dh.storing %]</p>
         <p>Data Completion Action: [% dh.completion %]</p>
      [% IF dh.publish == 1 %]
         <p>Data Published to: [% dh.publish_to %]</p>
      [% ELSE %]
         <p>Data Published to: None</p>
      [% END %]
+        <p>Additional Information: [% dh.additional_info %]</p>
 	<form action="[% c.uri_for(c.controller.action_for('handling_verify'), [request.id]) %]" method="post">
 
           <input type="submit" name="submit" value="Flag as Verified">

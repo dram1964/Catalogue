@@ -1,39 +1,13 @@
-[% IF request.approval_identifier %]
-<div class="panel panel-success">
-[% ELSE %]
-<div class="panel panel-warning">
-[% END %]
-  <div class="panel-heading">Patient Identifiers Requested</div>
-  <div class="panel-body">
-  [% IF dh.identifiable == 1 %]
     <p>Identifiers Requested: [% dh.identifiers %]</p>
-    <p>Identifiers Approved: 
-  [% FOREACH id IN dh.identifiers.split(", ") %]
-       [% lid = id.lower %]
-       [% IF request.approval_identifier.$lid == 1 %] [% id %] [% END %] 
-  [% END %]
+    <p>Reason for requested identifiers: <pre>[% dh.pid_justify %]</pre></p>
+    <p>Legal Basis: [% dh.legal_basis.description %]</p>
+    [% IF dh.disclosure == 1 %]	
+	<p>Data Disclosed to Third-Parties?: Yes</p>
+	<p>Third-Parties: [% dh.disclosure_to %]</p>
+	<p>Contractual Arrangements: [% dh.disclosure_contract %]</p>
+    [% ELSIF dh.disclosure == 0 %]
+	<p>Data Disclosed to Third-Parties?: No</p>
+    [% ELSE %]
+	<p>Data Disclosed to Third-Parties?: <span class="alert-danger">Unanswered</span></p>
+    [% END %]
 
-</p>
-    <p>Legal Basis: [% dh.additional_identifiers %]</p>
-  [% END %]
-  [% IF dh.disclosure == 1 %]
-    <p>PID Disclosed to: [% dh.disclosure_to %]</p>
-  [% ELSE %]
-    <p>PID Disclosed to: None</p>
-  [% END %]
-
-    <form action="[% c.uri_for(c.controller.action_for('identifiers_approve'), [request.id]) %]" method="post">
-  [% FOREACH id IN dh.identifiers.split(", ") %]
-       [% lid = id.lower %]
-      <div class="row">
-	<label class="col-sm-4">[% id %]</label>
-        <div class="col-sm-4">
-	<input type="checkbox" name="[% id %]" 
-	[% IF request.approval_identifier.$lid == 1 %] checked [% END %]>Approve<br>
-	</div><!-- end column -->
-      </div><!-- end row -->
-  [% END %]
-      <input type="submit" name="submit" value="Update">
-    </form>
-  </div><!-- end panel-body -->
-</div><!-- end panel -->

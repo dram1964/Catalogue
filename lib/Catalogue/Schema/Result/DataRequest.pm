@@ -257,9 +257,24 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 verify_purpose
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 16:13:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6jAsBC+G36oNfZJ4bBmXNg
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::VerifyPurpose>
+
+=cut
+
+__PACKAGE__->might_have(
+  "verify_purpose",
+  "Catalogue::Schema::Result::VerifyPurpose",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 11:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L+/f/SUyGTp6vGQHU/YbCg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

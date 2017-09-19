@@ -12,10 +12,6 @@
 
   [% INCLUDE datareview/data_handling_panel.tt2 %]
 
-  [% IF dh.identifiable == 1 %]
-    [% INCLUDE datareview/patient_identifiers.tt2 %]
-  [% END %]
-
   [% IF data_items.values.first %]
     [% INCLUDE datareview/data_requested.tt2 %]
   [% END %]

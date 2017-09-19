@@ -189,6 +189,69 @@ sub research_approve :Chained('object') :PathPart('research_approve') :Args(0) {
 
 }
 
+=head2 purpose_verify
+
+verify or add comments to request purpose and request purpose history
+
+=cut 
+
+sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
+    my ($self, $c) = @_;
+    my $data_request = $c->stash->{object};
+
+    my $verifier = $c->user->get_object;
+
+    my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+    });
+    my $dh = $dh_rs->first;
+
+    my $purpose_verify = {
+	request_id => $data_request->id,
+	verifier => $verifier->id,
+	verification_time => undef,
+	area => $dh->area,
+	objective => $dh->objective,
+	benefits => $dh->benefits,
+    };
+
+    my $verification = $c->model('DB::VerifyPurpose')->update_or_create(
+	$purpose_verify
+    );
+    my $verification_history = $c->model('DB::VerifyPurposeHistory')->create(
+	$purpose_verify
+    );
+    $data_request->update({status_id => 4});
+
+    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
+	email_address => $data_request->user->email_address
+    });
+    my $requestor = $requestor_rs->first;
+
+    my $data_items = {};
+
+    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
+	data_request_id => $data_request->id});
+    while (my $row = $data_request_details_rs->next) {
+        my $friendly_key = $row->data_category->category;
+        $friendly_key =~ s/^([a-z])/\u$1/;
+        $data_items->{$friendly_key} = $row->detail;
+
+    }
+
+    my $dh_rs = $c->model('DB::DataHandling')->search({
+	request_id => $data_request->id
+    });
+    my $dh = $dh_rs->first;
+
+    $c->stash(
+        dh => $dh,
+	requestor => $requestor,
+	data_items => $data_items,
+	request => $data_request,
+	template => 'datareview/review.tt2');
+}
+
 =head2 handling_verify
 
 verify handling for submitted request
