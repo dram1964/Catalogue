@@ -255,6 +255,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 verify_datas
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::VerifyData>
+
+=cut
+
+__PACKAGE__->has_many(
+  "verify_datas",
+  "Catalogue::Schema::Result::VerifyData",
+  { "foreign.verifier" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 verify_handlings
 
 Type: has_many
@@ -296,8 +311,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 12:23:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9iVr2hFp45BwPIdyhO13xw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 13:40:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YcLm4NecXCNExh29ME5ZVg
 
 =head2 has_role
 

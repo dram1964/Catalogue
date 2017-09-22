@@ -158,24 +158,30 @@ sub data_verify :Chained('object') :PathPart('data_verify') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
     my $parameters = $c->request->body_parameters;
-=comment 
     my $verifier = $c->user->get_object;
     my $data_verify = {
 	request_id => $data_request->id,
 	verifier => $verifier->id,
 	verification_time => undef,
-	rec_comment => $parameters->{rec_comment},
 
     };
+    my $data_category_rs = $c->model('DB::DataCategory');
+    while (my $category = $data_category_rs->next) {
+	$c->log->debug("*** Category: " . $category->category . " ****");
+	if ($parameters->{$category->category . '_comment'}) {
+	    $c->log->debug($category->category .  "*** Value: " . $parameters->{$category->category . '_comment'} . " ****");
+	    $data_verify->{$category->category . '_comment'} = $parameters->{$category->category . '_comment'};
+	}
+    }
 
-    my $verification = $c->model('DB::VerifyHandling')->update_or_create(
-	$handling_verify
+    my $verification = $c->model('DB::VerifyData')->update_or_create(
+	$data_verify
     );
-    my $verification_history = $c->model('DB::VerifyHandlingHistory')->create(
-	$handling_verify
+    my $verification_history = $c->model('DB::VerifyDataHistory')->create(
+	$data_verify
     );
     $data_request->update({status_id => 4});
-=cut
+	
     $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
     $c->detach;
 
