@@ -1,4 +1,4 @@
-[% IF request.approval_datarequest %]
+[% IF request.verify_data %]
 <div class="panel panel-success">
 [% ELSE %]
 <div class="panel panel-warning">
