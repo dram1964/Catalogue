@@ -14,32 +14,32 @@
        [% ELSE %]
 	  <p>REC Approval: No</p>
        [% END %]
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="rec_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="rec_comment">REC Approval comments:</label>
     <textarea name="rec_comment" ng-model="ctrl2.rec_comment" class="form-control"></textarea>
   </div>
     [% END %]
 	<p>Data Population: [% dh.population %]</p>
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="population_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="population_comment">Population comments:</label>
     <textarea name="population_comment" ng-model="ctrl2.population_comment" class="form-control"></textarea>
   </div>
   [% IF dh.identifiable == 1 %]
     [% INCLUDE datareview/patient_identifiers.tt2 %]
   [% END %]
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="id_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="id_comment">PID comments:</label>
     <textarea name="id_comment" ng-model="ctrl2.id_comment" class="form-control"></textarea>
   </div>
 
 	<p>Data Storage and Processing: [% dh.storing %]</p>
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="storing_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="storing_comment">Storage comments:</label>
     <textarea name="storing_comment" ng-model="ctrl2.storing_comment" class="form-control"></textarea>
   </div>
         <p>Data Completion Action: [% dh.completion %]</p>
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="completion_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="completion_comment">Data completion comments:</label>
     <textarea name="completion_comment" ng-model="ctrl2.completion_comment" class="form-control"></textarea>
   </div>
      [% IF dh.publish == 1 %]
@@ -47,13 +47,13 @@
      [% ELSE %]
         <p>Data Published to: None</p>
      [% END %]
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="publish_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="publish_comment">Publishing comments:</label>
     <textarea name="publish_comment" ng-model="ctrl2.publish_comment" class="form-control"></textarea>
   </div>
         <p>Additional Information: [% dh.additional_info %]</p>
-  <div ng-show="ctrl2.edit" == 1>
-    <label for="additional_comment">Reviewer comments:</label>
+  <div ng-show="ctrl2.edit == 1">
+    <label for="additional_comment">Additional information comments:</label>
     <textarea name="additional_comment" ng-model="ctrl2.additional_comment" class="form-control"></textarea>
   </div>
 

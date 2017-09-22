@@ -20,17 +20,17 @@
 [% ELSE %]
   <p><span class="error_msg">Unimplemented Request</span>Area: [% dh.area %]</p>
 [% END %]
-  <div ng-show="ctrl1.edit" == 1>
+  <div ng-show="ctrl1.edit == 1">
     <label for="area_comment">Reviewer comments:</label>
     <textarea name="area_comment" ng-model="ctrl1.area_comment" class="form-control"></textarea>
   </div>
   <p>Objectives: [% dh.objective %]</p>
-  <div ng-show="ctrl1.edit" == 1>
+  <div ng-show="ctrl1.edit == 1">
     <label for="objective_comment">Reviewer comments:</label>
     <textarea name="objective_comment" ng-model="ctrl1.objective_comment" class="form-control"></textarea>
   </div>
   <p>Potential Benefits: [% dh.benefits %]</p>
-  <div ng-show="ctrl1.edit" == 1>
+  <div ng-show="ctrl1.edit == 1">
     <label for="benefits_comment">Reviewer comments:</label>
     <textarea name="benefits_comment" ng-model="ctrl1.benefits_comment" class="form-control"></textarea>
   </div>

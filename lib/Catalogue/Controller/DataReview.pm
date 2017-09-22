@@ -222,35 +222,12 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
     my $verification = $c->model('DB::VerifyPurpose')->update_or_create(
 	$purpose_verify
     );
-    $c->log->debug('Area Comment: ' . $verification->area_comment);
     my $verification_history = $c->model('DB::VerifyPurposeHistory')->create(
 	$purpose_verify
     );
     $data_request->update({status_id => 4});
-
-    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
-	email_address => $data_request->user->email_address
-    });
-    my $requestor = $requestor_rs->first;
-
-    my $data_items = {};
-
-    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-    while (my $row = $data_request_details_rs->next) {
-        my $friendly_key = $row->data_category->category;
-        $friendly_key =~ s/^([a-z])/\u$1/;
-        $data_items->{$friendly_key} = $row->detail;
-
-    }
-
-    $c->stash(
-        dh => $dh,
-        verify => $purpose_verify,
-	requestor => $requestor,
-	data_items => $data_items,
-	request => $data_request,
-	template => 'datareview/review.tt2');
+    $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
+    $c->detach;
 }
 
 =head2 handling_verify
@@ -288,34 +265,9 @@ sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
 	$handling_verify
     );
     $data_request->update({status_id => 4});
+    $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
+    $c->detach;
 
-    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
-	email_address => $data_request->user->email_address
-    });
-    my $requestor = $requestor_rs->first;
-
-    my $data_items = {};
-
-    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-    while (my $row = $data_request_details_rs->next) {
-        my $friendly_key = $row->data_category->category;
-        $friendly_key =~ s/^([a-z])/\u$1/;
-        $data_items->{$friendly_key} = $row->detail;
-
-    }
-
-    my $dh_rs = $c->model('DB::DataHandling')->search({
-	request_id => $data_request->id
-    });
-    my $dh = $dh_rs->first;
-
-    $c->stash(
-        dh => $dh,
-	requestor => $requestor,
-	data_items => $data_items,
-	request => $data_request,
-	template => 'datareview/review.tt2');
 }
 
 =head2 service_approve
@@ -469,26 +421,24 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	request_id => $data_request->id
     });
     if (defined($verify_purpose)) {
-	$c->stash->{verify} = {
-	    area_comment => $verify_purpose->area_comment,
-	    objective_comment => $verify_purpose->objective_comment,
-	    benefits_comment => $verify_purpose->benefits_comment,
-	};
+	    $c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
+	    $c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
+	    $c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
     }
+    $c->log->debug("*** Area Comment: " . $c->stash->{verify}->{area_comment} . " ****");
     my $verify_handling = $c->model('DB::VerifyHandling')->find({
 	request_id => $data_request->id
     });
     if (defined($verify_handling)) {
-	$c->stash->{verify} = {
-	    rec_comment => $verify_handling->rec_comment,
-	    population_comment => $verify_handling->population_comment,
-	    id_comment => $verify_handling->id_comment,
-	    storing_comment => $verify_handling->storing_comment,
-	    completion_comment => $verify_handling->completion_comment,
-	    publish_comment => $verify_handling->publish_comment,
-	    additional_comment => $verify_handling->additional_comment,
-	};
+	    $c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
+	    $c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
+	    $c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
+	    $c->stash->{verify}->{storing_comment} = $verify_handling->storing_comment;
+	    $c->stash->{verify}->{completion_comment} = $verify_handling->completion_comment;
+	    $c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
+	    $c->stash->{verify}->{additional_comment} = $verify_handling->additional_comment;
     }
+    $c->log->debug("*** REC Comment: " . $c->stash->{verify}->{rec_comment} . " ****");
 
 
     $c->stash(
