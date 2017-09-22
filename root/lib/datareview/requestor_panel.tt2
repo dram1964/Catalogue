@@ -1,11 +1,6 @@
-[% IF request.approval_requestor %]
 <div class="panel panel-success">
-[% ELSE %]
-<div class="panel panel-warning">
-[% END %]
   <div class="panel-heading">Requestor Details </div>
   <div class="panel-body">
-    <form action="[% c.uri_for(c.controller.action_for('requestor_approve'), [request.id]) %]" method="post">
       <dl>
       <div class="row">
 	<dt class="col-sm-4 text-left">Username:</dt>
@@ -40,31 +35,5 @@
 	</dd>
       </div>
       </dl>
-      <div class="row">
-	  <label class="col-sm-4 text-left">Verification Method:</label>
-	  <select class="col-sm-4 text-left" name="verificationMethod">
-	    <option value="0"[% IF request.approval_requestor.verification_method <= 1 %] selected [% END %]>&nbsp;</option>
-	    <option value="1"[% IF request.approval_requestor.verification_method == 1 %] selected [% END %]>UCLH Active Directory Account</option>
-	    <option value="2"[% IF request.approval_requestor.verification_method == 2 %] selected [% END %]>UCL Active Directory Account</option>
-	  </select>
-      </div><!-- end row -->
-
-      <div class="row">
-	  <label class="col-sm-4 text-left">Approval Notes:</label>
-	  <textarea class="col-sm-8 text-left" name="requestorNotes">[% request.approval_requestor.notes %]</textarea>
-      </div><!-- end row -->
-
-	<div class="row">
-	  <label>Approve?</label>
-	  <label>Yes</label>
-  	  <input type="radio" name="requestorValid" 
-	[% IF request.approval_requestor.validated == 1 %] checked="checked"[% END %] value="1">
-	  <label>No</label>
-  	  <input type="radio" name="requestorValid" 
-	[% IF request.approval_requestor.validated != 1 %] checked="checked"[% END %] value="0">
-	</div><!-- end row -->
-
-          <input type="submit" name="submit" value="Update">
-	</form>
   </div><!-- end panel-body -->
 </div><!-- end panel -->

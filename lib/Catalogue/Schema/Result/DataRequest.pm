@@ -107,66 +107,6 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
-=head2 approval_identifier
-
-Type: might_have
-
-Related object: L<Catalogue::Schema::Result::ApprovalIdentifier>
-
-=cut
-
-__PACKAGE__->might_have(
-  "approval_identifier",
-  "Catalogue::Schema::Result::ApprovalIdentifier",
-  { "foreign.request_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_requestor
-
-Type: might_have
-
-Related object: L<Catalogue::Schema::Result::ApprovalRequestor>
-
-=cut
-
-__PACKAGE__->might_have(
-  "approval_requestor",
-  "Catalogue::Schema::Result::ApprovalRequestor",
-  { "foreign.request_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_research
-
-Type: might_have
-
-Related object: L<Catalogue::Schema::Result::ApprovalResearch>
-
-=cut
-
-__PACKAGE__->might_have(
-  "approval_research",
-  "Catalogue::Schema::Result::ApprovalResearch",
-  { "foreign.request_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_service
-
-Type: might_have
-
-Related object: L<Catalogue::Schema::Result::ApprovalService>
-
-=cut
-
-__PACKAGE__->might_have(
-  "approval_service",
-  "Catalogue::Schema::Result::ApprovalService",
-  { "foreign.request_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 data_handlings
 
 Type: has_many
@@ -273,8 +213,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 11:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L+/f/SUyGTp6vGQHU/YbCg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 12:23:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:j5Cf20ggMxsG3S/CvZx7hw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

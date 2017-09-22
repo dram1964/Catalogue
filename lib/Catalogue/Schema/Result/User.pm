@@ -210,66 +210,6 @@ __PACKAGE__->add_unique_constraint("ux_username", ["username"]);
 
 =head1 RELATIONS
 
-=head2 approval_identifiers
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::ApprovalIdentifier>
-
-=cut
-
-__PACKAGE__->has_many(
-  "approval_identifiers",
-  "Catalogue::Schema::Result::ApprovalIdentifier",
-  { "foreign.approver" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_requestors
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::ApprovalRequestor>
-
-=cut
-
-__PACKAGE__->has_many(
-  "approval_requestors",
-  "Catalogue::Schema::Result::ApprovalRequestor",
-  { "foreign.approver" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_researches
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::ApprovalResearch>
-
-=cut
-
-__PACKAGE__->has_many(
-  "approval_researches",
-  "Catalogue::Schema::Result::ApprovalResearch",
-  { "foreign.approver" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 approval_services
-
-Type: has_many
-
-Related object: L<Catalogue::Schema::Result::ApprovalService>
-
-=cut
-
-__PACKAGE__->has_many(
-  "approval_services",
-  "Catalogue::Schema::Result::ApprovalService",
-  { "foreign.approver" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 data_requests
 
 Type: has_many
@@ -356,8 +296,8 @@ Composing rels: L</user_roles> -> role
 __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 11:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wF5DeQs1mWEyCg6o+91Low
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 12:23:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9iVr2hFp45BwPIdyhO13xw
 
 =head2 has_role
 
