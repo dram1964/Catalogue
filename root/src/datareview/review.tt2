@@ -9,6 +9,7 @@
 <p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
+<div ng-app="datareview">
 [% INCLUDE datareview/request_type_panel.tt2 %]
 [% INCLUDE datareview/requestor_panel.tt2 %]
 
@@ -24,6 +25,6 @@
   [% END %]
 
 [% END %]
-
+</div><!-- end ng-app div -->
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript" src="[% site.url.ng %]/ng_review.js"> </script>

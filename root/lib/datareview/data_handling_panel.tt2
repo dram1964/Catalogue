@@ -4,7 +4,8 @@
 <div class="panel panel-warning">
 [% END %]
   <div class="panel-heading">Data Handling</div>
-  <div class="panel-body">
+  <div class="panel-body text-left">
+      <div ng-controller="Handling as ctrl2">
     [% IF dh.request.request_type_id == 1 %]
        [% IF dh.rec_approval == 1 %]
 	  <p>REC Approval: Yes</p>
@@ -30,5 +31,6 @@
 
           <input type="submit" name="submit" value="Flag as Verified">
 	</form>
+      </div><!-- end ng-controller -->
   </div><!-- end panel-body -->
 </div><!-- end panel -->

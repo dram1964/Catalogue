@@ -1,5 +1,5 @@
     <p>Identifiers Requested: [% dh.identifiers %]</p>
-    <p>Reason for requested identifiers: <pre>[% dh.pid_justify %]</pre></p>
+    <p>Reason for requested identifiers: [% dh.pid_justify %]</p>
     <p>Legal Basis: [% dh.legal_basis.description %]</p>
     [% IF dh.disclosure == 1 %]	
 	<p>Data Disclosed to Third-Parties?: Yes</p>
