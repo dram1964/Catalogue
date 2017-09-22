@@ -22,6 +22,9 @@
 <label>Educational Institution</label>
 <p>Please name the educational institution and faculty or department requesting this data.</p>
 [% END %]
+[% IF verify.area_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.area_comment %]</span></p> 
+[% END %]
 <input type="textarea" name="area[% type %]" ng-model="ctrl.data.area[% type %]"
 	class="form-control"></input>
         </div><!-- end form-group -->
@@ -35,6 +38,9 @@
 <label>UCLH Organisational Plan or Objective</label>
 <p>Please name which UCLH organisational plan or objective this data is being requested for:</p>
 [% END %]
+[% IF verify.objective_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.objective_comment %]</span></p> 
+[% END %]
 <textarea name="objective[% type %]" ng-model="ctrl.data.objective[% type %]"
 	class="form-control"></textarea>
         </div><!-- end form-group -->
@@ -46,6 +52,9 @@
 <label>Potential Benefits of Processing the Data</label>
 [% END %]
 <p>Please indicate the potential benefits that could result from processing the requested data</p>
+[% IF verify.benefits_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.benefits_comment %]</span></p> 
+[% END %]
 <textarea name="benefits[% type %]" ng-model="ctrl.data.benefits[% type %]" class="form-control"></textarea>
         </div><!-- end form-group -->
       </div><!-- end panel-body div -->
@@ -73,6 +82,9 @@
 <p>Please specify your REC approval reference number:</p>
 <input type="textarea" name="recApprovalNumber" ng-model="ctrl.data.recApprovalNumber" 
 	class="form-control"></input>
+[% IF verify.rec_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.rec_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 [% END %]
 
@@ -81,6 +93,9 @@
 <p>Please indicate how you intend to identify the data subjects for this request</p>
 <input type="textarea" name="population[% type %]" ng-model="ctrl.data.population[% type %]"
 	class="form-control"></input>
+[% IF verify.population_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.population_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 
 
@@ -113,6 +128,9 @@
 <p>Please specify the contractual or other formal arrangements in place to control and manage the data held by any and all third-parties as part of this data request:</p>
 <textarea name="disclosureContract[% type %]" ng-model="ctrl.data.disclosureContract[% type %]" 
 	class="form-control"></textarea>
+[% IF verify.id_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 
         <div class="form-group">
@@ -125,6 +143,9 @@
 <br><label>Please specify where you intend to publish your results:</label>
 <textarea name="publishIdSpecification[% type %]" ng-model="ctrl.data.publishIdSpecification[% type %]" 
 	class="form-control"></textarea>
+[% IF verify.publish_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.publish_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 
         <div class="form-group">
@@ -132,6 +153,9 @@
 <p>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</p>
 <textarea name="storing[% type %]" ng-model="ctrl.data.storing[% type %]"
 	class="form-control"></textarea>
+[% IF verify.storing_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.storing_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 
         <div class="form-group">
@@ -139,6 +163,9 @@
 <p>Please explain how you intend to archive or destroy all copies of the data on completion of the project. Provide indicative dates for when this will happen</p>
 <textarea name="completion[% type %]" ng-model="ctrl.data.completion[% type %]"
 	class="form-control"></textarea>
+[% IF verify.completion_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
 
         <div class="form-group">
@@ -146,6 +173,9 @@
 <p>Please provide any additional information which you feel is relevant for this data access request</p>
 <textarea name="additional[% type %]" ng-model="ctrl.data.additional[% type %]"
 	class="form-control"></textarea>
+[% IF verify.additional_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.additional_comment %]</span></p> 
+[% END %]
         </div><!-- end form-group -->
       </div><!-- end panel-body div -->
     </div><!-- end panel-panel div -->

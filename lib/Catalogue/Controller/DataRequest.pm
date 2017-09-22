@@ -346,6 +346,12 @@ sub update_request :Chained('object') :Args() {
 	});
    }
 
+   if ($data_request->status_id == 7) {
+	$data_request->verify_purpose->delete if defined($data_request->verify_purpose);	
+	$data_request->verify_handling->delete if defined($data_request->verify_handling);	
+	$data_request->verify_data->delete if defined($data_request->verify_data);	
+   }
+
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
 
    $c->stash(
@@ -365,8 +371,8 @@ Edit an open request
 sub request_edit :Chained('object') :Args() {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
-    $c->detach('/error_noperms') unless 
-      $c->stash->{object}->status_id < 4;
+    $c->detach('/error_noperms') if 
+      $data_request->status_id == 4;
     my $user = $data_request->user;
 
     my $data_categorys_rs = $c->model('DB::DataCategory');
@@ -381,6 +387,7 @@ sub request_edit :Chained('object') :Args() {
     $data->{requestType} = $data_request->request_type_id;
     my $request = { 
 	id => $data_request->id,
+	status_id => $data_request->status_id,
 	user => {firstName => $user->first_name,
 	    lastName => $user->last_name
 	},
@@ -424,6 +431,36 @@ sub request_edit :Chained('object') :Args() {
     }
 
     my $legal_basis = [$c->model('DB::LegalBasis')->all];
+
+    my $verify_purpose = $data_request->verify_purpose;
+    if (defined($verify_purpose) ) {
+	$c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
+	$c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
+	$c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
+    }
+
+    my $verify_handling = $data_request->verify_handling;
+    if (defined($verify_handling) ) {
+	$c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
+	$c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
+	$c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
+	$c->stash->{verify}->{storing_comment} = $verify_handling->storing_comment;
+	$c->stash->{verify}->{completion_comment} = $verify_handling->completion_comment;
+	$c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
+	$c->stash->{verify}->{additional_comment} = $verify_handling->additional_comment;
+    }
+
+    my $verify_data = $data_request->verify_data;
+    if (defined($verify_data) ) {
+	$c->stash->{verify}->{cardiology_comment} = $verify_data->cardiology_comment;
+	$c->stash->{verify}->{diagnosis_comment} = $verify_data->diagnosis_comment;
+	$c->stash->{verify}->{episode_comment} = $verify_data->episode_comment;
+	$c->stash->{verify}->{other_comment} = $verify_data->other_comment;
+	$c->stash->{verify}->{pathology_comment} = $verify_data->pathology_comment;
+	$c->stash->{verify}->{pharmacy_comment} = $verify_data->pharmacy_comment;
+	$c->stash->{verify}->{radiology_comment} = $verify_data->radiology_comment;
+	$c->stash->{verify}->{theatre_comment} = $verify_data->theatre_comment;
+    }
 
     $c->stash(
       data_categorys => $data_categorys,

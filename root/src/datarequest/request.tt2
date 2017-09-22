@@ -25,7 +25,7 @@
 [% INCLUDE datarequest/request_type_panel.tt2 %]
 [% INCLUDE datarequest/data_handling_panel.tt2 %]
 [% INCLUDE datarequest/requested_data_panel.tt2 %]
-[% INSERT datarequest/submit_save.tt2 %]
+[% INCLUDE datarequest/submit_save.tt2 %]
       </div><!-- end controls -->
 
     </form>
