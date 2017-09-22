@@ -465,16 +465,31 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
     });
     my $dh = $dh_rs->first;
 
-    my $verification = $c->model('DB::VerifyPurpose')->find({
+    my $verify_purpose = $c->model('DB::VerifyPurpose')->find({
 	request_id => $data_request->id
     });
-    if (defined($verification)) {
+    if (defined($verify_purpose)) {
 	$c->stash->{verify} = {
-	    area_comment => $verification->area_comment,
-	    objective_comment => $verification->objective_comment,
-	    benefits_comment => $verification->benefits_comment,
+	    area_comment => $verify_purpose->area_comment,
+	    objective_comment => $verify_purpose->objective_comment,
+	    benefits_comment => $verify_purpose->benefits_comment,
 	};
     }
+    my $verify_handling = $c->model('DB::VerifyHandling')->find({
+	request_id => $data_request->id
+    });
+    if (defined($verify_handling)) {
+	$c->stash->{verify} = {
+	    rec_comment => $verify_handling->rec_comment,
+	    population_comment => $verify_handling->population_comment,
+	    id_comment => $verify_handling->id_comment,
+	    storing_comment => $verify_handling->storing_comment,
+	    completion_comment => $verify_handling->completion_comment,
+	    publish_comment => $verify_handling->publish_comment,
+	    additional_comment => $verify_handling->additional_comment,
+	};
+    }
+
 
     $c->stash(
         dh => $dh,
