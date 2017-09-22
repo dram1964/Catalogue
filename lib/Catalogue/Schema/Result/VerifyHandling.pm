@@ -61,6 +61,41 @@ __PACKAGE__->table("verify_handling");
   default_value: current_timestamp
   is_nullable: 0
 
+=head2 rec_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 population_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 id_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 storing_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 completion_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 publish_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 additional_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -75,6 +110,20 @@ __PACKAGE__->add_columns(
     default_value => \"current_timestamp",
     is_nullable => 0,
   },
+  "rec_comment",
+  { data_type => "text", is_nullable => 1 },
+  "population_comment",
+  { data_type => "text", is_nullable => 1 },
+  "id_comment",
+  { data_type => "text", is_nullable => 1 },
+  "storing_comment",
+  { data_type => "text", is_nullable => 1 },
+  "completion_comment",
+  { data_type => "text", is_nullable => 1 },
+  "publish_comment",
+  { data_type => "text", is_nullable => 1 },
+  "additional_comment",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -122,8 +171,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 16:13:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wouCqlO3nRkRvsFPyCzIQg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 09:15:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iSJNJfqMtvbw+U+Y0YTBOQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

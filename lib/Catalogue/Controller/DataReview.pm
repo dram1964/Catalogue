@@ -264,12 +264,21 @@ Need to add the handling values to the data_handling and data_handling_history t
 sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
     my ($self, $c) = @_;
     my $data_request = $c->stash->{object};
+    my $parameters = $c->request->body_parameters;
  
     my $verifier = $c->user->get_object;
     my $handling_verify = {
 	request_id => $data_request->id,
 	verifier => $verifier->id,
 	verification_time => undef,
+	rec_comment => $parameters->{rec_comment},
+	population_comment => $parameters->{population_comment},
+	id_comment => $parameters->{id_comment},
+	storing_comment => $parameters->{storing_comment},
+	completion_comment => $parameters->{completion_comment},
+	publish_comment => $parameters->{publish_comment},
+	additional_comment => $parameters->{additional_comment},
+
     };
 
     my $verification = $c->model('DB::VerifyHandling')->update_or_create(
