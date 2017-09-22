@@ -233,7 +233,6 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	    $c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	    $c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
     }
-    $c->log->debug("*** Area Comment: " . $c->stash->{verify}->{area_comment} . " ****");
     my $verify_handling = $c->model('DB::VerifyHandling')->find({
 	request_id => $data_request->id
     });
@@ -246,7 +245,20 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	    $c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
 	    $c->stash->{verify}->{additional_comment} = $verify_handling->additional_comment;
     }
-    $c->log->debug("*** REC Comment: " . $c->stash->{verify}->{rec_comment} . " ****");
+
+    my $verify_data = $c->model('DB::VerifyData')->find({
+	request_id => $data_request->id
+    });
+    if (defined($verify_data)) {
+	    $c->stash->{verify}->{cardiology_comment} = $verify_data->cardiology_comment;
+	    $c->stash->{verify}->{diagnosis_comment} = $verify_data->diagnosis_comment;
+	    $c->stash->{verify}->{episode_comment} = $verify_data->episode_comment;
+	    $c->stash->{verify}->{other_comment} = $verify_data->other_comment;
+	    $c->stash->{verify}->{pathology_comment} = $verify_data->pathology_comment;
+	    $c->stash->{verify}->{pharmacy_comment} = $verify_data->pharmacy_comment;
+	    $c->stash->{verify}->{radiology_comment} = $verify_data->radiology_comment;
+	    $c->stash->{verify}->{theatre_comment} = $verify_data->theatre_comment;
+    }
 
 
     $c->stash(
