@@ -148,6 +148,39 @@ sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
 
 }
 
+=head2 data_verify
+
+verify data for submitted request
+
+=cut 
+
+sub data_verify :Chained('object') :PathPart('data_verify') :Args(0) {
+    my ($self, $c) = @_;
+    my $data_request = $c->stash->{object};
+    my $parameters = $c->request->body_parameters;
+=comment 
+    my $verifier = $c->user->get_object;
+    my $data_verify = {
+	request_id => $data_request->id,
+	verifier => $verifier->id,
+	verification_time => undef,
+	rec_comment => $parameters->{rec_comment},
+
+    };
+
+    my $verification = $c->model('DB::VerifyHandling')->update_or_create(
+	$handling_verify
+    );
+    my $verification_history = $c->model('DB::VerifyHandlingHistory')->create(
+	$handling_verify
+    );
+    $data_request->update({status_id => 4});
+=cut
+    $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
+    $c->detach;
+
+}
+
 =head2 review
 
 review selected data request
