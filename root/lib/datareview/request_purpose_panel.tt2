@@ -36,7 +36,7 @@
   </div>
 
 	<input type="button" ng-click="ctrl1.addComments()" ng-show="ctrl1.edit == 0" value="Add Comments">
-	<input type="button" ng-click="ctrl1.addComments()" ng-show="ctrl1.edit == 1" value="No Comments">
+	<input type="button" ng-click="ctrl1.addComments()" ng-show="ctrl1.edit == 1" value="Hide Comments">
         <input type="submit" value="Submit Comments">
     </form>
 
