@@ -25,6 +25,9 @@
   [% END %]
 
 [% END %]
+<form action="[% c.uri_for(c.controller.action_for('request_user_review'),[request.id ]) %]" >
+    <input type="submit" value="Request User Review">
+</form>
 </div><!-- end ng-app div -->
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript" src="[% site.url.ng %]/ng_review.js"> </script>

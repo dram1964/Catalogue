@@ -269,6 +269,20 @@ sub review :Chained('object') :PathPart('review') :Args(0) {
 	template => 'datareview/review.tt2');
 }
 
+=head2 request_user_review
+
+flag request for review by user
+
+=cut
+
+sub request_user_review :Chained('object') :PathPart('request_user_review') :Args(0) {
+    my ($self, $c) = @_;
+    my $request = $c->stash->{object};
+    $request->update({status_id => 5});
+    $c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Request " .  $request->id . " Submitted for user review")}));
+    $c->detach;
+}
 
 
 =encoding utf8
