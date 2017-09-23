@@ -108,7 +108,7 @@
 
 [% INCLUDE datarequest/identifiers.tt2 %]
 
-[% INCLUDE datarequest/legal_basis_selected.tt2 %]
+[% INCLUDE datarequest/legal_basis.tt2 %]
 
         <div class="form-group" ng-show="ctrl.data.identifiable[% type %] == 1">
 <label>Will you be disclosing patient identifiers to any entities external to your requesting organisation?</label>
