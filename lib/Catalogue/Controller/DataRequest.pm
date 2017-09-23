@@ -238,7 +238,6 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 =head2 update_request
 
 submit request update
-Needs logic to update request_history
 
 =cut
 
@@ -351,14 +350,19 @@ sub update_request :Chained('object') :Args() {
 	$data_request->verify_handling->delete if defined($data_request->verify_handling);	
 	$data_request->verify_data->delete if defined($data_request->verify_data);	
    }
+   if ($parameters->{Submit} == 2) {
+	$c->response->redirect($c->uri_for($self->action_for('request_edit'), 
+		[$data_request->id]));
+   } else {
+   	my $data_requests = [$c->model('DB::DataRequest')->search(
+		{user_id => $c->stash->{user}->id})];
 
-   my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
-
-   $c->stash(
+   	$c->stash(
      status_msg => "Request " . $data_request->id . " updated",
      data_requests => $data_requests,
      parameters => $parameters,
      template => 'datarequest/list.tt2');
+   }
 }
 
 
