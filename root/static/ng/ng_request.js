@@ -54,6 +54,7 @@ if (typeof request !== 'undefined') {
             if (self.data.theatreDetails) { self.data.theatre = true; }
             if (self.data.cardiologyDetails) { self.data.cardiology = true; }
             if (self.data.chemotherapyDetails) { self.data.chemotherapy = true; }
+            if (self.data.otherDetails) { self.data.other = true; }
    } else {
 	    self.data = {'pathology' : false,
 		'diagnosis' : false,
