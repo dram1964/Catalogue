@@ -8,7 +8,8 @@
         <thead>
         <tbody>
   	<tr>
-  	<th>Request ID</th>
+  	<th>Area</th>
+  	<th>Objective</th>
 	<th>First Submission</th>
 	<th>Last Submission</th>
   	<th>Request Type</th>
@@ -16,6 +17,8 @@
          </tr>
     [% FOREACH request IN data_requests %]
   	<tr>
+  	<td>[% request.id %]</td>
+  	<td>[% request.id %]</td>
   	<td>[% request.id %]</td>
         <td>[% request.first_submit_date.strftime('%Y-%m-%d') %]</td>
         <td>[% request.last_submit_date.strftime('%Y-%m-%d') %]</td>
