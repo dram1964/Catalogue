@@ -1,13 +1,23 @@
-    <p>Identifiers Requested: [% dh.identifiers %]</p>
-    <p>Reason for requested identifiers: [% dh.pid_justify %]</p>
-    <p>Legal Basis: [% dh.legal_basis.description %]</p>
+<dl>
+    <dt>Identifiers Requested:</dt>
+    <dd>[% dh.identifiers %]</dd>
+    <dt>Reason for requested identifiers:</dt>
+    <dd>[% dh.pid_justify %]</dd>
+    <dt>Legal Basis:</dt>
+    <dd>[% dh.legal_basis.description %]</dd>
     [% IF dh.disclosure == 1 %]	
-	<p>Data Disclosed to Third-Parties?: Yes</p>
-	<p>Third-Parties: [% dh.disclosure_to %]</p>
-	<p>Contractual Arrangements: [% dh.disclosure_contract %]</p>
+	<dt>Data Disclosed to Third-Parties?:</dt>
+        <dd>Yes</dd>
+	<dt>Third-Parties:</dt>
+        <dd>[% dh.disclosure_to %]</dd>
+	<dt>Contractual Arrangements:</dt>
+	<dd>[% dh.disclosure_contract %]</dd>
     [% ELSIF dh.disclosure == 0 %]
-	<p>Data Disclosed to Third-Parties?: No</p>
+	<dt>Data Disclosed to Third-Parties?:
+	<dd>No</dd>
     [% ELSE %]
-	<p>Data Disclosed to Third-Parties?: <span class="alert-danger">Unanswered</span></p>
+	<dt>Data Disclosed to Third-Parties?:</dt>
+	<dd><span class="alert-danger">Unanswered</span></dd>
     [% END %]
+</dl>
 
