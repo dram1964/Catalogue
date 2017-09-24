@@ -71,13 +71,13 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 	template => 'datarequest/list.tt2');
 }
 
-=head2 review
+=head2 display
 
 allow current user to view data request submitted by self
 
 =cut
 
-sub review :Chained('object') :PathPart('review') :Args(0) {
+sub display :Chained('object') :PathPart('display') :Args(0) {
    my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
    my $data_items = {};

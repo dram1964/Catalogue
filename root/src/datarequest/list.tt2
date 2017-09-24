@@ -19,15 +19,15 @@
         <td>[% request.last_submit_date.strftime('%Y-%m-%d') %]</td>
   	<td>[% request.request_type.name %]</td>
 	[% SWITCH request.status_id %]
-        [% CASE [1, 2, 3, 5, 7] %]
+        [% CASE [1, 2, 5] %]
   	<td>
           <a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">
 		[% request.status.description %]
 	  </a> 
 	</td>
-        [% CASE [4, 6] %]
+        [% CASE [3, 4, 6, 7] %]
   	<td>
-          <a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">
+          <a href="[% c.uri_for(c.controller.action_for('display'), [request.id]) %]">
 		[% request.status.description %]
 	  </a> 
 	</td>
