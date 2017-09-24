@@ -9,13 +9,15 @@
         <tbody>
   	<tr>
   	<th>Request ID</th>
-	<th>Request Submitted</th>
+	<th>First Submission</th>
+	<th>Last Submission</th>
   	<th>Request Type</th>
   	<th>Current Request Status</th>
          </tr>
     [% FOREACH request IN data_requests %]
   	<tr>
   	<td>[% request.id %]</td>
+        <td>[% request.first_submit_date.strftime('%Y-%m-%d') %]</td>
         <td>[% request.last_submit_date.strftime('%Y-%m-%d') %]</td>
   	<td>[% request.request_type.name %]</td>
 	[% SWITCH request.status_id %]

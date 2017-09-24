@@ -257,8 +257,20 @@ Returns the last date from the request history where the submit type was 3 (subm
 
 sub last_submit_date {
   my ($self) = @_;
-  my $submit_rs = [$self->search_related('submitted_dates', {status_id => 3})];
+  my $submit_rs = [$self->search_related('submitted_dates', {status_id => [3, 7]})];
   return defined($submit_rs->[-1]) ? $submit_rs->[-1]->status_date : undef;
+}
+
+=head2 first_submit_date
+
+Returns the last date from the request history where the submit type was 3 (submitted)
+
+=cut
+
+sub first_submit_date {
+  my ($self) = @_;
+  my $submit_rs = [$self->search_related('submitted_dates', {status_id => 3})];
+  return defined($submit_rs->[0]) ? $submit_rs->[0]->status_date : undef;
 }
 
 =head2 delete_allowed_by
