@@ -234,6 +234,33 @@ __PACKAGE__->might_have(
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 
+=head2 submitted_dates
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::RequestHistory>
+
+=cut
+
+__PACKAGE__->might_have(
+  "submitted_dates",
+  "Catalogue::Schema::Result::RequestHistory",
+  { "foreign.request_id" => "self.id"},
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 last_submit_date
+
+Returns the last date from the request history where the submit type was 3 (submitted)
+
+=cut
+
+sub last_submit_date {
+  my ($self) = @_;
+  my $submit_rs = [$self->search_related('submitted_dates', {status_id => 3})];
+  return defined($submit_rs->[-1]) ? $submit_rs->[-1]->status_date : undef;
+}
+
 =head2 delete_allowed_by
 
 Can the specified user delete the current Registration Request?
