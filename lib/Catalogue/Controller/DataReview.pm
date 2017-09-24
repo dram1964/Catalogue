@@ -104,6 +104,14 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
 	$purpose_verify
     );
     $data_request->update({status_id => 4});
+    my $request_history = $c->model('DB::RequestHistory')->create({
+	request_id => $data_request->id,
+	user_id => $verifier->id,
+        request_type_id => $data_request->request_type_id,
+	status_id => $data_request->status_id,
+	status_date => undef,
+	}
+    );
     $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
     $c->detach;
 }
@@ -143,6 +151,14 @@ sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
 	$handling_verify
     );
     $data_request->update({status_id => 4});
+    my $request_history = $c->model('DB::RequestHistory')->create({
+	request_id => $data_request->id,
+	user_id => $verifier->id,
+        request_type_id => $data_request->request_type_id,
+	status_id => $data_request->status_id,
+	status_date => undef,
+	}
+    );
     $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
     $c->detach;
 
@@ -167,9 +183,7 @@ sub data_verify :Chained('object') :PathPart('data_verify') :Args(0) {
     };
     my $data_category_rs = $c->model('DB::DataCategory');
     while (my $category = $data_category_rs->next) {
-	$c->log->debug("*** Category: " . $category->category . " ****");
 	if ($parameters->{$category->category . '_comment'}) {
-	    $c->log->debug($category->category .  "*** Value: " . $parameters->{$category->category . '_comment'} . " ****");
 	    $data_verify->{$category->category . '_comment'} = $parameters->{$category->category . '_comment'};
 	}
     }
@@ -181,6 +195,14 @@ sub data_verify :Chained('object') :PathPart('data_verify') :Args(0) {
 	$data_verify
     );
     $data_request->update({status_id => 4});
+    my $request_history = $c->model('DB::RequestHistory')->create({
+	request_id => $data_request->id,
+	user_id => $verifier->id,
+        request_type_id => $data_request->request_type_id,
+	status_id => $data_request->status_id,
+	status_date => undef,
+	}
+    );
 	
     $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
     $c->detach;
