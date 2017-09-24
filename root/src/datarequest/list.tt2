@@ -17,9 +17,8 @@
          </tr>
     [% FOREACH request IN data_requests %]
   	<tr>
-  	<td>[% request.id %]</td>
-  	<td>[% request.id %]</td>
-  	<td>[% request.id %]</td>
+  	<td>[% request.data_handlings.area %]</td>
+  	<td>[% request.data_handlings.objective %]</td>
         <td>[% request.first_submit_date.strftime('%Y-%m-%d') %]</td>
         <td>[% request.last_submit_date.strftime('%Y-%m-%d') %]</td>
   	<td>[% request.request_type.name %]</td>
