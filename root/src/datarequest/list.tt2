@@ -2,7 +2,7 @@
 [% USE date %]
 [% IF c.user.has_role('requestor') %]
   [% IF data_requests.0 %]
-    <p class="lead">List of Data Requests</p>
+    <p class="lead text-left">List of Data Requests</p>
     <div class="table-responsive">
       <table class="table table-striped text-left">
         <thead>
@@ -17,8 +17,8 @@
          </tr>
     [% FOREACH request IN data_requests %]
   	<tr>
-  	<td>[% request.data_handlings.area %]</td>
-  	<td>[% request.data_handlings.objective %]</td>
+  	<td>[% request.data_handlings.area || 'Not Entered' %]</td>
+  	<td>[% request.data_handlings.objective || 'Not Entered' %]</td>
         <td>[% request.first_submit_date.strftime('%Y-%m-%d') %]</td>
         <td>[% request.last_submit_date.strftime('%Y-%m-%d') %]</td>
   	<td>[% request.request_type.name %]</td>
@@ -44,7 +44,7 @@
   [% ELSE %] 
   <p class="lead">No requests on record</p>
   [% END %]
-  <p><a href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
+  <p><a class="btn btn-primary" href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
 [% ELSE %]
 <p>Your account does not have permission to make data requests. Please contact the system administrator to request 
 permission to make data requests</p>
