@@ -1,5 +1,5 @@
 <div class="panel panel-success">
-  <div class="panel-heading">Request Type</div>
+  <div class="panel-heading">Request ID: [% request.id %]</div>
   <div class="panel-body">
   <dl>
     <dt class="col-sm-4 text-left">Request Type: </dt>

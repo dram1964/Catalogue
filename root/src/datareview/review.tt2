@@ -6,7 +6,6 @@
 </script>
 [% END %]
 
-<p class="lead">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
 <div ng-app="datareview">

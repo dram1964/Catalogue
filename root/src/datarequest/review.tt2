@@ -1,112 +1,122 @@
 [% META title = 'Review Data Request' %]
-<p class="lead">Reviewing Data Request ID: [% request.id %]</p>
+<p class="lead text-left">Reviewing Data Request ID: [% request.id %]</p>
 [% IF request.status_id < 4 %]
 <a href="[% c.uri_for(c.controller.action_for('request_edit'), [request.id]) %]">Edit</a>
 [% END %]
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
-<p class="lead">Requestor Details</p>
-      <dl class="row">
-        <dt class="col-sm-2 text-left">Username</dt>
-        <dd class="col-sm-10 text-left">[% request.user.email_address %]</dd>
-        <dt class="col-sm-2 text-left">Name</dt>
-        <dd class="col-sm-10 text-left">[% requestor.first_name %] [% requestor.last_name %]</dd>
-        <dt class="col-sm-2 text-left">Job Title</dt>
-        <dd class="col-sm-10 text-left">[% requestor.job_title %]</dd>
-        <dt class="col-sm-2 text-left">Department</dt>
-        <dd class="col-sm-10 text-left">[% requestor.department %]</dd>
-        <dt class="col-sm-2 text-left">Organisation</dt>
-        <dd class="col-sm-10 text-left">[% requestor.organisation %]<br>
-	    [% requestor.address1 %]<br>
-	    [% requestor.address2 %]<br>
-	    [% requestor.address3 %]<br>
-	    [% requestor.city %]<br>
-	    [% requestor.postcode %]<br>
-        </dd>
-        <dt class="col-sm-2 text-left">Telephone</dt>
-	<dd class="col-sm-10 text-left">[% requestor.telephone %]<br>
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+    <caption>Requestor Details</caption>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Job Title</th>
+        <th>Department</th>
+        <th>Organisation</th>
+        <th>Telephone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>[% request.user.email_address %]</td>
+        <td>[% requestor.first_name %] [% requestor.last_name %]</td>
+        <td>[% requestor.job_title %]</td>
+        <td>[% requestor.department %]</td>
+        <td>[% requestor.organisation %]
+	[% IF requestor.address1 %]<br>[% requestor.address1 %][% END %]
+	[% IF requestor.address2 %]<br>[% requestor.address2 %][% END %]
+	[% IF requestor.address3 %]<br>[% requestor.address3 %][% END %]
+	[% IF requestor.city %]<br>[% requestor.city %][% END %]
+	[% IF requestor.postcode %]<br>[% requestor.postcode %][% END %]
+        </td>
+	<td>[% IF requestor.telephone %][% requestor.telephone %]<br>[%END %]
 	    [% requestor.mobile %]
-        </dd>
-      </dl>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 [% IF dh %]
-<p class="lead">Data Handling</p>
-  <dl>
-    <dt class="col-sm-4 text-left">Request Type: </dt>
-    <dd class="col-sm-8 text-left">[% request.request_type.name %]</dd>
-    <dt class="col-sm-4 text-left">Request Type Description: </dt>
-    <dd class="col-sm-8 text-left">[% request.request_type.description %]</dd>
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+    <caption>Data Handling</caption>
+    <thead>
+      <tr> <th>Data Item</th> <th>Data Requested</th> </tr>
+    </thead>
+    <tbody> 
+	<tr><td>Request Type</td> <td>[% request.request_type.name %]</td>
+        <tr><td>Request Type Description</td><td>[% request.request_type.description %]</td></tr>
+        <tr>
   [% IF dh.request.request_type_id == 4 %]
-    <dt class="col-sm-4 text-left">Request Originator: </dt>
-    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
+    <td>Request Originator </td>
+    <td>[% dh.area || "&nbsp;" %]</td>
   [% ELSIF dh.request.request_type_id == 5 %]
-    <dt class="col-sm-4 text-left">Service Lead: </dt>
-    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
+    <td>Service Lead</td>
+    <td>[% dh.area || "&nbsp;" %]</td>
   [% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
-    <dt class="col-sm-4 text-left">Service Area: </dt>
-    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
+    <td>Service Area </td>
+    <td>[% dh.area || "&nbsp;" %]</td>
   [% ELSIF dh.request.request_type_id == 1 %]
     [% IF dh.rec_approval == 1 %]
-    <dt class="col-sm-4 text-left">REC Approval: </dt>
-    <dd class="col-sm-8 text-left">Yes</dd>
-    <dt class="col-sm-4 text-left">REC Approval Number: </dt>
-    <dd class="col-sm-8 text-left">[% dh.rec_approval_number || "&nbsp;" %]</dd>
+    <td>REC Approval</td>
+    <td>Yes</td></tr>
+    <td>REC Approval Number</td>
+    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr>
     [% ELSE %]
-    <dt class="col-sm-4 text-left">REC Approval: </dt>
-    <dd class="col-sm-8 text-left">No</dd>
+    <td>REC Approval</td>
+    <td>No</td></tr>
     [% END %]
-    <dt class="col-sm-4 text-left">Research Area: </dt>
-    <dd class="col-sm-8 text-left">[% dh.area || "&nbsp;" %]</dd>
+    <td>Research Area</td>
+    <td>[% dh.area || "&nbsp;" %]</td>
   [% END %]
-    <dt class="col-sm-4 text-left">Objective: </dt>
-    <dd class="col-sm-8 text-left">[% dh.objective || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Benefits: </dt>
-    <dd class="col-sm-8 text-left">[% dh.benefits || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Patient Selection: </dt>
-    <dd class="col-sm-8 text-left">[% dh.population || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Identifiable Data Required: </dt>
+       </tr>
+    <tr><td>Objective</td><td>[% dh.objective || "&nbsp;" %]</td></tr>
+    <tr><td>Benefits</td><td>[% dh.benefits || "&nbsp;" %]</td></tr>
+    <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>
+    <tr><td>Identifiable Data Required</td>
   [% IF dh.identifiable == 0 %]
-    <dd class="col-sm-8 text-left">No</dd>
+    <td>No</td></tr>
   [% ELSIF dh.identifiable == 1 %]
-    <dd class="col-sm-8 text-left">Yes</dd>
-    <dt class="col-sm-4 text-left">Identifiers: </dt>
-    <dd class="col-sm-8 text-left">[% dh.identifiers || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Justification for PID: </dt>
-    <dd class="col-sm-8 text-left">[% dh.pid_justify || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Legal basis for PID: </dt>
-    <dd class="col-sm-8 text-left">[% dh.legal_basis.description || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Identifiers Disclosed to: </dt>
+    <td>Yes</td></tr>
+    <tr><td>Identifiers</td><td>[% dh.identifiers || "&nbsp;" %]</td></tr>
+    <tr><td>Justification for PID</td><td>[% dh.pid_justify || "&nbsp;" %]</td></tr>
+    <tr><td>Legal basis for PID</td><td>[% dh.legal_basis.description || "&nbsp;" %]</td></tr>
+    <tr><td>Identifiers Disclosed to</td>
     [% IF dh.disclosure == 1 %]
-    <dd class="col-sm-8 text-left">[% dh.disclosure_to || "&nbsp;" %]</dd>
+    <td>[% dh.disclosure_to || "&nbsp;" %]</td></tr>
     [% ELSE %]
-    <dd class="col-sm-8 text-left">None</dd>
+    <td>None</td></tr>
     [% END %]
-    <dt class="col-sm-4 text-left">Disclosure Contractual: </dt>
+    <tr><td>Disclosure Contractual</td>
     [% IF dh.disclosure == 1 %]
-    <dd class="col-sm-8 text-left">[% dh.disclosure_contract || "&nbsp;" %]</dd>
+    <td>[% dh.disclosure_contract || "&nbsp;" %]</td></tr>
     [% ELSE %]
-    <dd class="col-sm-8 text-left">None</dd>
+    <td>None</td></tr>
     [% END %]
-    <dt class="col-sm-4 text-left">Data Published to: </dt>
-    <dd class="col-sm-8 text-left">[% dh.publish_to || "&nbsp;" %]</dd>
+    <tr><td>Data Published to</td><td>[% dh.publish_to || "&nbsp;" %]</td></tr>
   [% ELSE %]
-    <dd class="col-sm-8 text-left">Not Applicable</dd>
+    <td>No Response</td></tr>
   [% END %]
-    <dt class="col-sm-4 text-left">Data Processed on: </dt>
-    <dd class="col-sm-8 text-left">[% dh.storing || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Disposal of data: </dt>
-    <dd class="col-sm-8 text-left">[% dh.completion || "&nbsp;" %]</dd>
-    <dt class="col-sm-4 text-left">Additional Information: </dt>
-    <dd class="col-sm-8 text-left">[% dh.additional_info || "&nbsp;" %]</dd>
-  </dl>
+    <tr><td>Data Processed on</td><td>[% dh.storing || "&nbsp;" %]</td></tr>
+    <tr><td>Disposal of data</td><td>[% dh.completion || "&nbsp;" %]</td></tr>
+    <tr><td>Additional Information</td><td>[% dh.atditional_info || "&nbsp;" %]</td></tr>
+    </tbody>
+  </table>
+</div>
 [% END %]
-<p class="lead">Data Requested</p>
+
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-striped text-left">
+  <caption>Data Requested</caption>
     <thead>
-    <tbody>
       <tr>
         <th>Data Item</th>
         <th>Data Requested</th>
       </tr>
+    </thead>
+    <tbody>
 [% FOREACH item IN data_items.keys %]
       <tr>
         <td>[% item %]</td>
