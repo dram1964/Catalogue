@@ -10,15 +10,16 @@
 
 [% FOREACH item IN data_items.keys.sort %]
   [% lcitem = item.lower %]
-        <label>[% item %]:</label><p> [% data_items.$item %]</p>
+<dl>
+        <dt>[% item %]:</dt><dd> [% data_items.$item %]</dd>
+</dl>
   <div ng-show="ctrl3.edit == 1">
-    <label for="[% lcitem %]_comment">[% item %] comments:</label>
-    <textarea name="[% lcitem %]_comment" ng-model="ctrl3.[% lcitem %]_comment" class="form-control"></textarea>
+    <textarea name="[% lcitem %]_comment" ng-model="ctrl3.[% lcitem %]_comment" class="form-control" placeholder="[% item %] comments"></textarea>
   </div>
 [% END %]
-	<input type="button" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 0" value="Add Comments">
-	<input type="button" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 1" value="Hide Comments">
-        <input type="submit" value="Submit Comments">
+	<input type="button" class="btn btn-primary" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 0" value="Add Comments">
+	<input type="button" class="btn btn-primary" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 1" value="Hide Comments">
+        <input type="submit" class="btn btn-primary" value="Submit Comments">
     </form>
       </div><!-- end DataRequest controller div -->
   </div><!-- end panel-body -->

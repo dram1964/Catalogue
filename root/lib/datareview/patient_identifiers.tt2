@@ -1,17 +1,17 @@
 <dl>
     <dt>Identifiers Requested:</dt>
-    <dd>[% dh.identifiers %]</dd>
-    <dt>Reason for requested identifiers:</dt>
-    <dd>[% dh.pid_justify %]</dd>
-    <dt>Legal Basis:</dt>
-    <dd>[% dh.legal_basis.description %]</dd>
+    <dd>[% dh.identifiers || no_response %]</dd>
+    <dt>Please explain why each requested personal identifier is essential for this request</dt>
+    <dd>[% dh.pid_justify || no_response %]</dd>
+    <dt>Please choose the correct, most relevant, legal basis for requested identifiers</dt>
+    <dd>[% dh.legal_basis.description || no_response %]</dd>
     [% IF dh.disclosure == 1 %]	
 	<dt>Data Disclosed to Third-Parties?:</dt>
         <dd>Yes</dd>
 	<dt>Third-Parties:</dt>
-        <dd>[% dh.disclosure_to %]</dd>
+        <dd>[% dh.disclosure_to || no_response %]</dd>
 	<dt>Contractual Arrangements:</dt>
-	<dd>[% dh.disclosure_contract %]</dd>
+	<dd>[% dh.disclosure_contract || no_response %]</dd>
     [% ELSIF dh.disclosure == 0 %]
 	<dt>Data Disclosed to Third-Parties?:
 	<dd>No</dd>
