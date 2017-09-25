@@ -31,6 +31,7 @@
   <div ng-show="ctrl1.edit == 1">
     <textarea name="area_comment" ng-model="ctrl1.area_comment" class="form-control" placeholder="reviewer comments"></textarea>
   </div>
+<hr>
 <dl>
   <dt>Objectives:</dt>
   <dd>[% dh.objective %]</dd>
@@ -38,6 +39,7 @@
   <div ng-show="ctrl1.edit == 1">
     <textarea name="objective_comment" ng-model="ctrl1.objective_comment" class="form-control" placeholder="reviewer comments"></textarea>
   </div>
+<hr>
 <dl>
   <dt>Potential Benefits:</dt>
   <dd>[% dh.benefits %]</dd>
@@ -46,6 +48,7 @@
     <textarea name="benefits_comment" ng-model="ctrl1.benefits_comment" class="form-control" placeholder="reviewer comments"></textarea>
   </div>
 
+<hr>
 	<input type="button" class="btn btn-primary" ng-click="ctrl1.addComments()" ng-show="ctrl1.edit == 0" value="Add Comments">
 	<input type="button" class="btn btn-primary" ng-click="ctrl1.addComments()" ng-show="ctrl1.edit == 1" value="Hide Comments">
         <input type="submit" class="btn btn-primary" value="Submit Comments">

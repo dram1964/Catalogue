@@ -1,5 +1,5 @@
 <dl>
-    <dt>Identifiers Requested:</dt>
+    <dt>Patient Identifiers Requested:</dt>
     <dd>[% dh.identifiers || no_response %]</dd>
     <dt>Please explain why each requested personal identifier is essential for this request</dt>
     <dd>[% dh.pid_justify || no_response %]</dd>

@@ -33,12 +33,14 @@
   <div ng-show="ctrl2.edit == 1">
     <textarea name="population_comment" ng-model="ctrl2.population_comment" class="form-control" placeholder="Population comments"></textarea>
   </div>
+<hr>
   [% IF dh.identifiable == 1 %]
     [% INCLUDE datareview/patient_identifiers.tt2 %]
   <div ng-show="ctrl2.edit == 1">
     <textarea name="id_comment" ng-model="ctrl2.id_comment" class="form-control" placeholder="PID comments"></textarea>
   </div>
   [% END %]
+<hr>
 <dl>
 	<dt>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</dt>
 	<dd>[% dh.storing || no_response %]</dd>
@@ -46,6 +48,7 @@
   <div ng-show="ctrl2.edit == 1">
     <textarea name="storing_comment" ng-model="ctrl2.storing_comment" class="form-control" placeholder="Storage Comments"></textarea>
   </div>
+<hr>
 <dl>
         <dt>Please explain how you intend to archive or destroy all copies of the data on completion of the project. Provide indicative dates for when this will happen</dt>
 	<dd>[% dh.completion || no_response %]</dd>
@@ -53,6 +56,7 @@
   <div ng-show="ctrl2.edit == 1">
     <textarea name="completion_comment" ng-model="ctrl2.completion_comment" class="form-control" placeholder="Data Completion comments"></textarea>
   </div>
+<hr>
 <dl>
         <dt>Please specify where you intend to publish your results:</dt>
      [% IF dh.publish == 1 %]
@@ -64,6 +68,7 @@
   <div ng-show="ctrl2.edit == 1">
     <textarea name="publish_comment" ng-model="ctrl2.publish_comment" class="form-control" placeholder="publication comments"></textarea>
   </div>
+<hr>
 <dl>
         <dt>Please provide any additional information which you feel is relevant for this data access request:</dt>
 	<dd>[% dh.additional_info %]</dd>

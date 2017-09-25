@@ -16,6 +16,7 @@
   <div ng-show="ctrl3.edit == 1">
     <textarea name="[% lcitem %]_comment" ng-model="ctrl3.[% lcitem %]_comment" class="form-control" placeholder="[% item %] comments"></textarea>
   </div>
+<hr>
 [% END %]
 	<input type="button" class="btn btn-primary" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 0" value="Add Comments">
 	<input type="button" class="btn btn-primary" ng-click="ctrl3.addComments()" ng-show="ctrl3.edit == 1" value="Hide Comments">

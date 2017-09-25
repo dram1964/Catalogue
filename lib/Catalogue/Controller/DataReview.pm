@@ -165,6 +165,34 @@ sub display :Chained('request') :PathPart('display') :Args(0) {
     );
 }
 
+=head2 request_ig_review
+
+flags request as ready for IG review then displays request in PDF format
+
+=cut
+
+sub request_ig_review :Chained('request') :PathPart('request_ig_review') :Args(0) {
+	my ($self, $c) = @_;
+	
+	my $request = $c->stash->{request};
+	$request->update({status_id => 6});
+	
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg($request->id . " flagged for IG review")}));
+	$c->detach;
+}
+
+sub enable_review :Chained('object') :PathPart('enable_review') :Args(0) {
+	my ($self, $c) = @_;
+
+	my $request = $c->stash->{object};
+	$request->update({status_id => 3});
+
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg($request->id . " flagged for review")}));
+	$c->detach;
+}
+
 =head2 list 
 
 List all data requests 
