@@ -9,7 +9,7 @@ PRIMARY KEY (id)
 INSERT INTO legal_basis VALUES
 (1, 'Consent Obtained from all Data Subjects'),
 (2, 'Section 251 Exemption Granted for all Data Subjects'),
-(3, 'Contractual Obligation to Monitory and Improve Clinical Service Provision'),
+(3, 'Contractual Obligation to Monitor and Improve Clinical Service Provision'),
 (4, 'Direct Patient Care'),
 (5, 'Statutory Requirement'),
 (6, 'Public Health Interest');
