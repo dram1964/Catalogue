@@ -8,19 +8,19 @@
 
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
-<div ng-app="datareview">
-[% INCLUDE datareview/request_type_panel.tt2 %]
-[% INCLUDE datareview/requestor_panel.tt2 %]
+<div ng-app="igadmin">
+[% INCLUDE igadmin/request_type_panel.tt2 %]
+[% INCLUDE igadmin/requestor_panel.tt2 %]
 
 [% IF dh %]
 
-  [% INCLUDE datareview/request_purpose_panel.tt2 %]
+  [% INCLUDE igadmin/request_purpose_panel.tt2 %]
 
 
-  [% INCLUDE datareview/data_handling_panel.tt2 %]
+  [% INCLUDE igadmin/data_handling_panel.tt2 %]
 
   [% IF data_items.values.first %]
-    [% INCLUDE datareview/data_requested.tt2 %]
+    [% INCLUDE igadmin/data_requested.tt2 %]
   [% END %]
 
 [% END %]
@@ -40,4 +40,4 @@
 [% END %]
 </div><!-- end ng-app div -->
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
-<script type="text/javascript" src="[% site.url.ng %]/ng_review.js"> </script>
+<script type="text/javascript" src="[% site.url.ng %]/ng_igreview.js"> </script>
