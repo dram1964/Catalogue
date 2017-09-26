@@ -7,6 +7,12 @@ angular.module('igadmin', [])
     self.addScores = function() {
 	self.edit = self.edit == 1 ? 0 : 1;
     };
+    self.updateScore = function() {
+	if (self.rating >= 1 && self.likely >= 1) {
+	    self.score = self.rating * self.likely;
+	}
+    };
+
   }
 
 ])
