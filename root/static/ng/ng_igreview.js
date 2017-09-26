@@ -19,19 +19,17 @@ angular.module('igadmin', [])
   .controller('Handling', [function() {
     var self = this;
     self.edit = 0;
-    if (typeof verify !== 'undefined') {
-      self.rec_comment = verify.rec_comment;
-      self.population_comment = verify.population_comment;
-      self.id_comment = verify.id_comment;
-      self.storing_comment = verify.storing_comment;
-      self.completion_comment = verify.completion_comment;
-      self.publish_comment = verify.publish_comment;
-      self.additional_comment = verify.additional_comment;
-    }
+    self.score = self.rating * self.likely;
 
-    self.addComments = function() {
+    self.addScores = function() {
 	self.edit = self.edit == 1 ? 0 : 1;
     };
+    self.updateScore = function() {
+	if (self.rating >= 1 && self.likely >= 1) {
+	    self.score = self.rating * self.likely;
+	}
+    };
+
   }
 ])
   .controller('DataRequest', [function() {

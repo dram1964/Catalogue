@@ -27,7 +27,4 @@
     <dd>None</dd>
 </dl>
   [% END %]
-  <div ng-show="ctrl2.edit == 1">
-    <textarea name="id_comment" ng-model="ctrl2.id_comment" class="form-control" placeholder="PID comments"></textarea>
-  </div>
 <hr>

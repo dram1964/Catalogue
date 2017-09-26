@@ -1,6 +1,7 @@
 [% META title = 'View IG Approval Request' %]
 <p class="lead text-left">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
+
 <div class="table-responsive">
   <table class="table table-striped text-left">
     <caption>Requestor Details</caption>
@@ -38,7 +39,7 @@
 [% IF dh %]
 <div class="table-responsive">
   <table class="table table-striped text-left">
-    <caption>Data Handling</caption>
+    <caption>Request Purpose</caption>
     <thead>
       <tr> <th>Item</th> <th>Response</th> </tr>
     </thead>
@@ -71,6 +72,16 @@
        </tr>
     <tr><td>Objective</td><td>[% dh.objective || "&nbsp;" %]</td></tr>
     <tr><td>Benefits</td><td>[% dh.benefits || "&nbsp;" %]</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+    <caption>Data Handling</caption>
+    <thead>
+      <tr> <th>Item</th> <th>Response</th> </tr>
+    </thead>
+    <tbody> 
     <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>
     <tr><td>Identifiable Data Required</td>
   [% IF dh.identifiable == 0 %]

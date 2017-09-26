@@ -1,0 +1,33 @@
+
+    <form>
+    <select name="purpose_risk" class="form-control"</select>
+	<option value="1">Potential benefits do not outweigh potential risk</option>
+	<option value="2">Incompatible use with the original purpose for data collection</option>
+	<option value="3">Excessive use of PCD</option>
+    </select>
+    <div class="row">
+      <div class="col-md-4">
+	<p>Risk Rating</p>
+	<label>Low</label>
+	<input type="radio" name="purpose_rating" ng-click="ctrl2.updateScore()" ng-model="ctrl2.rating" value=1>1
+	<input type="radio" name="purpose_rating" ng-click="ctrl2.updateScore()" ng-model="ctrl2.rating" value=2>2
+	<input type="radio" name="purpose_rating" ng-click="ctrl2.updateScore()" ng-model="ctrl2.rating" value=3>3
+	<input type="radio" name="purpose_rating" ng-click="ctrl2.updateScore()" ng-model="ctrl2.rating" value=4>4
+	<input type="radio" name="purpose_rating" ng-click="ctrl2.updateScore()" ng-model="ctrl2.rating" value=5>5
+	<label>High</label>
+      </div><!-- end column div -->
+      <div class="col-md-4">
+	<p>Risk Likelihood</p>
+	<label>Low</label>
+	<input type="radio" name="purpose_likely" ng-click="ctrl2.updateScore()" ng-model="ctrl2.likely" value=1>1
+	<input type="radio" name="purpose_likely" ng-click="ctrl2.updateScore()" ng-model="ctrl2.likely" value=2>2
+	<input type="radio" name="purpose_likely" ng-click="ctrl2.updateScore()" ng-model="ctrl2.likely" value=3>3
+	<input type="radio" name="purpose_likely" ng-click="ctrl2.updateScore()" ng-model="ctrl2.likely" value=4>4
+	<input type="radio" name="purpose_likely" ng-click="ctrl2.updateScore()" ng-model="ctrl2.likely" value=5>5
+	<label>High</label>
+      </div><!-- end column div -->
+      <div class="col-md-4">
+	<input type="text" name="score" ng-model="ctrl2.score">
+      </div><!-- end column div -->
+    </div><!-- end row div -->
+  </form>
