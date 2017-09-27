@@ -2,9 +2,11 @@ angular.module('igadmin', [])
   .controller('ScoreCard', [function() {
     var self = this;
     self.msg = "cooking with gas";
+    self.risks = [ {id: 0}
+    ];
 
-    self.addScores = function() {
-	self.edit = self.edit == 1 ? 0 : 1;
+    self.addRisk = function() {
+	self.risks.push({id : self.risks.length + 1}); 
     };
     self.updateScore = function() {
 	if (self.rating >= 1 && self.likely >= 1) {
