@@ -1,7 +1,11 @@
 [% META title = 'View IG Approval Request' %]
 <p class="lead text-left">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
-
+<div ng-app="igadmin">
+  <div ng-controller="ScoreCard as sc">
+  <span class="alert-info">Message from Controller: {{sc.msg}}</span>
+  </div><!-- end ng-controller div -->
+</div><!-- end ng-app div -->
 <div class="table-responsive">
   <table class="table table-striped text-left">
     <caption>Requestor Details</caption>
@@ -134,3 +138,5 @@
     </tbody>
   </table>
 </div>
+<script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
+<script type="text/javascript" src="[% site.url.ng %]/ng_igreview.js"> </script>
