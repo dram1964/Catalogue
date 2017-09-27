@@ -5,6 +5,7 @@
   <div ng-controller="ScoreCard as sc">
 <span class="alert-info" ng-bind="sc.risks.length"></span>
     <div ng-repeat="risk in sc.risks">
+<span class="alert-info" ng-bind="risk.rating.name"></span>
     <select class="form-control"</select>
 	<option value="1">Potential benefits do not outweigh potential risk</option>
 	<option value="2">Incompatible use with the original purpose for data collection</option>
@@ -14,21 +15,21 @@
       <div class="col-md-4">
 	<p>Risk Rating</p>
 	<label>Low</label>
-	<input type="radio" name="purpose_rating" ng-click="sc.updateScore()" ng-model="sc.rating" value=1>1
-	<input type="radio" name="purpose_rating" ng-click="sc.updateScore()" ng-model="sc.rating" value=2>2
-	<input type="radio" name="purpose_rating" ng-click="sc.updateScore()" ng-model="sc.rating" value=3>3
-	<input type="radio" name="purpose_rating" ng-click="sc.updateScore()" ng-model="sc.rating" value=4>4
-	<input type="radio" name="purpose_rating" ng-click="sc.updateScore()" ng-model="sc.rating" value=5>5
+	<input type="radio" name="risk.rating.name" ng-click="sc.updateScore()" ng-model="risk.rating.value" value=1>1
+	<input type="radio" name="risk.rating.name" ng-click="sc.updateScore()" ng-model="risk.rating.value" value=2>2
+	<input type="radio" name="risk.rating.name" ng-click="sc.updateScore()" ng-model="risk.rating.value" value=3>3
+	<input type="radio" name="risk.rating.name" ng-click="sc.updateScore()" ng-model="risk.rating.value" value=4>4
+	<input type="radio" name="risk.rating.name" ng-click="sc.updateScore()" ng-model="risk.rating.value" value=5>5
 	<label>High</label>
       </div><!-- end column div -->
       <div class="col-md-4">
 	<p>Risk Likelihood</p>
 	<label>Low</label>
-	<input type="radio" name="purpose_likely" ng-click="sc.updateScore()" ng-model="sc.likely" value=1>1
-	<input type="radio" name="purpose_likely" ng-click="sc.updateScore()" ng-model="sc.likely" value=2>2
-	<input type="radio" name="purpose_likely" ng-click="sc.updateScore()" ng-model="sc.likely" value=3>3
-	<input type="radio" name="purpose_likely" ng-click="sc.updateScore()" ng-model="sc.likely" value=4>4
-	<input type="radio" name="purpose_likely" ng-click="sc.updateScore()" ng-model="sc.likely" value=5>5
+	<input type="radio" name="risk.likely.name" ng-click="sc.updateScore()" ng-model="risk.likely.value" value=1>1
+	<input type="radio" name="risk.likely.name" ng-click="sc.updateScore()" ng-model="risk.likely.value" value=2>2
+	<input type="radio" name="risk.likely.name" ng-click="sc.updateScore()" ng-model="risk.likely.value" value=3>3
+	<input type="radio" name="risk.likely.name" ng-click="sc.updateScore()" ng-model="risk.likely.value" value=4>4
+	<input type="radio" name="risk.likely.name" ng-click="sc.updateScore()" ng-model="risk.likely.value" value=5>5
 	<label>High</label>
       </div><!-- end column div -->
       <div class="col-md-4">
@@ -37,6 +38,9 @@
       <button ng-click="sc.addRisk()">Add Next Risk</button>
     </div><!-- end row div -->
     </div><!-- end ng-repeat -->
+  <form action="[% c.uri_for(c.controller.action_for('ng_display'), [request.id ]) %]" method="post">
+	<input type="submit" value="Submit">
+  </form>
   </div><!-- end ng-controller div -->
 </div><!-- end ng-app div -->
 <div class="table-responsive">
