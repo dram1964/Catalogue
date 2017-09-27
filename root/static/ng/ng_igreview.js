@@ -22,12 +22,7 @@ angular.module('igadmin', [])
     self.updateScore = function(risk) {
 	    risk.score = risk.rating.value * risk.likely.value;
     };
-    self.showValue = function(risk) {
-	console.log(risk.category.name + " Value: " + risk.category.value);
-    };
-
   }
-
 ])
   .controller('Handling', [function() {
     var self = this;
@@ -42,6 +37,5 @@ angular.module('igadmin', [])
 	    self.score = self.rating * self.likely;
 	}
     };
-
   }
 ]);
