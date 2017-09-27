@@ -4,21 +4,26 @@ angular.module('igadmin', [])
     self.msg = "cooking with gas";
     self.risks = [ { 
 	name : 'risk1',
-	rating : {name : 'rating1', value : 1}, 
-	likely : {name : 'likely1', value : 1},
-	score : 1
+	rating : {name : 'rating1', value : ''}, 
+	likely : {name : 'likely1', value : ''},
+	category : {name : 'category1', value : ''},
+	score : ''
     }];
 
     self.addRisk = function() {
 	var suffix = self.risks.length + 1;
 	self.risks.push({
 	name : 'risk' + suffix,
-	rating : {name : 'rating' + suffix, value : suffix},
-	likely : {name : 'likely' + suffix, value : suffix} 
+	rating : {name : 'rating' + suffix, value : ''},
+	likely : {name : 'likely' + suffix, value : ''},
+	category : {name : 'category' + suffix, value : ''} 
 	});
     };
     self.updateScore = function(risk) {
 	    risk.score = risk.rating.value * risk.likely.value;
+    };
+    self.showValue = function(risk) {
+	console.log(risk.category.name + " Value: " + risk.category.value);
     };
 
   }
