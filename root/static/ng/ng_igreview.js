@@ -2,20 +2,23 @@ angular.module('igadmin', [])
   .controller('ScoreCard', [function() {
     var self = this;
     self.msg = "cooking with gas";
-    self.risks = [ {rating : {name : 'rating1'}, likely : {name : 'likely1'}}
-    ];
+    self.risks = [ { 
+	name : 'risk1',
+	rating : {name : 'rating1', value : 1}, 
+	likely : {name : 'likely1', value : 1},
+	score : 1
+    }];
 
     self.addRisk = function() {
 	var suffix = self.risks.length + 1;
 	self.risks.push({
-	rating : {name : 'rating' + suffix},
-	likely : {name : 'likely' + suffix} 
+	name : 'risk' + suffix,
+	rating : {name : 'rating' + suffix, value : suffix},
+	likely : {name : 'likely' + suffix, value : suffix} 
 	});
     };
-    self.updateScore = function(rating) {
-	if (self.likely >= 1) {
-	    self.score = rating * self.likely;
-	}
+    self.updateScore = function(risk) {
+	    risk.score = risk.rating.value * risk.likely.value;
     };
 
   }
