@@ -41,6 +41,8 @@
     <div ng-repeat="r in sc.risks">
 	<input type="text" name={{r.name}} hidden ng-model="r.score">
 	<input type="text" name="{{r.category.name}}" hidden ng-model="r.category.value">
+	<input type="text" name="{{r.rating.name}}" hidden ng-model="r.rating.value">
+	<input type="text" name="{{r.likely.name}}" hidden ng-model="r.rating.value">
     </div>
 	<input type="submit" value="Submit">
   </form>
