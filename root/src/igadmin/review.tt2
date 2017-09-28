@@ -6,9 +6,9 @@
     <div ng-repeat="risk in sc.risks">
 <span class="alert-info" ng-model="risk.category.value"></span>
     <select class="form-control" name="{{risk.category.name}}" ng-model="risk.category.value">
-	<option value="Potential benefits do not outweigh potential risk">Potential benefits do not outweigh potential risk</option>
-	<option value="Incompatible use with the original purpose for data collection">Incompatible use with the original purpose for data collection</option>
-	<option value="Excessive use of PCD">Excessive use of PCD</option>
+  [% FOREACH rc IN risk_categories %]
+	<option value="[% rc.name %]">[% rc.name %]</option>
+  [% END %]
     </select>
     <div class="row">
       <div class="col-md-4">

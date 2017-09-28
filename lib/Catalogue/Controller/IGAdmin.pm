@@ -105,8 +105,11 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
     });
     my $dh = $dh_rs->first;
 
+    my $risks = [$c->model('DB::RiskCategory')->all];
+
     $c->stash(
         dh => $dh,
+	risk_categories => $risks,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
