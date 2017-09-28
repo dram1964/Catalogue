@@ -17,7 +17,6 @@
         <tr>
   	<td>[% request.id %]</td>
   	<td>
-	   <a href="[% c.uri_for(c.controller.action_for('ng_display'), [request.id]) %]">Angular View</a>
 	   <a href="[% c.uri_for(c.controller.action_for('display'), [request.id]) %]">View</a>
 	   <a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">Review</a>
 	</td>

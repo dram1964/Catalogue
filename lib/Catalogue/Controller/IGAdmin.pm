@@ -139,14 +139,6 @@ sub display :Chained('request') :PathPart('display') :Args(0) {
     );
 }
 
-sub ng_display :Chained('request') :PathPart('ng_display') :Args(0) {
-    my ($self, $c) = @_;
-    $c->stash(
-	template => 'igadmin/ng_display.tt2'
-    );
-}
-
-
 
 =encoding utf8
 
