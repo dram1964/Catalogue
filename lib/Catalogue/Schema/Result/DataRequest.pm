@@ -292,7 +292,7 @@ Can the specified user edit the current Registration Request?
 
 sub edit_allowed_by {
   my ($self, $user) = @_;
-  return $user->has_role('curator');
+  return $user->has_role('ig_admin') || $user->has_role('curator');
 }
 
 =head2 request_allowed_by
