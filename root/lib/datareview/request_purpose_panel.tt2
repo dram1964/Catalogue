@@ -28,8 +28,26 @@
   <dd>[% dh.area %]</dd>
 [% END %]
 </dl>
+[% IF dh.request.request_type_id == 1 %]
+  <dl>
+       [% IF dh.rec_approval == 1 %]
+	  <dt>REC Approval:</dt>
+	  <dd>Yes</dd>
+	  <dt>REC Approval Reference:</dt>
+	  <dd>[% dh.rec_approval_number || no_response %]</dd>
+  </dl>
+       [% ELSE %]
+  <dl>
+	  <dt>REC Approval:</dt>
+	  <dd>No</dd>
+  </dl>
+       [% END %]
+[% END %]
   <div ng-show="ctrl1.edit == 1">
     <textarea name="area_comment" ng-model="ctrl1.area_comment" class="form-control" placeholder="reviewer comments"></textarea>
+  </div>
+  <div ng-show="ctrl2.edit == 1">
+    <textarea name="rec_comment" ng-model="ctrl2.rec_comment" class="form-control" placeholder="REC Approval comments"></textarea>
   </div>
 <hr>
 <dl>

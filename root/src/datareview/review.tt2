@@ -1,5 +1,6 @@
 [% META title = 'Review Data Request' %]
 [% USE JSON %]
+[% no_response = '<span class="alert-danger">No Response</span>' %]
 [% IF verify %]
 <script type="text/javascript">
   var verify = [% verify.json %];
