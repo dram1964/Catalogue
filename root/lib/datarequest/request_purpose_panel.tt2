@@ -5,8 +5,8 @@
       <div class="panel-body text-left">
         <div class="form-group">
 [% IF type == 1 %]
-<label>Research Area</label>
-<p>Please indicate the clinical or academic area of this data request</p>
+<label>Research Project Name</label>
+<p>Please enter a short title/name for this Project</p>
 [% ELSIF type == 2 OR type == 3 %]
 <label>Clinical Service Area</label>
 <p>Please indicate the clinical service area for this data request</p>

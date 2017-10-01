@@ -9,7 +9,7 @@
     <form action="[% c.uri_for(c.controller.action_for('purpose_verify'), [request.id]) %]" method="post">
 <dl>
 [% IF dh.request.request_type_id == 1 %]
-  <dt>Research Area:</dt>
+  <dt>Research Project Name:</dt>
   <dd> [% dh.area %]</dd>
 [% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
   <dt>Clinical Service Area:</dt>
