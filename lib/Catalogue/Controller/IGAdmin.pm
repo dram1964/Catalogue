@@ -124,10 +124,45 @@ review selected data request
 
 sub review :Chained('request') :PathPart('review') :Args(0) {
     my ($self, $c) = @_;
+
     $c->stash(
 	template => 'igadmin/review.tt2'
     );
 }
+
+=head2 update_score
+
+submits risk scores to database
+
+=cut 
+
+sub update_score :Chained('object') :PathPart('update_score') :Args(0) {
+    my ($self, $c) = @_;
+
+    my $request = $c->stash->{object};
+    die "Request not found " unless defined($request);
+    my $parameters = $c->request->body_parameters;
+    for my $suffix (1..10) {
+	next unless defined($parameters->{'category' . $suffix});
+	my $risk_score = {
+	    request_id => $request->id,
+	    risk_category => $parameters->{'category' . $suffix},
+	    rating => $parameters->{'rating' . $suffix},
+	    likelihood => $parameters->{'likely' . $suffix},
+	    score => $parameters->{'risk' . $suffix},
+	};
+	if ($risk_score->{rating} * $risk_score->{likelihood} != $risk_score->{score}) {
+		$c->log->debug("*** Risk Score Error on " . $risk_score->{request_id} . 
+		    ":" . $risk_score->{risk_category} . " ****");
+	}
+	my $risk_score_rs = $c->model('DB::RiskScore')->update_or_create($risk_score);
+    }
+    $c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg("Request Scores Submitted")}));
+    $c->detach;
+
+}
+    
 
 =head2 display
 
@@ -137,7 +172,13 @@ displays selected data request
 
 sub display :Chained('request') :PathPart('display') :Args(0) {
     my ($self, $c) = @_;
+
+    my $request = $c->stash->{request};
+    my $risk_scores_rs = $c->model('DB::RiskScore')->search(
+	{ request_id => $request->id});
+    my $risk_scores = [$risk_scores_rs->all];
     $c->stash(
+	risk_scores => $risk_scores,
 	template => 'igadmin/display.tt2'
     );
 }

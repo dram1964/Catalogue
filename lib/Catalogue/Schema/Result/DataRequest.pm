@@ -152,6 +152,21 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 risk_scores
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::RiskScore>
+
+=cut
+
+__PACKAGE__->has_many(
+  "risk_scores",
+  "Catalogue::Schema::Result::RiskScore",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 status
 
 Type: belongs_to
@@ -228,8 +243,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 13:40:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DPeqX+Y0iPPTIwwMP/k8kA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-10-01 12:49:25
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pFqqrhh1UqWRqUrsKBOPog
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

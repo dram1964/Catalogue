@@ -36,7 +36,7 @@
       <button ng-click="sc.addRisk()">Add Next Risk</button>
     </div><!-- end row div -->
     </div><!-- end ng-repeat -->
-  <form action="[% c.uri_for(c.controller.action_for('review'), [request.id ]) %]" method="post">
+  <form action="[% c.uri_for(c.controller.action_for('update_score'), [request.id ]) %]" method="post">
     <div ng-repeat="r in sc.risks">
 	<input type="text" name={{r.name}} hidden ng-model="r.score">
 	<input type="text" name="{{r.category.name}}" hidden ng-model="r.category.value">
