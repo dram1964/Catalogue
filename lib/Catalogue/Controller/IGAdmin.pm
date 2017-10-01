@@ -139,7 +139,6 @@ sub review :Chained('request') :PathPart('review') :Args(0) {
 	push @$risk_scores, $risk_score;
     }
 	
-    $c->log->debug("*** Risk Scores: " . scalar($risk_scores) . " ****");
     $c->stash(
 	risk_scores => $risk_scores,
 	template => 'igadmin/review.tt2'
