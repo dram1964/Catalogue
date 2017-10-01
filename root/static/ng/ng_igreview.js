@@ -18,7 +18,7 @@ angular.module('igadmin', [])
 	    risk.score = risk.rating.value * risk.likely.value;
     };
 
-    if (typeof risks !== 'undefined') {
+    if (risks.length > 0 ) {
         for (row of risks) {
 	    var suffix = self.risks.length + 1;
 	    self.risks.push({
