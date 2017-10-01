@@ -2,7 +2,7 @@
 <p class="lead text-left">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
-[% IF risk_scores %]
+[% IF risk_scores.0 %]
 
 <div class="table-responsive">
   <table class="table table-striped text-left">
