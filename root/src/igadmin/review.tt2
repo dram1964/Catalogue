@@ -4,7 +4,6 @@
 <div ng-app="igadmin">
   <div ng-controller="ScoreCard as sc">
     <div ng-repeat="risk in sc.risks">
-<span class="alert-info" ng-model="risk.category.value"></span>
     <select class="form-control" name="{{risk.category.name}}" ng-model="risk.category.value">
   [% FOREACH rc IN risk_categories %]
 	<option value="[% rc.name %]">[% rc.name %]</option>
