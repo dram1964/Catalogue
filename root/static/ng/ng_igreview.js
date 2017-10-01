@@ -1,14 +1,9 @@
 angular.module('igadmin', [])
   .controller('ScoreCard', [function() {
     var self = this;
-    self.msg = "cooking with gas";
-    self.risks = [ { 
-	name : 'risk1',
-	rating : {name : 'rating1', value : ''}, 
-	likely : {name : 'likely1', value : ''},
-	category : {name : 'category1', value : ''},
-	score : ''
-    }];
+    var risks = rs;
+
+    self.risks = [];
 
     self.addRisk = function() {
 	var suffix = self.risks.length + 1;
@@ -21,6 +16,28 @@ angular.module('igadmin', [])
     };
     self.updateScore = function(risk) {
 	    risk.score = risk.rating.value * risk.likely.value;
+    };
+
+    if (typeof risks !== 'undefined') {
+        for (row of risks) {
+	    var suffix = self.risks.length + 1;
+	    self.risks.push({
+	  	name : 'risk' + suffix,
+	  	rating : {name : 'rating' + suffix, value : row.rating},
+		likely : {name : 'likely' + suffix, value : row.likelihood},
+		category : {name : 'category' + suffix, value : row.risk_category},
+		score : row.score
+		});
+	    console.log(suffix + ") Added a row: " + row.request_id);
+	};
+    } else {
+        self.risks = [{ 
+	  name : 'risk1',
+	  rating : {name : 'rating1', value : ''}, 
+	  likely : {name : 'likely1', value : ''},
+	  category : {name : 'category1', value : ''},
+	  score : ''
+        }];
     };
   }
 ])

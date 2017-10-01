@@ -1,4 +1,10 @@
 [% META title = 'View IG Approval Request' %]
+[% USE JSON %]
+[% IF risk_scores.0 %]
+<script type="text/javascript">
+  var rs = [% risk_scores.json  %];
+</script>
+[% END %]
 <p class="lead text-left">Reviewing Data Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 <div ng-app="igadmin">
