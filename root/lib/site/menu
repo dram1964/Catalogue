@@ -1,9 +1,9 @@
 <ul class="nav nav-sidebar">
-  <li>&nbsp</li>
-  <li>&nbsp</li>
-  <li>&nbsp</li>
-  <li>&nbsp</li>
-  <li>&nbsp</li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
   <li>Menu</li>
   <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
 [% IF datasets %]
