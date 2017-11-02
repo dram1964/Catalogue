@@ -7,6 +7,7 @@
      css     = "/static/css"
      js     = "/static/js"
      ng     = "/static/ng"
+     images = "/static/images"
      catalyst = "http://www.catalystframework.org"
      dua = "http://research.unc.edu/files/2013/04/CCM3_039360.pdf"
      gitpage = "https://github.com/dram1964/catalogue"
