@@ -10,7 +10,6 @@
           <a class="navbar-brand" href="/welcome">[% site.organisation.name %] [% site.organisation.cri %] [% site.application.name %]</a>
   </div><!-- end navbar header -->
   <div id="navbar" class="collapse navbar-collapse"><!-- begin navbar collapse -->
-[% PROCESS site/branding %]
     <ul class="nav navbar-nav navbar-right">
       <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
 [% IF c.user_exists %]

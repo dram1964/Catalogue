@@ -7,3 +7,4 @@
 <p>If you want to request data from the Data Catalogue you will need to 
 <a href="[% c.uri_for('/login') %]">Login</a> or 
 <a href="[% c.uri_for('/registration/new') %]">Register for an account</a></p>
+[% PROCESS site/branding %]
