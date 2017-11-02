@@ -16,6 +16,7 @@
      copyright => '2017 David Ramlakhan',
      organisation => {
 	name => 'UCL/UCLH BRC'
+	shortname => 'BRC'
 	cri => 'CRIU'
      },
      application => { name => 'Data Catalogue'}
