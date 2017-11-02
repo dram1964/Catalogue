@@ -15,8 +15,8 @@
      title     => 'Data Catalogue',
      copyright => '2017 David Ramlakhan',
      organisation => {
-	name => 'UCLH\UCL Clinical Research Informatics'
-	cri => 'Clinical Research Informatics'
+	name => 'UCL/UCLH BRC'
+	cri => 'CRIU'
      },
      application => { name => 'Data Catalogue'}
    };

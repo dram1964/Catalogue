@@ -11,8 +11,6 @@
 <div ng-app="datarequest">
   <div ng-controller="MainCtrl as ctrl">
 	    <form><button ng-click="ctrl.change()">Autofill</button></form>
-    <div class="col-md-12">
-    </div><!-- end column -->
 [% IF request %]
     <p>Editing an existing request</p>
     <form name="newRequest" ng-submit="ctrl.submit()" method="post" action="[% c.uri_for(c.controller.action_for('update_request'), [request.id]) %]">
