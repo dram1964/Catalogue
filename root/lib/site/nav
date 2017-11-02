@@ -30,10 +30,6 @@
       <li><a href="[% c.uri_for('/login') %]">Login</a></li>
 [% END %]
     </ul>
-  <form class="navbar-form navbar-right">
-    <input type="text" class="form-control" placeholder="Search..." name="search">
-    <input type="submit" value="submit" hidden=1 formaction="[% c.uri_for(c.controller.action_for('search')) %]">
-  </form>
   </div><!-- end navbar collapse -->
 </div><!-- end navbar fluid container -->
 </nav>
