@@ -1,4 +1,4 @@
-<h1>BRC Clinical Research Informatics Unit</h1>
+[% META title="BRC Clinical Research Informatics Unit" %]
 <h2>Welcome to the [% site.organisation.shortname %] [% site.organisation.cri %] [% site.application.name %]</h2>
 <p>The [% site.application.name %] is a library of clinical datasets held by [% site.organisation.name %]. The [% site.application.name %] is managed by the [% site.organisation.cri %] team.</p>
 <p>You can <a href="[% c.uri_for(c.controller('Datasets').action_for('list')) %]">explore</a> the 
