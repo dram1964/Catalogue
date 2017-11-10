@@ -4,8 +4,11 @@ angular.module('datareview', [])
     self.edit = 0;
     if (typeof verify !== 'undefined') {
       self.area_comment = verify.area_comment;
+      self.rec_comment = verify.rec_comment;
       self.objective_comment = verify.objective_comment;
       self.benefits_comment = verify.benefits_comment;
+      self.responsible_comment = verify.responsible_comment;
+      self.organisation_comment = verify.organisation_comment;
     }
 
     self.addComments = function() {
@@ -18,7 +21,6 @@ angular.module('datareview', [])
     var self = this;
     self.edit = 0;
     if (typeof verify !== 'undefined') {
-      self.rec_comment = verify.rec_comment;
       self.population_comment = verify.population_comment;
       self.id_comment = verify.id_comment;
       self.storing_comment = verify.storing_comment;

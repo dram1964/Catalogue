@@ -240,7 +240,7 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
 	responsible => $dh->responsible,
 	responsible_comment => $parameters->{responsible_comment} || undef,
 	organisation => $dh->benefits,
-	organisation_comment => $parameters->{benefits_comment} || undef,
+	organisation_comment => $parameters->{organisation_comment} || undef,
     };
 
     my $verification = $c->model('DB::VerifyPurpose')->update_or_create(

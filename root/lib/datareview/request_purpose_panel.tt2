@@ -48,7 +48,7 @@
        [% END %]
 [% END %]
   <div ng-show="ctrl1.edit == 1">
-    <textarea name="rec_comment" ng-model="ctrl2.rec_comment" class="form-control" placeholder="REC Approval comments"></textarea>
+    <textarea name="rec_comment" ng-model="ctrl1.rec_comment" class="form-control" placeholder="REC Approval comments"></textarea>
   </div>
 <hr>
 [% IF dh.request.request_type_id == 1 %]
