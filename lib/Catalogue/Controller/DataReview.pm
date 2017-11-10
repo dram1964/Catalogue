@@ -101,6 +101,8 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 	    $c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
 	    $c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	    $c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
+	    $c->stash->{verify}->{responsible_comment} = $verify_purpose->responsible_comment;
+	    $c->stash->{verify}->{organisation_comment} = $verify_purpose->organisation_comment;
     }
     my $verify_handling = $c->model('DB::VerifyHandling')->find({
 	request_id => $data_request->id
@@ -235,6 +237,10 @@ sub purpose_verify :Chained('object') :PathPart('purpose_verify') :Args(0) {
 	objective_comment => $parameters->{objective_comment} || undef,
 	benefits => $dh->benefits,
 	benefits_comment => $parameters->{benefits_comment} || undef,
+	responsible => $dh->responsible,
+	responsible_comment => $parameters->{responsible_comment} || undef,
+	organisation => $dh->benefits,
+	organisation_comment => $parameters->{benefits_comment} || undef,
     };
 
     my $verification = $c->model('DB::VerifyPurpose')->update_or_create(

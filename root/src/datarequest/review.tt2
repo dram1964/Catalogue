@@ -48,30 +48,42 @@
     <tbody> 
 	<tr><td>Request Type</td> <td>[% request.request_type.name %]</td>
         <tr><td>Request Type Description</td><td>[% request.request_type.description %]</td></tr>
-        <tr>
   [% IF dh.request.request_type_id == 4 %]
-    <td>Request Originator </td>
-    <td>[% dh.area || "&nbsp;" %]</td>
+    <tr><td>Study Name </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <tr><td>Study Lead </td>
+    <td>[% dh.responsible || "&nbsp;" %]</td></tr>
+  [% ELSIF dh.request.request_type_id == 2 %]
+    <tr><td>Clinical Service Area </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <tr><td>Clinical Service Lead </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 5 %]
-    <td>Service Lead</td>
-    <td>[% dh.area || "&nbsp;" %]</td>
-  [% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
-    <td>Service Area </td>
-    <td>[% dh.area || "&nbsp;" %]</td>
+    <tr><td>Service Area </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <tr><td>Service Lead </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+  [% ELSIF dh.request.request_type_id == 6 %]
+    <tr><td>Academic Area </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <tr><td>Academic Lead </td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 1 %]
     [% IF dh.rec_approval == 1 %]
-    <td>REC Approval</td>
-    <td>Yes</td></tr>
-    <td>REC Approval Number</td>
-    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr>
+    <tr><td>REC Approval</td>
+    <td>Yes</td></tr></tr>
+    <tr><td>REC Approval Number</td>
+    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr></tr>
     [% ELSE %]
-    <td>REC Approval</td>
-    <td>No</td></tr>
+    <tr><td>REC Approval</td>
+    <td>No</td></tr></tr>
     [% END %]
-    <td>Research Area</td>
-    <td>[% dh.area || "&nbsp;" %]</td>
+    <tr><td>Research Project Name</td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <tr><td>Research Project Lead</td>
+    <td>[% dh.area || "&nbsp;" %]</td></tr>
   [% END %]
-       </tr>
+    <tr><td>Responsible Organisation</td><td>[% dh.responsible || "&nbsp;" %]</td></tr>
     <tr><td>Objective</td><td>[% dh.objective || "&nbsp;" %]</td></tr>
     <tr><td>Benefits</td><td>[% dh.benefits || "&nbsp;" %]</td></tr>
     <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>

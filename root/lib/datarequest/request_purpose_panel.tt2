@@ -61,7 +61,7 @@
 <label>Service Area</label>
 <p>Please name the responsible service lead for this data request</p>
 [% ELSIF type == 6 %]
-<label>Academic Area</label>
+<label>Academic Lead</label>
 <p>Please name the responsible academic lead this data request</p>
 [% END %]
 [% IF verify.responsible_comment %]

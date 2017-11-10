@@ -91,6 +91,26 @@ __PACKAGE__->table("verify_purpose");
   data_type: 'text'
   is_nullable: 1
 
+=head2 responsible
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 responsible_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 organisation
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 organisation_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -116,6 +136,14 @@ __PACKAGE__->add_columns(
   "benefits",
   { data_type => "text", is_nullable => 1 },
   "benefits_comment",
+  { data_type => "text", is_nullable => 1 },
+  "responsible",
+  { data_type => "text", is_nullable => 1 },
+  "responsible_comment",
+  { data_type => "text", is_nullable => 1 },
+  "organisation",
+  { data_type => "text", is_nullable => 1 },
+  "organisation_comment",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -164,8 +192,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 16:08:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eSOLgjK14TO2/jAwyQl3rA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-10 12:15:51
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4wazQm1VN6DRjbE8Qz8vNA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

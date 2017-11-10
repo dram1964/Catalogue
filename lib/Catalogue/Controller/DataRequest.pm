@@ -447,6 +447,8 @@ sub request_edit :Chained('object') :Args() {
 	$c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
 	$c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	$c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
+	$c->stash->{verify}->{responsible_comment} = $verify_purpose->responsible_comment;
+	$c->stash->{verify}->{organisation_comment} = $verify_purpose->organisation_comment;
     }
 
     my $verify_handling = $data_request->verify_handling;
