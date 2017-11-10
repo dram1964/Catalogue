@@ -57,17 +57,17 @@
     <tr><td>Clinical Service Area </td>
     <td>[% dh.area || "&nbsp;" %]</td></tr>
     <tr><td>Clinical Service Lead </td>
-    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <td>[% dh.responsible || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 5 %]
     <tr><td>Service Area </td>
     <td>[% dh.area || "&nbsp;" %]</td></tr>
     <tr><td>Service Lead </td>
-    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <td>[% dh.responsible || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 6 %]
     <tr><td>Academic Area </td>
     <td>[% dh.area || "&nbsp;" %]</td></tr>
     <tr><td>Academic Lead </td>
-    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <td>[% dh.responsible || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 1 %]
     [% IF dh.rec_approval == 1 %]
     <tr><td>REC Approval</td>
@@ -81,9 +81,9 @@
     <tr><td>Research Project Name</td>
     <td>[% dh.area || "&nbsp;" %]</td></tr>
     <tr><td>Research Project Lead</td>
-    <td>[% dh.area || "&nbsp;" %]</td></tr>
+    <td>[% dh.responsible || "&nbsp;" %]</td></tr>
   [% END %]
-    <tr><td>Responsible Organisation</td><td>[% dh.responsible || "&nbsp;" %]</td></tr>
+    <tr><td>Responsible Organisation</td><td>[% dh.organisation || "&nbsp;" %]</td></tr>
     <tr><td>Objective</td><td>[% dh.objective || "&nbsp;" %]</td></tr>
     <tr><td>Benefits</td><td>[% dh.benefits || "&nbsp;" %]</td></tr>
     <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>
