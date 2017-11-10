@@ -4,7 +4,6 @@ angular.module('datareview', [])
     self.edit = 0;
     if (typeof verify !== 'undefined') {
       self.area_comment = verify.area_comment;
-      self.rec_comment = verify.rec_comment;
       self.objective_comment = verify.objective_comment;
       self.benefits_comment = verify.benefits_comment;
       self.responsible_comment = verify.responsible_comment;
@@ -23,6 +22,7 @@ angular.module('datareview', [])
     if (typeof verify !== 'undefined') {
       self.population_comment = verify.population_comment;
       self.id_comment = verify.id_comment;
+      self.rec_comment = verify.rec_comment;
       self.storing_comment = verify.storing_comment;
       self.completion_comment = verify.completion_comment;
       self.publish_comment = verify.publish_comment;
