@@ -34,6 +34,12 @@
   <li><a href="[% c.uri_for('/datareview/list') %]">Data Review</a></li>
 </ul>
 [% END %]
+[% IF c.check_user_roles('ig_admin') %]
+<ul class="nav nav-sidebar">
+  <li>IG Admin</li>
+  <li><a href="[% c.uri_for('/igadmin/list') %]">IG Review</a></li>
+</ul>
+[% END %]
 <ul class="nav nav-sidebar">
   <li><a href="[% c.uri_for('/about') %]">About</a></li>
   <li><a href="[% c.uri_for('/contact') %]">Contact</a></li>
