@@ -10,24 +10,28 @@
 <dl>
 [% IF dh.request.request_type_id == 1 %]
   <dt>Research Project Name:</dt>
-  <dd> [% dh.area %]</dd>
-[% ELSIF dh.request.request_type_id == 2 OR dh.request.request_type_id == 3 %]
+  <dd> [% dh.area || no_response %]</dd>
+[% ELSIF dh.request.request_type_id == 2 %]
   <dt>Clinical Service Area:</dt>
-  <dd>[% dh.area %]</dd>
+  <dd>[% dh.area || no_response %]</dd>
 [% ELSIF dh.request.request_type_id == 4 %]
-  <dt>Requesting Organisation:<dt>
-  <dd>[% dh.area %]</dd>
+  <dt>Study Name:<dt>
+  <dd>[% dh.area || no_response %]</dd>
 [% ELSIF dh.request.request_type_id == 5 %]
-  <dt>UCLH Service Lead:</dt>
-  <dd>[% dh.area %]</dd>
+  <dt>Service Area:</dt>
+  <dd>[% dh.area || no_response %]</dd>
 [% ELSIF dh.request.request_type_id == 6 %]
-  <dt>Educational Institution:</dt>
-  <dd>[% dh.area %]</dd>
+  <dt>Academic Area:</dt>
+  <dd>[% dh.area || no_response %]</dd>
 [% ELSE %]
   <dt><span class="error_msg">Unimplemented Request</span>Area:</dt>
   <dd>[% dh.area %]</dd>
 [% END %]
 </dl>
+  <div ng-show="ctrl1.edit == 1">
+    <textarea name="area_comment" ng-model="ctrl1.area_comment" class="form-control" placeholder="reviewer comments"></textarea>
+  </div>
+<hr>
 [% IF dh.request.request_type_id == 1 %]
   <dl>
        [% IF dh.rec_approval == 1 %]
@@ -44,15 +48,44 @@
        [% END %]
 [% END %]
   <div ng-show="ctrl1.edit == 1">
-    <textarea name="area_comment" ng-model="ctrl1.area_comment" class="form-control" placeholder="reviewer comments"></textarea>
-  </div>
-  <div ng-show="ctrl2.edit == 1">
     <textarea name="rec_comment" ng-model="ctrl2.rec_comment" class="form-control" placeholder="REC Approval comments"></textarea>
+  </div>
+<hr>
+[% IF dh.request.request_type_id == 1 %]
+  <dt>Research Project Lead:</dt>
+  <dd> [% dh.responsible || no_response %]</dd>
+[% ELSIF dh.request.request_type_id == 2 %]
+  <dt>Clinical Service Lead:</dt>
+  <dd>[% dh.responsible || no_response %]</dd>
+[% ELSIF dh.request.request_type_id == 4 %]
+  <dt>Study Lead:<dt>
+  <dd>[% dh.responsible || no_response %]</dd>
+[% ELSIF dh.request.request_type_id == 5 %]
+  <dt>Service Lead:</dt>
+  <dd>[% dh.responsible || no_response %]</dd>
+[% ELSIF dh.request.request_type_id == 6 %]
+  <dt>Academic Lead:</dt>
+  <dd>[% dh.responsible || no_response %]</dd>
+[% ELSE %]
+  <dt><span class="error_msg">Unimplemented Request</span>Area:</dt>
+  <dd>[% dh.responsible %]</dd>
+[% END %]
+</dl>
+  <div ng-show="ctrl1.edit == 1">
+    <textarea name="responsible_comment" ng-model="ctrl1.responsible_comment" class="form-control" placeholder="reviewer comments"></textarea>
+  </div>
+<hr>
+<dl>
+  <dt>Responsible Organisation:</dt>
+  <dd>[% dh.organisation || no_response %]</dd>
+</dl>
+  <div ng-show="ctrl1.edit == 1">
+    <textarea name="organisation_comment" ng-model="ctrl1.organisation_comment" class="form-control" placeholder="reviewer comments"></textarea>
   </div>
 <hr>
 <dl>
   <dt>Objectives:</dt>
-  <dd>[% dh.objective %]</dd>
+  <dd>[% dh.objective || no_response %]</dd>
 </dl>
   <div ng-show="ctrl1.edit == 1">
     <textarea name="objective_comment" ng-model="ctrl1.objective_comment" class="form-control" placeholder="reviewer comments"></textarea>
@@ -60,7 +93,7 @@
 <hr>
 <dl>
   <dt>Potential Benefits:</dt>
-  <dd>[% dh.benefits %]</dd>
+  <dd>[% dh.benefits || no_response %]</dd>
 </dl>
   <div ng-show="ctrl1.edit == 1">
     <textarea name="benefits_comment" ng-model="ctrl1.benefits_comment" class="form-control" placeholder="reviewer comments"></textarea>

@@ -58,7 +58,7 @@
 <label>Study Lead</label>
 <p>Please name the responsible project lead for this study</p>
 [% ELSIF type == 5 %]
-<label>Service Area</label>
+<label>Service Lead</label>
 <p>Please name the responsible service lead for this data request</p>
 [% ELSIF type == 6 %]
 <label>Academic Lead</label>
