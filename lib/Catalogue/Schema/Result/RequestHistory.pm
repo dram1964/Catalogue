@@ -160,6 +160,16 @@ __PACKAGE__->table("request_history");
   is_nullable: 1
   size: 50
 
+=head2 responsible
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 organisation
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -214,6 +224,10 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "rec_approval_number",
   { data_type => "varchar", is_nullable => 1, size => 50 },
+  "responsible",
+  { data_type => "text", is_nullable => 1 },
+  "organisation",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -231,8 +245,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "status_date");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-19 09:58:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6FQSACmnJ8lpSKkQE7UQgQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-10 11:48:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:plegPD2TVGBE5V0wNhKijw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

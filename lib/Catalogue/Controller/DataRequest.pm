@@ -200,6 +200,8 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  additional_info => $parameters->{"additional" . $request_type},
           objective => $parameters->{"objective" . $request_type},
           benefits => $parameters->{"benefits" . $request_type},
+          responsible => $parameters->{"responsible" . $request_type},
+          organisation => $parameters->{"organisation" . $request_type},
 	  population => $parameters->{"population" . $request_type},
           rec_approval => $parameters->{recApproval},
           rec_approval_number => $parameters->{recApprovalNumber},
@@ -286,6 +288,8 @@ sub update_request :Chained('object') :Args() {
      additional_info => $parameters->{"additional" . $request_type},
      objective => $parameters->{"objective" . $request_type},
      benefits => $parameters->{"benefits" . $request_type},
+     responsible => $parameters->{"responsible" . $request_type},
+     organisation => $parameters->{"organisation" . $request_type},
      population => $parameters->{"population" . $request_type},
      rec_approval => $parameters->{recApproval},
      
@@ -428,6 +432,8 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
 	$request->{data}->{"benefits" . $request_type} = $dh->benefits;
+	$request->{data}->{"responsible" . $request_type} = $dh->responsible;
+	$request->{data}->{"organisation" . $request_type} = $dh->organisation;
 	$request->{data}->{"population" . $request_type} = $dh->population;
 	  $request->{data}->{"area" . $request_type} = $dh->area;
 	  $request->{data}->{recApproval} = $dh->rec_approval;
