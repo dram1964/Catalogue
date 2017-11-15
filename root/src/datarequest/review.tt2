@@ -112,8 +112,9 @@
     <td>No Response</td></tr>
   [% END %]
     <tr><td>Data Processed on</td><td>[% dh.storing || "&nbsp;" %]</td></tr>
-    <tr><td>Disposal of data</td><td>[% dh.completion || "&nbsp;" %]</td></tr>
-    <tr><td>Additional Information</td><td>[% dh.atditional_info || "&nbsp;" %]</td></tr>
+    <tr><td>Data Security Arrangements</td><td>[% dh.secure || "&nbsp;" %]</td></tr>
+    <tr><td>Data Disposal Plan</td><td>[% dh.completion || "&nbsp;" %]</td></tr>
+    <tr><td>Disposal Plan Date</td><td>[% dh.completion_date || "&nbsp;" %]</td></tr>
     </tbody>
   </table>
 </div>

@@ -85,35 +85,6 @@
 [% END %]
         </div><!-- end form-group -->
 
-        <div class="form-group">
-<label>Where will you be storing and processing this data</label>
-<p>Please explain where the data will be stored, where the data will be processed and security arrangements to prevent unauthorised access to the data. Please indicate whether the data will be stored or processed within or outside the EU</p>
-<textarea name="storing[% type %]" ng-model="ctrl.data.storing[% type %]"
-	class="form-control"></textarea>
-[% IF verify.storing_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.storing_comment %]</span></p> 
-[% END %]
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>What will you do with the data once you have completed the project</label>
-<p>Please explain how you intend to archive or destroy all copies of the data on completion of the project. Provide indicative dates for when this will happen</p>
-<textarea name="completion[% type %]" ng-model="ctrl.data.completion[% type %]"
-	class="form-control"></textarea>
-[% IF verify.completion_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %]</span></p> 
-[% END %]
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Additional information:</label>
-<p>Please provide any additional information which you feel is relevant for this data access request</p>
-<textarea name="additional[% type %]" ng-model="ctrl.data.additional[% type %]"
-	class="form-control"></textarea>
-[% IF verify.additional_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.additional_comment %]</span></p> 
-[% END %]
-        </div><!-- end form-group -->
       </div><!-- end panel-body div -->
     </div><!-- end panel-panel div -->
   </div><!-- end col-lg-12 div -->
