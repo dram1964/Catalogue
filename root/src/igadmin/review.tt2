@@ -58,9 +58,11 @@
   </div><!-- end ng-controller div -->
 </div><!-- end ng-app div -->
 
-[% PROCESS igadmin/requestor.tt2 %]
-[% PROCESS igadmin/handling.tt2 %]
-[% PROCESS igadmin/data.tt2 %]
+[% PROCESS requests/requestor.tt2 %]
+[% PROCESS requests/data_purpose.tt2 %]
+[% PROCESS requests/data_handling.tt2 %]
+[% PROCESS requests/data_manage.tt2 %]
+[% PROCESS requests/data_requested.tt2 %]
 
 <script src="[% site.url.js %]/angular1.3.11/angular.js"></script>
 <script type="text/javascript" src="[% site.url.ng %]/ng_igreview.js"> </script>

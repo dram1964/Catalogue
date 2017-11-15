@@ -6,6 +6,8 @@
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
 [% PROCESS requests/requestor.tt2 %]
+[% PROCESS requests/data_purpose.tt2 %]
 [% PROCESS requests/data_handling.tt2 %]
+[% PROCESS requests/data_manage.tt2 %]
 [% PROCESS requests/data_requested.tt2 %]
 

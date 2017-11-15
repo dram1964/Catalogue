@@ -9,5 +9,7 @@
 [% END %]
 
 [% PROCESS requests/requestor.tt2 %]
+[% PROCESS requests/data_purpose.tt2 %]
 [% PROCESS requests/data_handling.tt2 %]
+[% PROCESS requests/data_manage.tt2 %]
 [% PROCESS requests/data_requested.tt2 %]
