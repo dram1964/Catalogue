@@ -44,6 +44,9 @@
           </div><!-- end form-group -->
 
 [% INCLUDE datarequest/identifiers.tt2 %]
+[% IF verify.id_comment %]
+<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %]</span></p> 
+[% END %]
 
 [% INCLUDE datarequest/legal_basis.tt2 %]
 
