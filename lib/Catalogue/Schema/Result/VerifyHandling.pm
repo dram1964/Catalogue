@@ -91,7 +91,7 @@ __PACKAGE__->table("verify_handling");
   data_type: 'text'
   is_nullable: 1
 
-=head2 additional_comment
+=head2 secure_comment
 
   data_type: 'text'
   is_nullable: 1
@@ -122,7 +122,7 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "publish_comment",
   { data_type => "text", is_nullable => 1 },
-  "additional_comment",
+  "secure_comment",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -171,8 +171,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-22 09:15:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iSJNJfqMtvbw+U+Y0YTBOQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 09:51:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X6p4NcXjchIvYn1lCsMzzg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

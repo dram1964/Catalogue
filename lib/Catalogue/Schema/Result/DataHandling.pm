@@ -95,9 +95,10 @@ __PACKAGE__->table("data_handling");
   data_type: 'text'
   is_nullable: 1
 
-=head2 additional_info
+=head2 completion_date
 
-  data_type: 'text'
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 objective
@@ -156,6 +157,11 @@ __PACKAGE__->table("data_handling");
   data_type: 'text'
   is_nullable: 1
 
+=head2 secure
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -179,8 +185,12 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "completion",
   { data_type => "text", is_nullable => 1 },
-  "additional_info",
-  { data_type => "text", is_nullable => 1 },
+  "completion_date",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "objective",
   { data_type => "text", is_nullable => 1 },
   "area",
@@ -202,6 +212,8 @@ __PACKAGE__->add_columns(
   "responsible",
   { data_type => "text", is_nullable => 1 },
   "organisation",
+  { data_type => "text", is_nullable => 1 },
+  "secure",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -255,8 +267,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-10 11:39:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2UIbjBmLQXrtgO9mUOomUQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 09:51:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Sgfi/4cdTsXK86YQcOy/Ug
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
