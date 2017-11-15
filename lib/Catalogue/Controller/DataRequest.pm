@@ -196,8 +196,9 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  disclosure_to => $parameters->{"disclosureIdSpecification" . $request_type},
 	  disclosure_contract => $parameters->{"disclosureContract" . $request_type},
 	  storing => $parameters->{"storing" . $request_type},
+	  secure => $parameters->{"secure" . $request_type},
 	  completion => $parameters->{"completion" . $request_type},
-	  additional_info => $parameters->{"additional" . $request_type},
+	  completion_date => $parameters->{"completion_date" . $request_type},
           objective => $parameters->{"objective" . $request_type},
           benefits => $parameters->{"benefits" . $request_type},
           responsible => $parameters->{"responsible" . $request_type},
@@ -284,8 +285,9 @@ sub update_request :Chained('object') :Args() {
      publish => $parameters->{"publish" . $request_type},
      disclosure => $parameters->{"disclosure" . $request_type},
      storing => $parameters->{"storing" . $request_type},
+     secure => $parameters->{"secure" . $request_type},
      completion => $parameters->{"completion" . $request_type},
-     additional_info => $parameters->{"additional" . $request_type},
+     completion_date => $parameters->{"completion_date" . $request_type},
      objective => $parameters->{"objective" . $request_type},
      benefits => $parameters->{"benefits" . $request_type},
      responsible => $parameters->{"responsible" . $request_type},
@@ -428,8 +430,9 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"disclosureIdSpecification" . $request_type} = $dh->disclosure_to;
 	$request->{data}->{"disclosureContract" . $request_type} = $dh->disclosure_contract;
 	$request->{data}->{"storing" . $request_type} = $dh->storing;
+	$request->{data}->{"secure" . $request_type} = $dh->secure;
 	$request->{data}->{"completion" . $request_type} = $dh->completion;
-	$request->{data}->{"additional" . $request_type} = $dh->additional_info;
+	$request->{data}->{"completionDate"} = $dh->completion_date->ymd;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
 	$request->{data}->{"benefits" . $request_type} = $dh->benefits;
 	$request->{data}->{"responsible" . $request_type} = $dh->responsible;
@@ -457,9 +460,9 @@ sub request_edit :Chained('object') :Args() {
 	$c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
 	$c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
 	$c->stash->{verify}->{storing_comment} = $verify_handling->storing_comment;
+	$c->stash->{verify}->{secure_comment} = $verify_handling->secure_comment;
 	$c->stash->{verify}->{completion_comment} = $verify_handling->completion_comment;
 	$c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
-	$c->stash->{verify}->{additional_comment} = $verify_handling->additional_comment;
     }
 
     my $verify_data = $data_request->verify_data;

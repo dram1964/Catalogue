@@ -17,9 +17,9 @@
         <div class="form-group">
 <label>Please describe security arrangements to protect the data</label>
 <p>Please describe security arrangements to prevent unauthorised access to the data.</p>
-<textarea name="storing[% type %]" ng-model="ctrl.data.secure[% type %]"
+<textarea name="secure[% type %]" ng-model="ctrl.data.secure[% type %]"
 	class="form-control"></textarea>
-[% IF verify.storing_comment %]
+[% IF verify.secure_comment %]
 <p>Reviewer Comments:<span class="alert-warning">[% verify.secure_comment %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
@@ -28,17 +28,11 @@
 <p>Please explain what you intend to do with the data on completion of this project. How do you intend to archive or destroy all copies of the data on completion of the project.</p>
 <textarea name="completion[% type %]" ng-model="ctrl.data.completion[% type %]"
 	class="form-control"></textarea>
+<label>Please provide an indicative date for when this will happen (Format: YYYY-MM-DD)</label>
+<input type="text" name="completion_date[% type %]" ng-model="ctrl.data.completionDate"
+	class="form-control"></input>
 [% IF verify.completion_comment %]
 <p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %]</span></p> 
-[% END %]
-        </div><!-- end form-group -->
-
-        <div class="form-group">
-<label>Please provide an indicative data for when this will happen</label>
-<textarea name="completion[% type %]" ng-model="ctrl.data.completion_date[% type %]"
-	class="form-control"></textarea>
-[% IF verify.completion_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.completion_date_comment %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 
