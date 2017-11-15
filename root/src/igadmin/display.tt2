@@ -5,23 +5,9 @@
 	   <a href="[% c.uri_for(c.controller.action_for('review'), [request.id]) %]">Review</a>
 
 [% IF risk_scores.0 %]
-
-<div class="table-responsive">
-  <table class="table table-striped text-left">
-    <caption>Risk Scores</caption>
-    <thead>
-      <tr> <th>Category</th> <th>Score</th> </tr>
-    </thead>
-    <tbody>
-    [% FOREACH rc IN risk_scores %]
-      <tr><td>[% rc.risk_category %]</td><td>[% rc.score %]</td> </tr>
-    [% END %]
-    </tbody>
-  </table>
-</div>
-
+[% PROCESS requests/ig_risk_score.tt2 %]
 [% END %]
 
-[% PROCESS igadmin/requestor.tt2 %]
-[% PROCESS igadmin/handling.tt2 %]
-[% PROCESS igadmin/data.tt2 %]
+[% PROCESS requests/requestor.tt2 %]
+[% PROCESS requests/data_handling.tt2 %]
+[% PROCESS requests/data_requested.tt2 %]

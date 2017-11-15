@@ -1,0 +1,19 @@
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+  <caption>Data Requested</caption>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Request</th>
+      </tr>
+    </thead>
+    <tbody>
+[% FOREACH item IN data_items.keys %]
+      <tr>
+        <td>[% item %]</td>
+        <td>[% data_items.$item %]</td>
+      </tr>
+[% END %]
+    </tbody>
+  </table>
+</div>

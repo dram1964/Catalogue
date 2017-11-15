@@ -1,0 +1,13 @@
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+    <caption>Risk Scores</caption>
+    <thead>
+      <tr> <th>Category</th> <th>Score</th> </tr>
+    </thead>
+    <tbody>
+    [% FOREACH rc IN risk_scores %]
+      <tr><td>[% rc.risk_category %]</td><td>[% rc.score %]</td> </tr>
+    [% END %]
+    </tbody>
+  </table>
+</div>
