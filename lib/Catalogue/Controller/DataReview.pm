@@ -108,13 +108,19 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 	request_id => $data_request->id
     });
     if (defined($verify_handling)) {
+	    $c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
 	    $c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
 	    $c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
-	    $c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
-	    $c->stash->{verify}->{storing_comment} = $verify_handling->storing_comment;
-	    $c->stash->{verify}->{completion_comment} = $verify_handling->completion_comment;
 	    $c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
-	    $c->stash->{verify}->{additional_comment} = $verify_handling->additional_comment;
+    }
+
+    my $verify_manage = $c->model('DB::VerifyManage')->find({
+	request_id => $data_request->id
+    });
+    if (defined($verify_manage)) {
+	    $c->stash->{verify}->{storing_comment} = $verify_manage->storing_comment;
+	    $c->stash->{verify}->{secure_comment} = $verify_manage->secure_comment;
+	    $c->stash->{verify}->{completion_comment} = $verify_manage->completion_comment;
     }
 
     my $verify_data = $c->model('DB::VerifyData')->find({
@@ -280,13 +286,10 @@ sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
 	request_id => $data_request->id,
 	verifier => $verifier->id,
 	verification_time => undef,
+	id_comment => $parameters->{id_comment},
 	rec_comment => $parameters->{rec_comment},
 	population_comment => $parameters->{population_comment},
-	id_comment => $parameters->{id_comment},
-	storing_comment => $parameters->{storing_comment},
-	completion_comment => $parameters->{completion_comment},
 	publish_comment => $parameters->{publish_comment},
-	additional_comment => $parameters->{additional_comment},
 
     };
 
@@ -295,6 +298,48 @@ sub handling_verify :Chained('object') :PathPart('handling_verify') :Args(0) {
     );
     my $verification_history = $c->model('DB::VerifyHandlingHistory')->create(
 	$handling_verify
+    );
+    $data_request->update({status_id => 4});
+    my $request_history = $c->model('DB::RequestHistory')->create({
+	request_id => $data_request->id,
+	user_id => $verifier->id,
+        request_type_id => $data_request->request_type_id,
+	status_id => $data_request->status_id,
+	status_date => undef,
+	}
+    );
+    $c->response->redirect($c->uri_for($self->action_for('review'), [$data_request->id]));
+    $c->detach;
+
+}
+
+=head2 manage_verify
+
+verify data management for submitted request
+
+=cut 
+
+sub manage_verify :Chained('object') :PathPart('manage_verify') :Args(0) {
+    my ($self, $c) = @_;
+    my $data_request = $c->stash->{object};
+    my $parameters = $c->request->body_parameters;
+ 
+    my $verifier = $c->user->get_object;
+    my $manage_verify = {
+	request_id => $data_request->id,
+	verifier => $verifier->id,
+	verification_time => undef,
+	storing_comment => $parameters->{storing_comment},
+	secure_comment => $parameters->{secure_comment},
+	completion_comment => $parameters->{completion_comment},
+
+    };
+
+    my $verification = $c->model('DB::VerifyManage')->update_or_create(
+	$manage_verify
+    );
+    my $verification_history = $c->model('DB::VerifyManageHistory')->create(
+	$manage_verify
     );
     $data_request->update({status_id => 4});
     my $request_history = $c->model('DB::RequestHistory')->create({

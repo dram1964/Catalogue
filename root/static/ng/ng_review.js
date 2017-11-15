@@ -23,10 +23,21 @@ angular.module('datareview', [])
       self.population_comment = verify.population_comment;
       self.id_comment = verify.id_comment;
       self.rec_comment = verify.rec_comment;
-      self.storing_comment = verify.storing_comment;
-      self.completion_comment = verify.completion_comment;
       self.publish_comment = verify.publish_comment;
-      self.additional_comment = verify.additional_comment;
+    }
+
+    self.addComments = function() {
+	self.edit = self.edit == 1 ? 0 : 1;
+    };
+  }
+])
+  .controller('Manage', [function() {
+    var self = this;
+    self.edit = 0;
+    if (typeof verify !== 'undefined') {
+      self.storing_comment = verify.storing_comment;
+      self.secure_comment = verify.secure_comment;
+      self.completion_comment = verify.completion_comment;
     }
 
     self.addComments = function() {

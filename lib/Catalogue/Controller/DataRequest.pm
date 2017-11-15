@@ -432,7 +432,7 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"storing"} = $dh->storing;
 	$request->{data}->{"secure"} = $dh->secure;
 	$request->{data}->{"completion"} = $dh->completion;
-	$request->{data}->{"completionDate"} = $dh->completion_date->ymd;
+	$request->{data}->{"completionDate"} = $dh->completion_date->ymd if $dh->completion_date;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
 	$request->{data}->{"benefits" . $request_type} = $dh->benefits;
 	$request->{data}->{"responsible" . $request_type} = $dh->responsible;
@@ -459,10 +459,14 @@ sub request_edit :Chained('object') :Args() {
 	$c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
 	$c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
 	$c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
-	$c->stash->{verify}->{storing_comment} = $verify_handling->storing_comment;
-	$c->stash->{verify}->{secure_comment} = $verify_handling->secure_comment;
-	$c->stash->{verify}->{completion_comment} = $verify_handling->completion_comment;
 	$c->stash->{verify}->{publish_comment} = $verify_handling->publish_comment;
+    }
+
+    my $verify_manage = $data_request->verify_manage;
+    if (defined($verify_manage) ) {
+	$c->stash->{verify}->{storing_comment} = $verify_manage->storing_comment;
+	$c->stash->{verify}->{secure_comment} = $verify_manage->secure_comment;
+	$c->stash->{verify}->{completion_comment} = $verify_manage->completion_comment;
     }
 
     my $verify_data = $data_request->verify_data;

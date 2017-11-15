@@ -18,7 +18,7 @@
 	<dd>No</dd>
     [% ELSE %]
 	<dt>Data Disclosed to Third-Parties?:</dt>
-	<dd><span class="alert-danger">Unanswered</span></dd>
+	<dd><span class="alert-danger">[% no_response %]</span></dd>
     [% END %]
 </dl>
   [% ELSE %]

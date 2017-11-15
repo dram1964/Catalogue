@@ -1,12 +1,12 @@
 use utf8;
-package Catalogue::Schema::Result::VerifyHandling;
+package Catalogue::Schema::Result::VerifyManageHistory;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Catalogue::Schema::Result::VerifyHandling
+Catalogue::Schema::Result::VerifyManageHistory
 
 =cut
 
@@ -34,24 +34,22 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "PassphraseColumn");
 
-=head1 TABLE: C<verify_handling>
+=head1 TABLE: C<verify_manage_history>
 
 =cut
 
-__PACKAGE__->table("verify_handling");
+__PACKAGE__->table("verify_manage_history");
 
 =head1 ACCESSORS
 
 =head2 request_id
 
   data_type: 'integer'
-  is_foreign_key: 1
   is_nullable: 0
 
 =head2 verifier
 
   data_type: 'integer'
-  is_foreign_key: 1
   is_nullable: 0
 
 =head2 verification_time
@@ -61,22 +59,17 @@ __PACKAGE__->table("verify_handling");
   default_value: current_timestamp
   is_nullable: 0
 
-=head2 id_comment
+=head2 storing_comment
 
   data_type: 'text'
   is_nullable: 1
 
-=head2 rec_comment
+=head2 completion_comment
 
   data_type: 'text'
   is_nullable: 1
 
-=head2 population_comment
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 publish_comment
+=head2 secure_comment
 
   data_type: 'text'
   is_nullable: 1
@@ -85,9 +78,9 @@ __PACKAGE__->table("verify_handling");
 
 __PACKAGE__->add_columns(
   "request_id",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "integer", is_nullable => 0 },
   "verifier",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "integer", is_nullable => 0 },
   "verification_time",
   {
     data_type => "timestamp",
@@ -95,13 +88,11 @@ __PACKAGE__->add_columns(
     default_value => \"current_timestamp",
     is_nullable => 0,
   },
-  "id_comment",
+  "storing_comment",
   { data_type => "text", is_nullable => 1 },
-  "rec_comment",
+  "completion_comment",
   { data_type => "text", is_nullable => 1 },
-  "population_comment",
-  { data_type => "text", is_nullable => 1 },
-  "publish_comment",
+  "secure_comment",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -111,47 +102,17 @@ __PACKAGE__->add_columns(
 
 =item * L</request_id>
 
+=item * L</verification_time>
+
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("request_id");
-
-=head1 RELATIONS
-
-=head2 request
-
-Type: belongs_to
-
-Related object: L<Catalogue::Schema::Result::DataRequest>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "request",
-  "Catalogue::Schema::Result::DataRequest",
-  { id => "request_id" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
-
-=head2 verifier
-
-Type: belongs_to
-
-Related object: L<Catalogue::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "verifier",
-  "Catalogue::Schema::Result::User",
-  { id => "verifier" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
+__PACKAGE__->set_primary_key("request_id", "verification_time");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 13:47:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cp5eAu6Yzw/EQDE0+6XK2w
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 13:32:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:K/7LsPf4rMDhep2HoMW37g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -19,6 +19,7 @@
 
 
   [% INCLUDE datareview/data_handling_panel.tt2 %]
+  [% INCLUDE datareview/data_manage_panel.tt2 %]
 
   [% IF data_items.values.first %]
     [% INCLUDE datareview/data_requested.tt2 %]

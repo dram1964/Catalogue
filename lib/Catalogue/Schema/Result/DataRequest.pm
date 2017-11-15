@@ -227,6 +227,21 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 verify_manage
+
+Type: might_have
+
+Related object: L<Catalogue::Schema::Result::VerifyManage>
+
+=cut
+
+__PACKAGE__->might_have(
+  "verify_manage",
+  "Catalogue::Schema::Result::VerifyManage",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 verify_purpose
 
 Type: might_have
@@ -243,8 +258,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-10-01 12:49:25
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pFqqrhh1UqWRqUrsKBOPog
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 13:32:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DCThDL8JAowxsrmvs1sfdg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

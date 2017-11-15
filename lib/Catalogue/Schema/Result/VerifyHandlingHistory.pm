@@ -59,6 +59,11 @@ __PACKAGE__->table("verify_handling_history");
   default_value: current_timestamp
   is_nullable: 0
 
+=head2 id_comment
+
+  data_type: 'text'
+  is_nullable: 1
+
 =head2 rec_comment
 
   data_type: 'text'
@@ -69,27 +74,7 @@ __PACKAGE__->table("verify_handling_history");
   data_type: 'text'
   is_nullable: 1
 
-=head2 id_comment
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 storing_comment
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 completion_comment
-
-  data_type: 'text'
-  is_nullable: 1
-
 =head2 publish_comment
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 secure_comment
 
   data_type: 'text'
   is_nullable: 1
@@ -108,19 +93,13 @@ __PACKAGE__->add_columns(
     default_value => \"current_timestamp",
     is_nullable => 0,
   },
+  "id_comment",
+  { data_type => "text", is_nullable => 1 },
   "rec_comment",
   { data_type => "text", is_nullable => 1 },
   "population_comment",
   { data_type => "text", is_nullable => 1 },
-  "id_comment",
-  { data_type => "text", is_nullable => 1 },
-  "storing_comment",
-  { data_type => "text", is_nullable => 1 },
-  "completion_comment",
-  { data_type => "text", is_nullable => 1 },
   "publish_comment",
-  { data_type => "text", is_nullable => 1 },
-  "secure_comment",
   { data_type => "text", is_nullable => 1 },
 );
 
@@ -139,8 +118,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("request_id", "verification_time");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 09:51:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DT6+nTYh+UyiN4igxf7IBA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 13:47:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+W6Q6+ekJGte9raPasaeFA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
