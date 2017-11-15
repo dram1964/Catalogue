@@ -429,9 +429,9 @@ sub request_edit :Chained('object') :Args() {
 	$request->{data}->{"disclosure" . $request_type} = $dh->disclosure;
 	$request->{data}->{"disclosureIdSpecification" . $request_type} = $dh->disclosure_to;
 	$request->{data}->{"disclosureContract" . $request_type} = $dh->disclosure_contract;
-	$request->{data}->{"storing" . $request_type} = $dh->storing;
-	$request->{data}->{"secure" . $request_type} = $dh->secure;
-	$request->{data}->{"completion" . $request_type} = $dh->completion;
+	$request->{data}->{"storing"} = $dh->storing;
+	$request->{data}->{"secure"} = $dh->secure;
+	$request->{data}->{"completion"} = $dh->completion;
 	$request->{data}->{"completionDate"} = $dh->completion_date->ymd;
 	$request->{data}->{"objective" . $request_type} = $dh->objective;
 	$request->{data}->{"benefits" . $request_type} = $dh->benefits;
