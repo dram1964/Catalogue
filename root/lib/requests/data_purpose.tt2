@@ -29,15 +29,6 @@
     <tr><td>Academic Lead </td>
     <td>[% dh.responsible || "&nbsp;" %]</td></tr>
   [% ELSIF dh.request.request_type_id == 1 %]
-    [% IF dh.rec_approval == 1 %]
-    <tr><td>REC Approval</td>
-    <td>Yes</td></tr></tr>
-    <tr><td>REC Approval Number</td>
-    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr></tr>
-    [% ELSE %]
-    <tr><td>REC Approval</td>
-    <td>No</td></tr></tr>
-    [% END %]
     <tr><td>Research Project Name</td>
     <td>[% dh.area || "&nbsp;" %]</td></tr>
     <tr><td>Research Project Lead</td>

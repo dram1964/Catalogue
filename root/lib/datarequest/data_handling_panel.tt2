@@ -27,7 +27,7 @@
 
         <div class="form-group">
 <label>Data Population</label>
-<p>Please indicate how you intend to identify the data subjects for this request</p>
+<p>Please indicate how you intend to identify the data subjects for this request. For example, list of subjects from Study Database or all patients with a particular diagnosis.</p>
 <input type="textarea" name="population[% type %]" ng-model="ctrl.data.population[% type %]"
 	class="form-control"></input>
 [% IF verify.population_comment %]

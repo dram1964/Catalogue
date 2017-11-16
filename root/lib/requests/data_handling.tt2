@@ -6,13 +6,24 @@
       <tr> <th>Data Item</th> <th>Data Requested</th> </tr>
     </thead>
     <tbody> 
+  [% IF dh.request.request_type_id == 1 %]
+    [% IF dh.rec_approval == 1 %]
+    <tr><td>REC Approval</td>
+    <td>Yes</td></tr></tr>
+    <tr><td>REC Approval Number</td>
+    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr></tr>
+    [% ELSE %]
+    <tr><td>REC Approval</td>
+    <td>No</td></tr></tr>
+    [% END %]
+  [% END %]
     <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>
     <tr><td>Identifiable Data Required</td>
   [% IF dh.identifiable == 0 %]
     <td>No</td></tr>
   [% ELSIF dh.identifiable == 1 %]
     <td>Yes</td></tr>
-    <tr><td>Identifiers</td><td>[% dh.identifiers || "&nbsp;" %]</td></tr>
+    <tr><td>Identifiers</td><td>[% identifiers.join(", ") || "&nbsp;" %]</td></tr>
     <tr><td>Justification for PID</td><td>[% dh.pid_justify || "&nbsp;" %]</td></tr>
     <tr><td>Legal basis for PID</td><td>[% dh.legal_basis.description || "&nbsp;" %]</td></tr>
     <tr><td>Identifiers Disclosed to</td>

@@ -101,12 +101,26 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
    });
    my $dh = $dh_rs->first;
 
+   my $identifiers = [split /,/, $dh->identifiers];
+   my $friendly_identifiers;
+   for my $identifier (@{$identifiers}) {
+	$identifier =~ s/\s//g;
+	my $friendly_identifier_rs =  $c->model('DB::PtIdentifier')->search({value => $identifier});
+	if ($friendly_identifier_rs->first) {
+		my $friendly_identifier = $friendly_identifier_rs->first->description;
+		push @{$friendly_identifiers}, $friendly_identifier ;
+        }
+   }
+	
+
+
    $c->stash(
         dh => $dh,
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
-	template => 'datarequest/review.tt2');
+	identifiers => $friendly_identifiers,
+	template => 'datarequest/display.tt2');
 }
 
 =head2 request
@@ -126,11 +140,13 @@ sub request :Chained('base') :PathPart('request') :Args(0) {
     my $request_types = [$c->model('DB::RequestType')->all];
     my $data_categorys = [$c->model('DB::DataCategory')->all];
     my $legal_basis = [$c->model('DB::LegalBasis')->all];
+    my $pt_identifiers = [$c->model('DB::PtIdentifier')->all];
     $c->stash(
       requestor => $requestor,
       request_types => $request_types,
       data_categorys => $data_categorys,
       legal_basis => $legal_basis,
+      pt_identifiers => $pt_identifiers,
       template => 'datarequest/request.tt2');
 }
 
@@ -491,6 +507,7 @@ sub request_edit :Chained('object') :Args() {
 	$c->stash->{verify}->{radiology_comment} = $verify_data->radiology_comment;
 	$c->stash->{verify}->{theatre_comment} = $verify_data->theatre_comment;
     }
+    my $pt_identifiers = [$c->model('DB::PtIdentifier')->all];
 
     $c->stash(
       data_categorys => $data_categorys,
@@ -498,6 +515,7 @@ sub request_edit :Chained('object') :Args() {
       request_types => $request_types,
       request => $request,
       legal_basis => $legal_basis,
+      pt_identifiers => $pt_identifiers,
       template => 'datarequest/request.tt2');
 }
 
