@@ -272,5 +272,26 @@ __PACKAGE__->belongs_to(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+=head2 friendly_identifiers
+
+Returns an arrayref of descriptive names for the comma-separated list of values in identifiers field
+
+=cut
+
+sub friendly_identifiers {
+   my ($self, $resultset) = @_;
+   my $identifiers = [split /, /, $self->identifiers];
+   my $friendly_identifiers;
+   for my $identifier (@{$identifiers}) {
+	my $friendly_identifier_rs =  $resultset->search({value => $identifier});
+	if ($friendly_identifier_rs->first) {
+		my $friendly_identifier = $friendly_identifier_rs->first->description;
+		push @{$friendly_identifiers}, $friendly_identifier ;
+        }
+   }
+  return $friendly_identifiers;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

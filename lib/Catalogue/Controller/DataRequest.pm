@@ -101,18 +101,7 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
    });
    my $dh = $dh_rs->first;
 
-   my $identifiers = [split /,/, $dh->identifiers];
-   my $friendly_identifiers;
-   for my $identifier (@{$identifiers}) {
-	$identifier =~ s/\s//g;
-	my $friendly_identifier_rs =  $c->model('DB::PtIdentifier')->search({value => $identifier});
-	if ($friendly_identifier_rs->first) {
-		my $friendly_identifier = $friendly_identifier_rs->first->description;
-		push @{$friendly_identifiers}, $friendly_identifier ;
-        }
-   }
-	
-
+   my $friendly_identifiers = $dh->friendly_identifiers( $c->model('DB::PtIdentifier'));
 
    $c->stash(
         dh => $dh,
