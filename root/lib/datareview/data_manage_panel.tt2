@@ -27,7 +27,7 @@
 	<dt>Please explain what you intend to do with the data on completion of this project. How do you intend to archive or destroy all copies of the data on completion of the project.</dt>
 	<dd>[% dh.completion || no_response %]</dd>
 	<dt>Please provide an indicative date for when this will happen</dt>
-	<dd>[% dh.completion_date || no_response %]</dd>
+	<dd>[% dh.completion_date.ymd || no_response %]</dd>
 </dl>
   <div ng-show="ctrl3.edit == 1">
     <textarea name="completion_comment" ng-model="ctrl3.completion_comment" class="form-control" placeholder="Data Completion comments"></textarea>

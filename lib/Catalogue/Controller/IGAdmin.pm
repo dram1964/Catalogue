@@ -105,6 +105,17 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
     });
     my $dh = $dh_rs->first;
 
+   my $identifiers = [split /,/, $dh->identifiers];
+   my $friendly_identifiers;
+   for my $identifier (@{$identifiers}) {
+	$identifier =~ s/\s//g;
+	my $friendly_identifier_rs =  $c->model('DB::PtIdentifier')->search({value => $identifier});
+	if ($friendly_identifier_rs->first) {
+		my $friendly_identifier = $friendly_identifier_rs->first->description;
+		push @{$friendly_identifiers}, $friendly_identifier ;
+        }
+   }
+	
     my $risks = [$c->model('DB::RiskCategory')->all];
 
     $c->stash(
@@ -112,6 +123,7 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 	risk_categories => $risks,
 	requestor => $requestor,
 	data_items => $data_items,
+	identifiers => $friendly_identifiers,
 	request => $data_request,
     );
 }

@@ -94,6 +94,17 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
     });
     my $dh = $dh_rs->first;
 
+   my $identifiers = [split /,/, $dh->identifiers];
+   my $friendly_identifiers;
+   for my $identifier (@{$identifiers}) {
+	$identifier =~ s/\s//g;
+	my $friendly_identifier_rs =  $c->model('DB::PtIdentifier')->search({value => $identifier});
+	if ($friendly_identifier_rs->first) {
+		my $friendly_identifier = $friendly_identifier_rs->first->description;
+		push @{$friendly_identifiers}, $friendly_identifier ;
+        }
+   }
+	
     my $verify_purpose = $c->model('DB::VerifyPurpose')->find({
 	request_id => $data_request->id
     });
@@ -143,6 +154,7 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
+	identifiers => $friendly_identifiers,
 	template => 'datareview/review.tt2'
     );
 }
