@@ -159,7 +159,10 @@ Needs logic to update request_history
 
 sub format_completion_date() {
 	my $completion_date = shift;
-   	$completion_date = undef unless $completion_date =~ /[0-1]\d{3,3}-[0-1]\d{1,1}-[0-3]{1,1}/;
+	$completion_date =~ /(?<year>[0-2]\d{3,3})-(?<month>[0-1]\d{1,1})-(?<day>[0-3][0-9])/;
+	return undef unless $+{year} > 2016;
+	return undef unless $+{month} < 13 && $+{month} > 0;
+	return undef unless $+{day} < 32 && $+{day} > 0;
 	return $completion_date;
 }
 
@@ -285,7 +288,7 @@ sub update_request :Chained('object') :Args() {
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-   my $completion_date = &format_completion_date($parameters->{completion_date});
+   my $completion_date = &format_completion_date($parameters->{completion_date}); 
    my $dh = {
      request_id => $data_request->id,
      area => $parameters->{"area" . $request_type},
