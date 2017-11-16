@@ -28,9 +28,11 @@
 <p>Please explain what you intend to do with the data on completion of this project. How do you intend to archive or destroy all copies of the data on completion of the project.</p>
 <textarea name="completion" ng-model="ctrl.data.completion"
 	class="form-control"></textarea>
-<label>Please provide an indicative date for when this will happen (Format: YYYY-MM-DD)</label>
-<input type="text" name="completion_date" ng-model="ctrl.data.completionDate"
+<label>Please provide an indicative date for when this will happen</label>
+<input type="text" name="completion_date" ng-model="ctrl.data.completionDate" placeholder="YYYY-MM-DD"
+	ng-pattern="/^[1,2][0-9]{3,3}-[0-1][0-9]-[0-3][0-9]$/"
 	class="form-control"></input>
+<span class="alert-danger" ng-show="newRequest.completion_date.$invalid">Invalid date entered: use YYYY-MM-DD format</span>
 [% IF verify.completion_comment %]
 <p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %]</span></p> 
 [% END %]

@@ -157,6 +157,12 @@ Needs logic to update request_history
 
 =cut
 
+sub format_completion_date() {
+	my $completion_date = shift;
+   	$completion_date = undef unless $completion_date =~ /[0-1]\d{3,3}-[0-1]\d{1,1}-[0-3]{1,1}/;
+	return $completion_date;
+}
+
 sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
 
@@ -183,6 +189,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
+   my $completion_date = &format_completion_date($parameters->{completion_date});
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
@@ -198,7 +205,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	  storing => $parameters->{"storing"},
 	  secure => $parameters->{"secure"},
 	  completion => $parameters->{"completion"},
-	  completion_date => $parameters->{"completion_date"},
+	  completion_date => $completion_date,
           objective => $parameters->{"objective" . $request_type},
           benefits => $parameters->{"benefits" . $request_type},
           responsible => $parameters->{"responsible" . $request_type},
@@ -278,6 +285,7 @@ sub update_request :Chained('object') :Args() {
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
+   my $completion_date = &format_completion_date($parameters->{completion_date});
    my $dh = {
      request_id => $data_request->id,
      area => $parameters->{"area" . $request_type},
@@ -287,7 +295,7 @@ sub update_request :Chained('object') :Args() {
      storing => $parameters->{"storing"},
      secure => $parameters->{"secure"},
      completion => $parameters->{"completion"},
-     completion_date => $parameters->{"completion_date"},
+     completion_date => $completion_date,
      objective => $parameters->{"objective" . $request_type},
      benefits => $parameters->{"benefits" . $request_type},
      responsible => $parameters->{"responsible" . $request_type},
