@@ -29,7 +29,8 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Adds a resultset for DataRequest and a user object to the stash for chained dispatch. Also 
+uses flash load_status_msg to handle status messages
 
 =cut 
 
@@ -42,7 +43,8 @@ sub base :Chained('/') :PathPart('datarequest') :CaptureArgs(0) {
 
 =head2 object
 
-Fetch the specified data request object based on the class id and store it in the stash
+Fetch the specified data request object based on the class id and store it in the stash. Checks
+that the requests user_id matches the current users id
 
 =cut 
 
@@ -53,7 +55,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
    $c->detach('/error_noperms') unless 
       $c->stash->{object}->user_id eq $c->stash->{user}->id;
-
 
 }
 
@@ -80,16 +81,7 @@ allow current user to view data request submitted by self
 sub display :Chained('object') :PathPart('display') :Args(0) {
    my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
-   my $data_items = {};
-   my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $row = $data_request_details_rs->next) {
-     my $friendly_key = $row->data_category->category;
-     $friendly_key =~ s/^([a-z])/\u$1/;
-     $data_items->{$friendly_key} = $row->detail;
-
-   }
+   my $data_items = [$data_request->data_request_details];
 
    my $requestor_rs = $c->model('DB::User')->search({
 	username => $data_request->user->username

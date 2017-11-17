@@ -8,10 +8,10 @@
       </tr>
     </thead>
     <tbody>
-[% FOREACH item IN data_items.keys %]
+[% FOREACH item IN data_items %]
       <tr>
-        <td>[% item %]</td>
-        <td>[% data_items.$item %]</td>
+        <td>[% item.data_category.friendly_category %]</td>
+        <td>[% item.detail %]</td>
       </tr>
 [% END %]
     </tbody>

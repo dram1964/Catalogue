@@ -98,5 +98,13 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+sub friendly_category {
+     my ($self) = @_;
+     my $friendly_key = $self->category;
+     $friendly_key =~ s/^([a-z])/\u$1/; 
+     return $friendly_key;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

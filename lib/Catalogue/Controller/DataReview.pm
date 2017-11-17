@@ -73,16 +73,7 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 	    {mid => $c->set_error_msg("Invalid Request -- Cannot edit")}));
 	$c->detach;
     }
-    my $data_items = {};
-
-    my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-    while (my $row = $data_request_details_rs->next) {
-        my $friendly_key = $row->data_category->category;
-        $friendly_key =~ s/^([a-z])/\u$1/;
-        $data_items->{$friendly_key} = $row->detail;
-
-    }
+    my $data_items = [$data_request->data_request_details];
 
     my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
 	email_address => $data_request->user->email_address
