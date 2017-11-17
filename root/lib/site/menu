@@ -1,3 +1,4 @@
+<nav class="navbar">
 <ul class="nav nav-sidebar">
   <li>Menu</li>
   <li><a href="[% c.uri_for('/datasets/list') %]">Datasets</a></li>
@@ -45,3 +46,4 @@
   <li><a href="[% c.uri_for('/contact') %]">Contact</a></li>
   <li><a href="[% c.uri_for('/help') %]">Help</a></li>
 </ul>
+</nav>
