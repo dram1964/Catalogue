@@ -266,6 +266,12 @@ sub update_request :Chained('object') :Args() {
 		data_category_id => $row->id,
 		detail => $parameters->{$row->category . "Details"}, 
 	     });
+	    $c->model('DB::RequestDetailHistory')->create({
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"}, 
+		status_date => $data_request->status_date,
+	    });
 	} else {
 	    my $request_detail_rs = $c->model('DB::DataRequestDetail')->search({
 		data_request_id => $data_request->id,
@@ -340,18 +346,6 @@ sub update_request :Chained('object') :Args() {
    my $request_history = $c->model('DB::RequestHistory')->create({
 	%$dr, %$dh });
    
-   my $request_details_rs = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $request_detail = $request_details_rs->next) {
-	$c->model('DB::RequestDetailHistory')->create({
-		data_request_id => $request_detail->data_request_id,
-		data_category_id => $request_detail->data_category_id,
-		status_date => $data_request->status_date,
-		detail => $request_detail->detail,
-	});
-   }
-
    if ($data_request->status_id == 7) {
 	$data_request->verify_purpose->delete if defined($data_request->verify_purpose);	
 	$data_request->verify_handling->delete if defined($data_request->verify_handling);	
