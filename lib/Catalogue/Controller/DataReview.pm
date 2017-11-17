@@ -75,11 +75,6 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
     }
     my $data_items = [$data_request->data_request_details];
 
-    my $requestor_rs = $c->model('DB::RegistrationRequest')->search({
-	email_address => $data_request->user->email_address
-    });
-    my $requestor = $requestor_rs->first;
-
     my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
     });
@@ -133,7 +128,6 @@ sub request :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
     $c->stash(
         dh => $dh,
-	requestor => $requestor,
 	data_items => $data_items,
 	request => $data_request,
 	identifiers => $friendly_identifiers,

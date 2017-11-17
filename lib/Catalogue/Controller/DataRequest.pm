@@ -81,12 +81,6 @@ allow current user to view data request submitted by self
 sub display :Chained('object') :PathPart('display') :Args(0) {
    my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
-   my $data_items = [$data_request->data_request_details];
-
-   my $requestor_rs = $c->model('DB::User')->search({
-	username => $data_request->user->username
-   });
-   my $requestor = $requestor_rs->first;
 
    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
@@ -97,8 +91,6 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
 
    $c->stash(
         dh => $dh,
-	requestor => $requestor,
-	data_items => $data_items,
 	request => $data_request,
 	identifiers => $friendly_identifiers,
 	template => 'datarequest/display.tt2');

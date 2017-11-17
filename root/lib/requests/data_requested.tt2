@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-[% FOREACH item IN data_items %]
+[% FOREACH item IN request.data_request_details %]
       <tr>
         <td>[% item.data_category.friendly_category %]</td>
         <td>[% item.detail %]</td>
