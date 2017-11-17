@@ -181,6 +181,12 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 		data_category_id => $row->id,
 		detail => $parameters->{$row->category . "Details"}, 
 	     });
+		$c->model('DB::RequestDetailHistory')->create({
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"},
+		status_date => $data_request->status_date,
+	     });
 	   }
    }
 
@@ -219,17 +225,6 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	%$dh, %$dr, status_date => $data_request->status_date,
    });
 	
-   my $request_details_rs = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $request_detail = $request_details_rs->next) {
-	$c->model('DB::RequestDetailHistory')->create({
-		data_request_id => $request_detail->data_request_id,
-		data_category_id => $request_detail->data_category_id,
-		status_date => $data_request->status_date,
-		detail => $request_detail->detail,
-	});
-   }
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
 
