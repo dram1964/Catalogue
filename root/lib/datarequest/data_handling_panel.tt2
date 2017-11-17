@@ -19,7 +19,7 @@
 <input type="textarea" name="recApprovalNumber" ng-model="ctrl.data.recApprovalNumber" 
 	class="form-control"></input>
 [% IF verify.rec_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.rec_comment %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.rec_comment %] - [% verify.user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 [% END %]
@@ -31,7 +31,7 @@
 <input type="textarea" name="population[% type %]" ng-model="ctrl.data.population[% type %]"
 	class="form-control"></input>
 [% IF verify.population_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.population_comment %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.population_comment %] - [% verify.user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 
@@ -45,7 +45,7 @@
 
 [% INCLUDE datarequest/identifiers.tt2 %]
 [% IF verify.id_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %] - [% verify.user_name %]</span></p> 
 [% END %]
 
 [% INCLUDE datarequest/legal_basis.tt2 %]
@@ -69,7 +69,7 @@
 <textarea name="disclosureContract[% type %]" ng-model="ctrl.data.disclosureContract[% type %]" 
 	class="form-control"></textarea>
 [% IF verify.id_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.id_comment %] - [% verify.user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 
@@ -84,7 +84,7 @@
 <textarea name="publishIdSpecification[% type %]" ng-model="ctrl.data.publishIdSpecification[% type %]" 
 	class="form-control"></textarea>
 [% IF verify.publish_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.publish_comment %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.publish_comment %] - [% verify.user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 

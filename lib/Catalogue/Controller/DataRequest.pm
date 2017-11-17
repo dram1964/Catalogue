@@ -463,6 +463,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_purpose = $data_request->verify_purpose;
     if (defined($verify_purpose) ) {
+	$c->stash->{verify}->{user_name} = $verify_purpose->verifier->fullname;
 	$c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
 	$c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	$c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
