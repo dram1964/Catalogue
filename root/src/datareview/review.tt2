@@ -7,7 +7,7 @@
 </script>
 [% END %]
 
-<p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
+<p class="no-print">Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 
 <div ng-app="datareview">
 [% INCLUDE datareview/request_type_panel.tt2 %]

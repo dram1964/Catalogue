@@ -17,6 +17,10 @@ body {
   float: none;
 }
 
-a, input {
+input {
+  display: none !important;
+}
+
+.no-print, .btn {
   display: none !important;
 }
