@@ -96,13 +96,13 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
 	template => 'datarequest/display.tt2');
 }
 
-=head2 request
+=head2 new_request
 
 Displays a form for requesting data
 
 =cut
 
-sub request :Chained('base') :PathPart('request') :Args(0) {
+sub new_request :Chained('base') :PathPart('new_request') :Args(0) {
     my ( $self, $c ) = @_;
     $c->detach('/error_noperms') unless 
       $c->stash->{resultset}->new({})->request_allowed_by($c->stash->{user});
