@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-lg-12">
-    <div class="panel panel-default">
+[% IF verify.manage_user_name %]
+<div class="panel panel-warning">
+[% ELSE %]
+<div class="panel panel-success">
+[% END %]
       <div class="panel-heading">Data Management </div>
       <div class="panel-body text-left">
 

@@ -370,6 +370,7 @@ sub update_request :Chained('object') :Args() {
    if ($data_request->status_id == 7) {
 	$data_request->verify_purpose->delete if defined($data_request->verify_purpose);	
 	$data_request->verify_handling->delete if defined($data_request->verify_handling);	
+	$data_request->verify_manage->delete if defined($data_request->verify_manage);	
 	$data_request->verify_data->delete if defined($data_request->verify_data);	
    }
    if ($parameters->{Submit} == 2) {
@@ -463,7 +464,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_purpose = $data_request->verify_purpose;
     if (defined($verify_purpose) ) {
-	$c->stash->{verify}->{user_name} = $verify_purpose->verifier->fullname;
+	$c->stash->{verify}->{purpose_user_name} = $verify_purpose->verifier->fullname;
 	$c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
 	$c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	$c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
@@ -473,6 +474,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_handling = $data_request->verify_handling;
     if (defined($verify_handling) ) {
+	$c->stash->{verify}->{handling_user_name} = $verify_handling->verifier->fullname;
 	$c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
 	$c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
 	$c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
@@ -481,6 +483,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_manage = $data_request->verify_manage;
     if (defined($verify_manage) ) {
+	$c->stash->{verify}->{manage_user_name} = $verify_manage->verifier->fullname;
 	$c->stash->{verify}->{storing_comment} = $verify_manage->storing_comment;
 	$c->stash->{verify}->{secure_comment} = $verify_manage->secure_comment;
 	$c->stash->{verify}->{completion_comment} = $verify_manage->completion_comment;
@@ -488,6 +491,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_data = $data_request->verify_data;
     if (defined($verify_data) ) {
+	$c->stash->{verify}->{data_user_name} = $verify_data->verifier->fullname;
 	$c->stash->{verify}->{cardiology_comment} = $verify_data->cardiology_comment;
 	$c->stash->{verify}->{diagnosis_comment} = $verify_data->diagnosis_comment;
 	$c->stash->{verify}->{episode_comment} = $verify_data->episode_comment;
