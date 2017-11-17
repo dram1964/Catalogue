@@ -74,7 +74,7 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 display
 
-allow current user to view data request submitted by self
+display selected data request
 
 =cut
 
@@ -139,14 +139,14 @@ sub _identifiers () {
    return $self->{identifiers};
 }
 
-=head2 ng_request_submitted
+=head2 validate_date
 
-Submits data request to database
-Needs logic to update request_history
+Used to format submitted text field to acceptable date format
 
 =cut
 
-sub format_completion_date() {
+sub validate_date() {
+	my $self = shift;
 	my $completion_date = shift;
 	$completion_date =~ /(?<year>[0-2]\d{3,3})-(?<month>[0-1]\d{1,1})-(?<day>[0-3][0-9])/;
 	return undef unless $+{year} > 2016;
@@ -154,6 +154,13 @@ sub format_completion_date() {
 	return undef unless $+{day} < 32 && $+{day} > 0;
 	return $completion_date;
 }
+
+=head2 ng_request_submitted
+
+Submits data request to database
+Needs logic to update request_history
+
+=cut
 
 sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
@@ -181,7 +188,7 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-   my $completion_date = &format_completion_date($parameters->{completion_date});
+   my $completion_date = $self->validate_date($parameters->{completion_date});
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
@@ -277,7 +284,7 @@ sub update_request :Chained('object') :Args() {
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-   my $completion_date = &format_completion_date($parameters->{completion_date}); 
+   my $completion_date = $self->validate_date($parameters->{completion_date}); 
    my $dh = {
      request_id => $data_request->id,
      area => $parameters->{"area" . $request_type},
