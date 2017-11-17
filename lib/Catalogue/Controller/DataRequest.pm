@@ -158,7 +158,6 @@ sub validate_date() {
 =head2 ng_request_submitted
 
 Submits data request to database
-Needs logic to update request_history
 
 =cut
 
