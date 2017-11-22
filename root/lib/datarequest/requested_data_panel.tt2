@@ -18,7 +18,7 @@
             <label for="[% category %]Details">Please specify required [% category %] data</label>
 		<textarea name="[% category %]Details" ng-model="ctrl.data.[% category %]Details" class="form-control"></textarea>
 [% IF verify.$comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.$comment %] - [% verify.user_name %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.$comment %] - [% verify.data_user_name %]</span></p> 
 [% END %]
         </div>
 [% END %]

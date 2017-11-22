@@ -14,7 +14,7 @@
 <textarea name="storing" ng-model="ctrl.data.storing"
 	class="form-control"></textarea>
 [% IF verify.storing_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.storing_comment %] - [% verify.user_name %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.storing_comment %] - [% verify.manage_user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 
@@ -24,7 +24,7 @@
 <textarea name="secure" ng-model="ctrl.data.secure"
 	class="form-control"></textarea>
 [% IF verify.secure_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.secure_comment %] - [% verify.user_name %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.secure_comment %] - [% verify.manage_user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
         <div class="form-group">
@@ -38,7 +38,7 @@
 	class="form-control"></input>
 <span class="alert-danger" ng-show="newRequest.completion_date.$invalid">Invalid date entered: use YYYY-MM-DD format</span>
 [% IF verify.completion_comment %]
-<p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %] - [% verify.user_name %]</span></p> 
+<p>Reviewer Comments:<span class="alert-warning">[% verify.completion_comment %] - [% verify.manage_user_name %]</span></p> 
 [% END %]
         </div><!-- end form-group -->
 
