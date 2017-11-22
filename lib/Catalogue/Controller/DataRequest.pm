@@ -411,6 +411,8 @@ sub request_edit :Chained('object') :Args() {
         $data->{$data_category->category . 'Details'} = $detail->detail;
     }
     $data->{requestType} = $data_request->request_type_id;
+    $data->{requestTypeDescription} = $data_request->request_type->description;
+    $data->{requestTypeName} = $data_request->request_type->name;
     my $request = { 
 	id => $data_request->id,
 	status_id => $data_request->status_id,
