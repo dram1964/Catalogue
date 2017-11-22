@@ -155,10 +155,9 @@ sub _identifiers () {
    return $self->{identifiers};
 }
 
-=head2 ng_request_submitted
+=head2 format_completion_date
 
-Submits data request to database
-Needs logic to update request_history
+handles formatting for submitting valid dates for the completion_date field
 
 =cut
 
@@ -170,6 +169,13 @@ sub format_completion_date() {
 	return undef unless $+{day} < 32 && $+{day} > 0;
 	return $completion_date;
 }
+
+=head2 ng_request_submitted
+
+Submits data request to database
+Needs logic to update request_history
+
+=cut
 
 sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args() {
    my ( $self, $c ) = @_;
