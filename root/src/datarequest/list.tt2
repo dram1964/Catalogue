@@ -45,7 +45,7 @@
   [% ELSE %] 
   <p class="lead">No requests on record</p>
   [% END %]
-  <p><a class="btn btn-primary" href="[% c.uri_for(c.controller.action_for('request')) %]">New Request</a> </p>
+  <p><a class="btn btn-primary" href="[% c.uri_for(c.controller.action_for('new_request')) %]">New Request</a> </p>
 [% ELSE %]
 <p>Your account does not have permission to make data requests. Please contact the system administrator to request 
 permission to make data requests</p>

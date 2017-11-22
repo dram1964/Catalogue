@@ -366,5 +366,17 @@ sub access_allowed_to {
   return $user->has_role('admin');
 }
 
+
+=head2 fullname
+
+returns specified users fullname
+
+=cut 
+
+sub fullname {
+  my ($self) = @_;
+  return $self->first_name . " " . $self->last_name;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

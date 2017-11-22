@@ -29,7 +29,8 @@ sub index :Path :Args(0) {
 
 =head2 base
 
-Can place common logic to start a chained dispatch here
+Adds a resultset for DataRequest and a user object to the stash for chained dispatch. Also 
+uses flash load_status_msg to handle status messages
 
 =cut 
 
@@ -42,7 +43,8 @@ sub base :Chained('/') :PathPart('datarequest') :CaptureArgs(0) {
 
 =head2 object
 
-Fetch the specified data request object based on the class id and store it in the stash
+Fetch the specified data request object based on the class id and store it in the stash. Checks
+that the requests user_id matches the current users id
 
 =cut 
 
@@ -53,7 +55,6 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
 
    $c->detach('/error_noperms') unless 
       $c->stash->{object}->user_id eq $c->stash->{user}->id;
-
 
 }
 
@@ -73,28 +74,13 @@ sub list :Chained('base') :PathPart('list') :Args(0) {
 
 =head2 display
 
-allow current user to view data request submitted by self
+display selected data request
 
 =cut
 
 sub display :Chained('object') :PathPart('display') :Args(0) {
    my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
-   my $data_items = {};
-   my $data_request_details_rs  = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $row = $data_request_details_rs->next) {
-     my $friendly_key = $row->data_category->category;
-     $friendly_key =~ s/^([a-z])/\u$1/;
-     $data_items->{$friendly_key} = $row->detail;
-
-   }
-
-   my $requestor_rs = $c->model('DB::User')->search({
-	username => $data_request->user->username
-   });
-   my $requestor = $requestor_rs->first;
 
    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
@@ -105,20 +91,18 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
 
    $c->stash(
         dh => $dh,
-	requestor => $requestor,
-	data_items => $data_items,
 	request => $data_request,
 	identifiers => $friendly_identifiers,
 	template => 'datarequest/display.tt2');
 }
 
-=head2 request
+=head2 new_request
 
 Displays a form for requesting data
 
 =cut
 
-sub request :Chained('base') :PathPart('request') :Args(0) {
+sub new_request :Chained('base') :PathPart('new_request') :Args(0) {
     my ( $self, $c ) = @_;
     $c->detach('/error_noperms') unless 
       $c->stash->{resultset}->new({})->request_allowed_by($c->stash->{user});
@@ -155,13 +139,14 @@ sub _identifiers () {
    return $self->{identifiers};
 }
 
-=head2 format_completion_date
+=head2 validate_date
 
-handles formatting for submitting valid dates for the completion_date field
+Used to format submitted text field to acceptable date format
 
 =cut
 
-sub format_completion_date() {
+sub validate_date() {
+	my $self = shift;
 	my $completion_date = shift;
 	$completion_date =~ /(?<year>[0-2]\d{3,3})-(?<month>[0-1]\d{1,1})-(?<day>[0-3][0-9])/;
 	return undef unless $+{year} > 2016;
@@ -173,7 +158,6 @@ sub format_completion_date() {
 =head2 ng_request_submitted
 
 Submits data request to database
-Needs logic to update request_history
 
 =cut
 
@@ -197,13 +181,19 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 		data_category_id => $row->id,
 		detail => $parameters->{$row->category . "Details"}, 
 	     });
+		$c->model('DB::RequestDetailHistory')->create({
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"},
+		status_date => $data_request->status_date,
+	     });
 	   }
    }
 
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-   my $completion_date = &format_completion_date($parameters->{completion_date});
+   my $completion_date = $self->validate_date($parameters->{completion_date});
    my $dh = {
 	  request_id => $data_request->id,
 	  identifiers => $self->_identifiers,
@@ -235,17 +225,6 @@ sub ng_request_submitted :Chained('base') PathPart('ng_request_submitted') :Args
 	%$dh, %$dr, status_date => $data_request->status_date,
    });
 	
-   my $request_details_rs = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $request_detail = $request_details_rs->next) {
-	$c->model('DB::RequestDetailHistory')->create({
-		data_request_id => $request_detail->data_request_id,
-		data_category_id => $request_detail->data_category_id,
-		status_date => $data_request->status_date,
-		detail => $request_detail->detail,
-	});
-   }
 
    my $data_requests = [$c->model('DB::DataRequest')->search({user_id => $c->stash->{user}->id})];
 
@@ -287,6 +266,12 @@ sub update_request :Chained('object') :Args() {
 		data_category_id => $row->id,
 		detail => $parameters->{$row->category . "Details"}, 
 	     });
+	    $c->model('DB::RequestDetailHistory')->create({
+		data_request_id => $data_request->id,
+		data_category_id => $row->id,
+		detail => $parameters->{$row->category . "Details"}, 
+		status_date => $data_request->status_date,
+	    });
 	} else {
 	    my $request_detail_rs = $c->model('DB::DataRequestDetail')->search({
 		data_request_id => $data_request->id,
@@ -299,7 +284,7 @@ sub update_request :Chained('object') :Args() {
 
    my $request_type = $data_request->request_type_id;
    $self->{identifiers} = $parameters->{"identifiers" . $request_type};
-   my $completion_date = &format_completion_date($parameters->{completion_date}); 
+   my $completion_date = $self->validate_date($parameters->{completion_date}); 
    my $dh = {
      request_id => $data_request->id,
      area => $parameters->{"area" . $request_type},
@@ -361,21 +346,10 @@ sub update_request :Chained('object') :Args() {
    my $request_history = $c->model('DB::RequestHistory')->create({
 	%$dr, %$dh });
    
-   my $request_details_rs = $c->model('DB::DataRequestDetail')->search({
-	data_request_id => $data_request->id});
-
-   while (my $request_detail = $request_details_rs->next) {
-	$c->model('DB::RequestDetailHistory')->create({
-		data_request_id => $request_detail->data_request_id,
-		data_category_id => $request_detail->data_category_id,
-		status_date => $data_request->status_date,
-		detail => $request_detail->detail,
-	});
-   }
-
    if ($data_request->status_id == 7) {
 	$data_request->verify_purpose->delete if defined($data_request->verify_purpose);	
 	$data_request->verify_handling->delete if defined($data_request->verify_handling);	
+	$data_request->verify_manage->delete if defined($data_request->verify_manage);	
 	$data_request->verify_data->delete if defined($data_request->verify_data);	
    }
    if ($parameters->{Submit} == 2) {
@@ -471,6 +445,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_purpose = $data_request->verify_purpose;
     if (defined($verify_purpose) ) {
+	$c->stash->{verify}->{purpose_user_name} = $verify_purpose->verifier->fullname;
 	$c->stash->{verify}->{area_comment} = $verify_purpose->area_comment;
 	$c->stash->{verify}->{objective_comment} = $verify_purpose->objective_comment;
 	$c->stash->{verify}->{benefits_comment} = $verify_purpose->benefits_comment;
@@ -480,6 +455,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_handling = $data_request->verify_handling;
     if (defined($verify_handling) ) {
+	$c->stash->{verify}->{handling_user_name} = $verify_handling->verifier->fullname;
 	$c->stash->{verify}->{rec_comment} = $verify_handling->rec_comment;
 	$c->stash->{verify}->{population_comment} = $verify_handling->population_comment;
 	$c->stash->{verify}->{id_comment} = $verify_handling->id_comment;
@@ -488,6 +464,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_manage = $data_request->verify_manage;
     if (defined($verify_manage) ) {
+	$c->stash->{verify}->{manage_user_name} = $verify_manage->verifier->fullname;
 	$c->stash->{verify}->{storing_comment} = $verify_manage->storing_comment;
 	$c->stash->{verify}->{secure_comment} = $verify_manage->secure_comment;
 	$c->stash->{verify}->{completion_comment} = $verify_manage->completion_comment;
@@ -495,6 +472,7 @@ sub request_edit :Chained('object') :Args() {
 
     my $verify_data = $data_request->verify_data;
     if (defined($verify_data) ) {
+	$c->stash->{verify}->{data_user_name} = $verify_data->verifier->fullname;
 	$c->stash->{verify}->{cardiology_comment} = $verify_data->cardiology_comment;
 	$c->stash->{verify}->{diagnosis_comment} = $verify_data->diagnosis_comment;
 	$c->stash->{verify}->{episode_comment} = $verify_data->episode_comment;
