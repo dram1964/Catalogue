@@ -5,6 +5,10 @@ angular.module('igadmin', [])
 
     self.risks = [];
 
+    var getColour = function(score) {
+	    return score < 8 ? 'green' : score > 14 ? 'red' : 'yellow';
+    }
+
     self.addRisk = function() {
 	var suffix = self.risks.length + 1;
 	self.risks.push({
@@ -16,17 +20,21 @@ angular.module('igadmin', [])
     };
     self.updateScore = function(risk) {
 	    risk.score = risk.rating.value * risk.likely.value;
+	    //risk.col = risk.score < 8 ? 'green' : risk.score > 14 ? 'red' : 'yellow';
+	    risk.col = getColour(risk.score);
     };
 
     if (risks.length > 0 ) {
         for (row of risks) {
 	    var suffix = self.risks.length + 1;
+	    row.col = row.score < 8 ? 'green' : row.score > 14 ? 'red' : 'yellow';
 	    self.risks.push({
 	  	name : 'risk' + suffix,
 	  	rating : {name : 'rating' + suffix, value : row.rating},
 		likely : {name : 'likely' + suffix, value : row.likelihood},
 		category : {name : 'category' + suffix, value : row.risk_category},
-		score : row.score
+		score : row.score,
+		col : getColour( row.score)
 		});
 	    console.log(suffix + ") Added a row: " + row.request_id);
 	};
