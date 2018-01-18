@@ -62,11 +62,12 @@
     <div class="row form-group">
 	<label>Risk Score</label>
 	<input type="text" name="{{risk.name}}" ng-model="risk.score" ng-style="{'background-color':risk.col}">
-      <button ng-click="sc.addRisk()">Add Next Risk</button>
     </div><!-- end form-group/row div -->
     <div class="row">
     </div><!-- end row div -->
     </div><!-- end ng-repeat -->
+    <div>
+    </div>
   <form class="row" action="[% c.uri_for(c.controller.action_for('update_score'), [request.id ]) %]" method="post">
     <div ng-repeat="r in sc.risks">
 	<input type="text" name={{r.name}} hidden ng-model="r.score">
@@ -74,7 +75,8 @@
 	<input type="text" name="{{r.rating.name}}" hidden ng-model="r.rating.value">
 	<input type="text" name="{{r.likely.name}}" hidden ng-model="r.rating.value">
     </div>
-	<input type="submit" value="Submit Scores">
+        <input class="btn btn-primary" type="button" ng-click="sc.addRisk()" value="Add Next Risk">
+	<input class="btn btn-primary" type="submit" value="Submit Scores">
   </form>
   </div><!-- end ng-controller div -->
 </div><!-- end ng-app div -->
