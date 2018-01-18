@@ -9,12 +9,12 @@
   [% IF dh.request.request_type_id == 1 %]
     [% IF dh.rec_approval == 1 %]
     <tr><td>REC Approval</td>
-    <td>Yes</td></tr></tr>
+    <td>Yes</td></tr>
     <tr><td>REC Approval Number</td>
-    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr></tr>
+    <td>[% dh.rec_approval_number || "&nbsp;" %]</td></tr>
     [% ELSE %]
     <tr><td>REC Approval</td>
-    <td>No</td></tr></tr>
+    <td>No</td></tr>
     [% END %]
   [% END %]
     <tr><td>Patient Selection</td><td>[% dh.population || "&nbsp;" %]</td></tr>

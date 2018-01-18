@@ -1,7 +1,7 @@
 angular.module('igadmin', [])
   .controller('ScoreCard', [function() {
     var self = this;
-    var risks = rs;
+    var res = rs;
 
     self.risks = [];
 
@@ -24,19 +24,19 @@ angular.module('igadmin', [])
 	    risk.col = getColour(risk.score);
     };
 
-    if (risks.length > 0 ) {
-        for (row of risks) {
+    if (res.length > 0 ) {
+        for (row in res) {
 	    var suffix = self.risks.length + 1;
-	    row.col = row.score < 8 ? 'green' : row.score > 14 ? 'red' : 'yellow';
+	    //row.col = res[row].score < 8 ? 'green' : res[row].score > 14 ? 'red' : 'yellow';
 	    self.risks.push({
 	  	name : 'risk' + suffix,
-	  	rating : {name : 'rating' + suffix, value : row.rating},
-		likely : {name : 'likely' + suffix, value : row.likelihood},
-		category : {name : 'category' + suffix, value : row.risk_category},
-		score : row.score,
-		col : getColour( row.score)
+	  	rating : {name : 'rating' + suffix, value : res[row].rating},
+		likely : {name : 'likely' + suffix, value : res[row].likelihood},
+		category : {name : 'category' + suffix, value : res[row].risk_category},
+		score : res[row].score,
+		col : getColour( res[row].score)
 		});
-	    console.log(suffix + ") Added a row: " + row.request_id);
+	    console.log(suffix + ") Added a row: " + res[row]);
 	};
     } else {
         self.risks = [{ 
