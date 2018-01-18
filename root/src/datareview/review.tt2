@@ -13,6 +13,12 @@
 [% INCLUDE datareview/request_type_panel.tt2 %]
 [% INCLUDE datareview/requestor_panel.tt2 %]
 
+[% USE JSON %]
+[% IF risk_scores.0 %]
+[% PROCESS requests/ig_risk_score.tt2 %]
+[% END %]
+
+
 [% IF dh %]
 
   [% INCLUDE datareview/request_purpose_panel.tt2 %]

@@ -196,6 +196,17 @@ sub display :Chained('request') :PathPart('display') :Args(0) {
     );
 }
 
+sub complete_review :Chained('object') :PathPart('complete_review') :Args(0) {
+	my ($self, $c) = @_;
+
+	my $request = $c->stash->{object};
+	$request->update({status_id => 8});
+
+	$c->response->redirect($c->uri_for($self->action_for('list'),
+	    {mid => $c->set_status_msg($request->id . " flagged for review")}));
+	$c->detach;
+}
+
 
 =encoding utf8
 

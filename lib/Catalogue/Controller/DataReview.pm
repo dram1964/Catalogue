@@ -156,7 +156,22 @@ displays selected data request
 
 sub display :Chained('request') :PathPart('display') :Args(0) {
     my ($self, $c) = @_;
+    my $request = $c->stash->{request};
+    my $risk_scores_rs = $c->model('DB::RiskScore')->search(
+	{ request_id => $request->id});
+    my $risk_scores;
+    while (my $row = $risk_scores_rs->next) {
+	my $risk_score = {request_id => $request->id, 
+	     risk_category => $row->risk_category,
+	     rating => $row->rating, 
+	     likelihood => $row->likelihood,
+	     score => $row->score
+	};
+	push @$risk_scores, $risk_score;
+    }
+	
     $c->stash(
+	risk_scores => $risk_scores,
 	template => 'datareview/display.tt2'
     );
 }
