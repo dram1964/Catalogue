@@ -85,12 +85,26 @@ sub display :Chained('object') :PathPart('display') :Args(0) {
    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id
    });
+    my $risk_scores_rs = $c->model('DB::RiskScore')->search(
+	{ request_id => $data_request->id});
+    my $risk_scores;
+    while (my $row = $risk_scores_rs->next) {
+	my $risk_score = {request_id => $data_request->id, 
+	     risk_category => $row->risk_category,
+	     rating => $row->rating, 
+	     likelihood => $row->likelihood,
+	     score => $row->score
+	};
+	push @$risk_scores, $risk_score;
+    }
+	
    my $dh = $dh_rs->first;
 
    my $friendly_identifiers = $dh->friendly_identifiers( $c->model('DB::PtIdentifier'));
 
    $c->stash(
         dh => $dh,
+	risk_scores => $risk_scores,
 	request => $data_request,
 	identifiers => $friendly_identifiers,
 	template => 'datarequest/display.tt2');
