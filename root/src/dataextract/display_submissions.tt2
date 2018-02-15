@@ -1,0 +1,48 @@
+[% META title = "Request Submission Details" %]
+<p>Request ID: [% request.id %]</p>
+<p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
+
+[% FOR submission IN submissions %]
+<div class="table-responsive">
+  <table class="table table-striped text-left">
+    <caption>Submission</caption>
+  <tbody>
+	<tr><td>Submission Name</td><td>[% submission.project_name %]</td></tr>
+	<tr><td>Submission Type</td><td> [% submission.project_type %]</td></tr>
+	<tr><td>Submission Location</td><td> [% submission.project_location %]</td></tr>
+	<tr><td>Submission Run Date</td><td> [% submission.extract_run_date %]</td></tr>
+	<tr><td>Submission Output File</td><td> [% submission.extract_output_file %]</td></tr>
+	<tr><td>Submission Output File Location</td><td> [% submission.extract_output_file_location %]</td></tr>
+	<tr><td>Submission Delivery Method</td><td> [% submission.extract_delivery_method %]</td></tr>
+	<tr><td>Packages:</td><td> 
+	[% FOR package IN submission.packages %]
+	  <ol>
+	    <li><a href="#[% package.package_name %]">[% package.package_name %]</a></li>
+	  </ol>
+	</td></tr>
+    [% END %]
+  </tbody>
+  </table>
+</div>
+[% END %]
+
+[% FOR package IN submission.packages %]
+<div id=[% package.package_name %]>
+    [% FOR extract IN package.extracts %]
+    <div class="table-responsive">
+      <table class="table table-striped text-left">
+        <caption>Data Extracts for [% package.package_name %]</caption>
+        <tbody>
+	    <tr><td>Source Name</td><td> [% extract.source_name %]</td></tr>
+	    <tr><td>Source Type</td><td> [% extract.source_type %]</td></tr>
+	    <tr><td>Extract Name</td><td> [% extract.extract_name %]</td></tr>
+	    <tr><td>Extract Query</td><td> [% extract.extract_query %]</td></tr>
+	    <tr><td>Extract Output Location</td><td> [% extract.extract_output_location %]</td></tr>
+	    <tr><td>Extract Output Type</td><td> [% extract.output_type %]</td></tr>
+	    <tr><td>Extract File Name</td><td> [% extract.filename %]</td></tr>
+        </tbody>
+      </table>
+    </div>
+    [% END %]
+</div>
+[% END %]
