@@ -52,7 +52,7 @@ sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    die "Class not found" if !$c->stash->{object};
 }
 
-=head2 display
+=head2 display_request
 
 Displays the data requested
 
@@ -98,37 +98,8 @@ Displays data submitted for a specified request
 
 sub display_submissions :Chained('object') :Args(0) {
     my ($self, $c) = @_;
-   my $data_request = $c->stash->{object};
-    my $submissions = [
-	{
-	project_type => 'SSIS',
-	project_name => 'HIC_ACS_Deidentified',
-	project_location => 'Upathsql: d:\pathreports\SSAS\Projects',
-	packages	=> [
-		{
-		package_name => 'Deidentified_Plain_Data.dtsx',
-		extracts => [
-		    {
-		    source_type	=> 'SQL Server',
-		    source_name => 'Upathsql.HIC',
-		    extract_name  => 'Biochemistry Data',
-		    extract_query => 'select t1.deid, t2.testcode, Pathreports.Winpath.ufn_numeric_or_greater_than_result(t2.result) result, t2.units, t2.rangelo, t2.rangehi, DATEADD(DAY, 33, t2.collectdate) collect_date_skewed, t2.collecttime
-		from ACS.tpt_candidates_lookup t1
-		join ACS.results_combined t2 on t1.ptnumber = t2.ptnumber
-		order by labno, testcode, sort_order',
-		    extract_output_location => 'Upathsql: d:\\pathreports\\data\\HIC\\ACS\\deidentified_extract\\',
-		    output_type		=> 'CSV: field separator: "comma", text qualifier: "double-quote", include header row, code page 1252, locale en-gb',
-		    filename		=> 'biochemistry_data.csv',
-		    },
-		],
-		},
-	],
-	extract_run_date => '2018-02-14',
-	extract_output_file	=> 'hic_acs.zip',
-	extract_output_file_location	=> 'Upathsql: D:\pathreports\data\hic\acs\deidentified_extract',
-	extract_delivery_method		=> 'file upload to https://www.ucl.ac.uk/dropbox for collection by s.denaxas@ucl.ac.uk within 10 days of upload',
-	}
-    ];
+    my $data_request = $c->stash->{object};
+    my $submissions = [$data_request->submissions];
     
     $c->stash(
 	request => $data_request,
@@ -137,30 +108,77 @@ sub display_submissions :Chained('object') :Args(0) {
     );
 }
 
-=head2 record
+=head2 add_new 
 
-Displays template for recording details of data extract
+Adds a new submission record for selected request
 
 =cut
 
-sub record :Chained('object') :Args(0) {
+sub add_new :Chained('object') :Args(0) {
+	my ($self, $c) = @_;
+	my $data_request = $c->stash->{object};
+	$c->stash(
+		request => $data_request,
+		template => 'dataextract/add.tt2',
+	);
+}
+
+=head2 add_submission
+
+Sends the form data for new submission to the database
+
+=cut 
+
+sub add_submission :Chained('object') :Args(0) {
+	my ($self, $c) = @_;
+	my $data_request = $c->stash->{object};
+   	my $parameters = $c->request->body_parameters;
+	my $submission_data = {
+		request_id => $data_request->id,
+		project_name => $parameters->{projectName},
+		project_type	=> $parameters->{projectType},
+		project_location	=> $parameters->{projectLocation},
+		extract_run_date	=> $parameters->{extractRunDate},
+		extract_output_file	=> $parameters->{extractOutputFile},
+		extract_output_file_location => $parameters->{extractOutputFileLocation},
+		extract_delivery_method	=> $parameters->{extractDeliveryMethod},
+	};
+	my $submission = $c->model('DB::Submission')->create($submission_data);
+	
+	$c->stash(
+		template => 'dataextract/list.tt2',
+	);
+}
+
+
+
+=head2 edit
+
+Displays template for editing or adding details of data extract
+
+=cut
+
+sub edit :Chained('object') :Args(0) {
 	my ( $self, $c ) = @_;
    	my $data_request = $c->stash->{object};
+	my $submissions = [$c->model('DB::Submission')->search({request_id => $data_request->id})];
 	$c->stash(
+	    submissions => $submissions,
 	    request => $data_request,
-	    template => 'dataextract/record.tt2',
+	    template => 'dataextract/edit.tt2',
 	);
 }
 
 =head1 list
 
 Display list of requests that have had IG Review complsted
+or data submission data recorded
 
 =cut
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
-    my $data_requests = [$c->stash->{resultset}->search({status_id => { in => [8, 9, 10]}})];
+    my $data_requests = [$c->stash->{resultset}->search({status_id => { in => [8, 9, 10, 11, 12]}})];
     $c->stash(
 	data_requests => $data_requests,
 	template => 'dataextract/list.tt2'

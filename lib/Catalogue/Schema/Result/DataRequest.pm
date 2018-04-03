@@ -182,6 +182,21 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 submissions
+
+Type: has_many
+
+Related object: L<Catalogue::Schema::Result::Submission>
+
+=cut
+
+__PACKAGE__->has_many(
+  "submissions",
+  "Catalogue::Schema::Result::Submission",
+  { "foreign.request_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 user
 
 Type: belongs_to
@@ -258,8 +273,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-11-15 13:32:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DCThDL8JAowxsrmvs1sfdg
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2018-02-16 10:25:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q14/1fJgB7zqbCr6nTtcdA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
