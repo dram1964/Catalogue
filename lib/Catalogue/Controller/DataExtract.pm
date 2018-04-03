@@ -178,7 +178,7 @@ or data submission data recorded
 
 sub list :Chained('base') :PathPart('list') :Args(0) {
     my ($self, $c) = @_;
-    my $data_requests = [$c->stash->{resultset}->search({status_id => { in => [8, 9, 10, 11, 12]}})];
+    my $data_requests = [$c->stash->{resultset}->search({status_id => { in => [9, 12]}})];
     $c->stash(
 	data_requests => $data_requests,
 	template => 'dataextract/list.tt2'

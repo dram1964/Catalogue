@@ -30,12 +30,14 @@
 		[% request.status.description %]
 	  </a> 
 	</td>
-        [% CASE [3, 4, 6, 7, 8] %]
+        [% CASE [3, 4, 6, 7, 8, 9, 10, 11, 12] %]
   	<td>
           <a href="[% c.uri_for(c.controller.action_for('display'), [request.id]) %]">
 		[% request.status.description %]
 	  </a> 
 	</td>
+	[% CASE %]
+	<td>[% request.status.description %]</td>
   	[% END %]
   	</tr>
     [% END %]

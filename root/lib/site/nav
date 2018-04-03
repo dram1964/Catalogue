@@ -24,6 +24,7 @@
       <li><a href="[% c.uri_for('/igadmin/list') %]">IG Review</a></li>
   [% END %]
   [% IF c.user.has_role('admin') %]
+      <li><a href="[% c.uri_for('/extract_approval/list') %]">Extract Approval</a></li>
       <li><a href="[% c.uri_for('/dataextract/list') %]">Extracts</a></li>
   [% END %]
       <li><a href="[% c.uri_for('/profile/show') %]">My Details</a></li>
