@@ -115,15 +115,21 @@ updates request status with submitted request_status
 sub update_approval :Chained('object') :Args() {
 	my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
+   my $data_requests = $c->stash->{data_requests};
    my $parameters = $c->request->body_parameters;
    if( $data_request->update({ status_id => $parameters->{approval} }) ) {
-   	$c->response->redirect(
-		$c->uri_for($self->action_for('list')));
+   	$c->stash(
+     		status_msg => "Request " . $data_request->id . " updated",
+     		data_requests => $data_requests,
+     		template => 'extract_approval/list.tt2'
+	);
    }
-
-   $c->stash(
-	template => 'extract_approval/list.tt2'
-   );
+   else {
+	$c->stash (error_msg => "Error Updating Request " . $data_request->id, 
+     		data_requests => $data_requests,
+     		template => 'extract_approval/list.tt2'
+	);
+   }
 } 
 
 

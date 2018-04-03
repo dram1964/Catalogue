@@ -22,8 +22,10 @@
   	<td>[% request.request_type.name %]</td>
   	<td>[% request.status.description %]</td>
   	<td>
-	    <a href="[% c.uri_for(c.controller.action_for('display_request'), [request.id]) %]">View Request</a>
-	    <a href="[% c.uri_for(c.controller.action_for('display_submissions'), [request.id]) %]">View Submissions</a>
+	  <ul>
+	    <li><a href="[% c.uri_for(c.controller.action_for('display_request'), [request.id]) %]">View Request</a></li>
+	    <li><a href="[% c.uri_for(c.controller.action_for('display_submissions'), [request.id]) %]">View Submissions</a></li>
+	  </ul>
 	</td>
   	</tr>
     [% END %]

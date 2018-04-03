@@ -2,6 +2,7 @@
 <p>Request ID: [% request.id %]</p>
 <p>Return to <a href="[% c.uri_for(c.controller.action_for('list')) %]">List</a> of Requests</p>
 <p>Add <a href="[% c.uri_for(c.controller.action_for('add_new'), [request.id]) %]">Submission</a> Data</p>
+<p>Flag as <a href="[% c.uri_for(c.controller.action_for('flag_complete'), [request.id]) %]">Complete</a></p>
 
 [% FOR submission IN submissions %]
 <div class="table-responsive">

@@ -169,6 +169,31 @@ sub edit :Chained('object') :Args(0) {
 	);
 }
 
+=head2 flag_complete
+
+Flags the request as completed with data delivered
+
+=cut
+
+sub flag_complete :Chained('object') :Args(0) {
+    my ( $self, $c ) = @_;
+    my $data_request = $c->stash->{object};
+    my $data_requests = $c->stash->{data_requests};
+    if ( $data_request->update({status_id => 11} ) ) {
+   	$c->stash(
+     		status_msg => "Request " . $data_request->id . " updated",
+     		data_requests => $data_requests,
+     		template => 'dataextract/list.tt2'
+	);
+   }
+   else {
+	$c->stash (error_msg => "Error Updating Request " . $data_request->id, 
+     		data_requests => $data_requests,
+     		template => 'dataextract/list.tt2'
+	);
+   }
+}
+
 =head1 list
 
 Display list of requests that have had IG Review complsted
