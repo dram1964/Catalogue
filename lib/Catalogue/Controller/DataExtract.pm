@@ -48,6 +48,7 @@ Fetch the specified data request object based on the request id and store it in 
 
 sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
    my ($self, $c, $id) = @_;
+
    $c->stash(object => $c->stash->{resultset}->find($id));
    die "Class not found" if !$c->stash->{object};
 }
@@ -61,6 +62,11 @@ Displays the data requested
 sub display_request :Chained('object') :Args() {
    my ($self, $c) = @_;
    my $data_request = $c->stash->{object};
+
+   die "Class not found" if !$c->stash->{object};
+    $c->detach('/error_noperms') unless 
+       $data_request->extract_allowed_by($c->user->get_object);
+
 
    my $dh_rs = $c->model('DB::DataHandling')->search({
 	request_id => $data_request->id

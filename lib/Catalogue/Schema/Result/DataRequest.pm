@@ -320,7 +320,7 @@ sub first_submit_date {
 
 =head2 delete_allowed_by
 
-Can the specified user delete the current Registration Request?
+Can the specified user delete the current Data Request?
 
 =cut
 
@@ -331,7 +331,7 @@ sub delete_allowed_by {
 
 =head2 edit_allowed_by
 
-Can the specified user edit the current Registration Request?
+Can the specified user edit the current Data Request?
 
 =cut
 
@@ -342,7 +342,7 @@ sub edit_allowed_by {
 
 =head2 request_allowed_by
 
-Can the specified user make a Registration Request?
+Can the specified user make a Data Request?
 
 =cut
 
@@ -351,5 +351,17 @@ sub request_allowed_by {
   return $user->has_role('requestor');
 }
 
+=head2 extract_allowed_by
+
+Can the specified user record extract data for a Data Request?
+
+=cut
+
+sub extract_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('extractor');
+}
+
 __PACKAGE__->meta->make_immutable;
+
 1;

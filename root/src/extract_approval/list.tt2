@@ -30,7 +30,7 @@
       </table>
     </div>
   [% ELSE %] 
-  <p class="lead">No requests on record</p>
+  <p class="lead">No current requests with IG Review Completed</p>
   [% END %]
 [% ELSE %]
 <p>Your account does not have permission to view this page. Please contact the system administrator you think this wrong</p>
