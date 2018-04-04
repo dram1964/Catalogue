@@ -140,7 +140,7 @@ Edit a user record
 =cut
 
 sub edit :Chained('object') :PathPart('edit') :Args(0) 
-	:FormConfig('users/add.yml') {
+	:FormConfig('users/edit.yml') {
     my ($self, $c) = @_;
 
     my $user = $c->stash->{object};
@@ -158,8 +158,6 @@ sub edit :Chained('object') :PathPart('edit') :Args(0)
     } else {
         my $username = $form->get_element({name => 'username'});
 	$username->value($user->username);
-        my $password = $form->get_element({name => 'password'});
-	$password->value($user->password);
         my $last_name = $form->get_element({name => 'last_name'});
 	$last_name->value($user->last_name) if $user->last_name;
         my $first_name = $form->get_element({name => 'first_name'});
