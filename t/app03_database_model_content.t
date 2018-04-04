@@ -12,7 +12,7 @@ TODO: {
 my $dsn        = "dbi:mysql:catalogue_test";
 my $connection = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
 my $mech       = Test::WWW::Mechanize::Catalyst->new;
-$mech->get_ok( "/login?username=test01&password=mypass", "Login test01" );
+$mech->get_ok( "/login?username=test04&password=mypass", "Login test04" );
 
 my $db_rs   = $connection->resultset('CDatabase');
 my $db      = $db_rs->next;
