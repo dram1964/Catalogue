@@ -21,6 +21,13 @@ Catalyst Controller.
 
 =cut
 
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::CApplication')->first->list_allowed_by($c->user->get_object);
+}
+
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 

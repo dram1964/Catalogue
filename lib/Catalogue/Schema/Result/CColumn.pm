@@ -193,5 +193,17 @@ sub edit_allowed_by {
   return $user->has_role('curator');
 }
 
+=head2 list_allowed_by
+
+Can the specified user list Columns?
+
+=cut
+
+sub list_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator') || $user->has_role('admin');
+}
+
 __PACKAGE__->meta->make_immutable;
+
 1;

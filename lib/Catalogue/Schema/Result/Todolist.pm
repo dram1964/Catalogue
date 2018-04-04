@@ -175,7 +175,7 @@ Can the specified user edit the current Task?
 
 sub edit_allowed_by {
   my ($self, $user) = @_;
-  return $user->has_role('curator');
+  return $user->has_role('curator') || $user->has_role('admin');
 }
 
 

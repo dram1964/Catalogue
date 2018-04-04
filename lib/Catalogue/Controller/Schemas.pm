@@ -16,6 +16,12 @@ Catalyst Controller.
 
 =cut
 
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->model('DB::CSchema')->first->list_allowed_by($c->user->get_object);
+}
+
 
 =head2 index
 
