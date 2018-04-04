@@ -5,5 +5,5 @@ use Test::More;
 use Catalyst::Test 'Catalogue';
 use Catalogue::Controller::Profile;
 
-ok( request('/profile')->is_success, 'Request should succeed' );
+ok( request('/profile')->is_redirect, 'Request should succeed' );
 done_testing();
