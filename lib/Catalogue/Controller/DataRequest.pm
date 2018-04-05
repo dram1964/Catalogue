@@ -16,15 +16,20 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
+
+Deny all access unless user has requestor or admin rights
+
+=cut
+
 sub auto : Private {
     my ( $self, $c ) = @_;
-    unless ( $c->model('DB::DataRequest')->first->extract_allowed_by($c->user->get_object)) {
+    unless ($c->user->has_role('requestor') || $c->user->has_role('admin')) {
         $c->stash(error_msg => 'Your account does not have permission to make data requests. '
             . 'Please contact your administrator');
         $c->detach('/error_noperms');
     }
 }
-
 
 =head2 index
 

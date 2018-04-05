@@ -21,6 +21,19 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
+
+Deny all access unless user has extractor or admin rights
+
+=cut
+
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    unless ($c->user->has_role('extractor') || $c->user->has_role('admin')) {
+        $c->detach('/error_noperms');
+    }
+}
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 

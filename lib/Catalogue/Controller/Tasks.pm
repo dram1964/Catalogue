@@ -16,6 +16,18 @@ Catalyst Controller.
 
 =cut
 
+=head1 auto
+
+Deny all access unless user has admin rights
+
+=cut
+
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    $c->detach('/error_noperms') unless 
+      $c->user->has_role('admin');
+}
+
 
 =head2 index
 

@@ -99,4 +99,16 @@ __PACKAGE__->has_many(
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
+
+=head2 list_allowed_by
+
+Can the specified user access KPE objects?
+
+=cut
+
+sub list_allowed_by {
+  my ($self, $user) = @_;
+  return $user->has_role('curator') || $user->has_role('admin');
+}
+
 1;

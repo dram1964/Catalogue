@@ -16,9 +16,9 @@ my $controller_message = {
     columns          => 'Columns for all tables',
     databases        => 'Showing Databases for all Systems',
     dataextract      => 'Data Requests with Completed IG Review',
-    datarequest      => 'Data Requests',
+    datarequest      => 'List of Data Requests',
     datareview       => 'List of Data Requests',
-    datasets         => 'This page contains a list of datasete',
+    datasets         => 'This page contains a list of datasets',
     erid             => 'ERIDs',
     extract_approval => 'Data Requests with Completed IG Review',
     igadmin          => 'List of Data Requests',
@@ -35,7 +35,7 @@ note('Testing access to list pages for "user" role');
 for my $controller ( keys %$controller_message ) {
     if (any { $_ eq $controller } @list_allowed) {
         $ua1->get_ok( "/$controller/list",
-            "Request /$controller/list for empty user" 
+            "Request /$controller/list for user" 
         );
         $ua1->content_contains(
             $controller_message->{$controller},
@@ -44,7 +44,7 @@ for my $controller ( keys %$controller_message ) {
     }
     else {
         $ua1->get_ok( "/$controller/list",
-            "Request /$controller/list for empty user" 
+            "Request /$controller/list for user" 
         );
         $ua1->content_contains( 'Permission Denied',
             'Redirect to Permission Denied' 

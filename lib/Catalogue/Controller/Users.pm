@@ -16,6 +16,18 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
+
+Deny all access unless user has admin rights
+
+=cut
+
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    unless ($c->user->has_role('admin')) {
+        $c->detach('/error_noperms');
+    }
+}
 
 =head2 index
 
@@ -25,19 +37,6 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->response->body('Matched Catalogue::Controller::Users in Users.');
-}
-
-=head2 auto
-
-Deny access to non-admin users
-
-=cut
-
-sub auto :Private {
-    my ( $self, $c) = @_;
-    my $user_model = $c->model('DB::User');
-    $c->detach('/error_noperms') unless 
-      $user_model->first->access_allowed_to($c->user->get_object);
 }
 
 =head2 base

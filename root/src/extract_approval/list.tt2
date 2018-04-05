@@ -1,6 +1,5 @@
 [% META title = "Data Requests with Completed IG Review" %]
 [% USE date %]
-[% IF c.user.has_role('requestor') %]
   [% IF data_requests.0 %]
     <div class="table-responsive">
       <table class="table table-striped text-left">
@@ -32,6 +31,3 @@
   [% ELSE %] 
   <p class="lead">No current requests with IG Review Completed</p>
   [% END %]
-[% ELSE %]
-<p>Your account does not have permission to view this page. Please contact the system administrator you think this wrong</p>
-[% END %]

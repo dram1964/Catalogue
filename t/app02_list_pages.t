@@ -103,16 +103,16 @@ $_->content_lacks( "delete</a>", "Check Columns list has no delete link" )
 
 $_->get_ok( "/tasks/list", "get column list" ) for @all_users;
 $_->content_contains( "Permission Denied",
-    "basic, igadmin, extractor and requestor denied Tasks List" )
-  for $basic_user, $requestor_user, $igadmin_user, $extractor_user,
+    "basic, igadmin, curator, extractor and requestor denied Tasks List" )
+  for $basic_user, $requestor_user, $curator_user, $igadmin_user, $extractor_user,
   $extract_approver_user;
 $_->title_is( 'Project Task List', "curator and admin task list title" )
-  for $curator_user, $admin_user;
+  for $admin_user;
 $_->content_contains( "outstanding tasks to be completed",
     "Check Tasks List content" )
-  for $curator_user, $admin_user;
+  for $admin_user;
 $_->content_lacks( "delete</a>", "Check Tasks list has no delete link" )
-  for $curator_user, $admin_user;
+  for $admin_user;
 
 $basic_user->get_ok( "/tasks/list", "'test01' tasks list" );
 $basic_user->content_contains( "Permission Denied", "Test01 denied Task List" );

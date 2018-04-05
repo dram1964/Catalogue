@@ -16,6 +16,20 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
+
+Deny all access unless user has curator or admin rights
+
+=cut
+
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    unless ($c->user->has_role('curator') || $c->user->has_role('admin')) {
+        $c->detach('/error_noperms');
+    }
+}
+
+
 
 =head2 index
 

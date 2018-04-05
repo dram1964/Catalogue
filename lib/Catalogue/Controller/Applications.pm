@@ -16,16 +16,23 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto
 
-=head2 index
+Deny all access unless user has curator or admin rights
 
 =cut
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->model('DB::CApplication')->first->list_allowed_by($c->user->get_object);
+    unless ($c->user->has_role('curator') || $c->user->has_role('admin')) {
+        $c->detach('/error_noperms');
+    }
 }
+
+
+=head2 index
+
+=cut
 
 
 sub index :Path :Args(0) {

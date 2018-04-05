@@ -18,14 +18,15 @@ Catalyst Controller.
 
 =head2 auto
 
-block access to all but curators and admins
+Deny all access unless user has curator or admin rights
 
-=cut 
+=cut
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    $c->detach('/error_noperms') unless 
-      $c->model('DB::CDatabase')->first->list_allowed_by($c->user->get_object);
+    unless ($c->user->has_role('curator') || $c->user->has_role('admin')) {
+        $c->detach('/error_noperms');
+    }
 }
 
 =head2 index
