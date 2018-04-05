@@ -5,11 +5,10 @@ use List::MoreUtils qw(any);
 
 BEGIN { use_ok( "Test::WWW::Mechanize::Catalyst" => "Catalogue" ) }
 
-my $ua1 = Test::WWW::Mechanize::Catalyst->new;
-$ua1->get_ok( '/login?username=test01&password=mypass',
-    'Login in with user role' );
+my $ua1         = Test::WWW::Mechanize::Catalyst->new;
+$ua1->get_ok('/login?username=test07&password=mypass', 'Login in with user role');
 
-my @list_allowed = qw(datasets);
+my @list_allowed = qw(extract_approval datasets);
 
 my $controller_message = {
     applications     => 'List of all Applications on the Metadata Catalogue',
@@ -32,19 +31,24 @@ my $controller_message = {
     users            => 'Current Metadata Catalogue Users',
 };
 
-note('Testing access to list pages for "user" role');
+note('Testing access to list pages for "extract_approver" role');
 for my $controller ( keys %$controller_message ) {
-    if ( any { $_ eq $controller } @list_allowed ) {
+    if (any { $_ eq $controller } @list_allowed) {
         $ua1->get_ok( "/$controller/list",
-            "Request /$controller/list for user" );
-        $ua1->content_contains( $controller_message->{$controller},
-            'Access granted' );
+            "Request /$controller/list for extract_approver" 
+        );
+        $ua1->content_contains(
+            $controller_message->{$controller},
+            'Access granted'
+        );
     }
     else {
         $ua1->get_ok( "/$controller/list",
-            "Request /$controller/list for user" );
+            "Request /$controller/list for extract_approver" 
+        );
         $ua1->content_contains( 'Permission Denied',
-            'Redirect to Permission Denied' );
+            'Redirect to Permission Denied' 
+        );
         $ua1->content_lacks(
             $controller_message->{$controller},
             'Requested content not available'

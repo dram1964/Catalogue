@@ -18,13 +18,13 @@ Catalyst Controller.
 
 =head2 auto
 
-Deny all access unless user has igadmin or admin rights
+Deny all access unless user has ig_admin or admin rights
 
 =cut
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    unless ($c->user->has_role('igadmin') || $c->user->has_role('admin')) {
+    unless ($c->user->has_role('ig_admin') || $c->user->has_role('admin')) {
         $c->detach('/error_noperms');
     }
 }
