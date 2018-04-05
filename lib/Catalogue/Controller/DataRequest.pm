@@ -16,6 +16,15 @@ Catalyst Controller.
 
 =cut
 
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    unless ( $c->model('DB::DataRequest')->first->extract_allowed_by($c->user->get_object)) {
+        $c->stash(error_msg => 'Your account does not have permission to make data requests. '
+            . 'Please contact your administrator');
+        $c->detach('/error_noperms');
+    }
+}
+
 
 =head2 index
 

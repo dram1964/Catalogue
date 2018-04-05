@@ -1,6 +1,5 @@
 [% META title = "Data Requests" %]
 [% USE date %]
-[% IF c.user.has_role('requestor') %]
   [% IF data_requests.0 %]
     <div class="table-responsive">
       <table class="table table-striped text-left">
@@ -48,7 +47,3 @@
   <p class="lead">No requests on record</p>
   [% END %]
   <p><a class="btn btn-primary" href="[% c.uri_for(c.controller.action_for('new_request')) %]">New Request</a> </p>
-[% ELSE %]
-<p>Your account does not have permission to make data requests. Please contact the system administrator to request 
-permission to make data requests</p>
-[% END %]
