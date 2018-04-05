@@ -16,22 +16,19 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 logout
 
 Logout logic
 
 =cut
 
-sub logout :Path :Args(0) {
+sub logout : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->logout;
 
-    $c->response->redirect($c->uri_for('/welcome'));
+    $c->response->redirect( $c->uri_for('/welcome') );
 }
-
-
 
 =encoding utf8
 

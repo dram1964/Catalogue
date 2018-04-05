@@ -24,7 +24,7 @@ Deny all access unless user has curator or admin rights
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    unless ($c->user->has_role('curator') || $c->user->has_role('admin')) {
+    unless ( $c->user->has_role('curator') || $c->user->has_role('admin') ) {
         $c->detach('/error_noperms');
     }
 }
@@ -33,7 +33,7 @@ sub auto : Private {
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->response->body('Matched Catalogue::Controller::ERID in ERID.');
@@ -45,12 +45,13 @@ List all ERIDs
 
 =cut
 
-sub list :Chained('base') :PathPart('list') :Args(0) {
-    my ($self, $c) = @_;
-    my $erids = [$c->stash->{resultset}->all];
+sub list : Chained('base') : PathPart('list') : Args(0) {
+    my ( $self, $c ) = @_;
+    my $erids = [ $c->stash->{resultset}->all ];
     $c->stash(
-	erids => $erids,
-	template => 'erids/list.tt2');
+        erids    => $erids,
+        template => 'erids/list.tt2'
+    );
 }
 
 =head2 base
@@ -59,9 +60,9 @@ Can place common logic to start a chained dispatch here
 
 =cut 
 
-sub base :Chained('/') :PathPart('erid') :CaptureArgs(0) {
-    my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::ERID'));
+sub base : Chained('/') : PathPart('erid') : CaptureArgs(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( resultset => $c->model('DB::ERID') );
     $c->load_status_msgs;
 }
 
@@ -71,11 +72,11 @@ Fetch the specified erid object based on the class id and store it in the stash
 
 =cut 
 
-sub object :Chained('base') :PathPart('id') :CaptureArgs(1) {
-   my ($self, $c, $id) = @_;
-   $c->stash(object => $c->stash->{resultset}->find($id));
+sub object : Chained('base') : PathPart('id') : CaptureArgs(1) {
+    my ( $self, $c, $id ) = @_;
+    $c->stash( object => $c->stash->{resultset}->find($id) );
 
-   die "Class not found" if !$c->stash->{object};
+    die "Class not found" if !$c->stash->{object};
 
 }
 
@@ -85,13 +86,16 @@ Add new ERID
 
 =cut
 
-sub add :Chained('base') :PathPart('add') :Args(0) {
-   my ($self, $c) = @_;
-   my $name = $c->request->params->{name};
-   my $erid = $c->stash->{resultset}->create({
-	name => $name});
-   $c->response->redirect($c->uri_for($self->action_for('list'),
-	{mid => $c->set_status_msg("ERID $name added.")}));
+sub add : Chained('base') : PathPart('add') : Args(0) {
+    my ( $self, $c ) = @_;
+    my $name = $c->request->params->{name};
+    my $erid = $c->stash->{resultset}->create( { name => $name } );
+    $c->response->redirect(
+        $c->uri_for(
+            $self->action_for('list'),
+            { mid => $c->set_status_msg("ERID $name added.") }
+        )
+    );
 }
 
 =head2 delete
@@ -100,15 +104,18 @@ Delete the ERID
 
 =cut
 
-sub delete :Chained('object') :PathPart('delete') :Args(0) {
-   my ($self, $c) = @_;
-     $c->detach('/error_noperms') unless 
-	$c->stash->{object}->delete_allowed_by($c->user->get_object);
-     $c->stash->{object}->delete;
-     $c->response->redirect($c->uri_for($self->action_for('list'),
-	{mid => $c->set_status_msg("ERID Deleted.")}));
+sub delete : Chained('object') : PathPart('delete') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->detach('/error_noperms')
+        unless $c->stash->{object}->delete_allowed_by( $c->user->get_object );
+    $c->stash->{object}->delete;
+    $c->response->redirect(
+        $c->uri_for(
+            $self->action_for('list'),
+            { mid => $c->set_status_msg("ERID Deleted.") }
+        )
+    );
 }
-
 
 =encoding utf8
 

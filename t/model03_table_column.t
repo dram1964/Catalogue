@@ -22,14 +22,13 @@ SKIP: {
 
     my $query_rs = $schema->resultset('CColumn')->search(
         { 'me.col_id' => $id },
-        {
-            select => [
+        {   select => [
                 qw(me.name me.col_type me.col_size
-                  tbl.name sch.name db.name)
+                    tbl.name sch.name db.name)
             ],
             as => [
                 qw(col_name col_type col_size
-                  table_name schema_name database_name)
+                    table_name schema_name database_name)
             ],
             join     => { 'tbl' => { 'sch' => 'db' } },
             prefetch => { 'tbl' => { 'sch' => 'db' } }
@@ -37,14 +36,14 @@ SKIP: {
     );
     my $query = $query_rs->first;
 
-    is( $query->get_column('col_name'),   $column_name, "Column Name matched" );
-    is( $query->get_column('table_name'), $table_name,  "Table Name matched" );
-    is( $query->get_column('schema_name'), $schema_name,
-        "Schema Name matched" );
+    is( $query->get_column('col_name'), $column_name, "Column Name matched" );
+    is( $query->get_column('table_name'), $table_name, "Table Name matched" );
+    is( $query->get_column('schema_name'),
+        $schema_name, "Schema Name matched" );
     is( $query->get_column('database_name'),
         $database_name, "Database Name matched" );
-    is( $query->get_column('system_name'), $system_name,
-        "System Name matched" );
+    is( $query->get_column('system_name'),
+        $system_name, "System Name matched" );
 }
 done_testing();
 

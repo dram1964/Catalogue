@@ -1,14 +1,14 @@
 use Test::More;
 use Catalogue::Schema;
 
-my $dsn        = "dbi:mysql:catalogue_test";
-my $connection = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
-my $lab_rs     = $connection->resultset('WpLaboratory');
+my $dsn = "dbi:mysql:catalogue_test";
+my $connection
+    = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
+my $lab_rs = $connection->resultset('WpLaboratory');
 
 BEGIN { use_ok 'Catalogue::Importer::Winpath::Laboratory' }
 
-ok(
-    my $lab = Catalogue::Importer::Winpath::Laboratory->new(
+ok( my $lab = Catalogue::Importer::Winpath::Laboratory->new(
         code       => 'BZ',
         discipline => 'Special Biochemistry',
         cluster    => 'Biochemistry',

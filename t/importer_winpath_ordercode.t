@@ -1,14 +1,14 @@
 use Test::More;
 use Catalogue::Schema;
 
-my $dsn        = "dbi:mysql:catalogue_test";
-my $connection = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
-my $order_rs   = $connection->resultset('WpOrder');
+my $dsn = "dbi:mysql:catalogue_test";
+my $connection
+    = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
+my $order_rs = $connection->resultset('WpOrder');
 
 BEGIN { use_ok 'Catalogue::Importer::Winpath::OrderCode' }
 
-ok(
-    my $order = Catalogue::Importer::Winpath::OrderCode->new(
+ok( my $order = Catalogue::Importer::Winpath::OrderCode->new(
         code            => 'FBC',
         type            => 'G',
         description     => 'Full Blood Count',

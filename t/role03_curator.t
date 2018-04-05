@@ -10,10 +10,10 @@ $ua1->get_ok( '/login?username=test03&password=mypass',
     'Login in with user role' );
 
 my @list_allowed = qw(
-  applications    category2   columns
-  databases       datareview  datasets
-  erid            kpe         schemas
-  supplier        tables
+    applications    category2   columns
+    databases       datareview  datasets
+    erid            kpe         schemas
+    supplier        tables
 );
 
 my $controller_message = {

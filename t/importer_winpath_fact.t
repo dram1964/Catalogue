@@ -1,9 +1,10 @@
 use Test::More;
 use Catalogue::Schema;
 
-my $dsn        = "dbi:mysql:catalogue_test";
-my $connection = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
-my $fact_rs    = $connection->resultset('WpFact');
+my $dsn = "dbi:mysql:catalogue_test";
+my $connection
+    = Catalogue::Schema->connect( $dsn, 'tutorial', 'thispassword' );
+my $fact_rs = $connection->resultset('WpFact');
 
 BEGIN { use_ok 'Catalogue::Importer::Winpath::Fact' }
 my $test_data = {

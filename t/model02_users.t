@@ -43,7 +43,8 @@ ok( my $user03 = $user03_rs->find_or_create($account02_details),
 is( $user03->id, $user02->id, 'New account matches exisiting account id' );
 is( $user03->username, 'testaccount02',
     'user03 username matches user02 username' );
-ok( $user03->update( { username => 'testaccount03' } ), 'Update user03 name' );
+ok( $user03->update( { username => 'testaccount03' } ),
+    'Update user03 name' );
 ok( $user03 = $schema->resultset('User')->find( $user03->id ),
     'Check database for user03 update' );
 ok( $user02 = $schema->resultset('User')->find( $user02->id ),
@@ -60,40 +61,37 @@ my $account04_details = {
     active        => 1,
 };
 
-$user03 =
-  $schema->resultset('User')->search( { username => 'testaccount03' } )->single;
+$user03
+    = $schema->resultset('User')->search( { username => 'testaccount03' } )
+    ->single;
 my $user04 = $schema->resultset('User')->update_or_create($account04_details);
-is(
-    $user04->username,
+is( $user04->username,
     $account04_details->{username},
     "Account has correct username"
 );
 is( $user04->id, $user03->id, "Id matches existing account" );
-is(
-    $user04->email_address,
+is( $user04->email_address,
     $account04_details->{email_address},
     "Email updated"
 );
 ok( $user04->delete, 'User ' . $user04->username . ' deleted' );
 
-ok(
-    my $user05 =
-      $schema->resultset('User')
-      ->find_or_create( $account04_details, key => 'username' ),
+ok( my $user05
+        = $schema->resultset('User')
+        ->find_or_create( $account04_details, key => 'username' ),
     'user05 added'
 );
 ok( $user05->delete, 'User ' . $user05->username . ' deleted' );
 
-$account04_details->{user_roles} =
-  [ { role_id => 1 }, { role_id => 2 }, { role_id => 3 } ];
-ok(
-    $user05 =
-      $schema->resultset('User')
-      ->find_or_new( $account04_details, key => 'username' ),
+$account04_details->{user_roles}
+    = [ { role_id => 1 }, { role_id => 2 }, { role_id => 3 } ];
+ok( $user05
+        = $schema->resultset('User')
+        ->find_or_new( $account04_details, key => 'username' ),
     'user05 new object created'
 );
-my $check_rs =
-  $schema->resultset('User')->find( { username => $user05->username } );
+my $check_rs
+    = $schema->resultset('User')->find( { username => $user05->username } );
 is( $check_rs, undef, "User05 not yet inserted" );
 ok( $user05->insert,              'user05 record inserted' );
 ok( $user05->has_role('curator'), 'User has curator Role' );

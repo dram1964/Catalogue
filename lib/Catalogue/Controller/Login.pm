@@ -16,49 +16,57 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 Login logic
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     my $username = $c->request->params->{username};
     my $password = $c->request->params->{password};
 
-    if ($c->user_exists) {
-	$c->stash(warning_msg => "Already logged-in as " . $c->user->username);
+    if ( $c->user_exists ) {
+        $c->stash(
+            warning_msg => "Already logged-in as " . $c->user->username );
     }
-    elsif ($username && $password) {
-	if ($c->authenticate({ username => $username,
-				password => $password }) ) {
+    elsif ( $username && $password ) {
+        if ($c->authenticate(
+                {   username => $username,
+                    password => $password
+                }
+            )
+            )
+        {
             my $original_path = $c->flash->{original_path};
-            if (defined $original_path) {
-	      $c->response->redirect($c->uri_for($original_path));
-            } else {
-	      $c->response->redirect($c->uri_for('/welcome'));
-	    }
-	} else {
-	    $c->stash(error_msg => "Bad username or password");
-	}
-    } else {
-	$c->stash(status_msg => "Please enter login details") 
-	    unless ($c->user_exists);
+            if ( defined $original_path ) {
+                $c->response->redirect( $c->uri_for($original_path) );
+            }
+            else {
+                $c->response->redirect( $c->uri_for('/welcome') );
+            }
+        }
+        else {
+            $c->stash( error_msg => "Bad username or password" );
+        }
     }
-	    
-    $c->stash(template => 'login.tt2');
+    else {
+        $c->stash( status_msg => "Please enter login details" )
+            unless ( $c->user_exists );
+    }
+
+    $c->stash( template => 'login.tt2' );
 }
 
-sub required :Path('required') :Args(0) {
-    my ($self, $c) = @_;
+sub required : Path('required') : Args(0) {
+    my ( $self, $c ) = @_;
 
-    $c->stash(status_msg => "You need to logon to access the requested page");
-    $c->stash(template => 'login.tt2');
+    $c->stash(
+        status_msg => "You need to logon to access the requested page" );
+    $c->stash( template => 'login.tt2' );
 }
-
 
 =encoding utf8
 

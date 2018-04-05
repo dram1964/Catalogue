@@ -52,4 +52,9 @@ for my $controller ( keys %$controller_message ) {
     }
 }
 
+note('Testing access to additional pages');
+$ua1->get_ok( '/profile/show', 'Request own profile page' );
+$ua1->content_contains( 'Your current profile:',
+    'Profile request page found' );
+
 done_testing;

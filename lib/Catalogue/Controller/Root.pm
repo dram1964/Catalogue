@@ -8,7 +8,7 @@ BEGIN { extends 'Catalyst::Controller' }
 # Sets the actions in this controller to be registered with no prefix
 # so they function identically to actions created in MyApp.pm
 #
-__PACKAGE__->config(namespace => '');
+__PACKAGE__->config( namespace => '' );
 
 =encoding utf-8
 
@@ -28,9 +28,9 @@ The index page (/)
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash(template => 'welcome.tt2');
+    $c->stash( template => 'welcome.tt2' );
 }
 
 =head2 welcome
@@ -39,9 +39,9 @@ The welcome page (/welcome)
 
 =cut
 
-sub welcome :Path('welcome') :Args(0) {
+sub welcome : Path('welcome') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash(template => 'welcome.tt2');
+    $c->stash( template => 'welcome.tt2' );
 }
 
 =head2 about
@@ -50,9 +50,9 @@ Displays the about page
 
 =cut
 
-sub about :Path('about') :Args(0) {
-    my ($self, $c) = @_;
-    $c->stash(template => 'about.tt2');
+sub about : Path('about') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'about.tt2' );
 }
 
 =head2 contact
@@ -61,9 +61,9 @@ Displays the contact page
 
 =cut
 
-sub contact :Path('contact') :Args(0) {
-    my ($self, $c) = @_;
-    $c->stash(template => 'contact.tt2');
+sub contact : Path('contact') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'contact.tt2' );
 }
 
 =head2 help
@@ -72,9 +72,9 @@ Displays the help page
 
 =cut
 
-sub help :Path('help') :Args(0) {
-    my ($self, $c) = @_;
-    $c->stash(template => 'help.tt2');
+sub help : Path('help') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'help.tt2' );
 }
 
 =head2 default
@@ -83,9 +83,9 @@ Standard 404 error page
 
 =cut
 
-sub default :Path {
+sub default : Path {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
+    $c->response->body('Page not found');
     $c->response->status(404);
 }
 
@@ -95,40 +95,40 @@ Redirect user to login page if not looking at Datasets
 
 =cut
 
-sub auto :Private {
-    my ($self, $c) = @_;
-    if ($c->controller eq $c->controller('Login')) {
-	return 1;
+sub auto : Private {
+    my ( $self, $c ) = @_;
+    if ( $c->controller eq $c->controller('Login') ) {
+        return 1;
     }
-    if ($c->controller eq $c->controller('Datasets')) {
-	return 1;
+    if ( $c->controller eq $c->controller('Datasets') ) {
+        return 1;
     }
-    if ($c->request->path eq 'about') {
-	return 1;
+    if ( $c->request->path eq 'about' ) {
+        return 1;
     }
-    if ($c->request->path eq 'registration/new') {
-	return 1;
+    if ( $c->request->path eq 'registration/new' ) {
+        return 1;
     }
-    if ($c->request->path eq 'registration/ng_new_submitted') {
-	return 1;
+    if ( $c->request->path eq 'registration/ng_new_submitted' ) {
+        return 1;
     }
-    if ($c->request->path eq 'contact') {
-	return 1;
+    if ( $c->request->path eq 'contact' ) {
+        return 1;
     }
-    if ($c->request->path eq 'help') {
-	return 1;
+    if ( $c->request->path eq 'help' ) {
+        return 1;
     }
-    if ($c->request->path eq 'welcome') {
-	return 1;
+    if ( $c->request->path eq 'welcome' ) {
+        return 1;
     }
-    if ($c->request->path eq '') {
-	return 1;
+    if ( $c->request->path eq '' ) {
+        return 1;
     }
 
-    if (!$c->user_exists) {
-	$c->flash->{original_path} = '/' . $c->req->path;
-        $c->response->redirect($c->uri_for('/login/required'));
-	return 0;
+    if ( !$c->user_exists ) {
+        $c->flash->{original_path} = '/' . $c->req->path;
+        $c->response->redirect( $c->uri_for('/login/required') );
+        return 0;
     }
 
     return 1;
@@ -140,9 +140,9 @@ Permissions error page
 
 =cut
 
-sub error_noperms :Chained('/') :PathPart('error_noperms') :Args(0) {
-  my ($self, $c) = @_;
-  $c->stash(template => 'error_noperms.tt2');
+sub error_noperms : Chained('/') : PathPart('error_noperms') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'error_noperms.tt2' );
 }
 
 =head2 logged_in
@@ -150,9 +150,9 @@ sub error_noperms :Chained('/') :PathPart('error_noperms') :Args(0) {
 Error page for logged-in users requesting an action for anonymous users
 =cut
 
-sub logged_in :Chained('/') :PathPart('logged_in') :Args(0) {
-  my ($self, $c) = @_;
-  $c->stash(template => 'logged_in.tt2');
+sub logged_in : Chained('/') : PathPart('logged_in') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'logged_in.tt2' );
 }
 
 =head2 end
@@ -161,7 +161,7 @@ Attempt to render a view, if needed.
 
 =cut
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') { }
 
 =head1 AUTHOR
 
