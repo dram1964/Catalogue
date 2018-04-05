@@ -297,7 +297,7 @@ Can the specified user edit the current Registration Request?
 
 sub edit_allowed_by {
   my ($self, $user) = @_;
-  return $user->has_role('curator');
+  return $user->has_role('admin');
 }
 
 __PACKAGE__->meta->make_immutable;

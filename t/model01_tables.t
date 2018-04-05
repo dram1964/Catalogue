@@ -36,6 +36,25 @@ my @tables  = qw(
   DataRequest
   RequestStatus
   RequestType
+  RequestHistory
+  VerifyPurpose
+  VerifyManage
+  RiskCategory
+  VerifyDataHistory
+  Submission
+  DataCategory
+  Extract
+  VerifyHandlingHistory
+  VerifyPurposeHistory
+  PtIdentifier
+  RequestDetailHistory
+  VerifyManageHistory
+  Package
+  VerifyData
+  LegalBasis
+  DataRequestDetail
+  VerifyHandling
+  RiskScore
 );
 my @old_tables = qw(
   SystemKpe
