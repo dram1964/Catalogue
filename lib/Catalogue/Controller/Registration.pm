@@ -118,12 +118,15 @@ sub create_user_from_request : Chained('object') :
     my ( $self, $c ) = @_;
 
     my $registration = $c->stash->{object};
-    my $roles        = $c->request->params->{roles};
+    #my $roles        = $c->request->params->{roles};
     my @roles;
     push @roles, $c->request->params->{role_user};
     push @roles, $c->request->params->{role_admin};
-    push @roles, $c->request->params->{role_curator};
+    push @roles, $c->request->params->{role_verifier};
     push @roles, $c->request->params->{role_requestor};
+    push @roles, $c->request->params->{role_igadmin};
+    push @roles, $c->request->params->{role_extractor};
+    push @roles, $c->request->params->{role_extract_approver};
     unless ($registration) {
         $c->response->redirect(
             $c->uri_for(

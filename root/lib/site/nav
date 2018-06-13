@@ -27,6 +27,9 @@
       <li><a href="[% c.uri_for('/extract_approval/list') %]">Extract Approval</a></li>
       <li><a href="[% c.uri_for('/dataextract/list') %]">Extracts</a></li>
   [% END %]
+  [% IF c.user.has_role('verifier') %]
+      <li><a href="[% c.uri_for('/datareview/list') %]">Data Review</a></li>
+  [% END %]
       <li><a href="[% c.uri_for('/profile/show') %]">My Details</a></li>
       <li><a href="[% c.uri_for('/logout') %]">Logout</a></li>
 [% ELSE %]

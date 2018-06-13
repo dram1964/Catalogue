@@ -60,9 +60,12 @@
         <legend>Roles</legend>
         <span class="form-control" title="Roles">
           <span> <input name="role_user" type="checkbox" value="1" /> <label>user</label> </span>
-	  <span> <input name="role_curator" type="checkbox" value="2" /> <label>admin</label> </span>
-	  <span> <input name="role_admin" type="checkbox" value="3" /> <label>curator</label> </span>
-	  <span> <input name="role_requestor" type="checkbox" value="4" checked="checked"/> <label>requestor</label> </span>
+	  <span> <input name="role_admin" type="checkbox" value="2" /> <label>admin</label> </span>
+	  <span> <input name="role_verifier" type="checkbox" value="3" /> <label>verifier</label> </span>
+	  <span> <input name="role_requestor" type="checkbox" value="4" /> <label>requestor</label> </span>
+	  <span> <input name="role_igadmin" type="checkbox" value="5" /> <label>ig_admin</label> </span>
+	  <span> <input name="role_extractor" type="checkbox" value="6" /> <label>extractor</label> </span>
+	  <span> <input name="role_extract_approver" type="checkbox" value="7" /> <label>extract_approver</label> </span>
 	</span>
       </fieldset>
     </div>

@@ -83,7 +83,7 @@
 	      <label for="form_mobile">Mobile Phone</label>
 	      <input id="form_mobile" type="text" name="mobile" class="form-control" 
   		ng-model="ctrl.mobile" placeholder="Mobile Number"
-		required minlength=8><span class="alert-danger" ng-show="newUser.mobile.$invalid && newUser.mobile.$dirty">Must be at least 8 characters</span>
+		minlength=8><span class="alert-danger" ng-show="newUser.mobile.$invalid && newUser.mobile.$dirty">Must be at least 8 characters</span>
 
 	    </div>
 	  </div>

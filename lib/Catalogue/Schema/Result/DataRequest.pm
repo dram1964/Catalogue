@@ -337,7 +337,7 @@ Can the specified user edit the current Data Request?
 
 sub edit_allowed_by {
   my ($self, $user) = @_;
-  return $user->has_role('ig_admin') || $user->has_role('curator');
+  return $user->has_role('ig_admin') || $user->has_role('verifier');
 }
 
 =head2 request_allowed_by
