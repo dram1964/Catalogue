@@ -1,5 +1,5 @@
 ---
-abstract: 'Catalyst based application'
+abstract: 'A Catalogue of Datasets'
 author:
   - 'David Ramlakhan'
 build_requires:
@@ -49,6 +49,7 @@ requires:
   MooseX::NonMoose: 0
   Perl6::Junction: 0
   Spreadsheet::XLSX: 0
+  Template::Plugin::JSON: 0
   Text::Iconv: 0
   namespace::autoclean: 0
 resources:
