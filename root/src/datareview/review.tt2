@@ -27,9 +27,7 @@
   [% INCLUDE datareview/data_handling_panel.tt2 %]
   [% INCLUDE datareview/data_manage_panel.tt2 %]
 
-  [% IF data_items.values.first %]
-    [% INCLUDE datareview/data_requested.tt2 %]
-  [% END %]
+  [% INCLUDE datareview/data_requested.tt2 %]
 
 [% END %]
 [% IF request.status_id == 4 || request.status_id == 3 || request.status_id == 7 %]

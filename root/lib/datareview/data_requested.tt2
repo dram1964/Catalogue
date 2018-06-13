@@ -8,13 +8,13 @@
       <div ng-controller="DataRequest as ctrl3">
     <form action="[% c.uri_for(c.controller.action_for('data_verify'), [request.id]) %]" method="post">
 
-[% FOREACH item IN data_items.keys.sort %]
+[% FOREACH item IN data_items %]
   [% lcitem = item.lower %]
 <dl>
-        <dt>[% item %]:</dt><dd> [% data_items.$item %]</dd>
+        <dt>[% item.data_category.friendly_category %]:</dt><dd> [% item.detail %]</dd>
 </dl>
   <div ng-show="ctrl3.edit == 1">
-    <textarea name="[% lcitem %]_comment" ng-model="ctrl3.[% lcitem %]_comment" class="form-control" placeholder="[% item %] comments"></textarea>
+    <textarea name="[% item.data_category.category %]_comment" ng-model="ctrl3.[% item.data_category.category %]_comment" class="form-control" placeholder="[% item.data_category.category %] comments"></textarea>
   </div>
 <hr>
 [% END %]
