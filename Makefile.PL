@@ -40,6 +40,7 @@ requires 'Config::General'; # This should reflect the config file format you've 
 requires 'Perl6::Junction';
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 requires 'Template::Plugin::JSON';
+requires 'DBIx::Class::Timestamp';
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::Pod';
 test_requires 'Test::Pod::Coverage';
