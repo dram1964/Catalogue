@@ -30,10 +30,11 @@ requires 'Catalyst::Controller::HTML::FormFu';
 requires 'HTML::FormFu::Model::DBIC';
 requires 'Moose';
 requires 'MooseX::NonMoose';
+requires 'DBD::mysql';
+requires 'DBD::SQLite';
 requires 'DBIx::Class::Schema::Loader';
 requires 'DBIx::Class::TimeStamp';
 requires 'DBIx::Class::PassphraseColumn';
-requires 'DBD::mysql';
 requires 'namespace::autoclean';
 requires 'DateTime::Format::MySQL';
 requires 'Config::General'; # This should reflect the config file format you've chosen
